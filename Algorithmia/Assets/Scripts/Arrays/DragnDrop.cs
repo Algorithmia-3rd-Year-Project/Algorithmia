@@ -6,7 +6,7 @@ public class DragnDrop : MonoBehaviour
 {
     public string data;
 
-    public List<GameObject> correctForms;
+    //public List<GameObject> correctForms;
 
     [SerializeField]
     private bool moving;
@@ -21,11 +21,15 @@ public class DragnDrop : MonoBehaviour
     private float snapRadius = 1f;
 
     [SerializeField]
-    private GameObject levelManager;
+    private ArrayLevelManager levelManager;
+
+    private GameObject parentObject;
 
     private void Start()
     {
         resetPosition = this.transform.position;
+
+        parentObject = this.transform.parent.gameObject;
     }
 
     private void Update()
@@ -62,17 +66,16 @@ public class DragnDrop : MonoBehaviour
         moving = false;
         bool snapped = false;
 
-        for (int i = 0; i < correctForms.Count; i++)
+        for (int i = 0; i < levelManager.correctForms.Count; i++)
         {
-            if ((Mathf.Abs(this.transform.position.x - correctForms[i].transform.position.x) <= snapRadius &&
-            Mathf.Abs(this.transform.position.y - correctForms[i].transform.position.y) <= snapRadius) &&
-            correctForms[i].transform.childCount == 0)
+            if ((Mathf.Abs(this.transform.position.x - levelManager.correctForms[i].transform.position.x) <= snapRadius &&
+            Mathf.Abs(this.transform.position.y - levelManager.correctForms[i].transform.position.y) <= snapRadius) &&
+            levelManager.correctForms[i].transform.childCount == 0)
             {
-                this.transform.position = new Vector3(correctForms[i].transform.position.x, correctForms[i].transform.position.y, correctForms[i].transform.position.z);
+                this.transform.position = new Vector3(levelManager.correctForms[i].transform.position.x, levelManager.correctForms[i].transform.position.y, levelManager.correctForms[i].transform.position.z);
                 snapped = true;
-
                 //make the data element a child of the snapped point
-                transform.SetParent(correctForms[i].transform);
+                transform.SetParent(levelManager.correctForms[i].transform);
 
                 break;
             }
@@ -81,7 +84,7 @@ public class DragnDrop : MonoBehaviour
         if (!snapped)
         {
             this.transform.position = new Vector3(resetPosition.x, resetPosition.y, resetPosition.z);
-            transform.SetParent(null);
+            transform.SetParent(parentObject.transform);
         }
 
 
