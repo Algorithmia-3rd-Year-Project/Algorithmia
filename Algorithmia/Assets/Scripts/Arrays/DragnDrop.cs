@@ -25,11 +25,15 @@ public class DragnDrop : MonoBehaviour
 
     private GameObject parentObject;
 
+    private int workspaceLayer;
+
     private void Start()
     {
         resetPosition = this.transform.position;
 
         parentObject = this.transform.parent.gameObject;
+
+        workspaceLayer = LayerMask.NameToLayer("Workspace");
     }
 
     private void Update()
@@ -47,18 +51,19 @@ public class DragnDrop : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos;
-            mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        Debug.Log("pressed");
 
-            startPosX = mousePos.x - this.transform.position.x;
-            startPosY = mousePos.y - this.transform.position.y;
 
-            moving = true;
+        Vector3 mousePos;
+        mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        }
+        startPosX = mousePos.x - this.transform.position.x;
+        startPosY = mousePos.y - this.transform.position.y;
+
+        moving = true;
+
+
     }
 
     private void OnMouseUp()
@@ -74,6 +79,9 @@ public class DragnDrop : MonoBehaviour
             {
                 this.transform.position = new Vector3(levelManager.correctForms[i].transform.position.x, levelManager.correctForms[i].transform.position.y, levelManager.correctForms[i].transform.position.z);
                 snapped = true;
+
+                ChangeBlockLayer(this.gameObject.transform);
+
                 //make the data element a child of the snapped point
                 transform.SetParent(levelManager.correctForms[i].transform);
 
@@ -88,6 +96,20 @@ public class DragnDrop : MonoBehaviour
         }
 
 
+    }
+
+    private void ChangeBlockLayer(Transform currentObj)
+    {
+        if (currentObj != null)
+        {
+            currentObj.gameObject.layer = workspaceLayer;
+        }
+
+        for (int i = 0; i < currentObj.childCount; i++)
+        {
+            Transform childTransform = currentObj.GetChild(i);
+            ChangeBlockLayer(childTransform);
+        }
     }
 
 }

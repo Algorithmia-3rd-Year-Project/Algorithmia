@@ -43,6 +43,8 @@ public class DragnDropBlocks : MonoBehaviour
 
     private void OnMouseDown()
     {
+
+
         currentDraggableObject = Instantiate(arrayBlockPrefab, transform.position, transform.rotation);
         currentDraggableObject.name = "New Array Block";
 
@@ -55,6 +57,7 @@ public class DragnDropBlocks : MonoBehaviour
         startPosY = mousePos.y - this.transform.position.y;
 
         currentDraggableObject.GetComponent<DragnDropBlocks>().moving = true;
+
 
 
     }
