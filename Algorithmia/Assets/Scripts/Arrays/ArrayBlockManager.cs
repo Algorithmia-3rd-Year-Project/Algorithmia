@@ -14,6 +14,7 @@ public class ArrayBlockManager : MonoBehaviour
     [SerializeField]
     private GameObject arrayPrefab;
 
+
     GameObject currentObj;
 
     private float startPosX;
@@ -41,6 +42,7 @@ public class ArrayBlockManager : MonoBehaviour
     {
         workspaceLayer = LayerMask.NameToLayer("Workspace");
         arrayblocksList = GetComponent<ArrayBlockList>();
+        currentObj = null;
 
     }
 
@@ -62,14 +64,18 @@ public class ArrayBlockManager : MonoBehaviour
                 if (hit.collider.name == "Empty Array Block")
                 {
                     currentObj = Instantiate(arrayblocksList.blockList["Empty Array Block"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
-                    
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+
                 } else if (hit.collider.name == "Array Print Function")
                 {
                     currentObj = Instantiate(arrayblocksList.blockList["Array Print Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
                 }
 
-                startPosX = mousePos.x - currentObj.transform.position.x;
-                startPosY = mousePos.y - currentObj.transform.position.y;
             } else
             {
                 RaycastHit2D dataHit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, dataLayer);
@@ -82,8 +88,6 @@ public class ArrayBlockManager : MonoBehaviour
                     startPosY = mousePos.y - currentObj.transform.position.y;
                 } else
                 {
-                    //RaycastHit2D workspaceHit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, anotherLayer);
-
                     RaycastHit2D[] allhits = Physics2D.RaycastAll(mousePos, Vector3.zero, Mathf.Infinity, anotherLayer);
 
 
@@ -98,7 +102,11 @@ public class ArrayBlockManager : MonoBehaviour
                         }
                     } else if (allhits.Length == 1)
                     {
-                        currentObj = allhits[0].collider.gameObject;
+                        
+                        if (allhits[0].collider.CompareTag("Inventory"))
+                        {
+                            currentObj = allhits[0].collider.gameObject;
+                        }
                     }
 
                     if (currentObj != null)
@@ -134,8 +142,10 @@ public class ArrayBlockManager : MonoBehaviour
 
                 if (currentObj.layer != workspaceLayer)
                 {
-                    ChangeBlockLayer(currentObj.transform, "Workspace");
+                    
                     TrackSnapPoints(currentObj);
+                    TrackLinePoints(currentObj);
+                    ChangeBlockLayer(currentObj.transform, "Workspace");
                 }
 
                 
@@ -205,6 +215,25 @@ public class ArrayBlockManager : MonoBehaviour
         }
     }
 
+    private void TrackLinePoints(GameObject parentObj)
+    {
+
+        Transform linePoints = parentObj.transform.Find("Line Points");
+
+        if (linePoints != null)
+        {
+            Transform endPoint = linePoints.Find("Line End");
+            if (endPoint != null)
+            {
+                levelManager.lineEndPoints.Add(endPoint);
+            }
+
+        }
+
+        
+    
+    }
+
     //To change the layer of each objects when they are being dragged from one camera view to another
     private void ChangeBlockLayer(Transform currentObj, string layerName)
     {
@@ -224,12 +253,14 @@ public class ArrayBlockManager : MonoBehaviour
     private void DestroyBlocks(GameObject currentObj)
     {
         Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
-
+        Transform linePointsObj = currentObj.transform.Find("Line Points");
+        int deletedCount = 0;
+        int deletedLines = 0;
 
         if (snapPointsListObj != null)
         {
             Transform[] snapPointsList = snapPointsListObj.GetComponentsInChildren<Transform>(includeInactive: false);
-            int deletedCount = 0;
+            
 
             for (int i=0; i < snapPointsList.Length; i++)
             {
@@ -242,10 +273,28 @@ public class ArrayBlockManager : MonoBehaviour
                     }
                 }
             }
-            if (deletedCount == 4)
+        }
+
+        if (linePointsObj != null)
+        {
+            Transform[] linePointsList = linePointsObj.GetComponentsInChildren<Transform>(includeInactive: false);
+
+            for (int i = 0; i < linePointsList.Length; i++)
             {
-                Destroy(currentObj);
+                for (int j = 0; j < levelManager.lineEndPoints.Count; j++)
+                {
+                    if (linePointsList[i] == levelManager.lineEndPoints[j])
+                    {
+                        levelManager.lineEndPoints.RemoveAt(j);
+                        deletedLines += 1;
+                    }
+                }
             }
+        }
+
+        if (deletedCount == 4 || deletedLines == 1)
+        {
+            Destroy(currentObj);
         }
     }
    
