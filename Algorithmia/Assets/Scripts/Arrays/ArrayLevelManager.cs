@@ -7,6 +7,8 @@ public class ArrayLevelManager : MonoBehaviour
 
     public List<GameObject> correctForms;
 
+    public List<Transform> lineEndPoints;
+
     public Dictionary<string, string> correctWires = new Dictionary<string, string>();
 
     private void Start()
