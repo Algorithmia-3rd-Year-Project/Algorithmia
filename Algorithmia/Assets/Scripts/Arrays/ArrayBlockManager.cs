@@ -146,6 +146,7 @@ public class ArrayBlockManager : MonoBehaviour
                     TrackSnapPoints(currentObj);
                     TrackLinePoints(currentObj);
                     ChangeBlockLayer(currentObj.transform, "Workspace");
+                    levelManager.blockCount += 1;
                 }
 
                 
@@ -294,6 +295,7 @@ public class ArrayBlockManager : MonoBehaviour
 
         if (deletedCount == 4 || deletedLines == 1)
         {
+            levelManager.blockCount -= 1;
             Destroy(currentObj);
         }
     }

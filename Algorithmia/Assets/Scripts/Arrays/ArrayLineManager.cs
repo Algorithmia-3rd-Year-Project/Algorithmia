@@ -84,6 +84,8 @@ public class ArrayLineManager : MonoBehaviour
                         currentLine.GetComponent<ArrayLine>().linePositions = GetLinePositions(currentLine);
                         currentLine.GetComponent<ArrayLine>().lineWidth = GetWidth(currentLine);
 
+                        levelManager.lines.Add(currentLine);
+
                         currentLine = null;
                         break;
                     } 
@@ -119,6 +121,14 @@ public class ArrayLineManager : MonoBehaviour
     {
         if (currentLine != null)
         {
+            for (int i=0; i < levelManager.lines.Count; i++)
+            {
+                if (levelManager.lines[i] == currentLine)
+                {
+                    levelManager.lines.RemoveAt(i);
+                }
+            }
+
             currentLine.GetComponent<LineRenderer>().positionCount = 0;
             currentLine.GetComponent<ArrayLine>().lineDrawn = false;
             currentLine.GetComponent<ArrayLine>().colliderPoints.Clear();

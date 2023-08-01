@@ -22,6 +22,9 @@ public class ArrayLine : MonoBehaviour
     [SerializeField]
     private LineRenderer lineRenderer;
 
+    public string startPointName;
+    public string endPointName;
+
     private List<Vector2> resetPathsForCollider = new List<Vector2>()
     {
         new Vector2(0f, 0f),
@@ -35,10 +38,30 @@ public class ArrayLine : MonoBehaviour
         lineDrawn = false;
         lineCollider = GetComponent<PolygonCollider2D>();
         lineCollider.SetPath(0, resetPathsForCollider);
+        startPointName = "";
+        endPointName = "";
     }
 
     private void Update()
     {
+
+        if (lineDrawn && startPointName == "" && endPointName == "")
+        {
+            startPointName = startPos.transform.parent.parent.GetComponent<ArrayBlock>().blockName;
+
+            if (endPos.name == "PC")
+            {
+                endPointName = "Computer";
+            } else
+            {
+                endPointName = endPos.transform.parent.parent.GetComponent<ArrayBlock>().blockName;
+            }
+            
+        } else if (lineDrawn == false)
+        {
+            startPointName = "";
+            endPointName = "";
+        }
 
         if (lineDrawn)
         {

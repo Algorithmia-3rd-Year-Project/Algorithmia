@@ -6,6 +6,8 @@ public class ArrayBlock : MonoBehaviour
 {
     public bool inWorkspace;
 
+    public string blockName;
+
     private void Start()
     {
         inWorkspace = false;
