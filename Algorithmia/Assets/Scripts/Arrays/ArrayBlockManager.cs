@@ -14,7 +14,7 @@ public class ArrayBlockManager : MonoBehaviour
     [SerializeField]
     private GameObject arrayPrefab;
 
-
+    [SerializeField]
     GameObject currentObj;
 
     private float startPosX;
@@ -176,7 +176,7 @@ public class ArrayBlockManager : MonoBehaviour
 
                         //make the data element a child of the snapped point
                         currentObj.transform.SetParent(levelManager.correctForms[i].transform);
-
+                        
                         break;
                     }
                 }
@@ -187,9 +187,10 @@ public class ArrayBlockManager : MonoBehaviour
                     currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
                     currentObj.transform.SetParent(dataParentObj);
                     ChangeBlockLayer(currentObj.transform, "Data");
+                    
                 }
-                
 
+                currentObj = null;
             }
             
         }
