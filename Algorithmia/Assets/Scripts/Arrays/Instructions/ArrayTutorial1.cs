@@ -23,6 +23,12 @@ public class ArrayTutorial1 : MonoBehaviour
     [SerializeField]
     private ArrayLevelManager levelManager;
 
+    private bool instruction1Executed;
+    private bool instruction2Executed;
+    private bool instruction3Executed;
+    private bool instruction4Executed;
+    private bool instruction5Executed;
+
     private void Start()
     {
         instruction1.SetActive(true);
@@ -33,16 +39,18 @@ public class ArrayTutorial1 : MonoBehaviour
 
     private void Update()
     {
-        if (levelManager.blockCount != 0)
+        if (!instruction2Executed && levelManager.blockCount != 0)
         {
             instruction1.SetActive(false);
             instruction2.SetActive(true);
+            instruction2Executed = true;
         }
 
-        if (levelManager.correctForms.Count > 0 && levelManager.correctForms[0].transform.childCount != 0)
+        if (!instruction3Executed && levelManager.correctForms.Count > 0 && levelManager.correctForms[0].transform.childCount != 0)
         {
             instruction2.SetActive(false);
             instruction3.SetActive(true);
+            instruction3Executed = true;
         }
 
         if (instruction3.activeSelf)
@@ -63,10 +71,11 @@ public class ArrayTutorial1 : MonoBehaviour
             }
         }
 
-        if (levelManager.lines.Count > 0)
+        if (!instruction5Executed && levelManager.lines.Count > 0)
         {
             instruction4.SetActive(false);
             instruction5.SetActive(true);
+            instruction5Executed = true;
         }
     }
 
