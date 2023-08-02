@@ -7,8 +7,13 @@ public class ArrayLevel1 : MonoBehaviour
     [SerializeField]
     private ArrayLevelManager levelManager;
 
+    [SerializeField]
+    private GameObject finalInstruction;
+
     public void OptimalAnswer()
     {
+        finalInstruction.SetActive(false);
+
         //Expected items count for the optimal victory condition
         int dataCount = 4;
         int blockCount = 1;
