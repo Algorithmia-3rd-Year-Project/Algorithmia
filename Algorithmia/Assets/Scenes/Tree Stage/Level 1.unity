@@ -396,16 +396,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 132267876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0b763d7f9516294fa1a3be6e0d3e087, type: 3}
+  m_Script: {fileID: 11500000, guid: 4799dbb506009914f961b11a1bd7dcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockData: {fileID: 11400000, guid: bd409f73b0f36a343ac7077d6b5d38f9, type: 2}
-  keys:
-  - Empty Array Block
-  - Array Print Function
-  values:
-  - {fileID: 4960455611501137079, guid: 6d00bdfc91a83db4b8674cee927a6da4, type: 3}
-  - {fileID: 7147877779082652792, guid: 03061d6dd9022504ba3badcf3df8b29f, type: 3}
+  blockNames: []
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  rootNodePrefab: {fileID: 0}
+  currentObj: {fileID: 0}
+  levelManager: {fileID: 0}
+  anotherLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  dataLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  dataParentObj: {fileID: 864052104}
 --- !u!114 &132267878
 MonoBehaviour:
   m_ObjectHideFlags: 0
