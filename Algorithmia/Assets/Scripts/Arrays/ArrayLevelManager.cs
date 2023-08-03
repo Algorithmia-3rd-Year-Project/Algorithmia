@@ -7,12 +7,18 @@ public class ArrayLevelManager : MonoBehaviour
 
     public List<GameObject> correctForms;
 
+    public List<Transform> lineEndPoints;
+
+    public List<GameObject> lines;
+
     public Dictionary<string, string> correctWires = new Dictionary<string, string>();
+
+    public int blockCount;
 
     private void Start()
     {
         int correctPosCount = correctForms.Count;
-
+        blockCount = 0;
 
     }
 
