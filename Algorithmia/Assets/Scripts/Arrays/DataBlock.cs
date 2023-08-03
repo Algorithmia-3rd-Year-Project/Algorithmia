@@ -13,8 +13,11 @@ public class DataBlock : MonoBehaviour
 
     public string dataValue;
 
+    public Vector3 originalScale;
+
     private void Awake()
     {
+        originalScale = transform.localScale;
         resetPosition = transform.position;
         snapped = false;
     }
