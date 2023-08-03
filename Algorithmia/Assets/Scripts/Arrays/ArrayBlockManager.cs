@@ -37,7 +37,6 @@ public class ArrayBlockManager : MonoBehaviour
     [SerializeField]
     private Transform dataParentObj;
 
-
     private void Start()
     {
         workspaceLayer = LayerMask.NameToLayer("Workspace");
@@ -71,6 +70,25 @@ public class ArrayBlockManager : MonoBehaviour
                 } else if (hit.collider.name == "Array Print Function")
                 {
                     currentObj = Instantiate(arrayblocksList.blockList["Array Print Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+
+                } else if (hit.collider.name == "Array Reverse Function")
+                {
+                    currentObj = Instantiate(arrayblocksList.blockList["Array Reverse Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                } else if (hit.collider.name == "Array Insertion Function")
+                {
+                    currentObj = Instantiate(arrayblocksList.blockList["Array Insertion Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                } else if (hit.collider.name == "Array Deletion Function")
+                {
+                    currentObj = Instantiate(arrayblocksList.blockList["Array Deletion Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
 
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
@@ -176,7 +194,9 @@ public class ArrayBlockManager : MonoBehaviour
 
                         //make the data element a child of the snapped point
                         currentObj.transform.SetParent(levelManager.correctForms[i].transform);
-                        
+
+                        currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
+
                         break;
                     }
                 }
@@ -187,6 +207,7 @@ public class ArrayBlockManager : MonoBehaviour
                     currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
                     currentObj.transform.SetParent(dataParentObj);
                     ChangeBlockLayer(currentObj.transform, "Data");
+                    currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
                     
                 }
 
