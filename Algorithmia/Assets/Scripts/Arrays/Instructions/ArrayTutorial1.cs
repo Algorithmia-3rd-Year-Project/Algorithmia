@@ -53,21 +53,21 @@ public class ArrayTutorial1 : MonoBehaviour
             instruction3Executed = true;
         }
 
-        if (instruction3.activeSelf)
+        if (!instruction4Executed && levelManager.correctForms.Count > 0)
         {
-            int objectsCount = 0;
-            for (int i=0; i < levelManager.correctForms.Count; i++)
+            int objectCount = 0;
+            for (int i= 0; i < levelManager.correctForms.Count; i++)
             {
-                if (levelManager.correctForms[i].transform.childCount > 0) 
+                if (levelManager.correctForms[i].transform.childCount != 0)
                 {
-                    objectsCount += 1;
+                    objectCount += 1;
                 }
             }
 
-            if (objectsCount == 4)
+            if (objectCount == 4)
             {
-                instruction3.SetActive(false);
                 instruction4.SetActive(true);
+                instruction4Executed = true;
             }
         }
 
