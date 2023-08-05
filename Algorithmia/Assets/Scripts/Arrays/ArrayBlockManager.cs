@@ -6,9 +6,6 @@ public class ArrayBlockManager : MonoBehaviour
 {
 
     [SerializeField]
-    private List<string> blockNames;
-
-    [SerializeField]
     private LayerMask layerMask;
 
     [SerializeField]
