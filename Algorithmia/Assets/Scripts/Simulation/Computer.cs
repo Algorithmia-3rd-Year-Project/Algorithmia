@@ -7,6 +7,9 @@ public class Computer : MonoBehaviour
     [SerializeField]
     private SimManager simulation;
 
+    [SerializeField]
+    private GameObject computerScreen;
+
     private void OnMouseEnter()
     {
         simulation.ChangeMouseCursor(true);
@@ -21,4 +24,17 @@ public class Computer : MonoBehaviour
     {
         simulation.ChangeMouseCursor(false);
     }
+
+    private void OnMouseDown()
+    {
+        computerScreen.SetActive(true);
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void Shutdown()
+    {
+        computerScreen.SetActive(false);
+        this.gameObject.GetComponent<BoxCollider>().enabled = true;
+    }
+
 }
