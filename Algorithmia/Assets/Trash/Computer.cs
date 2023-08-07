@@ -27,6 +27,7 @@ public class Computer : MonoBehaviour
 
     private void OnMouseDown()
     {
+        simulation.anyMenuOpened = true;
         computerScreen.SetActive(true);
         this.gameObject.GetComponent<BoxCollider>().enabled = false;
     }
