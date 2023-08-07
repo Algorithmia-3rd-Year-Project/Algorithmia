@@ -7,6 +7,13 @@ public class SimManager : MonoBehaviour
     [SerializeField]
     private Texture2D computerCursor;
 
+    public bool anyMenuOpened;
+
+    private void Start()
+    {
+        anyMenuOpened = false;
+    }
+
     public void ChangeMouseCursor(bool computerCursorEnabled)
     {
 
@@ -18,6 +25,11 @@ public class SimManager : MonoBehaviour
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
         
+    }
+
+    public void MenuCloseDetection()
+    {
+        anyMenuOpened = false;
     }
 
 }
