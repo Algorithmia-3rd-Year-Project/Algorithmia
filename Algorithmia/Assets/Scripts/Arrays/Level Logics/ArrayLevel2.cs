@@ -2,31 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrayLevel1 : MonoBehaviour
+public class ArrayLevel2 : MonoBehaviour
 {
     [SerializeField]
     private ArrayLevelManager levelManager;
-
-    [SerializeField]
-    private GameObject finalInstruction;
 
     [SerializeField]
     private float animationDuration;
 
     [SerializeField]
     private GameObject redrawLine;
-
-    private void Update()
-    {
-        /*
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            for (int i=0; i <levelManager.lines.Count; i++)
-            {
-                StartCoroutine(RedrawLine(i));
-            }
-        }*/
-    }
 
     private IEnumerator RedrawLine(int index)
     {
@@ -55,38 +40,6 @@ public class ArrayLevel1 : MonoBehaviour
         for (int i = 0; i < levelManager.lines.Count; i++)
         {
             StartCoroutine(RedrawLine(i));
-        }
-    }
-
-    public void OptimalAnswer()
-    {
-        finalInstruction.SetActive(false);
-
-        //Expected items count for the optimal victory condition
-        int dataCount = 4;
-        int blockCount = 1;
-        int lineCount = 1;
-
-        //Check whether every snap points in array has a data value
-        int snapPoints = levelManager.correctForms.Count;
-        int elementCount = 0;
-
-
-
-        for (int i=0; i < snapPoints; i++)
-        {
-            if (levelManager.correctForms[i].transform.childCount != 0)
-            {
-                elementCount += 1;
-            }
-        }
-
-        if (elementCount == 4)
-        {
-            Debug.Log("Pass");
-        } else
-        {
-            Debug.Log("Fail");
         }
     }
 }
