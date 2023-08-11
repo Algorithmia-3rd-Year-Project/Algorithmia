@@ -34,6 +34,10 @@ public class ArrayBlockManager : MonoBehaviour
     [SerializeField]
     private Transform dataParentObj;
 
+    //used for adding additional control mechanisms over existing ones in certain levels mostly for instructions
+    [SerializeField]
+    private bool setTriggers;
+
     private void Start()
     {
         workspaceLayer = LayerMask.NameToLayer("Workspace");
@@ -144,6 +148,12 @@ public class ArrayBlockManager : MonoBehaviour
                 Vector3 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+                if (currentObj.CompareTag("Data"))
+                {
+                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 8;
+                    Transform dataText = currentObj.transform.Find("a-data");
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 8;
+                }
                 
 
                 currentObj.transform.position = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0f);
@@ -162,10 +172,26 @@ public class ArrayBlockManager : MonoBehaviour
                     TrackLinePoints(currentObj);
                     ChangeBlockLayer(currentObj.transform, "Workspace");
                     levelManager.blockCount += 1;
+
+                    if (setTriggers)
+                    {
+                        if (levelManager.additionalSnapPositions.Count > 0 && (Mathf.Abs(currentObj.transform.position.x - levelManager.additionalSnapPositions[0].transform.position.x) <= 0.5f &&
+                        Mathf.Abs(currentObj.transform.position.y - levelManager.additionalSnapPositions[0].transform.position.y) <= 0.5f))
+                        {
+                            currentObj.transform.position = new Vector3(levelManager.additionalSnapPositions[0].transform.position.x, levelManager.additionalSnapPositions[0].transform.position.y, 0f);
+                            currentObj = null;
+                        } else
+                        {
+                            DestroyBlocks(currentObj);
+                        }
+                    } else
+                    {
+                        currentObj = null;
+                    }
                 }
 
                 
-                currentObj = null;
+                
             } else if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == false)
             {
 
@@ -205,7 +231,12 @@ public class ArrayBlockManager : MonoBehaviour
                     currentObj.transform.SetParent(dataParentObj);
                     ChangeBlockLayer(currentObj.transform, "Data");
                     currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
-                    
+
+                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    Transform dataText = currentObj.transform.Find("a-data");
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 3;
+
+
                 }
 
                 currentObj = null;

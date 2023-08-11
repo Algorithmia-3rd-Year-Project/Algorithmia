@@ -15,11 +15,31 @@ public class DataBlock : MonoBehaviour
 
     public Vector3 originalScale;
 
+    [SerializeField]
+    private bool setTriggers;
+
+    [SerializeField]
+    private GameObject guideMark;
+
     private void Awake()
     {
         originalScale = transform.localScale;
         resetPosition = transform.position;
         snapped = false;
+    }
+
+    private void Update()
+    {
+        if (guideMark != null && setTriggers)
+        {
+            if (this.transform.position != resetPosition)
+            {
+                guideMark.SetActive(false);
+            } else
+            {
+                guideMark.SetActive(true);
+            }
+        }
     }
 
 }

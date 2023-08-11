@@ -13,6 +13,7 @@ public class ArrayLevel2 : MonoBehaviour
     [SerializeField]
     private GameObject redrawLine;
 
+
     private IEnumerator RedrawLine(int index)
     {
         float startTime = Time.time;

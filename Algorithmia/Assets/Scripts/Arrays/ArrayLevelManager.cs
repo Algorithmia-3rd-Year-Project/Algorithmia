@@ -15,6 +15,8 @@ public class ArrayLevelManager : MonoBehaviour
 
     public int blockCount;
 
+    public List<GameObject> additionalSnapPositions;
+
     private void Start()
     {
         int correctPosCount = correctForms.Count;

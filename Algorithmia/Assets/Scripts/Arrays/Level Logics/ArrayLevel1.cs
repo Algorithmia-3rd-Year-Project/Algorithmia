@@ -16,23 +16,35 @@ public class ArrayLevel1 : MonoBehaviour
     [SerializeField]
     private GameObject redrawLine;
 
+    [SerializeField]
+    private Transform lineHolder;
+
+    [SerializeField]
+    private List<Transform> dataEntryGuidePoints;
+
     private void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.Space))
+        for (int i = 1; i < levelManager.correctForms.Count; i++)
         {
-            for (int i=0; i <levelManager.lines.Count; i++)
+            if (levelManager.correctForms[i].transform.childCount != 0)
             {
-                StartCoroutine(RedrawLine(i));
+                dataEntryGuidePoints[i - 1].gameObject.SetActive(false);
+            } else
+            {
+                dataEntryGuidePoints[i - 1].gameObject.SetActive(true);
             }
-        }*/
+        }
     }
+
 
     private IEnumerator RedrawLine(int index)
     {
         float startTime = Time.time;
 
         GameObject newLine = Instantiate(redrawLine, new Vector3(0, 0, 0), Quaternion.identity);
+
+        newLine.transform.SetParent(lineHolder);
+
         newLine.GetComponent<LineRenderer>().positionCount = 2;
 
         Vector3 startPosition = levelManager.lines[index].GetComponent<LineRenderer>().GetPosition(0);
