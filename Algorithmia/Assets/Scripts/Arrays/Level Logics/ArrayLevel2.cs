@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ArrayLevel2 : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class ArrayLevel2 : MonoBehaviour
 
     [SerializeField]
     private GameObject redrawLine;
+
+    [SerializeField]
+    private GameObject victoryMenu;
 
 
     private IEnumerator RedrawLine(int index)
@@ -42,5 +46,18 @@ public class ArrayLevel2 : MonoBehaviour
         {
             StartCoroutine(RedrawLine(i));
         }
+
+        StartCoroutine(VictoryMenuLoading());
+    }
+
+    private IEnumerator VictoryMenuLoading()
+    {
+        yield return new WaitForSeconds(0.6f);
+        victoryMenu.SetActive(true);
+    }
+
+    public void Continue()
+    {
+        SceneManager.LoadScene("3. ArrayLevel");
     }
 }
