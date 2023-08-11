@@ -58,7 +58,7 @@ public class ArrayTutorial1 : MonoBehaviour
         instruction4.SetActive(false);
         guide1.SetActive(true);
         instructionOverlay.SetActive(true);
-        topUIInstructionOverlay.SetActive(false);
+        topUIInstructionOverlay.SetActive(true);
         runButtonOverlay.SetActive(true);
     }
 
