@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ArrayLevel1 : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class ArrayLevel1 : MonoBehaviour
 
     [SerializeField]
     private List<Transform> dataEntryGuidePoints;
+
+    [SerializeField]
+    private GameObject victoryMenu;
 
     private void Update()
     {
@@ -96,9 +100,22 @@ public class ArrayLevel1 : MonoBehaviour
         if (elementCount == 4)
         {
             Debug.Log("Pass");
+            StartCoroutine(VictoryMenuLoading());
+            
         } else
         {
             Debug.Log("Fail");
         }
+    }
+
+    private IEnumerator VictoryMenuLoading()
+    {
+        yield return new WaitForSeconds(0.6f);
+        victoryMenu.SetActive(true);
+    }
+
+    public void Continue()
+    {
+        SceneManager.LoadScene("2. ArrayLevel");
     }
 }

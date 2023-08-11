@@ -152,7 +152,7 @@ public class ArrayBlockManager : MonoBehaviour
                 {
                     currentObj.GetComponent<SpriteRenderer>().sortingOrder = 8;
                     Transform dataText = currentObj.transform.Find("a-data");
-                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 8;
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 9;
                 }
                 
 
@@ -234,7 +234,7 @@ public class ArrayBlockManager : MonoBehaviour
 
                     currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
                     Transform dataText = currentObj.transform.Find("a-data");
-                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
 
 
                 }
