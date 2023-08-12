@@ -93,6 +93,12 @@ public class ArrayBlockManager : MonoBehaviour
 
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
+                } else if (hit.collider.name == "Long Array Block")
+                {
+                    currentObj = Instantiate(arrayblocksList.blockList["Long Array Block"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
                 }
 
             } else
