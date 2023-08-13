@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2146301762435662310}
   - component: {fileID: 2146301762435662311}
   - component: {fileID: 3089452529705293037}
+  - component: {fileID: 945858785326866748}
+  - component: {fileID: -4160351161963710937}
   m_Layer: 7
   m_Name: Tree Node
   m_TagString: Untagged
@@ -101,6 +103,41 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.94929963
+--- !u!50 &945858785326866748
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146301762435662304}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-4160351161963710937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146301762435662304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bcfe38153d594f4f8468f3738e6e94f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inWorkspace: 0
+  blockName: 
 --- !u!1 &4595300167182670091
 GameObject:
   m_ObjectHideFlags: 0

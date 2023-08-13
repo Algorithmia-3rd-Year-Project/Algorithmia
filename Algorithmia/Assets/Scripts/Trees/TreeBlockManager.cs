@@ -15,6 +15,11 @@ public class TreeBlockManager : MonoBehaviour
     private float startPosY;
     private float startPosX;
 
+    private bool flag = false;
+
+    [SerializeField]
+    private TreeLevelManager levelManager;
+
     private void Start()
     {
         treeblocksList = GetComponent<ArrayBlockList>();
@@ -52,6 +57,31 @@ public class TreeBlockManager : MonoBehaviour
 
 
                 currentObj.transform.position = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0f);
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+
+            if (currentObj != null && currentObj.GetComponent<TreeBlock>().inWorkspace == true)
+            {
+                for(int i = 0; i<levelManager.isSnapBlock.Count; i++)
+                {
+                    if (levelManager.isSnapBlock[i] == true)
+                    {
+                        currentObj.transform.position = levelManager.snapPoints[i].transform.position;
+                        flag = true;
+                    }
+                }
+
+
+
+                if(flag == false)
+                {
+                    //Destroy the empty tree node
+                }
+
+                currentObj = null;
             }
         }
 
