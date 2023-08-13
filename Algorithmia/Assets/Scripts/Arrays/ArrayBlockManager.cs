@@ -6,9 +6,6 @@ public class ArrayBlockManager : MonoBehaviour
 {
 
     [SerializeField]
-    private List<string> blockNames;
-
-    [SerializeField]
     private LayerMask layerMask;
 
     [SerializeField]
@@ -37,6 +34,9 @@ public class ArrayBlockManager : MonoBehaviour
     [SerializeField]
     private Transform dataParentObj;
 
+    //used for adding additional control mechanisms over existing ones in certain levels mostly for instructions
+    [SerializeField]
+    private bool setTriggers;
 
     private void Start()
     {
@@ -71,6 +71,31 @@ public class ArrayBlockManager : MonoBehaviour
                 } else if (hit.collider.name == "Array Print Function")
                 {
                     currentObj = Instantiate(arrayblocksList.blockList["Array Print Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+
+                } else if (hit.collider.name == "Array Reverse Function")
+                {
+                    currentObj = Instantiate(arrayblocksList.blockList["Array Reverse Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                } else if (hit.collider.name == "Array Insertion Function")
+                {
+                    currentObj = Instantiate(arrayblocksList.blockList["Array Insertion Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                } else if (hit.collider.name == "Array Deletion Function")
+                {
+                    currentObj = Instantiate(arrayblocksList.blockList["Array Deletion Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                } else if (hit.collider.name == "Long Array Block")
+                {
+                    currentObj = Instantiate(arrayblocksList.blockList["Long Array Block"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
 
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
@@ -129,6 +154,12 @@ public class ArrayBlockManager : MonoBehaviour
                 Vector3 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+                if (currentObj.CompareTag("Data"))
+                {
+                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 8;
+                    Transform dataText = currentObj.transform.Find("a-data");
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 9;
+                }
                 
 
                 currentObj.transform.position = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0f);
@@ -147,10 +178,26 @@ public class ArrayBlockManager : MonoBehaviour
                     TrackLinePoints(currentObj);
                     ChangeBlockLayer(currentObj.transform, "Workspace");
                     levelManager.blockCount += 1;
+
+                    if (setTriggers)
+                    {
+                        if (levelManager.additionalSnapPositions.Count > 0 && (Mathf.Abs(currentObj.transform.position.x - levelManager.additionalSnapPositions[0].transform.position.x) <= 0.5f &&
+                        Mathf.Abs(currentObj.transform.position.y - levelManager.additionalSnapPositions[0].transform.position.y) <= 0.5f))
+                        {
+                            currentObj.transform.position = new Vector3(levelManager.additionalSnapPositions[0].transform.position.x, levelManager.additionalSnapPositions[0].transform.position.y, 0f);
+                            currentObj = null;
+                        } else
+                        {
+                            DestroyBlocks(currentObj);
+                        }
+                    } else
+                    {
+                        currentObj = null;
+                    }
                 }
 
                 
-                currentObj = null;
+                
             } else if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == false)
             {
 
@@ -176,7 +223,9 @@ public class ArrayBlockManager : MonoBehaviour
 
                         //make the data element a child of the snapped point
                         currentObj.transform.SetParent(levelManager.correctForms[i].transform);
-                        
+
+                        currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
+
                         break;
                     }
                 }
@@ -187,7 +236,13 @@ public class ArrayBlockManager : MonoBehaviour
                     currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
                     currentObj.transform.SetParent(dataParentObj);
                     ChangeBlockLayer(currentObj.transform, "Data");
-                    
+                    currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
+
+                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    Transform dataText = currentObj.transform.Find("a-data");
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
+
+
                 }
 
                 currentObj = null;
