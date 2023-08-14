@@ -26,6 +26,9 @@ public class ArrayLevel1 : MonoBehaviour
     [SerializeField]
     private GameObject victoryMenu;
 
+    [SerializeField]
+    private GameObject endingTransition;
+
     private void Update()
     {
         for (int i = 1; i < levelManager.correctForms.Count; i++)
@@ -114,8 +117,15 @@ public class ArrayLevel1 : MonoBehaviour
         victoryMenu.SetActive(true);
     }
 
+    private IEnumerator LevelEndingTransition()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("2. ArrayLevel");
+    }
+
     public void Continue()
     {
-        SceneManager.LoadScene("2. ArrayLevel");
+        endingTransition.SetActive(true);
+        StartCoroutine(LevelEndingTransition());
     }
 }
