@@ -17,6 +17,18 @@ public class ArrayLevel2 : MonoBehaviour
     [SerializeField]
     private GameObject victoryMenu;
 
+    [SerializeField]
+    private GameObject startingTransition;
+
+    [SerializeField]
+    private GameObject endingTransition;
+
+    private void Start()
+    {
+        startingTransition.SetActive(true);
+        StartCoroutine(DisableStartTransition());
+    }
+
 
     private IEnumerator RedrawLine(int index)
     {
@@ -56,8 +68,22 @@ public class ArrayLevel2 : MonoBehaviour
         victoryMenu.SetActive(true);
     }
 
+
+    private IEnumerator LevelEndingTransition()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("3. ArrayLevel");
+    }
+
     public void Continue()
     {
-        SceneManager.LoadScene("3. ArrayLevel");
+        endingTransition.SetActive(true);
+        StartCoroutine(LevelEndingTransition());
+    }
+
+    private IEnumerator DisableStartTransition()
+    {
+        yield return new WaitForSeconds(1f);
+        startingTransition.SetActive(false);
     }
 }
