@@ -40,6 +40,7 @@ public class SimManager : MonoBehaviour
         anyMenuOpened = false;
     }
 
+    //Temporary Functions
     public void IncreaseEnergy()
     {
         energyBar.value = 0.08f;
