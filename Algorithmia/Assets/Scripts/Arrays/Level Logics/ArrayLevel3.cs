@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ArrayLevel3 : MonoBehaviour
 {
@@ -70,4 +71,9 @@ public class ArrayLevel3 : MonoBehaviour
         victoryMenu.SetActive(true);
     }
 
+    //Temp Functions
+    public void LoadSimulation()
+    {
+        SceneManager.LoadScene("Simulation");
+    }
 }
