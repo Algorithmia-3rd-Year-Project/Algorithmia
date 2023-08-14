@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SimManager : MonoBehaviour
 {
@@ -8,6 +10,12 @@ public class SimManager : MonoBehaviour
     private Texture2D computerCursor;
 
     public bool anyMenuOpened;
+
+    //temporary code
+    [SerializeField]
+    private Slider energyBar;
+    [SerializeField]
+    private TMP_Text energyPercent;
 
     private void Start()
     {
@@ -32,4 +40,9 @@ public class SimManager : MonoBehaviour
         anyMenuOpened = false;
     }
 
+    public void IncreaseEnergy()
+    {
+        energyBar.value = 0.08f;
+        energyPercent.text = "4%";
+    }
 }
