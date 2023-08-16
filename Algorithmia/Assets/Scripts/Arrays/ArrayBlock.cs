@@ -6,6 +6,8 @@ public class ArrayBlock : MonoBehaviour
 {
     public bool inWorkspace;
 
+    public string blockName;
+
     private void Start()
     {
         inWorkspace = false;
@@ -16,7 +18,6 @@ public class ArrayBlock : MonoBehaviour
         if (collision.gameObject.CompareTag("Workspace"))
         {
             inWorkspace = true;
-            Debug.Log("In");
         }
     }
 
@@ -25,7 +26,6 @@ public class ArrayBlock : MonoBehaviour
         if (collision.gameObject.CompareTag("Workspace"))
         {
             inWorkspace = false;
-            Debug.Log("out");
         }
     }
 }
