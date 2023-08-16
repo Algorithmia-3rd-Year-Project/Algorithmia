@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ArrayBlockManager : MonoBehaviour
 {
@@ -39,7 +40,13 @@ public class ArrayBlockManager : MonoBehaviour
     private GameObject codeParent;
 
     [SerializeField]
-    private GameObject codeInstance;
+    private GameObject codeArrayInstance;
+
+    [SerializeField]
+    private GameObject codePrintInstance;
+
+    [SerializeField]
+    private float typingSpeed;
 
     private void Start()
     {
@@ -190,9 +197,38 @@ public class ArrayBlockManager : MonoBehaviour
                     ChangeBlockLayer(currentObj.transform, "Workspace");
                     levelManager.blockCount += 1;
 
-                    GameObject codeObject = Instantiate(codeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
-                    codeObject.transform.SetParent(codeParent.transform);
-                    currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
+
+                    if (currentObj.GetComponent<ArrayBlock>().blockName == "Empty Array")
+                    {
+                        GameObject codeObject = Instantiate(codeArrayInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                        codeObject.transform.SetParent(codeParent.transform);
+
+                        currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
+
+                        GameObject code = codeObject.transform.Find("Code").gameObject;
+                        string pseudoText = currentObj.GetComponent<ArrayBlock>().pseudoCode;
+
+                        StartCoroutine(TypingCode(pseudoText, code));
+
+                        
+                    }
+
+                    if (currentObj.GetComponent<ArrayBlock>().blockName == "Array Print")
+                    {
+                        GameObject codeObject = Instantiate(codePrintInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                        codeObject.transform.SetParent(codeParent.transform);
+
+                        string pseudoText = currentObj.GetComponent<ArrayBlock>().pseudoCode;
+                        string[] pseudoSubstrings = pseudoText.Split('_');
+
+                        currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
+
+                        StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+
+                    }
+
+                    
                 }
 
                 currentObj = null;
@@ -287,8 +323,6 @@ public class ArrayBlockManager : MonoBehaviour
 
         }
 
-
-
     }
 
     //To change the layer of each objects when they are being dragged from one camera view to another
@@ -355,5 +389,34 @@ public class ArrayBlockManager : MonoBehaviour
         Destroy(currentObj);
     }
 
+    private IEnumerator TypingCode(string codeText, GameObject code)
+    {
+        foreach (char letter in codeText)
+        {
+            code.GetComponent<TMP_Text>().text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+    }
+
+    private IEnumerator TypingMultipleCode (string[] pseudoSubstrings, GameObject codeObject)
+    {
+        for (int i = 0; i < codeObject.transform.childCount; i++)
+        {
+            GameObject tempObject = codeObject.transform.GetChild(i).gameObject;
+            if (tempObject.name != "Code")
+            {
+                continue;
+            }
+            else
+            {
+                foreach (char letter in pseudoSubstrings[i])
+                {
+                    tempObject.GetComponent<TMP_Text>().text += letter;
+                    yield return new WaitForSeconds(typingSpeed);
+                }
+            }
+            yield return new WaitForSeconds(typingSpeed);
+        }
+    }
 
 }
