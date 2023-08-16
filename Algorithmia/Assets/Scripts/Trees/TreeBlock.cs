@@ -38,6 +38,30 @@ public class TreeBlock : MonoBehaviour
             Debug.Log("In");
             levelManager.isSnapBlock[2] = true;
         }
+        if (collision.gameObject.transform.parent.name == "Level 2 Left 1")
+        {
+            inWorkspace = true;
+            Debug.Log("In");
+            levelManager.isSnapBlock[3] = true;
+        }
+        if (collision.gameObject.transform.parent.name == "Level 2 Right 1")
+        {
+            inWorkspace = true;
+            Debug.Log("In");
+            levelManager.isSnapBlock[4] = true;
+        }
+        if (collision.gameObject.transform.parent.name == "Level 2 Left 2")
+        {
+            inWorkspace = true;
+            Debug.Log("In");
+            levelManager.isSnapBlock[5] = true;
+        }
+        if (collision.gameObject.transform.parent.name == "Level 2 Right 2")
+        {
+            inWorkspace = true;
+            Debug.Log("In");
+            levelManager.isSnapBlock[6] = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -59,6 +83,30 @@ public class TreeBlock : MonoBehaviour
             inWorkspace = false;
             Debug.Log("out");
             levelManager.isSnapBlock[2] = false;
+        }
+        if (collision.gameObject.transform.parent.name == "Level 2 Left 1")
+        {
+            inWorkspace = false;
+            Debug.Log("out");
+            levelManager.isSnapBlock[3] = false;
+        }
+        if (collision.gameObject.transform.parent.name == "Level 2 Right 1")
+        {
+            inWorkspace = false;
+            Debug.Log("out");
+            levelManager.isSnapBlock[4] = false;
+        }
+        if (collision.gameObject.transform.parent.name == "Level 2 Left 2")
+        {
+            inWorkspace = false;
+            Debug.Log("out");
+            levelManager.isSnapBlock[5] = false;
+        }
+        if (collision.gameObject.transform.parent.name == "Level 2 Right 2")
+        {
+            inWorkspace = false;
+            Debug.Log("out");
+            levelManager.isSnapBlock[6] = false;
         }
     }
 }
