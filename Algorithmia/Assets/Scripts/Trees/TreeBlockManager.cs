@@ -55,7 +55,6 @@ public class TreeBlockManager : MonoBehaviour
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
 
-
                 currentObj.transform.position = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0f);
             }
         }
@@ -70,15 +69,9 @@ public class TreeBlockManager : MonoBehaviour
                     if (levelManager.isSnapBlock[i] == true)
                     {
                         currentObj.transform.position = levelManager.snapPoints[i].transform.position;
-                        flag = true;
+                        levelManager.isSnapBlock[i] = false;
+                       
                     }
-                }
-
-
-
-                if(flag == false)
-                {
-                    //Destroy the empty tree node
                 }
 
                 currentObj = null;
