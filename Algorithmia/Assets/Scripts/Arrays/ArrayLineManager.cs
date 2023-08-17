@@ -17,6 +17,9 @@ public class ArrayLineManager : MonoBehaviour
     [SerializeField]
     private ArrayLevelManager levelManager;
 
+    [SerializeField]
+    private int orderIndex;
+
     private List<Vector2> resetPathsForCollider = new List<Vector2>()
     {
         new Vector2(0f, 0f),
@@ -44,13 +47,15 @@ public class ArrayLineManager : MonoBehaviour
                 {
                     if (singleHit.collider.CompareTag("LineStart"))
                     {
-                        startPoint = singleHit.collider.gameObject;
+                        startPoint = singleHit.collider.gameObject.transform.parent.parent.gameObject;
                         
 
                         GameObject functionObj = singleHit.collider.gameObject.transform.parent.parent.gameObject;
                         currentLine = functionObj.transform.Find("Line").gameObject;
                         currentLine.GetComponent<LineRenderer>().positionCount = 2;
                         currentLine.GetComponent<ArrayLine>().startPos = singleHit.collider.gameObject;
+
+                        orderIndex = functionObj.GetComponent<ArrayBlock>().pseudoElement.transform.GetSiblingIndex();
 
                     }
                 }
@@ -85,6 +90,20 @@ public class ArrayLineManager : MonoBehaviour
                         currentLine.GetComponent<ArrayLine>().lineWidth = GetWidth(currentLine);
 
                         levelManager.lines.Add(currentLine);
+
+                        GameObject nextObject = levelManager.lineEndPoints[i].gameObject.transform.parent.parent.gameObject;
+                        if (nextObject.name != "PC")
+                        {
+                            if (startPoint.GetComponent<ArrayBlock>().dataElementCount == 0)
+                            {
+                                nextObject.GetComponent<ArrayBlock>().pseudoElement.transform.SetSiblingIndex(orderIndex + 1);
+                            }
+                            else if (startPoint.GetComponent<ArrayBlock>().dataElementCount != 0)
+                            {
+                                int dataCount = startPoint.GetComponent<ArrayBlock>().dataElementCount;
+                                nextObject.GetComponent<ArrayBlock>().pseudoElement.transform.SetSiblingIndex(orderIndex + dataCount + 1);
+                            }
+                        }
 
                         currentLine = null;
                         break;

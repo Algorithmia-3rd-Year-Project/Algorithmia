@@ -12,6 +12,8 @@ public class ArrayBlock : MonoBehaviour
 
     public GameObject pseudoElement;
 
+    public int dataElementCount;
+
     private void Start()
     {
         inWorkspace = false;
