@@ -141,6 +141,7 @@ public class ArrayBlockManager : MonoBehaviour
                             if (singleHit.collider.CompareTag("Data"))
                             {
                                 currentObj = singleHit.collider.gameObject;
+                                currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().dataElementCount -= 1;
                             }
                         }
                     }
@@ -185,7 +186,6 @@ public class ArrayBlockManager : MonoBehaviour
                 {
                     HighlightColorBlockLines(true);
                 }
-
 
                 currentObj.transform.position = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0f);
             }
@@ -280,6 +280,9 @@ public class ArrayBlockManager : MonoBehaviour
 
                         StartCoroutine(TypingCode(fullPseudoText, code));
 
+                        //To track elements count of an Array object
+                        levelManager.correctForms[i].gameObject.transform.parent.parent.GetComponent<ArrayBlock>().dataElementCount += 1;
+
 
                         break;
                     }
@@ -289,6 +292,8 @@ public class ArrayBlockManager : MonoBehaviour
                 {
                     Vector3 currentResetPos = currentObj.GetComponent<DataBlock>().resetPosition;
                     currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
+                    
+
                     currentObj.transform.SetParent(dataParentObj);
                     ChangeBlockLayer(currentObj.transform, "Data");
                     currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
@@ -433,7 +438,7 @@ public class ArrayBlockManager : MonoBehaviour
                 foreach (char letter in pseudoSubstrings[i])
                 {
                     tempObject.GetComponent<TMP_Text>().text += letter;
-                    yield return new WaitForSeconds(typingSpeed);
+                    yield return new WaitForSeconds(0.03f);
                 }
             }
             yield return new WaitForSeconds(typingSpeed);
