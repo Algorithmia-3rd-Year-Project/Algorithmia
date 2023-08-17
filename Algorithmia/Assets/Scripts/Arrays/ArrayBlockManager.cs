@@ -174,6 +174,9 @@ public class ArrayBlockManager : MonoBehaviour
 
                 if (currentObj.CompareTag("Data"))
                 {
+                    currentObj.GetComponent<DataBlock>().snapped = false;
+                    currentObj.transform.SetParent(dataParentObj);
+                    Destroy(currentObj.GetComponent<DataBlock>().pseudoElement);
                     currentObj.GetComponent<SpriteRenderer>().sortingOrder = 8;
                     Transform dataText = currentObj.transform.Find("a-data");
                     dataText.GetComponent<SpriteRenderer>().sortingOrder = 9;
@@ -262,6 +265,20 @@ public class ArrayBlockManager : MonoBehaviour
 
                         currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
 
+                        //Initializing data into the array
+                        GameObject codeObject = Instantiate(codeArrayInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                        codeObject.transform.SetParent(codeParent.transform);
+
+                        currentObj.GetComponent<DataBlock>().pseudoElement = codeObject;
+
+                        GameObject code = codeObject.transform.Find("Code").gameObject;
+                        string pseudoText = currentObj.GetComponent<DataBlock>().dataValue;
+
+                        string fullPseudoText = "Array[" + i.ToString() + "]" + " = " + pseudoText;
+
+                        StartCoroutine(TypingCode(fullPseudoText, code));
+
+
                         break;
                     }
                 }
@@ -273,6 +290,8 @@ public class ArrayBlockManager : MonoBehaviour
                     currentObj.transform.SetParent(dataParentObj);
                     ChangeBlockLayer(currentObj.transform, "Data");
                     currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
+
+                    Destroy(currentObj.GetComponent<DataBlock>().pseudoElement);
 
                     currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
                     Transform dataText = currentObj.transform.Find("a-data");
