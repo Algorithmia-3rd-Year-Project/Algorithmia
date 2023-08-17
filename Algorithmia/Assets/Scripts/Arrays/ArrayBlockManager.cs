@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ArrayBlockManager : MonoBehaviour
@@ -180,6 +181,9 @@ public class ArrayBlockManager : MonoBehaviour
                     currentObj.GetComponent<SpriteRenderer>().sortingOrder = 8;
                     Transform dataText = currentObj.transform.Find("a-data");
                     dataText.GetComponent<SpriteRenderer>().sortingOrder = 9;
+                } else if (currentObj.CompareTag("Inventory"))
+                {
+                    HighlightColorBlockLines(true);
                 }
 
 
@@ -191,6 +195,7 @@ public class ArrayBlockManager : MonoBehaviour
         {
             if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == true)
             {
+                HighlightColorBlockLines(false);
 
                 if (currentObj.layer != workspaceLayer)
                 {
@@ -213,7 +218,6 @@ public class ArrayBlockManager : MonoBehaviour
 
                         StartCoroutine(TypingCode(pseudoText, code));
 
-                        
                     }
 
                     if (currentObj.GetComponent<ArrayBlock>().blockName == "Array Print")
@@ -228,10 +232,8 @@ public class ArrayBlockManager : MonoBehaviour
 
                         StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
 
-
                     }
-
-                    
+   
                 }
 
                 currentObj = null;
@@ -436,6 +438,22 @@ public class ArrayBlockManager : MonoBehaviour
             }
             yield return new WaitForSeconds(typingSpeed);
         }
+    }
+
+    //Hightlights the pseudo code when player drags it when it is already in workspace
+    private void HighlightColorBlockLines(bool visibility)
+    {
+        GameObject codeInstance = currentObj.GetComponent<ArrayBlock>().pseudoElement;
+
+        if (codeInstance != null)
+        {
+            GameObject image = codeInstance.transform.Find("Image").gameObject;
+            if (image != null)
+            {
+                image.SetActive(visibility);
+            }
+        } 
+        
     }
 
 }
