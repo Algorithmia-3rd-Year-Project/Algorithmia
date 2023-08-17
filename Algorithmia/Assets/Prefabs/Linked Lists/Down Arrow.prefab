@@ -93,7 +93,8 @@ GameObject:
   - component: {fileID: 2636658429224928421}
   - component: {fileID: 67537973598543074}
   - component: {fileID: 4165934650312881415}
-  - component: {fileID: 4165934650312881414}
+  - component: {fileID: 2902278797604075594}
+  - component: {fileID: 4506698127543491301}
   m_Layer: 0
   m_Name: Down Arrow
   m_TagString: Untagged
@@ -193,7 +194,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4165934650312881414
+--- !u!114 &2902278797604075594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8471439855335037066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8caab880261a94da77ffc9505b9e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetPosition: {x: 0, y: 0, z: 0}
+  snapRadius: 0
+  snapped: 0
+  dataValue: 
+  originalScale: {x: 0, y: 0, z: 0}
+  setTriggers: 0
+  guideMark: {fileID: 0}
+--- !u!114 &4506698127543491301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d473cd63577cc45be3aca912e359fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: d
+  data: 
   moving: 0
   snapRadius: 1
   levelManager: {fileID: 0}

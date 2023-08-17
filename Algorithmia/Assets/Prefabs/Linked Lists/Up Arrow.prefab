@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6529772850901629871}
   - component: {fileID: 9144227528795628520}
   - component: {fileID: 5177306061059488495}
-  - component: {fileID: 5177306061059488494}
+  - component: {fileID: -763906565472408802}
+  - component: {fileID: -2590078205730714991}
   m_Layer: 0
   m_Name: Up Arrow
   m_TagString: Untagged
@@ -111,7 +112,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5177306061059488494
+--- !u!114 &-763906565472408802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835904517425997696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8caab880261a94da77ffc9505b9e56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resetPosition: {x: 0, y: 0, z: 0}
+  snapRadius: 0
+  snapped: 0
+  dataValue: 
+  originalScale: {x: 0, y: 0, z: 0}
+  setTriggers: 0
+  guideMark: {fileID: 0}
+--- !u!114 &-2590078205730714991
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d473cd63577cc45be3aca912e359fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: c
+  data: 
   moving: 0
   snapRadius: 1
   levelManager: {fileID: 0}

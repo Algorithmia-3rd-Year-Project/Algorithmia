@@ -36,6 +36,9 @@ public class Linkedlistblockmanager : MonoBehaviour
     [SerializeField]
     private ArrayLevelManager levelManager;
 
+    [SerializeField]
+    private bool setTriggers;
+
 
     // Start is called before the first frame update
     void Start()
@@ -116,6 +119,7 @@ public class Linkedlistblockmanager : MonoBehaviour
                         startPosX = mousePos.x - currentObj.transform.position.x;
                         startPosY = mousePos.y - currentObj.transform.position.y;
                     }
+
                 }
             }
         }
@@ -127,13 +131,21 @@ public class Linkedlistblockmanager : MonoBehaviour
                 Vector3 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+                if (currentObj.CompareTag("Data"))
+                {
+                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 8;
+                    Transform dataText = currentObj.transform.Find("a-data");
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 9;
+                }
+
+
                 currentObj.transform.position = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0f);
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == true)
+            if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == true)
             {
 
                 if (currentObj.layer != workspaceLayer)
@@ -142,16 +154,35 @@ public class Linkedlistblockmanager : MonoBehaviour
                     TrackSnapPoints(currentObj);
                     //TrackLinePoints(currentObj);
                     ChangeBlockLayer(currentObj.transform, "Workspace");
-                    //levelManager.blockCount += 1;
-                    
+                    levelManager.blockCount += 1;
+
+                    if (setTriggers)
+                    {
+                        if (levelManager.additionalSnapPositions.Count > 0 && (Mathf.Abs(currentObj.transform.position.x - levelManager.additionalSnapPositions[0].transform.position.x) <= 0.5f &&
+                        Mathf.Abs(currentObj.transform.position.y - levelManager.additionalSnapPositions[0].transform.position.y) <= 0.5f))
+                        {
+                            currentObj.transform.position = new Vector3(levelManager.additionalSnapPositions[0].transform.position.x, levelManager.additionalSnapPositions[0].transform.position.y, 0f);
+                            currentObj = null;
+                        }
+                        else
+                        {
+                            DestroyBlocks(currentObj);
+                        }
+                    }
+                    else
+                    {
+                        currentObj = null;
+                    }
                 }
 
 
-                currentObj = null;
+
             }
             else if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == false)
             {
+
                 DestroyBlocks(currentObj);
+
             }
             else if (currentObj != null && currentObj.CompareTag("Data"))
             {
@@ -179,6 +210,7 @@ public class Linkedlistblockmanager : MonoBehaviour
                         break;
                     }
                 }
+
                 if (currentObj.GetComponent<DataBlock>().snapped == false)
                 {
                     Vector3 currentResetPos = currentObj.GetComponent<DataBlock>().resetPosition;
@@ -186,6 +218,11 @@ public class Linkedlistblockmanager : MonoBehaviour
                     currentObj.transform.SetParent(dataParentObj);
                     ChangeBlockLayer(currentObj.transform, "Data");
                     currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
+
+                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    Transform dataText = currentObj.transform.Find("a-data");
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
+
 
                 }
 
