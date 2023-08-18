@@ -166,6 +166,7 @@ public class ArrayBlockManager : MonoBehaviour
                             currentObj = allhits[0].collider.gameObject;
                         }
 
+                        
                         if (allhits[0].collider.CompareTag("Data Type"))
                         {
 
@@ -174,14 +175,20 @@ public class ArrayBlockManager : MonoBehaviour
                             if (hitObject.name == "Character")
                             {
                                 hitObject.transform.parent.parent.Find("Array : Character").gameObject.SetActive(true);
+                                hitObject.transform.parent.parent.Find("Array : Number").gameObject.SetActive(false);
+                                hitObject.transform.parent.parent.Find("Array : Boolean").gameObject.SetActive(false);
 
                             } else if (hitObject.name == "Number")
                             {
                                 hitObject.transform.parent.parent.Find("Array : Number").gameObject.SetActive(true);
+                                hitObject.transform.parent.parent.Find("Array : Character").gameObject.SetActive(false);
+                                hitObject.transform.parent.parent.Find("Array : Boolean").gameObject.SetActive(false);
 
                             } else if (hitObject.name == "Boolean")
                             {
                                 hitObject.transform.parent.parent.Find("Array : Boolean").gameObject.SetActive(true);
+                                hitObject.transform.parent.parent.Find("Array : Number").gameObject.SetActive(false);
+                                hitObject.transform.parent.parent.Find("Array : Character").gameObject.SetActive(false);
 
                             }
 
