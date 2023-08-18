@@ -226,6 +226,44 @@ public class ArrayBlockManager : MonoBehaviour
 
                 if (currentObj.CompareTag("Data"))
                 {
+                    if (currentObj.GetComponent<DataBlock>().snapped == true)
+                    {
+                        if (currentObj.transform.parent.gameObject.name == "Print - Start Point")
+                        {
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = "_";
+
+                            string endValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "_" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
+
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + " to " + endValue + "%	      print Array[index]%end for";
+                            GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                        if (currentObj.transform.parent.gameObject.name == "Print - End Point")
+                        {
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = "_";
+
+                            string startValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "_" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
+
+                            currentObj.transform.parent.parent.parent.GetComponent<ArrayBlock>().pseudoCode = "for index=" + startValue + " to " + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "%	      print Array[index]%end for";
+                            GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                    }
+
                     currentObj.GetComponent<DataBlock>().snapped = false;
                     currentObj.transform.SetParent(dataParentObj);
                     Destroy(currentObj.GetComponent<DataBlock>().pseudoElement);
@@ -276,7 +314,7 @@ public class ArrayBlockManager : MonoBehaviour
                         codeObject.transform.SetParent(codeParent.transform);
 
                         string pseudoText = currentObj.GetComponent<ArrayBlock>().pseudoCode;
-                        string[] pseudoSubstrings = pseudoText.Split('_');
+                        string[] pseudoSubstrings = pseudoText.Split('%');
 
                         currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
 
@@ -317,22 +355,60 @@ public class ArrayBlockManager : MonoBehaviour
 
                         currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
 
-                        //Initializing data into the array
-                        GameObject codeObject = Instantiate(codeArrayInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
-                        codeObject.transform.SetParent(codeParent.transform);
+                        //Execute only if data is snapped into an array snap point
+                        if (levelManager.correctForms[i].name == "0" || levelManager.correctForms[i].name == "1" || levelManager.correctForms[i].name == "2" || levelManager.correctForms[i].name == "3")
+                        {
+                            //Initializing data into the array
+                            GameObject codeObject = Instantiate(codeArrayInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                            codeObject.transform.SetParent(codeParent.transform);
 
-                        currentObj.GetComponent<DataBlock>().pseudoElement = codeObject;
+                            currentObj.GetComponent<DataBlock>().pseudoElement = codeObject;
 
-                        GameObject code = codeObject.transform.Find("Code").gameObject;
-                        string pseudoText = currentObj.GetComponent<DataBlock>().dataValue;
+                            GameObject code = codeObject.transform.Find("Code").gameObject;
+                            string pseudoText = currentObj.GetComponent<DataBlock>().dataValue;
 
-                        string fullPseudoText = "Array[" + i.ToString() + "]" + " = " + pseudoText;
+                            string fullPseudoText = "Array[" + i.ToString() + "]" + " = " + pseudoText;
 
-                        StartCoroutine(TypingCode(fullPseudoText, code));
+                            StartCoroutine(TypingCode(fullPseudoText, code));
 
-                        //To track elements count of an Array object
-                        levelManager.correctForms[i].gameObject.transform.parent.parent.GetComponent<ArrayBlock>().dataElementCount += 1;
+                            //To track elements count of an Array object
+                            levelManager.correctForms[i].gameObject.transform.parent.parent.GetComponent<ArrayBlock>().dataElementCount += 1;
+                        }
 
+
+                        //Excute only if data is snapped into print function's start snap point
+                        if (levelManager.correctForms[i].name == "Print - Start Point")
+                        {
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = currentObj.GetComponent<DataBlock>().dataValue;
+                            string endValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "_" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
+
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + " to " + endValue + "%	      print Array[index]%end for";
+                            GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                        //Excute only if data is snapped into print function's end snap point
+                        if (levelManager.correctForms[i].name == "Print - End Point")
+                        {
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = currentObj.GetComponent<DataBlock>().dataValue;
+                            string startValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "_" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
+
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + startValue + " to " + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "%	      print Array[index]%end for";
+                            GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
 
                         break;
                     }
@@ -488,6 +564,8 @@ public class ArrayBlockManager : MonoBehaviour
             }
             else
             {
+                tempObject.GetComponent<TMP_Text>().text = "";
+
                 foreach (char letter in pseudoSubstrings[i])
                 {
                     tempObject.GetComponent<TMP_Text>().text += letter;

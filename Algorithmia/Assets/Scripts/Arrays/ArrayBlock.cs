@@ -16,6 +16,10 @@ public class ArrayBlock : MonoBehaviour
 
     public int dataElementCount;
 
+    [Header("Print Function Settings")]
+    public string startPoint;
+    public string endPoint;
+
     private void Start()
     {
         inWorkspace = false;
