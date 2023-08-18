@@ -31,6 +31,7 @@ public class ArrayBlock : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Workspace"))
         {
+            Debug.Log("called");
             inWorkspace = false;
         }
     }

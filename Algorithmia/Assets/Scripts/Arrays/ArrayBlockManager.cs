@@ -74,7 +74,7 @@ public class ArrayBlockManager : MonoBehaviour
 
                 if (hit.collider.name == "Empty Array Block")
                 {
-                    currentObj = Instantiate(arrayblocksList.blockList["Empty Array Block"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+                    currentObj = Instantiate(arrayblocksList.blockList["Empty Array Block"], new Vector3(mousePos.x, mousePos.y - 0.7f, 0f), Quaternion.identity);
 
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
@@ -133,7 +133,6 @@ public class ArrayBlockManager : MonoBehaviour
                 {
                     RaycastHit2D[] allhits = Physics2D.RaycastAll(mousePos, Vector3.zero, Mathf.Infinity, anotherLayer);
 
-
                     if (allhits.Length > 1)
                     {
                         foreach (RaycastHit2D singleHit in allhits)
@@ -142,6 +141,20 @@ public class ArrayBlockManager : MonoBehaviour
                             {
                                 currentObj = singleHit.collider.gameObject;
                                 currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().dataElementCount -= 1;
+                            }
+
+                            if (singleHit.collider.CompareTag("Title"))
+                            {
+                                GameObject dataTypes = singleHit.collider.transform.parent.Find("Data Type Menu").gameObject;
+
+                                if (dataTypes.activeSelf)
+                                {
+                                    dataTypes.SetActive(false);
+                                } else
+                                {
+                                    dataTypes.SetActive(true);
+                                }
+                                
                             }
                         }
                     }
@@ -152,6 +165,30 @@ public class ArrayBlockManager : MonoBehaviour
                         {
                             currentObj = allhits[0].collider.gameObject;
                         }
+
+                        if (allhits[0].collider.CompareTag("Data Type"))
+                        {
+
+                            GameObject hitObject = allhits[0].collider.gameObject;
+
+                            if (hitObject.name == "Character")
+                            {
+                                hitObject.transform.parent.parent.Find("Array : Character").gameObject.SetActive(true);
+
+                            } else if (hitObject.name == "Number")
+                            {
+                                hitObject.transform.parent.parent.Find("Array : Number").gameObject.SetActive(true);
+
+                            } else if (hitObject.name == "Boolean")
+                            {
+                                hitObject.transform.parent.parent.Find("Array : Boolean").gameObject.SetActive(true);
+
+                            }
+
+                            hitObject.transform.parent.parent.Find("Title").gameObject.SetActive(false);
+                            hitObject.transform.parent.gameObject.SetActive(false);
+                        }
+
                     }
 
                     if (currentObj != null)
@@ -369,6 +406,7 @@ public class ArrayBlockManager : MonoBehaviour
     //Have to delete both the block and its snap points that was assigned to the level manager
     private void DestroyBlocks(GameObject currentObj)
     {
+        Debug.Log("Block Destroed");
         Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
         Transform linePointsObj = currentObj.transform.Find("Line Points");
         int deletedCount = 0;
