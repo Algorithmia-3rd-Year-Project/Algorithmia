@@ -60,7 +60,6 @@ public class ArrayBlockManager : MonoBehaviour
     private void Update()
     {
 
-
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Input.mousePosition;
@@ -177,23 +176,31 @@ public class ArrayBlockManager : MonoBehaviour
                                 hitObject.transform.parent.parent.Find("Array : Character").gameObject.SetActive(true);
                                 hitObject.transform.parent.parent.Find("Array : Number").gameObject.SetActive(false);
                                 hitObject.transform.parent.parent.Find("Array : Boolean").gameObject.SetActive(false);
+                                hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().dataType = "Character";
 
                             } else if (hitObject.name == "Number")
                             {
                                 hitObject.transform.parent.parent.Find("Array : Number").gameObject.SetActive(true);
                                 hitObject.transform.parent.parent.Find("Array : Character").gameObject.SetActive(false);
                                 hitObject.transform.parent.parent.Find("Array : Boolean").gameObject.SetActive(false);
+                                hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().dataType = "Number";
 
                             } else if (hitObject.name == "Boolean")
                             {
                                 hitObject.transform.parent.parent.Find("Array : Boolean").gameObject.SetActive(true);
                                 hitObject.transform.parent.parent.Find("Array : Number").gameObject.SetActive(false);
                                 hitObject.transform.parent.parent.Find("Array : Character").gameObject.SetActive(false);
-
+                                hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().dataType = "Boolean";
                             }
 
                             hitObject.transform.parent.parent.Find("Title").gameObject.SetActive(false);
                             hitObject.transform.parent.gameObject.SetActive(false);
+
+                            //update the pseudo code in the editor
+                            string updatedText = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().dataType + " " + hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            GameObject codePosition = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement.transform.Find("Code").gameObject;
+                            StartCoroutine(TypingCode(updatedText, codePosition));
+
                         }
 
                     }
@@ -205,7 +212,6 @@ public class ArrayBlockManager : MonoBehaviour
                     }
 
                 }
-
 
             }
         }
@@ -258,7 +264,7 @@ public class ArrayBlockManager : MonoBehaviour
                         currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
 
                         GameObject code = codeObject.transform.Find("Code").gameObject;
-                        string pseudoText = currentObj.GetComponent<ArrayBlock>().pseudoCode;
+                        string pseudoText = currentObj.GetComponent<ArrayBlock>().dataType + " " + currentObj.GetComponent<ArrayBlock>().pseudoCode;
 
                         StartCoroutine(TypingCode(pseudoText, code));
 
@@ -462,6 +468,8 @@ public class ArrayBlockManager : MonoBehaviour
 
     private IEnumerator TypingCode(string codeText, GameObject code)
     {
+        code.GetComponent<TMP_Text>().text = "";
+
         foreach (char letter in codeText)
         {
             code.GetComponent<TMP_Text>().text += letter;

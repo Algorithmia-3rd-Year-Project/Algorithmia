@@ -8,6 +8,8 @@ public class ArrayBlock : MonoBehaviour
 
     public string blockName;
 
+    public string dataType;
+
     public string pseudoCode;
 
     public GameObject pseudoElement;

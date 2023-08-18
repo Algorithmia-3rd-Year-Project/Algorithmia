@@ -92,7 +92,7 @@ public class ArrayLineManager : MonoBehaviour
                         levelManager.lines.Add(currentLine);
 
                         GameObject nextObject = levelManager.lineEndPoints[i].gameObject.transform.parent.parent.gameObject;
-                        if (nextObject.name != "PC")
+                        if (nextObject.name != "Computer")
                         {
                             if (startPoint.GetComponent<ArrayBlock>().dataElementCount == 0)
                             {
