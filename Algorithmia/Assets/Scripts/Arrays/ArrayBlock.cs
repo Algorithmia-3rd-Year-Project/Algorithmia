@@ -25,11 +25,8 @@ public class ArrayBlock : MonoBehaviour
         {
             inWorkspace = true;
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Workspace"))
+        if (collision.gameObject.CompareTag("OutWorkspace"))
         {
             inWorkspace = false;
         }
