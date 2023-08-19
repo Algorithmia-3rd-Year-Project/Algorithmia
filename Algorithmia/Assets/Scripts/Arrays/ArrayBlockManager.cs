@@ -197,7 +197,7 @@ public class ArrayBlockManager : MonoBehaviour
                             hitObject.transform.parent.gameObject.SetActive(false);
 
                             //update the pseudo code in the editor
-                            string updatedText = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().dataType + " " + hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string updatedText = "<color=green>" + hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().dataType + "</color> " + hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
                             GameObject codePosition = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement.transform.Find("Code").gameObject;
                             StartCoroutine(TypingCode(updatedText, codePosition));
 
@@ -230,9 +230,9 @@ public class ArrayBlockManager : MonoBehaviour
                     {
                         if (currentObj.transform.parent.gameObject.name == "Print - Start Point")
                         {
-                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = "_";
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = "s";
 
-                            string endValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "_" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
+                            string endValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "e" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
 
                             currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + " to " + endValue + "%	      print Array[index]%end for";
                             GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
@@ -247,9 +247,9 @@ public class ArrayBlockManager : MonoBehaviour
 
                         if (currentObj.transform.parent.gameObject.name == "Print - End Point")
                         {
-                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = "_";
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = "e";
 
-                            string startValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "_" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
+                            string startValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "s" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
 
                             currentObj.transform.parent.parent.parent.GetComponent<ArrayBlock>().pseudoCode = "for index=" + startValue + " to " + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "%	      print Array[index]%end for";
                             GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
@@ -302,7 +302,8 @@ public class ArrayBlockManager : MonoBehaviour
                         currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
 
                         GameObject code = codeObject.transform.Find("Code").gameObject;
-                        string pseudoText = currentObj.GetComponent<ArrayBlock>().dataType + " " + currentObj.GetComponent<ArrayBlock>().pseudoCode;
+                        string pseudoText = "<color=green>" + currentObj.GetComponent<ArrayBlock>().dataType + "</color> " + currentObj.GetComponent<ArrayBlock>().pseudoCode;
+                        //string pseudoText = $"<color=green>{currentObj.GetComponent<ArrayBlock>().dataType}</color> {currentObj.GetComponent<ArrayBlock>().pseudoCode}";
 
                         StartCoroutine(TypingCode(pseudoText, code));
 
@@ -380,7 +381,7 @@ public class ArrayBlockManager : MonoBehaviour
                         if (levelManager.correctForms[i].name == "Print - Start Point")
                         {
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = currentObj.GetComponent<DataBlock>().dataValue;
-                            string endValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "_" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
+                            string endValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "e" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
 
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + " to " + endValue + "%	      print Array[index]%end for";
                             GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
@@ -397,7 +398,7 @@ public class ArrayBlockManager : MonoBehaviour
                         if (levelManager.correctForms[i].name == "Print - End Point")
                         {
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = currentObj.GetComponent<DataBlock>().dataValue;
-                            string startValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "_" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
+                            string startValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "s" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
 
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + startValue + " to " + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "%	      print Array[index]%end for";
                             GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
@@ -546,9 +547,21 @@ public class ArrayBlockManager : MonoBehaviour
     {
         code.GetComponent<TMP_Text>().text = "";
 
-        foreach (char letter in codeText)
+        for (int i=0; i<codeText.Length; i++)
         {
-            code.GetComponent<TMP_Text>().text += letter;
+
+            if (codeText[i] == '<') {
+
+                do
+                {
+                    code.GetComponent<TMP_Text>().text += codeText[i];
+                    i += 1;                    
+                }
+                while (codeText[i] != '>'); 
+
+            }
+
+            code.GetComponent<TMP_Text>().text += codeText[i];
             yield return new WaitForSeconds(typingSpeed);
         }
     }
