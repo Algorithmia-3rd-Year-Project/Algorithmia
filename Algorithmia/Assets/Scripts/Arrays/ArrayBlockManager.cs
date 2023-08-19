@@ -158,6 +158,46 @@ public class ArrayBlockManager : MonoBehaviour
                                 }
                                 
                             }
+
+                            if (singleHit.collider.CompareTag("Data Type"))
+                            {
+                                GameObject hitObject = singleHit.collider.gameObject;
+
+                                if (hitObject.name == "Character")
+                                {
+                                    hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(true);
+                                    hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(false);
+                                    hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(false);
+                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = 0%<color=yellow>end</color> = 0%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Character</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+
+
+                                }
+                                else if (hitObject.name == "Number")
+                                {
+                                    hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(true);
+                                    hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(false);
+                                    hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(false);
+                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = 0%<color=yellow>end</color> = 0%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+
+                                }
+                                else if (hitObject.name == "Boolean")
+                                {
+                                    hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(true);
+                                    hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(false);
+                                    hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(false);
+                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = 0%<color=yellow>end</color> = 0%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Boolean</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                }
+
+                                hitObject.transform.parent.gameObject.SetActive(false);
+
+                                GameObject codePosition = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+                                string pseudoText = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                                string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                                StartCoroutine(TypingMultipleCode(pseudoSubstrings, codePosition));
+
+                            }
                         }
                     }
                     else if (allhits.Length == 1)
