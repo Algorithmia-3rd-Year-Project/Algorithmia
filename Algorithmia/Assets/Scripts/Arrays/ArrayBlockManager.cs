@@ -47,6 +47,9 @@ public class ArrayBlockManager : MonoBehaviour
     private GameObject codePrintInstance;
 
     [SerializeField]
+    private GameObject codeReverseInstance;
+
+    [SerializeField]
     private float typingSpeed;
 
     private void Start()
@@ -322,6 +325,19 @@ public class ArrayBlockManager : MonoBehaviour
                         StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
 
                     }
+
+                    if (currentObj.GetComponent<ArrayBlock>().blockName == "Array Reverse")
+                    {
+                        GameObject codeObject = Instantiate(codeReverseInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                        codeObject.transform.SetParent(codeParent.transform);
+
+                        string pseudoText = currentObj.GetComponent<ArrayBlock>().pseudoCode;
+                        string[] pseudoSubstrings = pseudoText.Split('%');
+
+                        currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
+
+                        StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                    }
    
                 }
 
@@ -368,7 +384,7 @@ public class ArrayBlockManager : MonoBehaviour
                             GameObject code = codeObject.transform.Find("Code").gameObject;
                             string pseudoText = currentObj.GetComponent<DataBlock>().dataValue;
 
-                            string fullPseudoText = "Array[" + i.ToString() + "]" + " = " + pseudoText;
+                            string fullPseudoText = "Array[" + levelManager.correctForms[i].name + "]" + " = " + pseudoText;
 
                             StartCoroutine(TypingCode(fullPseudoText, code));
 
@@ -582,7 +598,7 @@ public class ArrayBlockManager : MonoBehaviour
                 for (int j=0; j < pseudoSubstrings[i].Length; j++)
                 {
 
-                    if (pseudoSubstrings[i][j] == '<')
+                    if (pseudoSubstrings[i][j] == '<' && pseudoSubstrings[i][j+1] != ' ')
                     {
 
                         do
