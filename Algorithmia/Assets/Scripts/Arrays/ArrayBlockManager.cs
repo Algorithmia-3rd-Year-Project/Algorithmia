@@ -234,7 +234,7 @@ public class ArrayBlockManager : MonoBehaviour
 
                             string endValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "e" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
 
-                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + " to " + endValue + "%	      print Array[index]%end for";
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + "</color> to <color=yellow>" + endValue + "</color>%	      print Array[index]%end for";
                             GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
@@ -251,7 +251,7 @@ public class ArrayBlockManager : MonoBehaviour
 
                             string startValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "s" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
 
-                            currentObj.transform.parent.parent.parent.GetComponent<ArrayBlock>().pseudoCode = "for index=" + startValue + " to " + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "%	      print Array[index]%end for";
+                            currentObj.transform.parent.parent.parent.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>" + startValue + "</color> to <color=yellow>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "</color>%	      print Array[index]%end for";
                             GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
@@ -383,7 +383,7 @@ public class ArrayBlockManager : MonoBehaviour
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = currentObj.GetComponent<DataBlock>().dataValue;
                             string endValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "e" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
 
-                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + " to " + endValue + "%	      print Array[index]%end for";
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + "</color> to <color=yellow>" + endValue + "</color>%	      print Array[index]%end for";
                             GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
@@ -400,7 +400,7 @@ public class ArrayBlockManager : MonoBehaviour
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = currentObj.GetComponent<DataBlock>().dataValue;
                             string startValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "s" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
 
-                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=" + startValue + " to " + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "%	      print Array[index]%end for";
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>" + startValue + "</color> to <color=yellow>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "</color>%	      print Array[index]%end for";
                             GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
@@ -579,9 +579,22 @@ public class ArrayBlockManager : MonoBehaviour
             {
                 tempObject.GetComponent<TMP_Text>().text = "";
 
-                foreach (char letter in pseudoSubstrings[i])
+                for (int j=0; j < pseudoSubstrings[i].Length; j++)
                 {
-                    tempObject.GetComponent<TMP_Text>().text += letter;
+
+                    if (pseudoSubstrings[i][j] == '<')
+                    {
+
+                        do
+                        {
+                            tempObject.GetComponent<TMP_Text>().text += pseudoSubstrings[i][j];
+                            j += 1;
+                        }
+                        while (pseudoSubstrings[i][j] != '>');
+
+                    }
+
+                    tempObject.GetComponent<TMP_Text>().text += pseudoSubstrings[i][j];
                     yield return new WaitForSeconds(0.03f);
                 }
             }
