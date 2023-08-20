@@ -15,7 +15,6 @@ public class TreeBlockManager : MonoBehaviour
     private float startPosY;
     private float startPosX;
 
-    private bool flag = false;
 
     [SerializeField]
     private TreeLevelManager levelManager;
@@ -66,11 +65,16 @@ public class TreeBlockManager : MonoBehaviour
             {
                 for(int i = 0; i<levelManager.isSnapBlock.Count; i++)
                 {
-                    if (levelManager.isSnapBlock[i] == true)
+                    if (levelManager.isSnapBlock[i] == true && levelManager.isNodeSnapped[i] == false)
                     {
                         currentObj.transform.position = levelManager.snapPoints[i].transform.position;
                         levelManager.isSnapBlock[i] = false;
+                        levelManager.isNodeSnapped[i] = true;
                        
+                    }
+                    else
+                    {
+                       //bh
                     }
                 }
 
