@@ -24,6 +24,8 @@ public class ArrayBlock : MonoBehaviour
     public string start;
     public string end;
 
+    public string dataStructure;
+
     private void Start()
     {
         inWorkspace = false;

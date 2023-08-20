@@ -656,7 +656,7 @@ public class ArrayBlockManager : MonoBehaviour
         }
     }
 
-    private IEnumerator TypingMultipleCode (string[] pseudoSubstrings, GameObject codeObject)
+    public IEnumerator TypingMultipleCode (string[] pseudoSubstrings, GameObject codeObject)
     {
         for (int i = 0; i < codeObject.transform.childCount; i++)
         {

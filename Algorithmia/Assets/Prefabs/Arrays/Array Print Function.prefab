@@ -302,9 +302,9 @@ GameObject:
   - component: {fileID: 5437629817332559992}
   - component: {fileID: 3948320322817503350}
   - component: {fileID: 7335728467874299101}
-  - component: {fileID: 3817644749849498821}
   - component: {fileID: 4938550289287804325}
   - component: {fileID: 3578362935478582772}
+  - component: {fileID: 3817644749849498821}
   m_Layer: 7
   m_Name: Array Print Function
   m_TagString: Inventory
@@ -427,27 +427,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3817644749849498821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7147877779082652792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 036362044282aa84697a4a2409765bc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inWorkspace: 0
-  blockName: Array Print
-  dataType: 
-  pseudoCode: "for index=<color=\"yellow\">s</color> to <color=\"yellow\">e</color>%\t     
-    print Array[index]%end for"
-  pseudoElement: {fileID: 0}
-  dataElementCount: 0
-  startPoint: 
-  endPoint: 
 --- !u!61 &4938550289287804325
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -500,6 +479,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5099758, y: 0.371776}
   m_EdgeRadius: 0
+--- !u!114 &3817644749849498821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147877779082652792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 036362044282aa84697a4a2409765bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inWorkspace: 0
+  blockName: Array Print
+  dataType: 
+  pseudoCode: "for index=<color=\"yellow\">s</color> to <color=\"yellow\">e</color>%\t     
+    print Array[index]%end for"
+  pseudoElement: {fileID: 0}
+  dataElementCount: 0
+  startPoint: 
+  endPoint: 
+  start: 
+  end: 
+  dataStructure: 
 --- !u!1 &8077145504961580413
 GameObject:
   m_ObjectHideFlags: 0
