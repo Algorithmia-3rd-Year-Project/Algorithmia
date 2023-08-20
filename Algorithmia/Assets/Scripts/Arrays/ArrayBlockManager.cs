@@ -168,7 +168,7 @@ public class ArrayBlockManager : MonoBehaviour
                                     hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(true);
                                     hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(false);
                                     hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(false);
-                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = 0%<color=yellow>end</color> = 0%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Character</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Character</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
 
 
                                 }
@@ -177,7 +177,7 @@ public class ArrayBlockManager : MonoBehaviour
                                     hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(true);
                                     hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(false);
                                     hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(false);
-                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = 0%<color=yellow>end</color> = 0%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
 
                                 }
                                 else if (hitObject.name == "Boolean")
@@ -185,7 +185,7 @@ public class ArrayBlockManager : MonoBehaviour
                                     hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(true);
                                     hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(false);
                                     hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(false);
-                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = 0%<color=yellow>end</color> = 0%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Boolean</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Boolean</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
                                 }
 
                                 hitObject.transform.parent.gameObject.SetActive(false);

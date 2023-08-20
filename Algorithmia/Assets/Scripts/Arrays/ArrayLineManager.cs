@@ -178,6 +178,8 @@ public class ArrayLineManager : MonoBehaviour
                     GameObject lineEndBlock = lineHit.collider.gameObject.GetComponent<ArrayLine>().endPos;
                     GameObject block = lineEndBlock.transform.parent.parent.gameObject;
 
+
+                    //When deleting a line if its connected end block have a data structure assigned remove it, since the connection for that data structure is removing
                     if (block.GetComponent<ArrayBlock>().dataStructure != "")
                     {
                         block.GetComponent<ArrayBlock>().dataStructure = "";
@@ -207,7 +209,6 @@ public class ArrayLineManager : MonoBehaviour
                         }
                     }
 
-             
                     EraseLine(lineHit.collider.gameObject);
                 }
             }
