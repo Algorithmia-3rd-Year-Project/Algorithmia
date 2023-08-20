@@ -18,6 +18,9 @@ public class ArrayLineManager : MonoBehaviour
     private ArrayLevelManager levelManager;
 
     [SerializeField]
+    private ArrayBlockManager blockManager;
+
+    [SerializeField]
     private int orderIndex;
 
     private List<Vector2> resetPathsForCollider = new List<Vector2>()
@@ -103,6 +106,47 @@ public class ArrayLineManager : MonoBehaviour
                                 int dataCount = startPoint.GetComponent<ArrayBlock>().dataElementCount;
                                 nextObject.GetComponent<ArrayBlock>().pseudoElement.transform.SetSiblingIndex(orderIndex + dataCount + 1);
                             }
+
+                            //pass the connected data structure name along the line
+                            nextObject.GetComponent<ArrayBlock>().dataStructure = startPoint.GetComponent<ArrayBlock>().dataStructure;
+
+                            //update the pseudo code
+                            string dataStructure = nextObject.GetComponent<ArrayBlock>().dataStructure;
+
+                            if (dataStructure != "")
+                            {
+
+                                if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Print")
+                                {
+
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>s</color> to <color=yellow>e</color>%	      print <color=#89CFF0>" + dataStructure + "</color>[index]%end for";
+
+                                    GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                                    string pseudoText = nextObject.GetComponent<ArrayBlock>().pseudoCode;
+                                    string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                                    StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                                } else if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Reverse")
+                                {
+
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = <color=#89CFF0>" + dataStructure + "</color>[<color=yellow>start</color>]%      <color=#89CFF0>" + dataStructure + "</color>[<color=yellow>start</color>] = <color=#89CFF0>" + dataStructure + "</color>[<color=yellow>end</color>]%      <color=#89CFF0>" + dataStructure + "</color>[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+
+                                    GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                                    string pseudoText = nextObject.GetComponent<ArrayBlock>().pseudoCode;
+                                    string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                                    StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
+                                }
+
+
+
+                            }
+                             
                         }
 
                         currentLine = null;
@@ -130,6 +174,40 @@ public class ArrayLineManager : MonoBehaviour
                 if (lineHit.collider.CompareTag("Line"))
                 {
                     Debug.Log("Line Hit");
+
+                    GameObject lineEndBlock = lineHit.collider.gameObject.GetComponent<ArrayLine>().endPos;
+                    GameObject block = lineEndBlock.transform.parent.parent.gameObject;
+
+                    if (block.GetComponent<ArrayBlock>().dataStructure != "")
+                    {
+                        block.GetComponent<ArrayBlock>().dataStructure = "";
+
+                        if (block.GetComponent<ArrayBlock>().blockName == "Array Print")
+                        {
+
+                            block.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>s</color> to <color=yellow>e</color>%	      print Array[index]%end for";
+                            GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+                            StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
+                        }
+
+                        if (block.GetComponent<ArrayBlock>().blockName == "Array Reverse")
+                        {
+
+                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                            GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+                            StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
+                        }
+                    }
+
+             
                     EraseLine(lineHit.collider.gameObject);
                 }
             }
