@@ -50,6 +50,9 @@ public class ArrayBlockManager : MonoBehaviour
     private GameObject codeReverseInstance;
 
     [SerializeField]
+    private GameObject codeInsertionInstance;
+
+    [SerializeField]
     private float typingSpeed;
 
     private void Start()
@@ -142,7 +145,12 @@ public class ArrayBlockManager : MonoBehaviour
                             if (singleHit.collider.CompareTag("Data"))
                             {
                                 currentObj = singleHit.collider.gameObject;
-                                currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().dataElementCount -= 1;
+
+                                if (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().blockName == "Empty Array")
+                                {
+                                    currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().dataElementCount -= 1;
+                                }
+                                
                             }
 
                             if (singleHit.collider.CompareTag("Title"))
@@ -378,7 +386,20 @@ public class ArrayBlockManager : MonoBehaviour
 
                         StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
                     }
-   
+
+                    if (currentObj.GetComponent<ArrayBlock>().blockName == "Array Insertion")
+                    {
+                        GameObject codeObject = Instantiate(codeInsertionInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                        codeObject.transform.SetParent(codeParent.transform);
+
+                        string pseudoText = currentObj.GetComponent<ArrayBlock>().pseudoCode;
+                        string[] pseudoSubstrings = pseudoText.Split('%');
+
+                        currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
+
+                        StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                    }
+
                 }
 
                 currentObj = null;
@@ -429,7 +450,11 @@ public class ArrayBlockManager : MonoBehaviour
                             StartCoroutine(TypingCode(fullPseudoText, code));
 
                             //To track elements count of an Array object
-                            levelManager.correctForms[i].gameObject.transform.parent.parent.GetComponent<ArrayBlock>().dataElementCount += 1;
+                            if (levelManager.correctForms[i].gameObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().blockName == "Empty Array")
+                            {
+                                levelManager.correctForms[i].gameObject.transform.parent.parent.GetComponent<ArrayBlock>().dataElementCount += 1;
+                            }
+                                
                         }
 
 
