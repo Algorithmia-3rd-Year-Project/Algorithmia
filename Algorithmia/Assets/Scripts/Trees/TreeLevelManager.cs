@@ -7,6 +7,8 @@ public class TreeLevelManager : MonoBehaviour
 
     public List<GameObject> snapPoints;
 
+    public List<GameObject> dataSnapPoints;
+
     public List<bool> isSnapBlock = new List<bool>()
     {
         false, false, false, false, false, false, false, false, false, false, false, false, false, false, false

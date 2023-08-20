@@ -595,6 +595,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   levelManager: {fileID: 1294464758}
+  dataLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &132267878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1584,10 +1587,6 @@ PrefabInstance:
       propertyPath: levelManager
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 598441876, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
       value: d
@@ -1658,7 +1657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5494610160991775998, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Name
-      value: Data Block (3)
+      value: Data Block
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
@@ -4814,10 +4813,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 96f5351032e95b04ebce4e97b5b99a7f, type: 3}
-    - target: {fileID: 598441876, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
       value: c
@@ -4888,7 +4883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5494610160991775998, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Name
-      value: Data Block (2)
+      value: Data Block
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
@@ -5068,10 +5063,6 @@ PrefabInstance:
       propertyPath: levelManager
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 598441876, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
       value: b
@@ -5142,7 +5133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5494610160991775998, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Name
-      value: Data Block (1)
+      value: Data Block
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
@@ -5622,6 +5613,7 @@ MonoBehaviour:
   - {fileID: 1195201774}
   - {fileID: 943574165}
   - {fileID: 572783913}
+  dataSnapPoints: []
   isSnapBlock: 000000000000000000000000000000
   isNodeSnapped: 000000000000000000000000000000
 --- !u!4 &1294464760
@@ -9204,9 +9196,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4160351161963710937, guid: 466f825cb6f498340a8f51ca44fa3ecc, type: 3}
+      propertyPath: snapped
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4160351161963710937, guid: 466f825cb6f498340a8f51ca44fa3ecc, type: 3}
+      propertyPath: inWorkspace
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2146301762435662304, guid: 466f825cb6f498340a8f51ca44fa3ecc, type: 3}
       propertyPath: m_Name
       value: Tree Node
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146301762435662304, guid: 466f825cb6f498340a8f51ca44fa3ecc, type: 3}
+      propertyPath: m_TagString
+      value: Inventory
       objectReference: {fileID: 0}
     - target: {fileID: 2146301762435662310, guid: 466f825cb6f498340a8f51ca44fa3ecc, type: 3}
       propertyPath: m_RootOrder
@@ -9321,5 +9325,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Data Block
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5830264950027680289, guid: 8e7638811c779ea4d89a38b10be42f1c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8e7638811c779ea4d89a38b10be42f1c, type: 3}
