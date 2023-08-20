@@ -1035,9 +1035,9 @@ MonoBehaviour:
   inWorkspace: 0
   blockName: Array Reverse
   dataType: 
-  pseudoCode: <color=yellow>start</color> = 0%<color=yellow>end</color> = 0%while
-    <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color>
-    temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>]
+  pseudoCode: <color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color>
+    = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%     
+    <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>]
     = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%     
     <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color>
     = <color=yellow>end</color> - 1%end while
@@ -1045,6 +1045,8 @@ MonoBehaviour:
   dataElementCount: 0
   startPoint: 
   endPoint: 
+  start: 
+  end: 
 --- !u!1 &3346660871885036232
 GameObject:
   m_ObjectHideFlags: 0
