@@ -20,6 +20,10 @@ public class ArrayBlock : MonoBehaviour
     public string startPoint;
     public string endPoint;
 
+    [Header("Reverse Function Settings")]
+    public string start;
+    public string end;
+
     private void Start()
     {
         inWorkspace = false;

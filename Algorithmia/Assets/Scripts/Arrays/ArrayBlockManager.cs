@@ -467,6 +467,40 @@ public class ArrayBlockManager : MonoBehaviour
 
                         }
 
+                        //Excute only if data is snapped into reverse function's start snap point
+                        if (levelManager.correctForms[i].name == "Reverse - Start Point")
+                        {
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = currentObj.GetComponent<DataBlock>().dataValue;
+                            string endValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
+
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + "</color>%<color=yellow>end</color> = <color=#F88379>" + endValue + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                            GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                        //Excute only if data is snapped into reverse function's end snap point
+                        if (levelManager.correctForms[i].name == "Reverse - End Point")
+                        {
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = currentObj.GetComponent<DataBlock>().dataValue;
+                            string startValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
+
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + startValue + "</color>%<color=yellow>end</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                            GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
                         break;
                     }
                 }
