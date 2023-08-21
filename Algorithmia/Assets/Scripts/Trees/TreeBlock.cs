@@ -8,7 +8,7 @@ public class TreeBlock : MonoBehaviour
 
     public string blockName;
 
-    public bool snapped = false;
+    public bool snapped;
 
     [SerializeField]
     private TreeLevelManager levelManager;

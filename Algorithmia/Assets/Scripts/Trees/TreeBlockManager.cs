@@ -16,7 +16,6 @@ public class TreeBlockManager : MonoBehaviour
     private float startPosY;
     private float startPosX;
 
-
     [SerializeField]
     private TreeLevelManager levelManager;
 
@@ -39,12 +38,14 @@ public class TreeBlockManager : MonoBehaviour
             Vector2 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
+            //Sending a raycast to inventory objects
             RaycastHit2D inventoryHit = Physics2D.Raycast(mousePos, Vector3.zero, Mathf.Infinity, blockLayer);
 
             if (inventoryHit.collider != null)
             {
                 if (inventoryHit.collider.gameObject.name == "Tree Node")
                 {
+                    //Create a new tree node
                     currentObj = Instantiate(treeblocksList.blockList["Tree Node"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
 
                     startPosX = mousePos.x - currentObj.transform.position.x;
@@ -53,11 +54,11 @@ public class TreeBlockManager : MonoBehaviour
             }
             else
             {
+                //Sending a raycast to data objects
                 RaycastHit2D dataHit = Physics2D.Raycast(mousePos, Vector3.zero, Mathf.Infinity, dataLayer);
 
                 if (dataHit.collider != null)
                 {
-                    Debug.Log("data");
                     currentObj = dataHit.collider.gameObject;
 
                     startPosX = mousePos.x - currentObj.transform.position.x;
@@ -73,38 +74,51 @@ public class TreeBlockManager : MonoBehaviour
                 Vector3 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-
+                //Move the selected game object
                 currentObj.transform.position = new Vector3(mousePos.x - startPosX, mousePos.y - startPosY, 0f);
             }
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-
+            //For inventory objects in workspace
             if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<TreeBlock>().inWorkspace == true)
             {
-                for(int i = 0; i<levelManager.isSnapBlock.Count; i++)
+                currentObj.GetComponent<TreeBlock>().snapped = false;
+                for (int i = 0; i<levelManager.isSnapBlock.Count; i++)
                 {
+                    //When current object is in trigger of a snap block in the tree
                     if (levelManager.isSnapBlock[i] == true && levelManager.isNodeSnapped[i] == false)
                     {
-                        currentObj.transform.position = levelManager.snapPoints[i].transform.position;
+                        currentObj.transform.position = levelManager.snapPoints[i].transform.position;      //snap
                         levelManager.isSnapBlock[i] = false;
                         levelManager.isNodeSnapped[i] = true;
                         currentObj.GetComponent<TreeBlock>().snapped = true;
 
+                        //Add data snap point to the list
                         GameObject SnapPoint = currentObj.transform.Find("Snap Point").gameObject;
                         levelManager.dataSnapPoints.Add(SnapPoint);
+
+                        //Display the head text
+                        if (currentObj.transform.position == levelManager.snapPoints[0].transform.position)
+                        {
+                            currentObj.transform.Find("Head Text").gameObject.SetActive(true);
+                        }
                        
                     }
                 }
+
+                //If object is not snapped destroy
                 if (currentObj.GetComponent<TreeBlock>().snapped == false)
                 {
+                    Debug.Log("snapped false");
                     Destroy(currentObj);
                 }
 
                 currentObj = null;
             }
 
+            //For data objects
             else if (currentObj != null && currentObj.CompareTag("Data"))
             {
 
@@ -114,16 +128,15 @@ public class TreeBlockManager : MonoBehaviour
 
                 for (int i = 0; i < levelManager.dataSnapPoints.Count; i++)
                 {
+                    //Check whether it is within the snap radius and data object is not snapped already
                     if ((Mathf.Abs(currentObj.transform.position.x - levelManager.dataSnapPoints[i].transform.position.x) <= _snapRadius &&
                     Mathf.Abs(currentObj.transform.position.y - levelManager.dataSnapPoints[i].transform.position.y) <= _snapRadius) &&
                     levelManager.dataSnapPoints[i].transform.childCount == 0)
                     {
-                        currentObj.transform.position = new Vector3(levelManager.dataSnapPoints[i].transform.position.x, levelManager.dataSnapPoints[i].transform.position.y, 0f);
+                        currentObj.transform.position = new Vector3(levelManager.dataSnapPoints[i].transform.position.x, levelManager.dataSnapPoints[i].transform.position.y, 0f);      //snap
                         currentObj.GetComponent<DataBlock>().snapped = true;
 
-                        //ChangeBlockLayer(currentObj.transform, "Workspace");
-
-                        //make the data element a child of the snapped point
+                        //Make the data element a child of the snapped point
                         currentObj.transform.SetParent(levelManager.dataSnapPoints[i].transform);
 
                         currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
@@ -132,12 +145,13 @@ public class TreeBlockManager : MonoBehaviour
                     }
                 }
 
+                //If data is not snapped
                 if (currentObj.GetComponent<DataBlock>().snapped == false)
                 {
+                    //Return data object to where it was
                     Vector3 currentResetPos = currentObj.GetComponent<DataBlock>().resetPosition;
                     currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
                     currentObj.transform.SetParent(dataParentObj);
-                    //ChangeBlockLayer(currentObj.transform, "Data");
                     currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
 
                     currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
