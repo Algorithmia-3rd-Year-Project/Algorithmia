@@ -103,7 +103,28 @@ public class ArrayLineManager : MonoBehaviour
                             }
                             else if (startPoint.GetComponent<ArrayBlock>().dataElementCount != 0)
                             {
+
                                 int dataCount = startPoint.GetComponent<ArrayBlock>().dataElementCount;
+
+                                //To change the data elements order in the vertical layout group
+                                int encounteredChildren = 0;
+
+                                for (int j=0; j< 4; j++)
+                                {
+                                    if (startPoint.transform.Find("Snap Points").transform.Find(j.ToString()).transform.childCount != 0)
+                                    {
+                                        GameObject child = startPoint.transform.Find("Snap Points").transform.Find(j.ToString()).transform.Find("Data Block").gameObject;
+                                        encounteredChildren += 1;
+                                        child.GetComponent<DataBlock>().pseudoElement.transform.SetSiblingIndex(orderIndex + encounteredChildren);
+                                        Debug.Log(child.name);
+                                    }
+
+                                    if (encounteredChildren == dataCount)
+                                    {
+                                        break;
+                                    }
+                                }
+
                                 nextObject.GetComponent<ArrayBlock>().pseudoElement.transform.SetSiblingIndex(orderIndex + dataCount + 1);
                             }
 
