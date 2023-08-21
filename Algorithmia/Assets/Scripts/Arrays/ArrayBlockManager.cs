@@ -279,6 +279,7 @@ public class ArrayBlockManager : MonoBehaviour
                 {
                     if (currentObj.GetComponent<DataBlock>().snapped == true)
                     {
+                        //Execute as a data block is being removed from the print function
                         if (currentObj.transform.parent.gameObject.name == "Print - Start Point")
                         {
                             currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = "s";
@@ -296,6 +297,7 @@ public class ArrayBlockManager : MonoBehaviour
 
                         }
 
+                        //Execute as a data block is being removed from the print function's end point
                         if (currentObj.transform.parent.gameObject.name == "Print - End Point")
                         {
                             currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = "e";
@@ -312,6 +314,81 @@ public class ArrayBlockManager : MonoBehaviour
                             StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
 
                         }
+
+
+                        //Execute as a data block is being removed from the reverse function's start parameter
+                        if (currentObj.transform.parent.gameObject.name == "Reverse - Start Point")
+                        {
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint = "0";
+
+                            string endValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint == "") ? "0" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint;
+
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint + "</color>%<color=yellow>end</color> = <color=#F88379>" + endValue + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                            GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                        //Execute as a data block is being removed from the reverse function's end parameter
+                        if (currentObj.transform.parent.gameObject.name == "Reverse - End Point")
+                        {
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint = "0";
+
+                            string startValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint == "") ? "0" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().startPoint;
+
+                            currentObj.transform.parent.parent.parent.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + startValue + "</color>%<color=yellow>end</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().endPoint + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                            GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+
+                        //Execute as a data block is being removed from the insertion function's position value
+                        if (currentObj.transform.parent.gameObject.name == "Position Point")
+                        {
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint = "0";
+
+                            string elementValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint == "") ? "0" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint;
+
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint + "</color>%<color=yellow>element</color> = <color=#F88379>" + elementValue + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                        //Execute as a data block is being removed from the insertion function's element value
+                        if (currentObj.transform.parent.gameObject.name == "Value Point")
+                        {
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint = "0";
+
+                            string positionValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint == "") ? "0" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint;
+
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + positionValue + "</color>%<color=yellow>element</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
 
                     }
 
@@ -526,6 +603,40 @@ public class ArrayBlockManager : MonoBehaviour
 
                         }
 
+                        //Excute only if data is snapped into insertion function's position snap point
+                        if (levelManager.correctForms[i].name == "Position Point")
+                        {
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint = currentObj.GetComponent<DataBlock>().dataValue;
+                            string elementValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint;
+
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint + "</color>%<color=yellow>element</color> = <color=#F88379>" + elementValue + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                        //Excute only if data is snapped into insertion function's element snap point
+                        if (levelManager.correctForms[i].name == "Value Point")
+                        {
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint = currentObj.GetComponent<DataBlock>().dataValue;
+                            string positionValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint;
+
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + positionValue + "</color>%<color=yellow>element</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
                         break;
                     }
                 }
@@ -545,8 +656,6 @@ public class ArrayBlockManager : MonoBehaviour
                     currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
                     Transform dataText = currentObj.transform.Find("a-data");
                     dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
-
-
                 }
 
                 currentObj = null;

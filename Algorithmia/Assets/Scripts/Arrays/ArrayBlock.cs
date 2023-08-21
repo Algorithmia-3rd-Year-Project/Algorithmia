@@ -24,6 +24,10 @@ public class ArrayBlock : MonoBehaviour
     public string start;
     public string end;
 
+    [Header("Insertion Function Settings")]
+    public string positionPoint;
+    public string elementPoint;
+
     public string dataStructure;
 
     private void Start()
