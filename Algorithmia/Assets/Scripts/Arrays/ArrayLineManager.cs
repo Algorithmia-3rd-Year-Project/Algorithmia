@@ -249,7 +249,7 @@ public class ArrayLineManager : MonoBehaviour
 
 
                     //When deleting a line if its connected end block have a data structure assigned remove it, since the connection for that data structure is removing
-                    if (block.GetComponent<ArrayBlock>().dataStructure != "")
+                    if (block.name != "Computer" && block.GetComponent<ArrayBlock>().dataStructure != "")
                     {
                         block.GetComponent<ArrayBlock>().dataStructure = "";
 
