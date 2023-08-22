@@ -84,7 +84,7 @@ public class ArrayLineManager : MonoBehaviour
             {
                 for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
                 {
-                    if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 0.5f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 0.5f)
+                    if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 0.2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 0.2f)
                     {
                         currentLine.GetComponent<LineRenderer>().SetPosition(1, new Vector3(levelManager.lineEndPoints[i].position.x, levelManager.lineEndPoints[i].position.y, 0f));
                         currentLine.GetComponent<ArrayLine>().endPos = levelManager.lineEndPoints[i].gameObject;
@@ -129,7 +129,21 @@ public class ArrayLineManager : MonoBehaviour
                             }
 
                             //pass the connected data structure name along the line
-                            nextObject.GetComponent<ArrayBlock>().dataStructure = startPoint.GetComponent<ArrayBlock>().dataStructure;
+                            if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Insertion")
+                            {
+                                if (levelManager.lineEndPoints[i].gameObject.name == "Parameter Array")
+                                {
+                                    nextObject.GetComponent<ArrayBlock>().newDataStructure = startPoint.GetComponent<ArrayBlock>().dataStructure;
+                                } else if (levelManager.lineEndPoints[i].gameObject.name == "Line End")
+                                {
+                                    nextObject.GetComponent<ArrayBlock>().dataStructure = startPoint.GetComponent<ArrayBlock>().dataStructure;
+                                }
+
+
+                            } else
+                            {
+                                nextObject.GetComponent<ArrayBlock>().dataStructure = startPoint.GetComponent<ArrayBlock>().dataStructure;
+                            }
 
                             //update the pseudo code
                             string dataStructure = nextObject.GetComponent<ArrayBlock>().dataStructure;
@@ -162,12 +176,33 @@ public class ArrayLineManager : MonoBehaviour
 
 
                                     StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
-                                }
 
-
+                                } 
 
                             }
-                             
+
+                            
+                            //Updating pseudo code when a new line is connected to the array insertion block
+                            if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Insertion")
+                            {
+
+                                if (dataStructure != "" || nextObject.GetComponent<ArrayBlock>().newDataStructure != "") 
+                                {
+                                    string prevDataStructure = (dataStructure == "") ? "array" : "<color=#89CFF0>" + dataStructure + "</color>";
+                                    string newDataStructure = (nextObject.GetComponent<ArrayBlock>().newDataStructure == "") ? "newArray" : "<color=#CF9FFF>" + nextObject.GetComponent<ArrayBlock>().newDataStructure + "</color>";
+
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>0</color>%<color=yellow>element</color> = <color=#F88379>0</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = " + prevDataStructure + "[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = " + prevDataStructure + "[i-1]%end for";
+
+                                    GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                                    string pseudoText = nextObject.GetComponent<ArrayBlock>().pseudoCode;
+                                    string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                                    StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
+                                }
+                            }
+
                         }
 
                         currentLine = null;
@@ -221,6 +256,18 @@ public class ArrayLineManager : MonoBehaviour
                         {
 
                             block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                            GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+                            StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
+                        }
+
+                        if (block.GetComponent<ArrayBlock>().blockName == "Array Insertion")
+                        {
+                            string newDataStructure = (block.GetComponent<ArrayBlock>().newDataStructure == "") ? "newArray" : "<color=#CF9FFF>" + block.GetComponent<ArrayBlock>().newDataStructure + "</color>";
+                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>0</color>%<color=yellow>element</color> = <color=#F88379>0</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = array[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = array[i-1]%end for";
                             GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
