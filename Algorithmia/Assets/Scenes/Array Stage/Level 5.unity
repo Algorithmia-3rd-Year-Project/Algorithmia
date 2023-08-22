@@ -2610,7 +2610,7 @@ GameObject:
   - component: {fileID: 223449979}
   - component: {fileID: 223449978}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19698,6 +19698,7 @@ MonoBehaviour:
   codePrintInstance: {fileID: 7680892047821335821, guid: 2518c4c649545c14aa3e0841d7088404, type: 3}
   codeReverseInstance: {fileID: 7680892047821335821, guid: 097a37e0b296e2946aa2dd3f1d829231, type: 3}
   codeInsertionInstance: {fileID: 7680892047821335821, guid: 0c7ba3f2d0852cd4ea9ce99765b9a4bb, type: 3}
+  codeDeletionInstance: {fileID: 0}
   typingSpeed: 0.05
 --- !u!114 &1893835317
 MonoBehaviour:
@@ -19725,7 +19726,7 @@ MonoBehaviour:
   - {fileID: 3263974057308802776, guid: 58b48ed8588c25a4a89944e34469fc22, type: 3}
   - {fileID: 4043599811427068469, guid: ffe452e8b28f5d74cbefa874066d23a7, type: 3}
   - {fileID: 6732541642122879795, guid: 2bf16b6ad096cc44297386fdac3b95ad, type: 3}
-  - {fileID: 8296218316886546352, guid: 605ba4a1e5e21564b896fc71402d01b7, type: 3}
+  - {fileID: 5013637057700640802, guid: 4ed0d6032535b544ebbeee9cc11aa0b6, type: 3}
 --- !u!4 &1893835318
 Transform:
   m_ObjectHideFlags: 0
@@ -19884,6 +19885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1909582230}
   - component: {fileID: 1909582229}
+  - component: {fileID: 1909582231}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -19923,6 +19925,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1909582231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909582228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4643834d9ed093418b1ceef4b2d7f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopwatchText: {fileID: 223449978}
 --- !u!1 &1912719787
 GameObject:
   m_ObjectHideFlags: 0
