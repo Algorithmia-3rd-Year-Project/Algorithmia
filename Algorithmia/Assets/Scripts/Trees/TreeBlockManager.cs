@@ -94,6 +94,7 @@ public class TreeBlockManager : MonoBehaviour
                         levelManager.isSnapBlock[i] = false;
                         levelManager.isNodeSnapped[i] = true;
                         currentObj.GetComponent<TreeBlock>().snapped = true;
+                        ChangeBlockLayer(currentObj.transform, "Workspace");
 
                         //Add data snap point to the list
                         GameObject SnapPoint = currentObj.transform.Find("Snap Point").gameObject;
@@ -136,6 +137,8 @@ public class TreeBlockManager : MonoBehaviour
                         currentObj.transform.position = new Vector3(levelManager.dataSnapPoints[i].transform.position.x, levelManager.dataSnapPoints[i].transform.position.y, 0f);      //snap
                         currentObj.GetComponent<DataBlock>().snapped = true;
 
+                        ChangeBlockLayer(currentObj.transform, "Data");
+
                         //Make the data element a child of the snapped point
                         currentObj.transform.SetParent(levelManager.dataSnapPoints[i].transform);
 
@@ -165,6 +168,19 @@ public class TreeBlockManager : MonoBehaviour
             }
         }
 
+    }
+    private void ChangeBlockLayer(Transform currentObj, string layerName)
+    {
+        if (currentObj != null)
+        {
+            currentObj.gameObject.layer = LayerMask.NameToLayer(layerName);
+        }
+
+        for (int i = 0; i < currentObj.childCount; i++)
+        {
+            Transform childTransform = currentObj.GetChild(i);
+            ChangeBlockLayer(childTransform, layerName);
+        }
     }
 
 }

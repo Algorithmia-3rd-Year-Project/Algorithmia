@@ -34,24 +34,37 @@ public class TreeLineManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            //Sending a raycast to inventory objects
-            RaycastHit2D lineStartHit = Physics2D.Raycast(mousePos, Vector3.zero, Mathf.Infinity, workspaceLayer);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos, Vector2.zero, Mathf.Infinity, workspaceLayer);
 
-
-            if (lineStartHit.collider.CompareTag("LineStart"))
+            if (hits.Length > 0)
             {
-                Debug.Log("Line start");
-                startPoint = lineStartHit.collider.gameObject;
+                foreach (RaycastHit2D singleHit in hits)
+                {
+                    if (singleHit.collider.CompareTag("LineStart"))
+                    {
+                        startPoint = singleHit.collider.gameObject;
+                        Debug.Log(startPoint);
 
+                        GameObject functionObj = singleHit.collider.gameObject.transform.parent.parent.gameObject;
+                        currentLine = functionObj.transform.Find("Line").gameObject;
+                        currentLine.GetComponent<LineRenderer>().positionCount = 2;
+                        currentLine.GetComponent<TreeLine>().startPos = singleHit.collider.gameObject;
 
-                GameObject functionObj = lineStartHit.collider.gameObject.transform.parent.parent.gameObject;
-                currentLine = functionObj.transform.Find("Line").gameObject;
-                currentLine.GetComponent<LineRenderer>().positionCount = 2;
-                currentLine.GetComponent<TreeLine>().startPos = lineStartHit.collider.gameObject;
+                    }
+                }
+            }
+        }
 
+        if (Input.GetMouseButton(0))
+        {
+
+            if (currentLine != null)
+            {
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                currentLine.GetComponent<LineRenderer>().SetPosition(0, new Vector3(currentLine.GetComponent<TreeLine>().startPos.transform.position.x, currentLine.GetComponent<TreeLine>().startPos.transform.position.y, 0f));
+                currentLine.GetComponent<LineRenderer>().SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
             }
         }
     }
