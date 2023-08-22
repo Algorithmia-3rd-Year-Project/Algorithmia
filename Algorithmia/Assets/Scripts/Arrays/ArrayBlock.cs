@@ -27,6 +27,8 @@ public class ArrayBlock : MonoBehaviour
     [Header("Insertion Function Settings")]
     public string positionPoint;
     public string elementPoint;
+    public string newDataStructure;
+
 
     public string dataStructure;
 

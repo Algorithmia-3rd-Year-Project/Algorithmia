@@ -437,6 +437,20 @@ public class ArrayBlockManager : MonoBehaviour
 
                     }
 
+                    if (currentObj.GetComponent<ArrayBlock>().blockName == "Long Array")
+                    {
+                        GameObject codeObject = Instantiate(codeArrayInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                        codeObject.transform.SetParent(codeParent.transform);
+
+                        currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
+
+                        GameObject code = codeObject.transform.Find("Code").gameObject;
+                        string pseudoText = "<color=green>" + currentObj.GetComponent<ArrayBlock>().dataType + "</color> " + currentObj.GetComponent<ArrayBlock>().pseudoCode;
+
+                        StartCoroutine(TypingCode(pseudoText, code));
+
+                    }
+
                     if (currentObj.GetComponent<ArrayBlock>().blockName == "Array Print")
                     {
                         GameObject codeObject = Instantiate(codePrintInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
@@ -696,6 +710,13 @@ public class ArrayBlockManager : MonoBehaviour
             if (endPoint != null)
             {
                 levelManager.lineEndPoints.Add(endPoint);
+            }
+
+            //for adding parameter array end point
+            Transform parameterArray = linePoints.Find("Parameter Array");
+            if (parameterArray != null)
+            {
+                levelManager.lineEndPoints.Add(parameterArray);
             }
 
         }
