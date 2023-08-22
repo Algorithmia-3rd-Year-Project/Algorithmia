@@ -84,7 +84,7 @@ public class ArrayLineManager : MonoBehaviour
             {
                 for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
                 {
-                    if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f)
+                    if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 0.5f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 0.5f)
                     {
                         currentLine.GetComponent<LineRenderer>().SetPosition(1, new Vector3(levelManager.lineEndPoints[i].position.x, levelManager.lineEndPoints[i].position.y, 0f));
                         currentLine.GetComponent<ArrayLine>().endPos = levelManager.lineEndPoints[i].gameObject;
