@@ -29,6 +29,9 @@ public class ArrayBlock : MonoBehaviour
     public string elementPoint;
     public string newDataStructure;
 
+    [Header("Deletion Function Settings")]
+    public string indexPoint;
+    public string lengthPoint;
 
     public string dataStructure;
 

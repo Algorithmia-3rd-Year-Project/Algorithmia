@@ -177,7 +177,20 @@ public class ArrayLineManager : MonoBehaviour
 
                                     StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
 
-                                } 
+                                } else if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Deletion")
+                                {
+
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>0</color>%<color=yellow>length</color> = <color=#F88379>0</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      <color=#89CFF0>" + dataStructure + "</color>[i] = <color=#89CFF0>" + dataStructure + "</color>[i+1]%end for%<color=#89CFF0>" + dataStructure + "</color>[<color=yellow>length</color>-1] = null";
+
+                                    GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                                    string pseudoText = nextObject.GetComponent<ArrayBlock>().pseudoCode;
+                                    string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                                    StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                                }
 
                             }
 
@@ -268,6 +281,18 @@ public class ArrayLineManager : MonoBehaviour
                         {
                             string newDataStructure = (block.GetComponent<ArrayBlock>().newDataStructure == "") ? "newArray" : "<color=#CF9FFF>" + block.GetComponent<ArrayBlock>().newDataStructure + "</color>";
                             block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>0</color>%<color=yellow>element</color> = <color=#F88379>0</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = array[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = array[i-1]%end for";
+                            GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+                            StartCoroutine(blockManager.TypingMultipleCode(pseudoSubstrings, codeObject));
+                        }
+
+                        if (block.GetComponent<ArrayBlock>().blockName == "Array Deletion")
+                        {
+
+                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>0</color>%<color=yellow>length</color> = <color=#F88379>0</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      array[i] = array[i+1]%end for%array[<color=yellow>length</color>-1] = null";
                             GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;

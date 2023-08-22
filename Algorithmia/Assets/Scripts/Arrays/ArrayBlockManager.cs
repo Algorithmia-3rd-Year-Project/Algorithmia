@@ -53,6 +53,9 @@ public class ArrayBlockManager : MonoBehaviour
     private GameObject codeInsertionInstance;
 
     [SerializeField]
+    private GameObject codeDeletionInstance;
+
+    [SerializeField]
     private float typingSpeed;
 
     private void Start()
@@ -389,6 +392,43 @@ public class ArrayBlockManager : MonoBehaviour
 
                         }
 
+                        //Execute as a data block is being removed from the deletion function's index value
+                        if (currentObj.transform.parent.gameObject.name == "Index Point")
+                        {
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().indexPoint = "0";
+
+                            string lengthValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().lengthPoint == "") ? "0" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().lengthPoint;
+
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().indexPoint + "</color>%<color=yellow>length</color> = <color=#F88379>" + lengthValue + "</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      array[i] = array[i+1]%end for%array[<color=yellow>length</color>-1] = null";
+                            GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+
+                        //Execute as a data block is being removed from the deletion function's length value
+                        if (currentObj.transform.parent.gameObject.name == "Length Point")
+                        {
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().lengthPoint = "0";
+
+                            string indexValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().indexPoint == "") ? "0" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().indexPoint;
+
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>" + indexValue + "</color>%<color=yellow>length</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().lengthPoint + "</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      array[i] = array[i+1]%end for%array[<color=yellow>length</color>-1] = null";
+                            GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
 
                     }
 
@@ -481,6 +521,19 @@ public class ArrayBlockManager : MonoBehaviour
                     if (currentObj.GetComponent<ArrayBlock>().blockName == "Array Insertion")
                     {
                         GameObject codeObject = Instantiate(codeInsertionInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                        codeObject.transform.SetParent(codeParent.transform);
+
+                        string pseudoText = currentObj.GetComponent<ArrayBlock>().pseudoCode;
+                        string[] pseudoSubstrings = pseudoText.Split('%');
+
+                        currentObj.GetComponent<ArrayBlock>().pseudoElement = codeObject;
+
+                        StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                    }
+
+                    if (currentObj.GetComponent<ArrayBlock>().blockName == "Array Deletion")
+                    {
+                        GameObject codeObject = Instantiate(codeDeletionInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
                         codeObject.transform.SetParent(codeParent.transform);
 
                         string pseudoText = currentObj.GetComponent<ArrayBlock>().pseudoCode;
@@ -641,6 +694,40 @@ public class ArrayBlockManager : MonoBehaviour
                             string positionValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint;
 
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + positionValue + "</color>%<color=yellow>element</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                        //Excute only if data is snapped into deletion function's index point
+                        if (levelManager.correctForms[i].name == "Index Point")
+                        {
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().indexPoint = currentObj.GetComponent<DataBlock>().dataValue;
+                            string lengthValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().lengthPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().lengthPoint;
+
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().indexPoint + "</color>%<color=yellow>length</color> = <color=#F88379>" + lengthValue + "</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      array[i] = array[i+1]%end for%array[<color=yellow>length</color>-1] = null";
+                            GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
+
+                            string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
+                        }
+
+                        //Excute only if data is snapped into deletion function's length point
+                        if (levelManager.correctForms[i].name == "Length Point")
+                        {
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().lengthPoint = currentObj.GetComponent<DataBlock>().dataValue;
+                            string indexValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().indexPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().indexPoint;
+
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>" + indexValue + "</color>%<color=yellow>length</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().lengthPoint + "</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      array[i] = array[i+1]%end for%array[<color=yellow>length</color>-1] = null";
                             GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
