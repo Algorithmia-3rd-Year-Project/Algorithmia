@@ -783,11 +783,9 @@ MonoBehaviour:
   keys:
   - LL Head node
   - LL Normal node
-  - Right Arrow
   values:
   - {fileID: 8944193144933960559, guid: bbb5dcf1688a859468cb7dccf2c19b37, type: 3}
   - {fileID: 6455928738980366256, guid: c59c4b865a33104438dccd8eb0ecea6b, type: 3}
-  - {fileID: 6960421928952528417, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
 --- !u!114 &1494340589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -811,9 +809,10 @@ MonoBehaviour:
     m_Bits: 0
   dataLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   dataParentObj: {fileID: 0}
   levelManager: {fileID: 0}
+  setTriggers: 0
 --- !u!4 &1494340590
 Transform:
   m_ObjectHideFlags: 0
@@ -2191,38 +2190,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1027345054}
     m_Modifications:
-    - target: {fileID: 1578241302249208393, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578241302249208393, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1578241302249208393, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -378976711
-      objectReference: {fileID: 0}
-    - target: {fileID: 3231513093670699312, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3231513093670699312, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_SortingOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3231513093670699312, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -378976711
-      objectReference: {fileID: 0}
-    - target: {fileID: 3231513093670699314, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3231513095389246219, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: levelManager
-      value: 
-      objectReference: {fileID: 371448272}
     - target: {fileID: 3575771967634334222, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2271,41 +2238,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Arrow
       objectReference: {fileID: 0}
-    - target: {fileID: 6960421928952528417, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6960421928952528417, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-      propertyPath: m_TagString
-      value: Data
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3231513095389246219, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
---- !u!1 &3231513094497165908 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6960421928952528417, guid: 02d526e29788c404e801ac8bc60c53c5, type: 3}
-  m_PrefabInstance: {fileID: 3231513094497165907}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3231513094497165909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3231513094497165908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf8caab880261a94da77ffc9505b9e56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resetPosition: {x: 0, y: 0, z: 0}
-  snapRadius: 0.5
-  snapped: 0
-  dataValue: 
-  originalScale: {x: 0, y: 0, z: 0}
-  setTriggers: 1
-  guideMark: {fileID: 0}
 --- !u!1001 &3980945191955236486
 PrefabInstance:
   m_ObjectHideFlags: 0

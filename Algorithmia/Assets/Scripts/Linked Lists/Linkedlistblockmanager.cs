@@ -58,6 +58,8 @@ public class Linkedlistblockmanager : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, layerMask);
 
+            Debug.Log(hit.collider);
+
             if (hit.collider != null)
             {
                 if (hit.collider.name == "LL Head node")
@@ -82,9 +84,11 @@ public class Linkedlistblockmanager : MonoBehaviour
             else
             {
                 RaycastHit2D dataHit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, dataLayer);
+                Debug.Log(dataHit.collider.name);
 
                 if (dataHit.collider != null)
                 {
+                    //Debug.Log("right arrow");
                     currentObj = dataHit.collider.gameObject;
 
                     startPosX = mousePos.x - currentObj.transform.position.x;
@@ -101,7 +105,10 @@ public class Linkedlistblockmanager : MonoBehaviour
                         {
                             if (singleHit.collider.CompareTag("Data"))
                             {
-                                currentObj = singleHit.collider.gameObject;
+                                //currentObj = singleHit.collider.gameObject;
+                                currentObj = Instantiate(linkedListblocksList.blockList["Left Arrow"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+                                startPosX = mousePos.x - currentObj.transform.position.x;
+                                startPosY = mousePos.y - currentObj.transform.position.y;
                             }
                         }
                     }
@@ -145,7 +152,7 @@ public class Linkedlistblockmanager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == true)
+            if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == true)
             {
 
                 if (currentObj.layer != workspaceLayer)
@@ -178,7 +185,7 @@ public class Linkedlistblockmanager : MonoBehaviour
 
 
             }
-            else if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == false)
+            else if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == false)
             {
 
                 DestroyBlocks(currentObj);

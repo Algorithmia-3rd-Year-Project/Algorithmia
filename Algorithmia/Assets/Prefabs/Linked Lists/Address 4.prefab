@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 306434353924273124}
   - component: {fileID: 306434353924273123}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: a-data
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,9 +68,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: -378976711
+  m_SortingLayer: 1
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 5dd3befc972bb854eaba28eb3e196845, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -94,10 +94,9 @@ GameObject:
   - component: {fileID: 4431263274635592137}
   - component: {fileID: 306434354176665947}
   - component: {fileID: -6495690578638584776}
-  - component: {fileID: 508422071789230800}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Address 4
-  m_TagString: Untagged
+  m_TagString: Data
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +108,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5188264141492028833}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.51, y: 0.53, z: 37.57249}
   m_LocalScale: {x: 0.6649041, y: 0.6354737, z: 1}
   m_Children:
@@ -154,9 +153,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: -378976711
+  m_SortingLayer: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: c0eae639caf2d624caec0243fb2f6335, type: 3}
   m_Color: {r: 0.8490566, g: 0.5566928, b: 0.83394974, a: 1}
   m_FlipX: 0
@@ -213,19 +212,3 @@ MonoBehaviour:
   originalScale: {x: 0, y: 0, z: 0}
   setTriggers: 0
   guideMark: {fileID: 0}
---- !u!114 &508422071789230800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5188264141492028833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d473cd63577cc45be3aca912e359fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: 
-  moving: 0
-  snapRadius: 1
-  levelManager: {fileID: 0}
