@@ -94,7 +94,10 @@ public class TreeBlockManager : MonoBehaviour
                         levelManager.isSnapBlock[i] = false;
                         levelManager.isNodeSnapped[i] = true;
                         currentObj.GetComponent<TreeBlock>().snapped = true;
+                        currentObj.GetComponent<TreeBlock>().snappedLevel = levelManager.snapPoints[i].transform.parent.parent.name;
+                        levelManager.snapPoints[i].transform.parent.Find("Shade").gameObject.SetActive(false);      //Hide the shade after the node is snapped
                         ChangeBlockLayer(currentObj.transform, "Workspace");
+                        TrackLinePoints(currentObj);
 
                         //Add data snap point to the list
                         GameObject SnapPoint = currentObj.transform.Find("Snap Point").gameObject;
@@ -105,19 +108,23 @@ public class TreeBlockManager : MonoBehaviour
                         {
                             currentObj.transform.Find("Head Text").gameObject.SetActive(true);
                         }
-                       
+                        currentObj = null;
                     }
                 }
 
+                
+            }
+
+            if (currentObj != null && currentObj.GetComponent<TreeBlock>().snapped == false)
+            {
                 //If object is not snapped destroy
-                if (currentObj.GetComponent<TreeBlock>().snapped == false)
-                {
+                
+                
                     Debug.Log("snapped false");
                     Destroy(currentObj);
-                }
-
-                currentObj = null;
+                
             }
+            
 
             //For data objects
             else if (currentObj != null && currentObj.CompareTag("Data"))
@@ -181,6 +188,23 @@ public class TreeBlockManager : MonoBehaviour
             Transform childTransform = currentObj.GetChild(i);
             ChangeBlockLayer(childTransform, layerName);
         }
+    }
+
+    private void TrackLinePoints(GameObject parentObj)
+    {
+
+        Transform linePoints = parentObj.transform.Find("Line Points");
+
+        if (linePoints != null)
+        {
+            Transform endPoint = linePoints.Find("Line End");
+            if (endPoint != null)
+            {
+                levelManager.lineEndPoints.Add(endPoint);
+            }
+
+        }
+
     }
 
 }

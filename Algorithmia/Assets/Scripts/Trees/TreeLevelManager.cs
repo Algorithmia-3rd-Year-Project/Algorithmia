@@ -19,5 +19,10 @@ public class TreeLevelManager : MonoBehaviour
         false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
     };
 
+    public List<Transform> lineEndPoints;
+
+    public List<GameObject> lines;
+
+
 
 }

@@ -8,6 +8,8 @@ public class TreeBlock : MonoBehaviour
 
     public string blockName;
 
+    public string snappedLevel;
+
     public bool snapped;
 
     [SerializeField]
@@ -16,7 +18,7 @@ public class TreeBlock : MonoBehaviour
 
     private void Start()
     {
-        levelManager = FindObjectOfType<TreeLevelManager>();
+        levelManager = FindAnyObjectByType<TreeLevelManager>();
         inWorkspace = false;
     }
 
@@ -24,176 +26,177 @@ public class TreeBlock : MonoBehaviour
     {
         if (collision.gameObject != null) 
         {
-            if (collision.gameObject.transform.parent.name == "Level 0")
+            if (collision.gameObject.transform.parent.name == "Level 0" && levelManager.isNodeSnapped[0] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[0] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 1 Left")
+            if (collision.gameObject.transform.parent.name == "Level 1 Left" && levelManager.isNodeSnapped[1] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[1] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 1 Right")
+            if (collision.gameObject.transform.parent.name == "Level 1 Right" && levelManager.isNodeSnapped[2] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[2] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 2 Left 1")
+            if (collision.gameObject.transform.parent.name == "Level 2 Left 1" && levelManager.isNodeSnapped[3] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[3] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 2 Right 1")
+            if (collision.gameObject.transform.parent.name == "Level 2 Right 1" && levelManager.isNodeSnapped[4] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[4] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 2 Left 2")
+            if (collision.gameObject.transform.parent.name == "Level 2 Left 2" && levelManager.isNodeSnapped[5] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[5] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 2 Right 2")
+            if (collision.gameObject.transform.parent.name == "Level 2 Right 2" && levelManager.isNodeSnapped[6] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[6] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 3 Left 1")
+            if (collision.gameObject.transform.parent.name == "Level 3 Left 1" && levelManager.isNodeSnapped[7] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[7] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 3 Right 1")
+            if (collision.gameObject.transform.parent.name == "Level 3 Right 1" && levelManager.isNodeSnapped[8] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[8] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 3 Left 2")
+            if (collision.gameObject.transform.parent.name == "Level 3 Left 2" && levelManager.isNodeSnapped[9] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[9] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 3 Right 2")
+            if (collision.gameObject.transform.parent.name == "Level 3 Right 2" && levelManager.isNodeSnapped[10] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[10] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 3 Left 3")
+            if (collision.gameObject.transform.parent.name == "Level 3 Left 3" && levelManager.isNodeSnapped[11] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[11] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 3 Right 3")
+            if (collision.gameObject.transform.parent.name == "Level 3 Right 3" && levelManager.isNodeSnapped[12] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[12] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
-            if (collision.gameObject.transform.parent.name == "Level 3 Left 4")
+            if (collision.gameObject.transform.parent.name == "Level 3 Left 4" && levelManager.isNodeSnapped[13] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[13] = true;
-            }
-            if (collision.gameObject.transform.parent.name == "Level 3 Right 4")
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
+            } 
+            if (collision.gameObject.transform.parent.name == "Level 3 Right 4" && levelManager.isNodeSnapped[14] == false)
             {
                 inWorkspace = true;
-                Debug.Log("In");
                 levelManager.isSnapBlock[14] = true;
+                collision.gameObject.transform.Find("Shade").gameObject.SetActive(true);
             }
         }
         
     }
 
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.transform.parent.name == "Level 0")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[0] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 1 Left")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[1] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 1 Right")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[2] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 2 Left 1")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[3] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 2 Right 1")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[4] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 2 Left 2")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[5] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 2 Right 2")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[6] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 3 Left 1")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[7] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 3 Right 1")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[8] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 3 Left 2")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[9] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 3 Right 2")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[10] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 3 Left 3")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[11] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 3 Right 3")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[12] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 3 Left 4")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[13] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
         if (collision.gameObject.transform.parent.name == "Level 3 Right 4")
         {
-            Debug.Log("out");
             levelManager.isSnapBlock[14] = false;
+            collision.gameObject.transform.Find("Shade").gameObject.SetActive(false);
         }
     }
 }

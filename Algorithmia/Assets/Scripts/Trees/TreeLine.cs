@@ -49,14 +49,9 @@ public class TreeLine : MonoBehaviour
         {
             startPointName = startPos.transform.parent.parent.GetComponent<TreeBlock>().blockName;
 
-            if (endPos.name == "PC")
-            {
-                endPointName = "Computer";
-            }
-            else
-            {
+            
                 endPointName = endPos.transform.parent.parent.GetComponent<TreeBlock>().blockName;
-            }
+            
 
         }
         else if (lineDrawn == false)
