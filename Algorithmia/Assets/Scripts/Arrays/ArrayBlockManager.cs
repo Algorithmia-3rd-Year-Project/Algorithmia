@@ -900,9 +900,28 @@ public class ArrayBlockManager : MonoBehaviour
 
     public IEnumerator TypingMultipleCode (string[] pseudoSubstrings, GameObject codeObject)
     {
-        for (int i = 0; i < codeObject.transform.childCount; i++)
+        //Checks whether the code instance object has been destroyed while the pseudo code is being printed to the editor
+        if (codeObject == null)
         {
+            yield break;
+        }
+
+        int codeInstanceLength = codeObject.transform.childCount;
+        
+        for (int i = 0; i < codeInstanceLength; i++)
+        {
+            if (codeObject == null)
+            {
+                yield break;
+            }
+            
             GameObject tempObject = codeObject.transform.GetChild(i).gameObject;
+
+            if (tempObject == null)
+            {
+                yield break;
+            }
+            
             if (tempObject.name != "Code")
             {
                 continue;
@@ -919,6 +938,11 @@ public class ArrayBlockManager : MonoBehaviour
 
                         do
                         {
+                            if (tempObject == null)
+                            {
+                                yield break;
+                            }
+                            
                             tempObject.GetComponent<TMP_Text>().text += pseudoSubstrings[i][j];
                             j += 1;
                         }
@@ -926,7 +950,14 @@ public class ArrayBlockManager : MonoBehaviour
 
                     }
 
+                    if (tempObject == null)
+                    {
+                        yield break;
+                    }
+ 
                     tempObject.GetComponent<TMP_Text>().text += pseudoSubstrings[i][j];
+
+                    
                     yield return new WaitForSeconds(0.03f);
                 }
             }
