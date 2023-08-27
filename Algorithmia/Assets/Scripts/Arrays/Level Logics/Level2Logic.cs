@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Text.RegularExpressions;
 
 public class Level2Logic : MonoBehaviour
 {
@@ -38,7 +39,20 @@ public class Level2Logic : MonoBehaviour
         }
         
         //Check whether the codeOrder matches with the correctCodeOrder
+        string errorMessage = "";
         
+        for (int i = 0; i < codeOrder.Count; i++)
+        {
+            if (codeOrder[i] != correctCodeOrder[i])
+            {
+                string errorLine = Regex.Replace(codeOrder[i], "<.*?>", string.Empty); 
+                errorMessage = "Line " + i.ToString() + " : " + errorLine;
+                break;
+            }
+        }
+        
+        Debug.Log(errorMessage);
+
     }
 
 }
