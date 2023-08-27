@@ -10505,9 +10505,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ArrayLevel3, Assembly-CSharp
-        m_MethodName: LevelRunEffect
+      - m_Target: {fileID: 1909582231}
+        m_TargetAssemblyTypeName: Level2Logic, Assembly-CSharp
+        m_MethodName: OptimalAnswer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21845,6 +21845,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1909582230}
   - component: {fileID: 1909582229}
+  - component: {fileID: 1909582231}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -21884,6 +21885,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1909582231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909582228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b8d4c129d7e0f4f842116764e64251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  codeEditor: {fileID: 2097343650}
+  codeOrder: []
+  correctCodeOrder: []
 --- !u!1001 &1929589342
 PrefabInstance:
   m_ObjectHideFlags: 0
