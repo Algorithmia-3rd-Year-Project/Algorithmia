@@ -85,7 +85,7 @@ public class TreeBlockManager : MonoBehaviour
             if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<TreeBlock>().inWorkspace == true)
             {
                 currentObj.GetComponent<TreeBlock>().snapped = false;
-                for (int i = 0; i<levelManager.isSnapBlock.Count; i++)
+                for (int i = 0; i < levelManager.isSnapBlock.Count; i++)
                 {
                     //When current object is in trigger of a snap block in the tree
                     if (levelManager.isSnapBlock[i] == true && levelManager.isNodeSnapped[i] == false)
@@ -112,22 +112,20 @@ public class TreeBlockManager : MonoBehaviour
                     }
                 }
 
-                
-            }
 
-            if (currentObj != null && currentObj.GetComponent<TreeBlock>().snapped == false)
-            {
-                //If object is not snapped destroy
-                
-                
+                if (currentObj != null && currentObj.GetComponent<TreeBlock>().snapped == false)
+                {
+                    //If object is not snapped destroy
                     Debug.Log("snapped false");
                     Destroy(currentObj);
-                
+
+                }
             }
+
             
 
             //For data objects
-            else if (currentObj != null && currentObj.CompareTag("Data"))
+            if (currentObj != null && currentObj.CompareTag("Data"))
             {
 
                 float _snapRadius = currentObj.GetComponent<DataBlock>().snapRadius;

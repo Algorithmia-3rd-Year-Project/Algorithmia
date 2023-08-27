@@ -87,6 +87,7 @@ public class TreeLineManager : MonoBehaviour
 
             if (currentLine != null)
             {
+                //FOR LEVEL 0
                 if  (currentLine.GetComponent<TreeLine>().startPos.transform.parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 0") //Check if the name of the start position is Level 0
                 {
                     if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 1")
@@ -94,7 +95,7 @@ public class TreeLineManager : MonoBehaviour
                         for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
                         {
                             if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
-                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 1 Left") //or level 1 Right
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 1 Left")
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
@@ -104,12 +105,31 @@ public class TreeLineManager : MonoBehaviour
                         }
                     }
 
-                    if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 2")
+                    else if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 2")
                     {
                         for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
                         {
                             if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
-                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 1 Right") //or level 1 Right
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 1 Right")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //FOR LEVEL 1 LEFT
+                else if (currentLine.GetComponent<TreeLine>().startPos.transform.parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 1 Left") //Check if the name of the start position is Level 0
+                {
+                    if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 1")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 2 Left 1")
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
@@ -119,9 +139,191 @@ public class TreeLineManager : MonoBehaviour
                         }
                     }
 
-                }   //Repeat this thing for all levels
+                    else if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 2")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 2 Right 1")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+                }
 
+                //FOR LEVEL 1 RIGHT 
+                else if (currentLine.GetComponent<TreeLine>().startPos.transform.parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 1 Right") //Check if the name of the start position is Level 0
+                {
+                    if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 1")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 2 Left 2")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
 
+                    else if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 2")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 2 Right 2")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //FOR LEVEL 2 LEFT 1
+                else if (currentLine.GetComponent<TreeLine>().startPos.transform.parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 2 Left 1") //Check if the name of the start position is Level 0
+                {
+                    if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 1")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 3 Left 1")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+
+                    else if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 2")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 3 Right 1")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //FOR LEVEL 2 RIGHT 1 
+                else if (currentLine.GetComponent<TreeLine>().startPos.transform.parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 2 Right 1") //Check if the name of the start position is Level 0
+                {
+                    if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 1")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 3 Left 2")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+
+                    else if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 2")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 3 Right 2")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //FOR LEVEL 2 LEFT 2
+                else if (currentLine.GetComponent<TreeLine>().startPos.transform.parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 2 Left 2") //Check if the name of the start position is Level 0
+                {
+                    if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 1")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 3 Left 3")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+
+                    else if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 2")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 3 Right 3")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //FOR LEVEL 2 RIGHT 2
+                else if (currentLine.GetComponent<TreeLine>().startPos.transform.parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 2 Right 2") //Check if the name of the start position is Level 0
+                {
+                    if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 1")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 3 Left 4")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+
+                    else if (currentLine.GetComponent<TreeLine>().startPos.name == "Line Start 2")
+                    {
+                        for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
+                        {
+                            if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 2f
+                                && levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel == "Level 3 Right 4")
+                            {
+                                Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
+                                afterLineDrawn(currentLine, i);
+                                currentLine = null;
+                                break;
+                            }
+                        }
+                    }
+                }
 
                 if (currentLine != null && currentLine.GetComponent<TreeLine>().lineDrawn == false)
                 {
@@ -129,8 +331,43 @@ public class TreeLineManager : MonoBehaviour
                     currentLine.GetComponent<TreeLine>().startPos = null;
                     currentLine = null;
                 }
-
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D lineHit = Physics2D.Raycast(mousePos, Vector3.zero, Mathf.Infinity, workspaceLayer);
+
+            if (lineHit.collider != null)
+            {
+                if (lineHit.collider.CompareTag("Line"))
+                {
+                    Debug.Log("Line Hit");
+                    EraseLine(lineHit.collider.gameObject);
+                }
+            }
+        }
+    }
+
+    private void EraseLine(GameObject currentLine)
+    {
+        if (currentLine != null)
+        {
+            for (int i = 0; i < levelManager.lines.Count; i++)
+            {
+                if (levelManager.lines[i] == currentLine)
+                {
+                    levelManager.lines.RemoveAt(i);
+                }
+            }
+
+            currentLine.GetComponent<LineRenderer>().positionCount = 0;
+            currentLine.GetComponent<TreeLine>().lineDrawn = false;
+            currentLine.GetComponent<TreeLine>().colliderPoints.Clear();
+            currentLine.GetComponent<TreeLine>().lineCollider.SetPath(0, resetPathsForCollider);
+            currentLine.GetComponent<TreeLine>().startPos = null;
+            currentLine.GetComponent<TreeLine>().endPos = null;
         }
     }
 
