@@ -24,15 +24,22 @@ public class Level2Logic : MonoBehaviour
         {
             if (codeEditor.transform.GetChild(i).name != "Blank Space")
             {
-                
                 GameObject codeInstance = codeEditor.transform.GetChild(i).gameObject;
-
-                for (int j = 0; j < codeInstance.transform.childCount; j++)
+                GameObject code = null;
+                if (codeInstance.name == "Code Data Instance(Clone)")
                 {
-                    if (codeInstance.transform.GetChild(j).name == "Code")
+                    code = codeInstance.transform.GetChild(0).gameObject;
+                    codeOrder.Add("_" + code.GetComponent<TMP_Text>().text);
+                }
+                else
+                {
+                    for (int j = 0; j < codeInstance.transform.childCount; j++)
                     {
-                        GameObject code = codeInstance.transform.GetChild(j).gameObject;
-                        codeOrder.Add(code.GetComponent<TMP_Text>().text);
+                        if (codeInstance.transform.GetChild(j).name == "Code")
+                        {
+                            code = codeInstance.transform.GetChild(j).gameObject;
+                            codeOrder.Add(code.GetComponent<TMP_Text>().text);
+                        }
                     }
                 }
             }
