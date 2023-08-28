@@ -43,6 +43,9 @@ public class ArrayBlockManager : MonoBehaviour
     [SerializeField]
     private GameObject codeArrayInstance;
 
+    [SerializeField] 
+    private GameObject codeDataInstance;
+    
     [SerializeField]
     private GameObject codePrintInstance;
 
@@ -581,7 +584,7 @@ public class ArrayBlockManager : MonoBehaviour
                         if (levelManager.correctForms[i].name == "0" || levelManager.correctForms[i].name == "1" || levelManager.correctForms[i].name == "2" || levelManager.correctForms[i].name == "3")
                         {
                             //Initializing data into the array
-                            GameObject codeObject = Instantiate(codeArrayInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                            GameObject codeObject = Instantiate(codeDataInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
                             codeObject.transform.SetParent(codeParent.transform);
 
                             currentObj.GetComponent<DataBlock>().pseudoElement = codeObject;
