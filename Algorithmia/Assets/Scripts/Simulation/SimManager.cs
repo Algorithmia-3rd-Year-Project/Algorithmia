@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SimManager : MonoBehaviour
+public class SimManager : MonoBehaviour, IDataPersistence
 {
     [SerializeField]
     private Texture2D computerCursor;
@@ -17,9 +17,21 @@ public class SimManager : MonoBehaviour
     [SerializeField]
     private TMP_Text energyPercent;
 
+    public float coins;
+
     private void Start()
     {
         anyMenuOpened = false;
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.coins = data.coinAmount;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.coinAmount = this.coins;
     }
 
     public void ChangeMouseCursor(bool computerCursorEnabled)
@@ -45,5 +57,10 @@ public class SimManager : MonoBehaviour
     {
         energyBar.value = 0.08f;
         energyPercent.text = "4%";
+    }
+
+    public void spendMoney(float amount)
+    {
+        coins -= amount;
     }
 }
