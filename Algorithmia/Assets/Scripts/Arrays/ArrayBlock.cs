@@ -34,10 +34,13 @@ public class ArrayBlock : MonoBehaviour
     public string lengthPoint;
 
     public string dataStructure;
-
+    public bool addedBlock;
+    
+    
     private void Start()
     {
         inWorkspace = false;
+        addedBlock = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

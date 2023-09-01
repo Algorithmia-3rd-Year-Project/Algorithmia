@@ -465,7 +465,7 @@ public class ArrayBlockManager : MonoBehaviour
                     TrackLinePoints(currentObj);
                     ChangeBlockLayer(currentObj.transform, "Workspace");
                     levelManager.blockCount += 1;
-
+                    currentObj.GetComponent<ArrayBlock>().addedBlock = true;
 
                     if (currentObj.GetComponent<ArrayBlock>().blockName == "Empty Array")
                     {
@@ -875,7 +875,12 @@ public class ArrayBlockManager : MonoBehaviour
         }
 
 
-        levelManager.blockCount -= 1;
+        if (this.currentObj.GetComponent<ArrayBlock>().addedBlock == true)
+        {
+            levelManager.blockCount -= 1;
+            levelManager.blocks.Remove(this.currentObj);
+        }
+        
         Destroy(currentObj.GetComponent<ArrayBlock>().pseudoElement);
         Destroy(currentObj);
     }
