@@ -456,6 +456,8 @@ public class ArrayBlockManager : MonoBehaviour
             {
                 HighlightColorBlockLines(false);
 
+                levelManager.blocks.Add(currentObj);
+                
                 if (currentObj.layer != workspaceLayer)
                 {
 
