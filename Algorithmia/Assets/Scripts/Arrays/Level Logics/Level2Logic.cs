@@ -69,7 +69,6 @@ public class Level2Logic : MonoBehaviour
                     {
                         string extractedText = "" + match.Groups[0].Value[1];
                         int index = int.Parse(extractedText);
-                        //currentArray.Insert(index, word[word.Length - 1]);
                         currentArray[index] = word[word.Length - 1] + "";
                     }
                 }
@@ -100,13 +99,15 @@ public class Level2Logic : MonoBehaviour
                 }
             }
 
-            if (errorMessage != "")
+            
+            string result = string.Join("", currentArray);
+            
+            if (errorMessage != "" && result != "")
             {
-                Debug.Log(errorMessage);
+                Debug.Log(errorMessage + "\n" + "Incompatible data type");
                 return;
             }
 
-            string result = string.Join("", currentArray);
 
             if (result == "cool")
             {
