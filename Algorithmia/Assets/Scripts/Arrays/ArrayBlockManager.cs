@@ -455,8 +455,6 @@ public class ArrayBlockManager : MonoBehaviour
             if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == true)
             {
                 HighlightColorBlockLines(false);
-
-                levelManager.blocks.Add(currentObj);
                 
                 if (currentObj.layer != workspaceLayer)
                 {
@@ -465,7 +463,8 @@ public class ArrayBlockManager : MonoBehaviour
                     TrackLinePoints(currentObj);
                     ChangeBlockLayer(currentObj.transform, "Workspace");
                     levelManager.blockCount += 1;
-
+                    currentObj.GetComponent<ArrayBlock>().addedBlock = true;
+                    levelManager.blocks.Add(currentObj);
 
                     if (currentObj.GetComponent<ArrayBlock>().blockName == "Empty Array")
                     {
@@ -875,7 +874,12 @@ public class ArrayBlockManager : MonoBehaviour
         }
 
 
-        levelManager.blockCount -= 1;
+        if (this.currentObj.GetComponent<ArrayBlock>().addedBlock == true)
+        {
+            levelManager.blockCount -= 1;
+            levelManager.blocks.Remove(this.currentObj);
+        }
+        
         Destroy(currentObj.GetComponent<ArrayBlock>().pseudoElement);
         Destroy(currentObj);
     }
