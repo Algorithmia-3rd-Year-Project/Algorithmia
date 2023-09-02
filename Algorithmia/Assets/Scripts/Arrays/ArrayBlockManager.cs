@@ -455,8 +455,6 @@ public class ArrayBlockManager : MonoBehaviour
             if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<ArrayBlock>().inWorkspace == true)
             {
                 HighlightColorBlockLines(false);
-
-                levelManager.blocks.Add(currentObj);
                 
                 if (currentObj.layer != workspaceLayer)
                 {
@@ -466,6 +464,7 @@ public class ArrayBlockManager : MonoBehaviour
                     ChangeBlockLayer(currentObj.transform, "Workspace");
                     levelManager.blockCount += 1;
                     currentObj.GetComponent<ArrayBlock>().addedBlock = true;
+                    levelManager.blocks.Add(currentObj);
 
                     if (currentObj.GetComponent<ArrayBlock>().blockName == "Empty Array")
                     {
