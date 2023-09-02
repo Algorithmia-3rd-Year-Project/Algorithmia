@@ -8776,7 +8776,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1909582231}
         m_TargetAssemblyTypeName: Level3Logic, Assembly-CSharp
-        m_MethodName: CheckAnswer
+        m_MethodName: OptimalAnswer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10063,6 +10063,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 649030445}
     m_Modifications:
+    - target: {fileID: 440550244, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7df5d0bdf3cbd5e49bfc52eb1bf562e9, type: 3}
     - target: {fileID: 598441876, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -10073,7 +10077,7 @@ PrefabInstance:
       objectReference: {fileID: 1909582229}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: a
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -15215,14 +15219,14 @@ PrefabInstance:
     - target: {fileID: 440550244, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 366e773ef15ecf9488907d9a8c839ac2, type: 3}
+      objectReference: {fileID: 21300000, guid: 0c4b821b4c6df034e8db737764880748, type: 3}
     - target: {fileID: 598441876, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -18379,7 +18383,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2e62e06e40a034897b3c4e2ac6423c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  codeEditor: {fileID: 2097343650}
+  codeOrder: []
+  correctCodeOrder:
+  - <color=green>Character</color> <color=#89CFF0>Array[4]</color>
+  - for index=<color=yellow>0</color> to <color=yellow>3</color>
+  - "\t      print <color=#89CFF0>Array</color>[index]"
+  - end for
   levelManager: {fileID: 1909582229}
+  ww: []
 --- !u!1 &1912719787
 GameObject:
   m_ObjectHideFlags: 0

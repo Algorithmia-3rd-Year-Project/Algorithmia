@@ -142,7 +142,7 @@ public class ArrayLineManager : MonoBehaviour
 
                             } else
                             {
-                                nextObject.GetComponent<ArrayBlock>().dataStructure = startPoint.GetComponent<ArrayBlock>().dataStructure;
+                                nextObject.GetComponent<ArrayBlock>().dataStructure = "<color=#89CFF0>" + startPoint.GetComponent<ArrayBlock>().dataStructure + "</color>";
                             }
 
                             //update the pseudo code
@@ -154,7 +154,7 @@ public class ArrayLineManager : MonoBehaviour
                                 if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Print")
                                 {
 
-                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>s</color> to <color=yellow>e</color>%	      print <color=#89CFF0>" + dataStructure + "</color>[index]%end for";
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>s</color> to <color=yellow>e</color>%	      print " + dataStructure + "[index]%end for";
 
                                     GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
 
