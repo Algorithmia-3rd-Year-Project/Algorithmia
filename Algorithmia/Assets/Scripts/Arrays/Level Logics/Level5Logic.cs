@@ -270,36 +270,87 @@ public class Level5Logic : MonoBehaviour
                 }
                 
             }
+
+            bool printFunction = false;
+            bool reverseFunction = false;
+            int executionCount = 0;
             
+            
+            string result = string.Join("", currentArray);
+
+            string output = result;
+            int x = 0;
+            int start = 0;
+            int end = 0;
+            while (x < codes.Count)
+            {
+                if (codes[x] == correctCodeOrder[x])
+                {
+                    Debug.Log(x);
+                    if (codes[x].Contains("for index"))
+                    {
+                        int s = int.Parse(codes[x][24] + "");
+                        int e = int.Parse(codes[x][51] + "");
+                        int phraseLength = (e - s) + 1;
+                        output = result.Substring(s, phraseLength);
+                        x += 3;
+                        continue;
+                    }
+
+
+                    if (codes[x].Contains("start</color> =") && codes[x].Length == 54)
+                    {
+                        Debug.Log("startinh");
+                        start = int.Parse(codes[x][45] + "");
+                        x += 1;
+                        continue;
+                    }
+
+                    if (codes[x].Contains("end</color> =") && codes[x].Length == 52)
+                    {
+                        Debug.Log("enfing");
+                        end = int.Parse(codes[x][43] + "");
+                        output = ReverseString(output, start, end);
+                        x += 8;
+                        continue;
+                    }
+                    
+                    
+                }
+                x += 1;
+            }
+
+            Debug.Log(output);
+
             /*
             for (int i = 0; i < codes.Count; i++)
             {
-                
+
                 if (codes[i] != correctCodeOrder[i])
                 {
-                    string errorLine = Regex.Replace(codes[i], "<.*?>", string.Empty); 
+                    string errorLine = Regex.Replace(codes[i], "<.*?>", string.Empty);
                     errorMessage = "Line " + i.ToString() + " : " + errorLine;
                     break;
                 }
-                
+
             }
-            
+
             string result = string.Join("", currentArray);
-            
+
 
             if (errorMessage.Contains("for index=s to "))
             {
                 Debug.Log("Undeclared variable s");
                 return;
             }
-            
+
             if (errorMessage.Contains(" to e"))
             {
                 Debug.Log("Undeclared variable e");
                 return;
             }
-            
-            
+
+
             string printBlockCode = "";
             string arrayBlockType = "";
 
@@ -316,7 +367,7 @@ public class Level5Logic : MonoBehaviour
                 }
 
             }
-            
+
             //check for array data type errors
             if (arrayBlockType == "Number")
             {
@@ -339,8 +390,8 @@ public class Level5Logic : MonoBehaviour
                     }
                 }
             }*/
-            
-            
+
+
             /*
             char s = printBlockCode[24];
             char e = printBlockCode[51];
@@ -350,7 +401,7 @@ public class Level5Logic : MonoBehaviour
                 Debug.Log("Invalid data type for s");
                 return;
             }
-            
+
             if (!char.IsDigit(e))
             {
                 Debug.Log("Invalid data type for e");
@@ -375,7 +426,7 @@ public class Level5Logic : MonoBehaviour
 
                 int begin = int.Parse(s.ToString());
                 int end = int.Parse(e.ToString());
-                
+
                 if (begin < 0 || end >= result.Length || begin >= result.Length || end < 0)
                 {
                     Debug.Log("Index is outside the bounds of array");
@@ -383,23 +434,40 @@ public class Level5Logic : MonoBehaviour
                 }
 
                 string receivedOutput = "";
-                
+
                 for (int i = begin; i <= end; i++)
                 {
                     receivedOutput += result[i];
                 }
-                
+
                 if (receivedOutput != expectedResult)
                 {
                     Debug.Log("Expected art but got " + receivedOutput);
                     return;
                 }
-                
+
                 Debug.Log("Victory");
             }*/
-            
-            
+
+
         }
     }
-    
+
+    private string ReverseString(string input, int start, int end)
+    {
+        
+        char[] charArray = input.ToCharArray();
+        
+        while (start < end)
+        {
+            char temp = charArray[start];
+            charArray[start] = charArray[end];
+            charArray[end] = temp;
+
+            start += 1;
+            end -= 1;
+        }
+        Debug.Log("Reversing");
+        return new string(charArray);
+    }
 }

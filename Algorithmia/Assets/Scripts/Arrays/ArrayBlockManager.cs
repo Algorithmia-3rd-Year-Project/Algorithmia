@@ -182,7 +182,8 @@ public class ArrayBlockManager : MonoBehaviour
                                     hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(true);
                                     hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(false);
                                     hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(false);
-                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Character</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                    ArrayBlock reverseBlockData = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>();
+                                    reverseBlockData.pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + reverseBlockData.startPoint + "</color>%<color=yellow>end</color> = <color=#F88379>" + reverseBlockData.endPoint + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Character</color> temp = " + reverseBlockData.dataStructure + "[<color=yellow>start</color>]%      " + reverseBlockData.dataStructure + "[<color=yellow>start</color>] = " + reverseBlockData.dataStructure + "[<color=yellow>end</color>]%      " + reverseBlockData.dataStructure + "[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
 
 
                                 }
@@ -191,7 +192,9 @@ public class ArrayBlockManager : MonoBehaviour
                                     hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(true);
                                     hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(false);
                                     hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(false);
-                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                    ArrayBlock reverseBlockData = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>();
+                                    reverseBlockData.pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + reverseBlockData.startPoint + "</color>%<color=yellow>end</color> = <color=#F88379>" + reverseBlockData.endPoint + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = " + reverseBlockData.dataStructure + "[<color=yellow>start</color>]%      " + reverseBlockData.dataStructure + "[<color=yellow>start</color>] = " + reverseBlockData.dataStructure + "[<color=yellow>end</color>]%      " + reverseBlockData.dataStructure + "[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+
 
                                 }
                                 else if (hitObject.name == "Boolean")
@@ -199,7 +202,9 @@ public class ArrayBlockManager : MonoBehaviour
                                     hitObject.transform.parent.parent.Find("Boolean").gameObject.SetActive(true);
                                     hitObject.transform.parent.parent.Find("Number").gameObject.SetActive(false);
                                     hitObject.transform.parent.parent.Find("Character").gameObject.SetActive(false);
-                                    hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Boolean</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                    ArrayBlock reverseBlockData = hitObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>();
+                                    reverseBlockData.pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + reverseBlockData.startPoint + "</color>%<color=yellow>end</color> = <color=#F88379>" + reverseBlockData.endPoint + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Boolean</color> temp = " + reverseBlockData.dataStructure + "[<color=yellow>start</color>]%      " + reverseBlockData.dataStructure + "[<color=yellow>start</color>] = " + reverseBlockData.dataStructure + "[<color=yellow>end</color>]%      " + reverseBlockData.dataStructure + "[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+
                                 }
 
                                 hitObject.transform.parent.gameObject.SetActive(false);
