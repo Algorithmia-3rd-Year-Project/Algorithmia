@@ -116,7 +116,6 @@ public class ArrayLineManager : MonoBehaviour
                                         GameObject child = startPoint.transform.Find("Snap Points").transform.Find(j.ToString()).transform.Find("Data Block").gameObject;
                                         encounteredChildren += 1;
                                         child.GetComponent<DataBlock>().pseudoElement.transform.SetSiblingIndex(orderIndex + encounteredChildren);
-                                        Debug.Log(child.name);
                                     }
 
                                     if (encounteredChildren == dataCount)
