@@ -4168,7 +4168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 297866649}
   - component: {fileID: 297866650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: data
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15731,7 +15731,7 @@ GameObject:
   - component: {fileID: 1525363490}
   - component: {fileID: 1525363491}
   - component: {fileID: 1525363492}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Data Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16100,6 +16100,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569146203}
   m_CullTransparentMesh: 1
+--- !u!1 &1578979272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4960455611501137079, guid: 6d00bdfc91a83db4b8674cee927a6da4, type: 3}
+  m_PrefabInstance: {fileID: 234552310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1581444620
 GameObject:
   m_ObjectHideFlags: 0
@@ -20787,8 +20792,9 @@ MonoBehaviour:
   lineEndPoints:
   - {fileID: 967441311}
   lines: []
-  blocks: []
-  blockCount: 0
+  blocks:
+  - {fileID: 1578979272}
+  blockCount: 1
   additionalSnapPositions: []
 --- !u!4 &1909582230
 Transform:

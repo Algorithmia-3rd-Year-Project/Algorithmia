@@ -166,7 +166,7 @@ public class ArrayLineManager : MonoBehaviour
                                 } else if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Reverse")
                                 {
 
-                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = <color=#89CFF0>" + dataStructure + "</color>[<color=yellow>start</color>]%      <color=#89CFF0>" + dataStructure + "</color>[<color=yellow>start</color>] = <color=#89CFF0>" + dataStructure + "</color>[<color=yellow>end</color>]%      <color=#89CFF0>" + dataStructure + "</color>[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = " + dataStructure + "[<color=yellow>start</color>]%      " + dataStructure + "[<color=yellow>start</color>] = " + dataStructure + "[<color=yellow>end</color>]%      " + dataStructure + "[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
 
                                     GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
 
