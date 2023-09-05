@@ -374,11 +374,20 @@ public class ArrayBlockManager : MonoBehaviour
                         //Execute as a data block is being removed from the insertion function's position value
                         if (currentObj.transform.parent.gameObject.name == "Position Point")
                         {
+                            
+                            //Data structure which needs to be passed as a parameter into the insertion function
+                            string newDataStructure =
+                                (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>()
+                                    .newDataStructure == "")
+                                    ? "newArray"
+                                    : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>()
+                                        .newDataStructure;
+                            
                             currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint = "0";
 
                             string elementValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint == "") ? "0" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint;
 
-                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint + "</color>%<color=yellow>element</color> = <color=#F88379>" + elementValue + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint + "</color>%<color=yellow>element</color> = <color=#F88379>" + elementValue + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = " + dataStructure + "[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = " + dataStructure + "[i-1]%end for";
                             GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
@@ -392,11 +401,20 @@ public class ArrayBlockManager : MonoBehaviour
                         //Execute as a data block is being removed from the insertion function's element value
                         if (currentObj.transform.parent.gameObject.name == "Value Point")
                         {
+                            
+                            //Data structure which needs to be passed as a parameter into the insertion function
+                            string newDataStructure =
+                                (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>()
+                                    .newDataStructure == "")
+                                    ? "newArray"
+                                    : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>()
+                                        .newDataStructure;
+                            
                             currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint = "0";
 
                             string positionValue = (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint == "") ? "0" : currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint;
 
-                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + positionValue + "</color>%<color=yellow>element</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + positionValue + "</color>%<color=yellow>element</color> = <color=#F88379>" + currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = " + dataStructure + "[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = " + dataStructure + "[i-1]%end for";
                             GameObject codeObject = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
@@ -697,10 +715,18 @@ public class ArrayBlockManager : MonoBehaviour
                         //Excute only if data is snapped into insertion function's position snap point
                         if (levelManager.correctForms[i].name == "Position Point")
                         {
+                            //Data structure which needs to be passed as a parameter into the insertion function
+                            string newDataStructure =
+                                (levelManager.correctForms[i].transform.parent.parent.gameObject
+                                    .GetComponent<ArrayBlock>().newDataStructure == "")
+                                    ? "newArray"
+                                    : levelManager.correctForms[i].transform.parent.parent.gameObject
+                                        .GetComponent<ArrayBlock>().newDataStructure;
+                            
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint = currentObj.GetComponent<DataBlock>().dataValue;
                             string elementValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint;
 
-                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint + "</color>%<color=yellow>element</color> = <color=#F88379>" + elementValue + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint + "</color>%<color=yellow>element</color> = <color=#F88379>" + elementValue + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = " + dataStructure + "[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = " + dataStructure + "[i-1]%end for";
                             GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;
@@ -714,10 +740,19 @@ public class ArrayBlockManager : MonoBehaviour
                         //Excute only if data is snapped into insertion function's element snap point
                         if (levelManager.correctForms[i].name == "Value Point")
                         {
+                            
+                            //Data structure which needs to be passed as a parameter into the insertion function
+                            string newDataStructure =
+                                (levelManager.correctForms[i].transform.parent.parent.gameObject
+                                    .GetComponent<ArrayBlock>().newDataStructure == "")
+                                    ? "newArray"
+                                    : levelManager.correctForms[i].transform.parent.parent.gameObject
+                                        .GetComponent<ArrayBlock>().newDataStructure;
+                            
                             levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint = currentObj.GetComponent<DataBlock>().dataValue;
                             string positionValue = (levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint == "") ? "0" : levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().positionPoint;
 
-                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + positionValue + "</color>%<color=yellow>element</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      newArray[i] = array[i]%end for%newArray[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(newArray) - 1%      newArray[i] = array[i-1]%end for";
+                            levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + positionValue + "</color>%<color=yellow>element</color> = <color=#F88379>" + levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().elementPoint + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = " + dataStructure + "[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = " + dataStructure + "[i-1]%end for";
                             GameObject codeObject = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = levelManager.correctForms[i].transform.parent.parent.gameObject.GetComponent<ArrayBlock>().pseudoCode;

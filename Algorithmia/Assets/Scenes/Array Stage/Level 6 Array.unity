@@ -4259,7 +4259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: o
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -7242,7 +7242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: o
+      value: r
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -8012,7 +8012,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: l
+      value: s
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -8094,7 +8094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: o
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -10039,9 +10039,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ArrayLevel3, Assembly-CSharp
-        m_MethodName: LevelRunEffect
+      - m_Target: {fileID: 1909582232}
+        m_TargetAssemblyTypeName: Level6Logic, Assembly-CSharp
+        m_MethodName: OptimalAnswer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10546,7 +10546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: o
+      value: t
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -16857,7 +16857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: b
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -18725,7 +18725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: o
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -19973,6 +19973,7 @@ MonoBehaviour:
   dataParentObj: {fileID: 649030445}
   codeParent: {fileID: 2097343650}
   codeArrayInstance: {fileID: 8789985393199728688, guid: ed574d839168732408f298e92643067c, type: 3}
+  codeDataInstance: {fileID: 8789985393199728688, guid: a83d9b33b30403e40a0864968d88f658, type: 3}
   codePrintInstance: {fileID: 7680892047821335821, guid: 2518c4c649545c14aa3e0841d7088404, type: 3}
   codeReverseInstance: {fileID: 7680892047821335821, guid: 097a37e0b296e2946aa2dd3f1d829231, type: 3}
   codeInsertionInstance: {fileID: 7680892047821335821, guid: 0c7ba3f2d0852cd4ea9ce99765b9a4bb, type: 3}
@@ -20164,6 +20165,7 @@ GameObject:
   - component: {fileID: 1909582230}
   - component: {fileID: 1909582229}
   - component: {fileID: 1909582231}
+  - component: {fileID: 1909582232}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -20187,6 +20189,7 @@ MonoBehaviour:
   lineEndPoints:
   - {fileID: 967441311}
   lines: []
+  blocks: []
   blockCount: 0
   additionalSnapPositions: []
 --- !u!4 &1909582230
@@ -20216,6 +20219,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopwatchText: {fileID: 223449978}
+--- !u!114 &1909582232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909582228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6537553717232cc41869b9cedee013f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  codeEditor: {fileID: 2097343650}
+  codeOrder: []
+  correctCodeOrder: []
+  levelManager: {fileID: 1909582229}
+  codes: []
+  ww: []
 --- !u!1 &1912719787
 GameObject:
   m_ObjectHideFlags: 0
@@ -20317,7 +20338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: c
+      value: i
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -21120,7 +21141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: o
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius

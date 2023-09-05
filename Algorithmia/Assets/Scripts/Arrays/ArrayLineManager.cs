@@ -132,10 +132,10 @@ public class ArrayLineManager : MonoBehaviour
                             {
                                 if (levelManager.lineEndPoints[i].gameObject.name == "Parameter Array")
                                 {
-                                    nextObject.GetComponent<ArrayBlock>().newDataStructure = startPoint.GetComponent<ArrayBlock>().dataStructure;
+                                    nextObject.GetComponent<ArrayBlock>().newDataStructure = "<color=#CF9FFF>" + startPoint.GetComponent<ArrayBlock>().dataStructure + "</color>";
                                 } else if (levelManager.lineEndPoints[i].gameObject.name == "Line End")
                                 {
-                                    nextObject.GetComponent<ArrayBlock>().dataStructure = startPoint.GetComponent<ArrayBlock>().dataStructure;
+                                    nextObject.GetComponent<ArrayBlock>().dataStructure = "<color=#89CFF0>" + startPoint.GetComponent<ArrayBlock>().dataStructure + "</color>";
                                 }
 
 
@@ -200,8 +200,8 @@ public class ArrayLineManager : MonoBehaviour
 
                                 if (dataStructure != "" || nextObject.GetComponent<ArrayBlock>().newDataStructure != "") 
                                 {
-                                    string prevDataStructure = (dataStructure == "") ? "array" : "<color=#89CFF0>" + dataStructure + "</color>";
-                                    string newDataStructure = (nextObject.GetComponent<ArrayBlock>().newDataStructure == "") ? "newArray" : "<color=#CF9FFF>" + nextObject.GetComponent<ArrayBlock>().newDataStructure + "</color>";
+                                    string prevDataStructure = (dataStructure == "") ? "array" : dataStructure;
+                                    string newDataStructure = (nextObject.GetComponent<ArrayBlock>().newDataStructure == "") ? "newArray" : nextObject.GetComponent<ArrayBlock>().newDataStructure;
 
                                     nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>0</color>%<color=yellow>element</color> = <color=#F88379>0</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = " + prevDataStructure + "[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = " + prevDataStructure + "[i-1]%end for";
 
