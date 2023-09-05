@@ -44,6 +44,7 @@ public class Level6Logic : MonoBehaviour
                 codeOrder.Clear();
             }
 
+            //Clear the codes list if it is already populated
             if (codes.Count > 0)
             {
                 codes.Clear();
@@ -267,6 +268,11 @@ public class Level6Logic : MonoBehaviour
                             }
                         }
                     }
+                }
+
+                if (currentLine.Contains("pos ="))
+                {
+                    
                 }
                 
             }
