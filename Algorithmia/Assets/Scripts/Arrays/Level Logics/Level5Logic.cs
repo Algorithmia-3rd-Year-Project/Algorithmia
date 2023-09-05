@@ -270,57 +270,57 @@ public class Level5Logic : MonoBehaviour
                 }
                 
             }
-
-            bool printFunction = false;
-            bool reverseFunction = false;
-            int executionCount = 0;
-            
             
             string result = string.Join("", currentArray);
 
             string output = result;
+            List<string> outputArray = new List<string>();
+            
             int x = 0;
             int start = 0;
             int end = 0;
             while (x < codes.Count)
             {
-                if (codes[x] == correctCodeOrder[x])
+                if (codes[x].Contains("for index"))
                 {
-                    Debug.Log(x);
-                    if (codes[x].Contains("for index"))
-                    {
-                        int s = int.Parse(codes[x][24] + "");
-                        int e = int.Parse(codes[x][51] + "");
-                        int phraseLength = (e - s) + 1;
-                        output = result.Substring(s, phraseLength);
-                        x += 3;
-                        continue;
-                    }
+                    int s = int.Parse(codes[x][24] + "");
+                    int e = int.Parse(codes[x][51] + "");
+                    int phraseLength = (e - s) + 1;
 
-
-                    if (codes[x].Contains("start</color> =") && codes[x].Length == 54)
+                    if (!(s >= 0 && e >= s && e < output.Length))
                     {
-                        Debug.Log("startinh");
-                        start = int.Parse(codes[x][45] + "");
-                        x += 1;
-                        continue;
-                    }
-
-                    if (codes[x].Contains("end</color> =") && codes[x].Length == 52)
-                    {
-                        Debug.Log("enfing");
-                        end = int.Parse(codes[x][43] + "");
-                        output = ReverseString(output, start, end);
-                        x += 8;
-                        continue;
+                        Debug.Log("Invalid range for Print Function");
+                        return;
                     }
                     
+                    output = output.Substring(s, phraseLength);
+                    outputArray.Add(output);
+                    x += 3;
+                } else if (codes[x].Contains("start</color> =") && codes[x].Length == 54)
+                {
+                    start = int.Parse(codes[x][45] + "");
+                    x += 1;
+                } else if (codes[x].Contains("end</color> =") && codes[x].Length == 52)
+                {
+                    end = int.Parse(codes[x][43] + "");
+
+                    if (!(start >= 0 && end < output.Length && start <= end))
+                    {
+                        Debug.Log("Invalid range for array reversal");
+                        return;
+                    }
                     
+                    output = ReverseString(output, start, end);
+                    x += 8;
                 }
-                x += 1;
+                else
+                {
+                    x += 1;
+                }
             }
 
             Debug.Log(output);
+            Debug.Log(outputArray.Count);
 
             /*
             for (int i = 0; i < codes.Count; i++)
@@ -467,7 +467,7 @@ public class Level5Logic : MonoBehaviour
             start += 1;
             end -= 1;
         }
-        Debug.Log("Reversing");
+
         return new string(charArray);
     }
 }
