@@ -119,12 +119,18 @@ public class Level6Logic : MonoBehaviour
             }
 
             GameObject arrayObject = null;
+            GameObject newArrayObject = null;
 
             for (int i = 0; i < levelManager.blocks.Count; i++)
             {
                 if (levelManager.blocks[i].name == "Advanced Array Block(Clone)")
                 {
                     arrayObject = levelManager.blocks[i];
+                }
+
+                if (levelManager.blocks[i].name == "Five Slot Array Block(Clone)")
+                {
+                    newArrayObject = levelManager.blocks[i];
                 }
             }
 
@@ -270,9 +276,52 @@ public class Level6Logic : MonoBehaviour
                     }
                 }
 
+                //checking whether the array insertion function's position variable has correct data type passed
                 if (currentLine.Contains("pos ="))
                 {
+                    if (!char.IsDigit(currentLine[6]))
+                    {
+                        Debug.Log("Invalid data type passed for position");
+                        return;
+                    }
+                }
+                
+                //checking whether the array insertion function's element variable has correct data type passed
+                if (currentLine.Contains("element ="))
+                {
+                    if (arrayObject == null)
+                    {
+                        Debug.Log("No Array found");
+                        return;
+                    }
                     
+                    if (newArrayObject == null)
+                    {
+                        Debug.Log("No Parameter Array Found");
+                        return;
+                    }
+
+                    if (newArrayObject.GetComponent<ArrayBlock>().dataType != arrayObject.GetComponent<ArrayBlock>().dataType)
+                    {
+                        Debug.Log("Incompatible data conversion try");
+                        return;
+                    }
+                    
+                    if (newArrayObject.GetComponent<ArrayBlock>().dataType == "Number")
+                    {
+                        if (!char.IsDigit(currentLine[10]))
+                        {
+                            Debug.Log("Invalid data type passed for element");
+                            return;
+                        }
+                    } else if (newArrayObject.GetComponent<ArrayBlock>().dataType == "Character")
+                    {
+                        if (char.IsDigit(currentLine[10]))
+                        {
+                            Debug.Log("Invalid data type passed for element");
+                            return;
+                        }
+                    }
                 }
                 
             }
