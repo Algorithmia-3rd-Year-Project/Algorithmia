@@ -126,6 +126,7 @@ public class ArrayLineManager : MonoBehaviour
 
                                 nextObject.GetComponent<ArrayBlock>().pseudoElement.transform.SetSiblingIndex(orderIndex + dataCount + 1);
                             }
+                            
 
                             //pass the connected data structure name along the line
                             if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Insertion")
@@ -141,7 +142,15 @@ public class ArrayLineManager : MonoBehaviour
 
                             } else
                             {
-                                nextObject.GetComponent<ArrayBlock>().dataStructure = "<color=#89CFF0>" + startPoint.GetComponent<ArrayBlock>().dataStructure + "</color>";
+                                if (startPoint.GetComponent<ArrayBlock>().blockName == "Array Insertion")
+                                {
+                                    nextObject.GetComponent<ArrayBlock>().dataStructure = startPoint.GetComponent<ArrayBlock>().newDataStructure;
+                                }
+                                else
+                                {
+                                    nextObject.GetComponent<ArrayBlock>().dataStructure = "<color=#89CFF0>" + startPoint.GetComponent<ArrayBlock>().dataStructure + "</color>";
+                                }
+                                
                             }
 
                             //update the pseudo code

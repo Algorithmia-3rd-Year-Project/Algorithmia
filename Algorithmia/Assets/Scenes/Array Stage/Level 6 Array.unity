@@ -4252,14 +4252,14 @@ PrefabInstance:
     - target: {fileID: 440550244, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7df5d0bdf3cbd5e49bfc52eb1bf562e9, type: 3}
+      objectReference: {fileID: 21300000, guid: ced29350e03c1a9418e1a3e2e547df0a, type: 3}
     - target: {fileID: 598441876, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: snapRadius
@@ -20233,7 +20233,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeEditor: {fileID: 2097343650}
   codeOrder: []
-  correctCodeOrder: []
+  correctCodeOrder:
+  - <color=green>Character</color> <color=#89CFF0>Array[4]</color>
+  - for index=<color=yellow>0</color> to <color=yellow>3</color>
+  - "\t      print <color=#89CFF0>Array</color>[index]"
+  - end for
+  - <color=green>Character</color> <color=#89CFF0>NewArray[4]</color>
+  - <color=yellow>pos</color> = <color=#F88379>0</color>
+  - <color=yellow>element</color> = <color=#F88379>0</color>
+  - for i = 0 to <color=yellow>pos</color> - 1
+  - '      <color=#CF9FFF>newArray</color>[i] = <color=#89CFF0><color=#89CFF0>Array</color></color>[i]'
+  - end for
+  - <color=#CF9FFF>newArray</color>[<color=yellow>pos</color>] = <color=yellow>element</color>
+  - for i = <color=yellow>pos</color> + 1 to size(<color=#CF9FFF>newArray</color>)
+    - 1
+  - '      <color=#CF9FFF>newArray</color>[i] = <color=#89CFF0><color=#89CFF0>Array</color></color>[i-1]'
+  - end for
+  - 
   levelManager: {fileID: 1909582229}
   codes: []
   ww: []

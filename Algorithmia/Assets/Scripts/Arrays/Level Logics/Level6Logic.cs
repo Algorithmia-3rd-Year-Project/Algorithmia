@@ -44,6 +44,7 @@ public class Level6Logic : MonoBehaviour
                 codeOrder.Clear();
             }
 
+            //Clear the codes list if it is already populated
             if (codes.Count > 0)
             {
                 codes.Clear();
@@ -118,12 +119,18 @@ public class Level6Logic : MonoBehaviour
             }
 
             GameObject arrayObject = null;
+            GameObject newArrayObject = null;
 
             for (int i = 0; i < levelManager.blocks.Count; i++)
             {
                 if (levelManager.blocks[i].name == "Advanced Array Block(Clone)")
                 {
                     arrayObject = levelManager.blocks[i];
+                }
+
+                if (levelManager.blocks[i].name == "Five Slot Array Block(Clone)")
+                {
+                    newArrayObject = levelManager.blocks[i];
                 }
             }
 
@@ -268,18 +275,66 @@ public class Level6Logic : MonoBehaviour
                         }
                     }
                 }
+
+                //checking whether the array insertion function's position variable has correct data type passed
+                if (currentLine.Contains("pos ="))
+                {
+                    if (!char.IsDigit(currentLine[6]))
+                    {
+                        Debug.Log("Invalid data type passed for position");
+                        return;
+                    }
+                }
+                
+                //checking whether the array insertion function's element variable has correct data type passed
+                if (currentLine.Contains("element ="))
+                {
+                    if (arrayObject == null)
+                    {
+                        Debug.Log("No Array found");
+                        return;
+                    }
+                    
+                    if (newArrayObject == null)
+                    {
+                        Debug.Log("No Parameter Array Found");
+                        return;
+                    }
+
+                    if (newArrayObject.GetComponent<ArrayBlock>().dataType != arrayObject.GetComponent<ArrayBlock>().dataType)
+                    {
+                        Debug.Log("Incompatible data conversion try");
+                        return;
+                    }
+                    
+                    if (newArrayObject.GetComponent<ArrayBlock>().dataType == "Number")
+                    {
+                        if (!char.IsDigit(currentLine[10]))
+                        {
+                            Debug.Log("Invalid data type passed for element");
+                            return;
+                        }
+                    } else if (newArrayObject.GetComponent<ArrayBlock>().dataType == "Character")
+                    {
+                        if (char.IsDigit(currentLine[10]))
+                        {
+                            Debug.Log("Invalid data type passed for element");
+                            return;
+                        }
+                    }
+                }
                 
             }
             
-            /*
+            
             string result = string.Join("", currentArray);
 
             string output = result;
             List<string> outputArray = new List<string>();
             
             int x = 0;
-            int start = 0;
-            int end = 0;
+            int position = 0;
+            
             while (x < codes.Count)
             {
                 if (codes[x].Contains("for index"))
@@ -294,24 +349,24 @@ public class Level6Logic : MonoBehaviour
                         return;
                     }
                     
-                    output = output.Substring(s, phraseLength);
-                    outputArray.Add(output);
+                    string printOutput = output.Substring(s, phraseLength);
+                    outputArray.Add(printOutput);
                     x += 3;
-                } else if (codes[x].Contains("start</color> =") && codes[x].Length == 54)
+                } else if (codes[x].Contains("pos</color> =") && codes[x].Length == 52)
                 {
-                    start = int.Parse(codes[x][45] + "");
+                    position = int.Parse(codes[x][43] + "");
                     x += 1;
-                } else if (codes[x].Contains("end</color> =") && codes[x].Length == 52)
+                } else if (codes[x].Contains("element</color> =") && codes[x].Length == 56)
                 {
-                    end = int.Parse(codes[x][43] + "");
+                    var element = codes[x][47];
 
-                    if (!(start >= 0 && end < output.Length && start <= end))
+                    if (position < 0 || position > output.Length)
                     {
-                        Debug.Log("Invalid range for array reversal");
+                        Debug.Log("Position is out of range");
                         return;
                     }
                     
-                    output = ReverseString(output, start, end);
+                    output = InsertElement(output, position, element);
                     x += 8;
                 }
                 else
@@ -321,11 +376,17 @@ public class Level6Logic : MonoBehaviour
             }
 
             Debug.Log(output);
-            Debug.Log(outputArray.Count);*/
+            Debug.Log(outputArray.Count);
 
 
         }
     }
 
+    private string InsertElement(string original, int index, char letter)
+    {
+        string leftSubstring = original.Substring(0, index);
+        string rightSubstring = original.Substring((index));
 
+        return leftSubstring + letter + rightSubstring;
+    }
 }
