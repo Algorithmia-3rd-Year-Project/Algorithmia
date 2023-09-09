@@ -34,7 +34,7 @@ public class Linkedlistblockmanager : MonoBehaviour
     private ArrayBlockList linkedListblocksList;
 
     [SerializeField]
-    private ArrayLevelManager levelManager;
+    private LinkedListLevelManager levelManager;
 
     [SerializeField]
     private bool setTriggers;
@@ -45,6 +45,7 @@ public class Linkedlistblockmanager : MonoBehaviour
     {
         workspaceLayer = LayerMask.NameToLayer("Workspace");
         linkedListblocksList = GetComponent<ArrayBlockList>();
+        currentObj = null;
     }
 
     // Update is called once per frame
@@ -57,8 +58,6 @@ public class Linkedlistblockmanager : MonoBehaviour
 
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, layerMask);
-
-            Debug.Log(hit.collider);
 
             if (hit.collider != null)
             {
@@ -74,21 +73,13 @@ public class Linkedlistblockmanager : MonoBehaviour
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
                 }
-                /*else if (hit.collider.name == "Right Arrow")
-                {
-                    currentObj = Instantiate(linkedListblocksList.blockList["Right Arrow"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
-                    startPosX = mousePos.x - currentObj.transform.position.x;
-                    startPosY = mousePos.y - currentObj.transform.position.y;
-                }*/
             } 
             else
             {
                 RaycastHit2D dataHit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, dataLayer);
-                Debug.Log(dataHit.collider.name);
 
                 if (dataHit.collider != null)
                 {
-                    //Debug.Log("right arrow");
                     currentObj = dataHit.collider.gameObject;
 
                     startPosX = mousePos.x - currentObj.transform.position.x;
@@ -152,11 +143,14 @@ public class Linkedlistblockmanager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == true)
+            Debug.Log(currentObj.tag);
+
+            if (currentObj != null && currentObj.GetComponent<LinkedListBlock>().inWorkspace == true)
             {
 
-                if (currentObj.layer != workspaceLayer)
-                {
+                //if (currentObj.layer != workspaceLayer)
+                //{
+                    Debug.Log("hi");
 
                     TrackSnapPoints(currentObj);
                     //TrackLinePoints(currentObj);
@@ -180,7 +174,7 @@ public class Linkedlistblockmanager : MonoBehaviour
                     {
                         currentObj = null;
                     }
-                }
+               // }
 
 
 
@@ -241,6 +235,7 @@ public class Linkedlistblockmanager : MonoBehaviour
     private void TrackSnapPoints(GameObject parentObj)
     {
         Transform snapPointsListObj = parentObj.transform.Find("Snap Points");
+        Debug.Log(snapPointsListObj);
 
         if (snapPointsListObj != null)
         {
