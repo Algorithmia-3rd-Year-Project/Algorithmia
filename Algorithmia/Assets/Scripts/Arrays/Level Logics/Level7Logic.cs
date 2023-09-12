@@ -122,12 +122,12 @@ public class Level7Logic : MonoBehaviour
 
             for (int i = 0; i < levelManager.blocks.Count; i++)
             {
-                if (levelManager.blocks[i].name == "Advanced Array Block(Clone)")
+                if (levelManager.blocks[i].name == "Empty Array Block")
                 {
                     arrayObject = levelManager.blocks[i];
                 }
 
-                if (levelManager.blocks[i].name == "Five Slot Array Block(Clone)")
+                if (levelManager.blocks[i].name == "Advanced Array Block(Clone)")
                 {
                     newArrayObject = levelManager.blocks[i];
                 }
@@ -323,6 +323,33 @@ public class Level7Logic : MonoBehaviour
                     }
                 }
                 
+                //checking whether the array deletion function's index variable has correct data type passed
+                if (currentLine.Contains("index ="))
+                {
+                    if (!char.IsDigit(currentLine[8]))
+                    {
+                        Debug.Log("Invalid data type passed for index");
+                        return;
+                    }
+                }
+                
+                //checking whether the array deletion function's length variable has correct data type passed
+                if (currentLine.Contains("length ="))
+                {
+                    if (!char.IsDigit(currentLine[9]))
+                    {
+                        Debug.Log("Invalid data type passed for length");
+                        return;
+                    }
+                }
+                
+                //Check the deletion function code is trying to get executed only if there is an array data structure
+                if (currentLine.Contains("array[i]") && arrayObject == null)
+                {
+                    Debug.Log("Array not found for deletion function");
+                    return;
+                }
+                
             }
             
             
@@ -367,6 +394,23 @@ public class Level7Logic : MonoBehaviour
                     
                     output = InsertElement(output, position, element);
                     x += 8;
+                } else if (codes[x].Contains("index</color> ="))
+                {
+                    position = int.Parse(codes[x][45] + "");
+                    x += 1;
+                } else if (codes[x].Contains("length</color> ="))
+                {
+                    var length = codes[x][46];
+
+                    if (position < 0 || position > length)
+                    {
+                        Debug.Log("Position is out of range for deletion");
+                        return;
+                    }
+
+                    output = RemoveCharacter(output, position);
+                    x += 5;
+
                 }
                 else
                 {
@@ -387,5 +431,11 @@ public class Level7Logic : MonoBehaviour
         string rightSubstring = original.Substring((index));
 
         return leftSubstring + letter + rightSubstring;
+    }
+
+    private string RemoveCharacter(string original, int index)
+    {
+        string modifiedString = original.Substring(0, index) + original.Substring(index + 1);
+        return modifiedString;
     }
 }
