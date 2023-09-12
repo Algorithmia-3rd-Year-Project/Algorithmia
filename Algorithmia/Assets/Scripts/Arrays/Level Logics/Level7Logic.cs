@@ -122,12 +122,12 @@ public class Level7Logic : MonoBehaviour
 
             for (int i = 0; i < levelManager.blocks.Count; i++)
             {
-                if (levelManager.blocks[i].name == "Advanced Array Block(Clone)")
+                if (levelManager.blocks[i].name == "Empty Array Block")
                 {
                     arrayObject = levelManager.blocks[i];
                 }
 
-                if (levelManager.blocks[i].name == "Five Slot Array Block(Clone)")
+                if (levelManager.blocks[i].name == "Advanced Array Block(Clone)")
                 {
                     newArrayObject = levelManager.blocks[i];
                 }
@@ -321,6 +321,33 @@ public class Level7Logic : MonoBehaviour
                             return;
                         }
                     }
+                }
+                
+                //checking whether the array deletion function's index variable has correct data type passed
+                if (currentLine.Contains("index ="))
+                {
+                    if (!char.IsDigit(currentLine[8]))
+                    {
+                        Debug.Log("Invalid data type passed for index");
+                        return;
+                    }
+                }
+                
+                //checking whether the array deletion function's length variable has correct data type passed
+                if (currentLine.Contains("length ="))
+                {
+                    if (!char.IsDigit(currentLine[9]))
+                    {
+                        Debug.Log("Invalid data type passed for length");
+                        return;
+                    }
+                }
+                
+                //Check the deletion function code is trying to get executed only if there is an array data structure
+                if (currentLine.Contains("array[i]") && arrayObject == null)
+                {
+                    Debug.Log("Array not found for deletion function");
+                    return;
                 }
                 
             }
