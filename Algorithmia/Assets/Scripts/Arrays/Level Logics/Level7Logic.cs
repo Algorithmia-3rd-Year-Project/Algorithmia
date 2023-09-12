@@ -394,6 +394,23 @@ public class Level7Logic : MonoBehaviour
                     
                     output = InsertElement(output, position, element);
                     x += 8;
+                } else if (codes[x].Contains("index</color> ="))
+                {
+                    position = int.Parse(codes[x][45] + "");
+                    x += 1;
+                } else if (codes[x].Contains("length</color> ="))
+                {
+                    var length = codes[x][46];
+
+                    if (position < 0 || position > length)
+                    {
+                        Debug.Log("Position is out of range for deletion");
+                        return;
+                    }
+
+                    output = RemoveCharacter(output, position);
+                    x += 5;
+
                 }
                 else
                 {
@@ -414,5 +431,11 @@ public class Level7Logic : MonoBehaviour
         string rightSubstring = original.Substring((index));
 
         return leftSubstring + letter + rightSubstring;
+    }
+
+    private string RemoveCharacter(string original, int index)
+    {
+        string modifiedString = original.Substring(0, index) + original.Substring(index + 1);
+        return modifiedString;
     }
 }
