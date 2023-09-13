@@ -5,9 +5,12 @@ using UnityEngine;
 public class TreeLevelManager : MonoBehaviour
 {
 
-    public List<GameObject> snapPoints;
-
+   
+    //Variable for data 
     public List<GameObject> dataSnapPoints;
+
+    //Variables for tree nodes
+    public List<GameObject> snapPoints;
 
     public List<bool> isSnapBlock = new List<bool>()
     {
@@ -19,6 +22,20 @@ public class TreeLevelManager : MonoBehaviour
         false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
     };
 
+    //Variables for functions
+    public List<GameObject> functionSnapPoints;
+
+    public List<bool> isFunctionBlock = new List<bool>()
+    {
+        false, false, false, false
+    };
+
+    public List<bool> isFunctionSnapped = new List<bool>()
+    {
+        false, false, false, false
+    };
+
+    //Variables for lines
     public List<Transform> lineEndPoints;
 
     public List<GameObject> lines;

@@ -51,6 +51,14 @@ public class TreeBlockManager : MonoBehaviour
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
                 }
+                if (inventoryHit.collider.gameObject.name == "Insert Function")
+                {
+                    //Create a new insert function
+                    currentObj = Instantiate(treeblocksList.blockList["Insert Function"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                }
             }
             else
             {
@@ -119,6 +127,23 @@ public class TreeBlockManager : MonoBehaviour
                     Debug.Log("snapped false");
                     Destroy(currentObj);
 
+                }
+            }
+
+            else if (currentObj != null && currentObj.GetComponent<TreeBlock>().inWorkspace == true && currentObj.name == "Insert Function(Clone)")
+            {
+                Debug.Log("Insert function dropped");
+                for (int i = 0; i < levelManager.isFunctionBlock.Count; i++)
+                {
+                    //When current object is in trigger of a function snap block
+                    if (levelManager.isFunctionBlock[i] == true && levelManager.isFunctionSnapped[i] == false)
+                    {
+                        currentObj.transform.position = levelManager.functionSnapPoints[i].transform.position;      //snap
+                        levelManager.isFunctionBlock[i] = false;
+                        levelManager.isFunctionSnapped[i] = true;
+                        ChangeBlockLayer(currentObj.transform, "Workspace");
+                        currentObj = null;
+                    }
                 }
             }
 
