@@ -25,6 +25,12 @@ public class Linkedlistblockmanager : MonoBehaviour
     [SerializeField]
     private Transform dataParentObj;
 
+    [SerializeField]
+    private GameObject codeDataInstance;
+
+    [SerializeField]
+    private GameObject codeParent;
+
     private float startPosX;
 
     private float startPosY;
@@ -73,7 +79,7 @@ public class Linkedlistblockmanager : MonoBehaviour
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
                 }
-            } 
+            }
             else
             {
                 RaycastHit2D dataHit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, dataLayer);
@@ -143,38 +149,31 @@ public class Linkedlistblockmanager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log(currentObj.tag);
-
-            if (currentObj != null && currentObj.GetComponent<LinkedListBlock>().inWorkspace == true)
+            if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == true)
             {
 
-                //if (currentObj.layer != workspaceLayer)
-                //{
-                    Debug.Log("hi");
+                TrackSnapPoints(currentObj);
+                ChangeBlockLayer(currentObj.transform, "Workspace");
+                levelManager.blockCount += 1;
 
-                    TrackSnapPoints(currentObj);
-                    //TrackLinePoints(currentObj);
-                    ChangeBlockLayer(currentObj.transform, "Workspace");
-                    levelManager.blockCount += 1;
-
-                    if (setTriggers)
+                if (setTriggers)
+                {
+                    if (levelManager.additionalSnapPositions.Count > 0 && (Mathf.Abs(currentObj.transform.position.x - levelManager.additionalSnapPositions[0].transform.position.x) <= 0.5f &&
+                    Mathf.Abs(currentObj.transform.position.y - levelManager.additionalSnapPositions[0].transform.position.y) <= 0.5f))
                     {
-                        if (levelManager.additionalSnapPositions.Count > 0 && (Mathf.Abs(currentObj.transform.position.x - levelManager.additionalSnapPositions[0].transform.position.x) <= 0.5f &&
-                        Mathf.Abs(currentObj.transform.position.y - levelManager.additionalSnapPositions[0].transform.position.y) <= 0.5f))
-                        {
-                            currentObj.transform.position = new Vector3(levelManager.additionalSnapPositions[0].transform.position.x, levelManager.additionalSnapPositions[0].transform.position.y, 0f);
-                            currentObj = null;
-                        }
-                        else
-                        {
-                            DestroyBlocks(currentObj);
-                        }
+                        currentObj.transform.position = new Vector3(levelManager.additionalSnapPositions[0].transform.position.x, levelManager.additionalSnapPositions[0].transform.position.y, 0f);
+                        currentObj = null;
                     }
                     else
                     {
-                        currentObj = null;
+                        DestroyBlocks(currentObj);
                     }
-               // }
+                }
+                else
+                {
+                    currentObj = null;
+                }
+                // }
 
 
 
@@ -188,18 +187,19 @@ public class Linkedlistblockmanager : MonoBehaviour
             else if (currentObj != null && currentObj.CompareTag("Data"))
             {
 
-                float _snapRadius = currentObj.GetComponent<DataBlock>().snapRadius;
+                float _snapRadius = currentObj.GetComponent<LLDataBlock>().snapRadius;
 
-                currentObj.GetComponent<DataBlock>().snapped = false;
+                currentObj.GetComponent<LLDataBlock>().snapped = false;
 
                 for (int i = 0; i < levelManager.correctForms.Count; i++)
                 {
-                    if ((Mathf.Abs(currentObj.transform.position.x - levelManager.correctForms[i].transform.position.x) <= _snapRadius &&
-                    Mathf.Abs(currentObj.transform.position.y - levelManager.correctForms[i].transform.position.y) <= _snapRadius) &&
-                    levelManager.correctForms[i].transform.childCount == 0)
+                   if ((Mathf.Abs(currentObj.transform.position.x - levelManager.correctForms[i].transform.position.x) <= _snapRadius &&
+                   Mathf.Abs(currentObj.transform.position.y - levelManager.correctForms[i].transform.position.y) <= _snapRadius) &&
+                   levelManager.correctForms[i].transform.childCount == 0)
                     {
+                        Debug.Log(levelManager.correctForms[i].name+" "+_snapRadius);
                         currentObj.transform.position = new Vector3(levelManager.correctForms[i].transform.position.x, levelManager.correctForms[i].transform.position.y, 0f);
-                        currentObj.GetComponent<DataBlock>().snapped = true;
+                        currentObj.GetComponent<LLDataBlock>().snapped = true;
 
                         ChangeBlockLayer(currentObj.transform, "Workspace");
 
@@ -208,125 +208,103 @@ public class Linkedlistblockmanager : MonoBehaviour
 
                         currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
 
-                        break;
+                        //currentObj.transform.SetParent(currentObj.transform);
                     }
+
+                    if (currentObj.GetComponent<LLDataBlock>().snapped == false)
+                    {
+                        Vector3 currentResetPos = currentObj.GetComponent<LLDataBlock>().resetPosition;
+                        currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
+                        currentObj.transform.SetParent(dataParentObj);
+                        ChangeBlockLayer(currentObj.transform, "Data");
+                        currentObj.transform.localScale = currentObj.GetComponent<LLDataBlock>().originalScale;
+
+                        currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                        Transform dataText = currentObj.transform.Find("a-data");
+                        dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
+
+
+                    }
+
+                    currentObj = null;
                 }
-
-                if (currentObj.GetComponent<DataBlock>().snapped == false)
-                {
-                    Vector3 currentResetPos = currentObj.GetComponent<DataBlock>().resetPosition;
-                    currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
-                    currentObj.transform.SetParent(dataParentObj);
-                    ChangeBlockLayer(currentObj.transform, "Data");
-                    currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
-
-                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                    Transform dataText = currentObj.transform.Find("a-data");
-                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
-
-
-                }
-
-                currentObj = null;
             }
         }
     }
-      
-    private void TrackSnapPoints(GameObject parentObj)
-    {
-        Transform snapPointsListObj = parentObj.transform.Find("Snap Points");
-        Debug.Log(snapPointsListObj);
 
-        if (snapPointsListObj != null)
+        private void TrackSnapPoints(GameObject parentObj)
         {
-            Transform[] snapPointsList = snapPointsListObj.GetComponentsInChildren<Transform>(includeInactive: false);
+            Transform snapPointsListObj = parentObj.transform.Find("Snap Points");
+            Debug.Log(snapPointsListObj);
 
-            foreach (Transform snapPoint in snapPointsList)
+            if (snapPointsListObj != null)
             {
-                if (snapPoint != snapPointsListObj)
-                {
-                    levelManager.correctForms.Add(snapPoint.gameObject);
-                }
+                Transform[] snapPointsList = snapPointsListObj.GetComponentsInChildren<Transform>(includeInactive: false);
 
+                foreach (Transform snapPoint in snapPointsList)
+                {
+                    if (snapPoint != snapPointsListObj)
+                    {
+                        levelManager.correctForms.Add(snapPoint.gameObject);
+                    }
+
+                }
             }
         }
-    }
 
-    /* private void TrackLinePoints(GameObject parentObj)
-    {
+        /* private void TrackLinePoints(GameObject parentObj)
+        {
 
-        Transform linePoints = parentObj.transform.Find("Line Points");
+            Transform linePoints = parentObj.transform.Find("Line Points");
 
-        if (linePoints != null)
-         {
-             Transform endPoint = linePoints.Find("Line End");
+            if (linePoints != null)
              {
-                 levelManager.lineEndPoints.Add(endPoint);
+                 Transform endPoint = linePoints.Find("Line End");
+                 {
+                     levelManager.lineEndPoints.Add(endPoint);
+                 }
              }
-         }
-    }*/
-
-    private void ChangeBlockLayer(Transform currentObj, string layerName)
-    {
-        if (currentObj != null)
-        {
-            currentObj.gameObject.layer = LayerMask.NameToLayer(layerName);
-        }
-
-        for (int i = 0; i < currentObj.childCount; i++)
-        {
-            Transform childTransform = currentObj.GetChild(i);
-            ChangeBlockLayer(childTransform, layerName);
-        }
-    }
-
-    private void DestroyBlocks(GameObject currentObj)
-    {
-        Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
-        //Transform linePointsObj = currentObj.transform.Find("Line Points");
-        int deletedCount = 0;
-        //int deletedLines = 0;
-
-        if (snapPointsListObj != null)
-        {
-            Transform[] snapPointsList = snapPointsListObj.GetComponentsInChildren<Transform>(includeInactive: false);
-
-
-            for (int i = 0; i < snapPointsList.Length; i++)
-            {
-                for (int j = 0; j < levelManager.correctForms.Count; j++)
-                {
-                    if (snapPointsList[i].gameObject == levelManager.correctForms[j])
-                    {
-                        levelManager.correctForms.RemoveAt(j);
-                        deletedCount += 1;
-                    }
-                }
-            }
-        }
-
-        /*if (linePointsObj != null)
-        {
-            Transform[] linePointsList = linePointsObj.GetComponentsInChildren<Transform>(includeInactive: false);
-
-            for (int i = 0; i < linePointsList.Length; i++)
-            {
-                for (int j = 0; j < levelManager.lineEndPoints.Count; j++)
-                {
-                    if (linePointsList[i] == levelManager.lineEndPoints[j])
-                    {
-                        levelManager.lineEndPoints.RemoveAt(j);
-                        deletedLines += 1;
-                    }
-                }
-            }
-        }
-
-        if (deletedCount == 4 || deletedLines == 1)
-        {
-            levelManager.blockCount -= 1;
-            Destroy(currentObj);
         }*/
+
+        private void ChangeBlockLayer(Transform currentObj, string layerName)
+        {
+            if (currentObj != null)
+            {
+                currentObj.gameObject.layer = LayerMask.NameToLayer(layerName);
+            }
+
+            for (int i = 0; i < currentObj.childCount; i++)
+            {
+                Transform childTransform = currentObj.GetChild(i);
+                ChangeBlockLayer(childTransform, layerName);
+            }
+        }
+
+        private void DestroyBlocks(GameObject currentObj)
+        {
+            Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
+            //Transform linePointsObj = currentObj.transform.Find("Line Points");
+            int deletedCount = 0;
+            //int deletedLines = 0;
+
+            if (snapPointsListObj != null)
+            {
+                Transform[] snapPointsList = snapPointsListObj.GetComponentsInChildren<Transform>(includeInactive: false);
+
+
+                for (int i = 0; i < snapPointsList.Length; i++)
+                {
+                    for (int j = 0; j < levelManager.correctForms.Count; j++)
+                    {
+                        if (snapPointsList[i].gameObject == levelManager.correctForms[j])
+                        {
+                            levelManager.correctForms.RemoveAt(j);
+                            deletedCount += 1;
+                        }
+                    }
+                }
+            }
+        }
     }
-}
+
 
