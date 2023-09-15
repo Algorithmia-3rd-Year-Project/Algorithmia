@@ -193,9 +193,11 @@ public class Linkedlistblockmanager : MonoBehaviour
 
                 for (int i = 0; i < levelManager.correctForms.Count; i++)
                 {
-                   if ((Mathf.Abs(currentObj.transform.position.x - levelManager.correctForms[i].transform.position.x) <= _snapRadius &&
-                   Mathf.Abs(currentObj.transform.position.y - levelManager.correctForms[i].transform.position.y) <= _snapRadius) &&
-                   levelManager.correctForms[i].transform.childCount == 0)
+                    if ((Mathf.Abs(currentObj.transform.position.x -
+                                   levelManager.correctForms[i].transform.position.x) <= _snapRadius &&
+                         Mathf.Abs(currentObj.transform.position.y -
+                                   levelManager.correctForms[i].transform.position.y) <= _snapRadius) &&
+                        levelManager.correctForms[i].transform.childCount == 0)
                     {
                         Debug.Log(levelManager.correctForms[i].name+" "+_snapRadius);
                         currentObj.transform.position = new Vector3(levelManager.correctForms[i].transform.position.x, levelManager.correctForms[i].transform.position.y, 0f);
@@ -211,23 +213,25 @@ public class Linkedlistblockmanager : MonoBehaviour
                         //currentObj.transform.SetParent(currentObj.transform);
                     }
 
-                    if (currentObj.GetComponent<LLDataBlock>().snapped == false)
-                    {
-                        Vector3 currentResetPos = currentObj.GetComponent<LLDataBlock>().resetPosition;
-                        currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
-                        currentObj.transform.SetParent(dataParentObj);
-                        ChangeBlockLayer(currentObj.transform, "Data");
-                        currentObj.transform.localScale = currentObj.GetComponent<LLDataBlock>().originalScale;
-
-                        currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                        Transform dataText = currentObj.transform.Find("a-data");
-                        dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
-
-
-                    }
-
-                    currentObj = null;
+                    
                 }
+                
+                if (currentObj.GetComponent<LLDataBlock>().snapped == false)
+                {
+                    Vector3 currentResetPos = currentObj.GetComponent<LLDataBlock>().resetPosition;
+                    currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
+                    currentObj.transform.SetParent(dataParentObj);
+                    ChangeBlockLayer(currentObj.transform, "Data");
+                    currentObj.transform.localScale = currentObj.GetComponent<LLDataBlock>().originalScale;
+
+                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    Transform dataText = currentObj.transform.Find("a-data");
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
+
+
+                }
+
+                currentObj = null;
             }
         }
     }
