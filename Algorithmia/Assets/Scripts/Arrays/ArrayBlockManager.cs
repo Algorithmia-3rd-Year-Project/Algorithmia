@@ -61,6 +61,8 @@ public class ArrayBlockManager : MonoBehaviour
     [SerializeField]
     private float typingSpeed;
 
+    [SerializeField] private ScrollRect scrollRect;
+
     private void Start()
     {
         workspaceLayer = LayerMask.NameToLayer("Workspace");
@@ -969,7 +971,7 @@ public class ArrayBlockManager : MonoBehaviour
         {
             yield break;
         }
-
+        
         int codeInstanceLength = codeObject.transform.childCount;
         
         for (int i = 0; i < codeInstanceLength; i++)
@@ -993,7 +995,7 @@ public class ArrayBlockManager : MonoBehaviour
             else
             {
                 tempObject.GetComponent<TMP_Text>().text = "";
-
+                
                 for (int j=0; j < pseudoSubstrings[i].Length; j++)
                 {
 
@@ -1027,6 +1029,8 @@ public class ArrayBlockManager : MonoBehaviour
             }
             yield return new WaitForSeconds(typingSpeed);
         }
+        
+        ScrollToBottom();
     }
 
     //Hightlights the pseudo code when player drags it when it is already in workspace
@@ -1043,6 +1047,11 @@ public class ArrayBlockManager : MonoBehaviour
             }
         } 
         
+    }
+
+    private void ScrollToBottom()
+    {
+        scrollRect.normalizedPosition = new Vector2(0, 0);
     }
 
 }
