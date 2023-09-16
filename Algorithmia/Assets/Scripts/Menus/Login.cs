@@ -12,7 +12,7 @@ public class Login : MonoBehaviour
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private Button loginButton;
     
-    [SerializeField] private string loginEndPoint = "http://127.0.0.1:4000/api/user/login";
+    [SerializeField] private string loginEndPoint = "https://algorithmia-server.onrender.com/api/user/login";
     
     public void OnLoginClick()
     {
@@ -52,7 +52,8 @@ public class Login : MonoBehaviour
             Debug.Log(request.downloadHandler.text + " from db" + returnedPlayer._id + " " + returnedPlayer.email);
         } else if (request.result == UnityWebRequest.Result.ConnectionError)
         {
-            Debug.Log("Error connecting to the server");
+            Debug.Log(loginEndPoint);
+            Debug.Log("Error connecting to the server with yasintha");
             loginButton.interactable = true;
         }
         else
