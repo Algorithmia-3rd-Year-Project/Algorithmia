@@ -7,6 +7,7 @@ public class CareerData
 {
     public int id;
     public string jobName;
+    public string jobIcon;
     public string field;
     public string salary;
     public string employer;
