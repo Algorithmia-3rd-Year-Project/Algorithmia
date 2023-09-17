@@ -122,7 +122,7 @@ public class TreeBlock : MonoBehaviour
                 }
             }
 
-            else if (gameObject.name == "Insert Function(Clone)")
+            else
             {
                 if (collision.gameObject.transform.parent.name == "Function Space 1" && levelManager.isFunctionSnapped[0] == false)
                 {
@@ -235,7 +235,7 @@ public class TreeBlock : MonoBehaviour
             }
         }
 
-        else if (gameObject.name == "Insert Function(Clone)")
+        else
         {
             if (collision.gameObject.transform.parent.name == "Function Space 1")
             {

@@ -19,6 +19,10 @@ public class TreeBlockManager : MonoBehaviour
     [SerializeField]
     private TreeLevelManager levelManager;
 
+    public GameObject machinePrefab;
+
+    public GameObject arrayPrefab;
+
     [SerializeField]
     private Transform dataParentObj;
 
@@ -59,6 +63,30 @@ public class TreeBlockManager : MonoBehaviour
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
                 }
+                if (inventoryHit.collider.gameObject.name == "Pre Order Traversal")
+                {
+                    //Create a new insert function
+                    currentObj = Instantiate(treeblocksList.blockList["Pre Order Traversal"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                }
+                if (inventoryHit.collider.gameObject.name == "In Order Traversal")
+                {
+                    //Create a new insert function
+                    currentObj = Instantiate(treeblocksList.blockList["In Order Traversal"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                }
+                if (inventoryHit.collider.gameObject.name == "Post Order Traversal")
+                {
+                    //Create a new insert function
+                    currentObj = Instantiate(treeblocksList.blockList["Post Order Traversal"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                }
             }
             else
             {
@@ -90,7 +118,7 @@ public class TreeBlockManager : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             //For inventory objects in workspace
-            if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<TreeBlock>().inWorkspace == true)
+            if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<TreeBlock>().inWorkspace == true && currentObj.name == "Tree Node(Clone)")
             {
                 currentObj.GetComponent<TreeBlock>().snapped = false;
                 for (int i = 0; i < levelManager.isSnapBlock.Count; i++)
@@ -130,21 +158,49 @@ public class TreeBlockManager : MonoBehaviour
                 }
             }
 
-            else if (currentObj != null && currentObj.GetComponent<TreeBlock>().inWorkspace == true && currentObj.name == "Insert Function(Clone)")
+            else if (currentObj != null && currentObj.GetComponent<TreeBlock>().inWorkspace == true)
             {
-                Debug.Log("Insert function dropped");
-                for (int i = 0; i < levelManager.isFunctionBlock.Count; i++)
+                Debug.Log("in workspace");
+                if (currentObj.name == "Insert Function(Clone)")
                 {
-                    //When current object is in trigger of a function snap block
-                    if (levelManager.isFunctionBlock[i] == true && levelManager.isFunctionSnapped[i] == false)
+                    Debug.Log("Insert function dropped");
+                    for (int i = 0; i < levelManager.isFunctionBlock.Count; i++)
                     {
-                        currentObj.transform.position = levelManager.functionSnapPoints[i].transform.position;      //snap
-                        levelManager.isFunctionBlock[i] = false;
-                        levelManager.isFunctionSnapped[i] = true;
-                        ChangeBlockLayer(currentObj.transform, "Workspace");
-                        currentObj = null;
+                        //When current object is in trigger of a function snap block
+                        if (levelManager.isFunctionBlock[i] == true && levelManager.isFunctionSnapped[i] == false)
+                        {
+                            currentObj.transform.position = levelManager.functionSnapPoints[i].transform.position;      //snap
+
+                            machinePrefab.SetActive(true);
+
+                            levelManager.isFunctionBlock[i] = false;
+                            levelManager.isFunctionSnapped[i] = true;
+                            ChangeBlockLayer(currentObj.transform, "Workspace");
+                            currentObj = null;
+                        }
                     }
                 }
+
+                if (currentObj.name == "Pre Order Traversal(Clone)" || currentObj.name == "In Order Traversal(Clone)" || currentObj.name == "Post Order Traversal(Clone)")
+                {
+                    Debug.Log("Traversal dropped");
+                    for (int i = 0; i < levelManager.isFunctionBlock.Count; i++)
+                    {
+                        //When current object is in trigger of a function snap block
+                        if (levelManager.isFunctionBlock[i] == true && levelManager.isFunctionSnapped[i] == false)
+                        {
+                            currentObj.transform.position = levelManager.functionSnapPoints[i].transform.position;      //snap
+
+                            arrayPrefab.SetActive(true);
+
+                            levelManager.isFunctionBlock[i] = false;
+                            levelManager.isFunctionSnapped[i] = true;
+                            ChangeBlockLayer(currentObj.transform, "Workspace");
+                            currentObj = null;
+                        }
+                    }
+                }
+
             }
 
             
