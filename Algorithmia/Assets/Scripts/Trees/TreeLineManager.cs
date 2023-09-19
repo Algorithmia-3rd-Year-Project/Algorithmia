@@ -36,37 +36,34 @@ public class TreeLineManager : MonoBehaviour
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, workspaceLayer);
+            //RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, workspaceLayer);
+            RaycastHit2D[] allhits = Physics2D.RaycastAll(mousePos, Vector3.zero, Mathf.Infinity, workspaceLayer);
 
-            if (hit.collider != null)
-            {
-                if (hit.collider.CompareTag("LineStart"))
+                foreach (RaycastHit2D singleHit in allhits)
                 {
-                    if (hit.collider.gameObject.name == "Line Start 1")
+                    if (singleHit.collider.CompareTag("LineStart"))
                     {
-                        startPoint = hit.collider.gameObject;
+                        if (singleHit.collider.gameObject.name == "Line Start 1")
+                        {
+                            startPoint = singleHit.collider.gameObject;
 
-                        GameObject functionObj = hit.collider.gameObject.transform.parent.parent.gameObject;
-                        currentLine = functionObj.transform.Find("Line 1").gameObject;
-                        currentLine.GetComponent<LineRenderer>().positionCount = 2;
-                        currentLine.GetComponent<TreeLine>().startPos = hit.collider.gameObject;
+                            GameObject functionObj = singleHit.collider.gameObject.transform.parent.parent.gameObject;
+                            currentLine = functionObj.transform.Find("Line 1").gameObject;
+                            currentLine.GetComponent<LineRenderer>().positionCount = 2;
+                            currentLine.GetComponent<TreeLine>().startPos = singleHit.collider.gameObject;
+                        }
+
+                        if (singleHit.collider.gameObject.name == "Line Start 2")
+                        {
+                            startPoint = singleHit.collider.gameObject;
+
+                            GameObject functionObj = singleHit.collider.gameObject.transform.parent.parent.gameObject;
+                            currentLine = functionObj.transform.Find("Line 2").gameObject;
+                            currentLine.GetComponent<LineRenderer>().positionCount = 2;
+                            currentLine.GetComponent<TreeLine>().startPos = singleHit.collider.gameObject;
+                        }
                     }
-
-                    if (hit.collider.gameObject.name == "Line Start 2")
-                    {
-                        startPoint = hit.collider.gameObject;
-
-                        GameObject functionObj = hit.collider.gameObject.transform.parent.parent.gameObject;
-                        currentLine = functionObj.transform.Find("Line 2").gameObject;
-                        currentLine.GetComponent<LineRenderer>().positionCount = 2;
-                        currentLine.GetComponent<TreeLine>().startPos = hit.collider.gameObject;
-                    }
-
-
-                }
-            }
-                   
-                
+                }      
         }
 
         if (Input.GetMouseButton(0))
