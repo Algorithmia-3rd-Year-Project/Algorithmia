@@ -161,7 +161,6 @@ public class TreeBlockManager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log(currentObj.GetComponent<TreeBlock>().inWorkspace);
             //For inventory objects in workspace
             if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<TreeBlock>().inWorkspace == true)
             {
@@ -253,26 +252,58 @@ public class TreeBlockManager : MonoBehaviour
 
                 currentObj.GetComponent<DataBlock>().snapped = false;
 
-                for (int i = 0; i < levelManager.dataSnapPoints.Count; i++)
+                //Have to check whether there is an array and if so and if triggered, data should snap there and make snapped = true
+                //Else the below code
+
+                GameObject arrayObject = GameObject.Find("Array");  // Assuming "array" is the exact name of the object
+
+                if (arrayObject != null && arrayObject.activeSelf)
                 {
-                    //Check whether it is within the snap radius and data object is not snapped already
-                    if ((Mathf.Abs(currentObj.transform.position.x - levelManager.dataSnapPoints[i].transform.position.x) <= _snapRadius &&
-                    Mathf.Abs(currentObj.transform.position.y - levelManager.dataSnapPoints[i].transform.position.y) <= _snapRadius) &&
-                    levelManager.dataSnapPoints[i].transform.childCount == 0)
+                    for (int i = 0; i < levelManager.arraySnapPoints.Count; i++)
                     {
-                        currentObj.transform.position = new Vector3(levelManager.dataSnapPoints[i].transform.position.x, levelManager.dataSnapPoints[i].transform.position.y, 0f);      //snap
-                        currentObj.GetComponent<DataBlock>().snapped = true;
+                        if ((Mathf.Abs(currentObj.transform.position.x - levelManager.arraySnapPoints[i].transform.position.x) <= _snapRadius &&
+                        Mathf.Abs(currentObj.transform.position.y - levelManager.arraySnapPoints[i].transform.position.y) <= _snapRadius) &&
+                        levelManager.arraySnapPoints[i].transform.childCount == 0)
+                        {
+                            currentObj.transform.position = new Vector3(levelManager.arraySnapPoints[i].transform.position.x, levelManager.arraySnapPoints[i].transform.position.y, 0f);
+                            currentObj.GetComponent<DataBlock>().snapped = true;
 
-                        ChangeBlockLayer(currentObj.transform, "Workspace");
+                            ChangeBlockLayer(currentObj.transform, "Workspace");
 
-                        //Make the data element a child of the snapped point
-                        currentObj.transform.SetParent(levelManager.dataSnapPoints[i].transform);
+                            //make the data element a child of the snapped point
+                            currentObj.transform.SetParent(levelManager.arraySnapPoints[i].transform);
 
-                        currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
+                            currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
 
-                        break;
+                            break;
+                        }
                     }
                 }
+
+                else if (arrayObject == null)
+                {
+                    for (int i = 0; i < levelManager.dataSnapPoints.Count; i++)
+                    {
+                        //Check whether it is within the snap radius and data object is not snapped already
+                        if ((Mathf.Abs(currentObj.transform.position.x - levelManager.dataSnapPoints[i].transform.position.x) <= _snapRadius &&
+                        Mathf.Abs(currentObj.transform.position.y - levelManager.dataSnapPoints[i].transform.position.y) <= _snapRadius) &&
+                        levelManager.dataSnapPoints[i].transform.childCount == 0)
+                        {
+                            currentObj.transform.position = new Vector3(levelManager.dataSnapPoints[i].transform.position.x, levelManager.dataSnapPoints[i].transform.position.y, 0f);      //snap
+                            currentObj.GetComponent<DataBlock>().snapped = true;
+
+                            ChangeBlockLayer(currentObj.transform, "Workspace");
+
+                            //Make the data element a child of the snapped point
+                            currentObj.transform.SetParent(levelManager.dataSnapPoints[i].transform);
+
+                            currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
+
+                            break;
+                        }
+                    }
+                }
+
 
                 //If data is not snapped
                 if (currentObj.GetComponent<DataBlock>().snapped == false)

@@ -40,6 +40,9 @@ public class TreeLevelManager : MonoBehaviour
 
     public List<GameObject> lines;
 
+    //Variables for traversal
+    public List<GameObject> arraySnapPoints;
+
 
 
 }
