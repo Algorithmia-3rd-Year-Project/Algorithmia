@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class InstructionLevel1 : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class InstructionLevel1 : MonoBehaviour
     [SerializeField]
     private GameObject instruction6;
 
+    [SerializeField] 
+    private GameObject instruction7;
+    
     [SerializeField]
     private GameObject instructionOverlay;
 
@@ -37,7 +41,13 @@ public class InstructionLevel1 : MonoBehaviour
     private bool instruction3Executed;
     private bool instruction4Executed;
     private bool instruction5Executed;
-
+    private bool instruction6Executed;
+    
+    
+    [SerializeField] private TMP_Text compileMessage;
+    [SerializeField] private GameObject compilationMenu;
+    [SerializeField] private GameObject victoryMenu;
+    
     private void Start()
     {
         instructionOverlay.SetActive(true);
@@ -92,6 +102,27 @@ public class InstructionLevel1 : MonoBehaviour
             instruction5Executed = true;
         }
    
+    }
+    
+    public void Compile(string compiledMsg)
+    {
+        if (instruction5Executed)
+        {
+            compileMessage.text = compiledMsg;
+            compilationMenu.SetActive(true);
+            instruction6.SetActive(false);
+            instruction6Executed = true;
+        }
+
+    }
+
+    public void Build()
+    {
+        if (instruction6Executed)
+        {
+            instruction7.SetActive(false);
+            victoryMenu.SetActive(true);
+        }
     }
 
 }
