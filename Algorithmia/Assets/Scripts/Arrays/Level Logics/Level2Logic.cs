@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -13,8 +14,20 @@ public class Level2Logic : MonoBehaviour
 
     [SerializeField] private ArrayLevelManager levelManager;
     
+    [SerializeField] private TMP_Text compileMessage;
+    [SerializeField] private GameObject compilationMenu;
+    [SerializeField] private GameObject victoryMenu;
+
+    private string _result;
+    private bool compilationSuccess;
+
+    private void Start()
+    {
+        compilationSuccess = false;
+    }
+
     //Checking the optimal answer using pseudo codes
-    public void OptimalPseudoCodeAnswer()
+    public string OptimalPseudoCodeAnswer()
     {
         if (levelManager.lines.Count == 1)
         {
@@ -81,7 +94,7 @@ public class Level2Logic : MonoBehaviour
             if (levelManager.blocks.Count > 1)
             {
                 Debug.Log("More arrays");
-                return;
+                return "Duplicate Arrays";
             }
             
             for (int i = 0; i < codeOrder.Count; i++)
@@ -100,104 +113,61 @@ public class Level2Logic : MonoBehaviour
             }
 
             
-            string result = string.Join("", currentArray);
+            _result = string.Join("", currentArray);
             
-            if (errorMessage != "" && result != "")
+            if (errorMessage != "" && _result != "")
             {
                 Debug.Log(errorMessage + "\n" + "Incompatible data type");
-                return;
+                return "Incompatible data type" + "\n" + errorMessage;
             }
 
+            compilationSuccess = true;
+            return "Compiled Successfully";
+            
 
-            if (result == "cool")
+            if (_result == "cool")
             {
                 Debug.Log("Correct output");
+                return "cool";
             }
             else
             {
-                Debug.Log("cool was expected. but got " + result);
+                Debug.Log("cool was expected. but got " + _result);
+                return _result;
             }
         }
         else
         {
             Debug.Log("Program is not connected");
+            return "Could not compile the program";
         }
-        
-
-
     }
 
-    //Checking the optimal answer using blocks connect
-    /*
-    public void OptimalAnswer()
+    public void Compile(bool compilation)
     {
-        if (levelManager.lines.Count == 0)
+        compilationSuccess = false;
+        string returnedMessage = OptimalPseudoCodeAnswer();
+        if (!compilationSuccess)
         {
-            Debug.Log("No Program to run");
-            return;
-        }
-        
-        if (levelManager.blockCount == 0)
-        {
-            Debug.Log("No Array Declared");
+            compileMessage.text = returnedMessage;
+            compilationMenu.SetActive(true);
             return;
         }
 
-        if (levelManager.blockCount > 1)
+        if (compilation)
         {
-            Debug.Log("Duplicate array declaration");
-            return;
+            compileMessage.text = "Compilation Successful";
+            compilationMenu.SetActive(true);
         }
+    }
 
-        const string correctOrder = "cool";
-        string receivedOrder = "";
-        
-        if (levelManager.correctForms.Count > 0)
+    public void Build()
+    {
+        Compile(false);
+        if (compilationSuccess)
         {
-            
-            for (int i = 0; i < levelManager.correctForms.Count; i++)
-            {
-                GameObject attachedChild = (levelManager.correctForms[i].transform.childCount > 0)
-                    ? levelManager.correctForms[i].transform.GetChild(0).gameObject
-                    : null;
-
-                if (attachedChild != null)
-                {
-                    receivedOrder += attachedChild.GetComponent<DataBlock>().dataValue;
-                }
-            }
-
-            
+            victoryMenu.SetActive(true);
         }
+    }
 
-        if (receivedOrder == "")
-        {
-            Debug.Log("No Message to display");
-            return;
-        }
-
-        if (receivedOrder != "")
-        {
-            string dataType = levelManager.blocks[0].GetComponent<ArrayBlock>().dataType;
-
-            switch (dataType)
-            {
-                case "Number":
-                    Debug.Log("Invalid Data type");
-                    return;
-                case "Boolean":
-                    Debug.Log("Invalid Data type bool");
-                    return;
-            }
-        }
-        
-        if (receivedOrder == correctOrder)
-        {
-           Debug.Log("Correct Message");
-        }
-        else
-        {
-            Debug.Log("Incorrect message");
-        }
-    }*/
 }
