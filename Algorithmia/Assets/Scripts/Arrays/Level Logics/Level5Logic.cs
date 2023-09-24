@@ -18,8 +18,14 @@ public class Level5Logic : MonoBehaviour
     [SerializeField] private List<string> codes = new List<string>();
 
     [SerializeField] private string[] ww;
+    
+    private bool compilationSuccess;
+    
+    [SerializeField] private TMP_Text compileMessage;
+    [SerializeField] private GameObject compilationMenu;
+    [SerializeField] private GameObject victoryMenu;
 
-    public void OptimalAnswer()
+    public string OptimalAnswer()
     {
         bool programConnected = false;
         
@@ -35,6 +41,7 @@ public class Level5Logic : MonoBehaviour
         if (!programConnected)
         {
             Debug.Log("Program is not connected");
+            return "Could not compile the program";
         }
         else
         {
@@ -104,7 +111,7 @@ public class Level5Logic : MonoBehaviour
             if (errorMessage == "Unconnected Blocks")
             {
                 Debug.Log("There are random wanderers");
-                return;
+                return "Undefined variables in functions";
             }
             
             for (int i = 0; i < codeOrder.Count; i++)
@@ -148,7 +155,7 @@ public class Level5Logic : MonoBehaviour
                             if (!int.TryParse(checker, out _))
                             {
                                 Debug.Log("Incompatible data type passed to the array");
-                                return;
+                                return "Incompatible data type passed to the array";
                             }
                         }
                     }
@@ -162,7 +169,7 @@ public class Level5Logic : MonoBehaviour
                             if (int.TryParse(checker, out _))
                             {
                                 Debug.Log("Incompatible data type passed to the array");
-                                return;
+                                return "Incompatible data type passed to the array";
                             }
                         }
                     }
@@ -177,25 +184,25 @@ public class Level5Logic : MonoBehaviour
                     if (currentLine.Contains("for index=s to "))
                     {
                         Debug.Log("Undeclared variable s");
-                        return;
+                        return "Undeclared variable s";
                     }
                     
                     if (!char.IsDigit(s))
                     {
                         Debug.Log("Invalid data type for s");
-                        return;
+                        return "Invalid data type for s";
                     }
                     
                     if (currentLine.Contains(" to e"))
                     {
                         Debug.Log("Undeclared variable e");
-                        return;
+                        return "Undeclared variable e";
                     }
             
                     if (!char.IsDigit(e))
                     {
                         Debug.Log("Invalid data type for e");
-                        return;
+                        return "Invalid data type for e";
                     }
                 }
 
@@ -203,7 +210,7 @@ public class Level5Logic : MonoBehaviour
                 if (currentLine.Contains("print Array[index]") && arrayObject == null)
                 {
                     Debug.Log("Array not found");
-                    return;
+                    return "Array not found";
                 }
                 
                 //checking out start variable of reversal function has valid syntax
@@ -212,7 +219,7 @@ public class Level5Logic : MonoBehaviour
                     if (!char.IsDigit(currentLine[8]))
                     {
                         Debug.Log("Passed data is invalid type");
-                        return;
+                        return "Passed data is invalid type";
                     }
                 }
                 
@@ -222,7 +229,7 @@ public class Level5Logic : MonoBehaviour
                     if (!char.IsDigit(currentLine[6]))
                     {
                         Debug.Log("Passed data is invalid type");
-                        return;
+                        return "Passed data is invalid type";
                     }
                 }
                 
@@ -232,7 +239,7 @@ public class Level5Logic : MonoBehaviour
                     if (arrayObject == null)
                     {
                         Debug.Log("No array found");
-                        return;
+                        return "No array found";
                     }
                     
                     if (currentLine.Contains("Number temp = "))
@@ -249,7 +256,7 @@ public class Level5Logic : MonoBehaviour
                             if (!int.TryParse(checker, out _))
                             {
                                 Debug.Log("Incompatible data type passed for temp variable");
-                                return;
+                                return "Incompatible data type passed for temp variable";
                             }
                         }
                     }
@@ -263,7 +270,7 @@ public class Level5Logic : MonoBehaviour
                             if (int.TryParse(checker, out _))
                             {
                                 Debug.Log("Incompatible data type passed for the temp variable");
-                                return;
+                                return "Incompatible data type passed for the temp variable";
                             }
                         }
                     }
@@ -290,7 +297,7 @@ public class Level5Logic : MonoBehaviour
                     if (!(s >= 0 && e >= s && e < output.Length))
                     {
                         Debug.Log("Invalid range for Print Function");
-                        return;
+                        return "Invalid range for Print Function";
                     }
                     
                     output = output.Substring(s, phraseLength);
@@ -307,7 +314,7 @@ public class Level5Logic : MonoBehaviour
                     if (!(start >= 0 && end < output.Length && start <= end))
                     {
                         Debug.Log("Invalid range for array reversal");
-                        return;
+                        return "Invalid range for array reversal";
                     }
                     
                     output = ReverseString(output, start, end);
@@ -321,6 +328,9 @@ public class Level5Logic : MonoBehaviour
 
             Debug.Log(output);
             Debug.Log(outputArray.Count);
+            
+            compilationSuccess = true;
+            return "Compiled Successfully";
 
             /*
             for (int i = 0; i < codes.Count; i++)
@@ -448,9 +458,10 @@ public class Level5Logic : MonoBehaviour
 
                 Debug.Log("Victory");
             }*/
-
-
+            
         }
+
+        return "Dummy Message";
     }
 
     private string ReverseString(string input, int start, int end)
@@ -469,5 +480,32 @@ public class Level5Logic : MonoBehaviour
         }
 
         return new string(charArray);
+    }
+    
+    public void Compile(bool compilation)
+    {
+        compilationSuccess = false;
+        string returnedMessage = OptimalAnswer();
+        if (!compilationSuccess)
+        {
+            compileMessage.text = returnedMessage;
+            compilationMenu.SetActive(true);
+            return;
+        }
+
+        if (compilation)
+        {
+            compileMessage.text = "Compilation Successful";
+            compilationMenu.SetActive(true);
+        }
+    }
+    
+    public void Build()
+    {
+        Compile(false);
+        if (compilationSuccess)
+        {
+            victoryMenu.SetActive(true);
+        }
     }
 }

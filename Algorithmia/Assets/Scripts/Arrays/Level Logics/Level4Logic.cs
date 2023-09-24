@@ -220,6 +220,9 @@ public class Level4Logic : MonoBehaviour
                 return errorMessage;
             }
             
+            compilationSuccess = true;
+            return "Compiled Successfully";
+            
             /*
             if (errorMessage == "")
             {
