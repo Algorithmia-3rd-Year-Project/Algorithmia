@@ -17,9 +17,15 @@ public class Level3Logic : MonoBehaviour
     private List<string> codes = new List<string>();
 
     [SerializeField] private string[] ww;
+    
+    private bool compilationSuccess;
+    
+    [SerializeField] private TMP_Text compileMessage;
+    [SerializeField] private GameObject compilationMenu;
+    [SerializeField] private GameObject victoryMenu;
 
-    /*
-    public void CheckAnswer()
+
+    public string OptimalAnswer()
     {
         bool programConnected = false;
         
@@ -35,103 +41,7 @@ public class Level3Logic : MonoBehaviour
         if (!programConnected)
         {
             Debug.Log("Program is not connected");
-            return;
-        }
-
-        int hasArray = 0;
-        int hasPrint = 0;
-
-        for (int i = 0; i < levelManager.blocks.Count; i++)
-        {
-            string blockName = levelManager.blocks[i].GetComponent<ArrayBlock>().blockName;
-            if (blockName == "Empty Array")
-            {
-                hasArray += 1;
-            } else if (blockName == "Array Print")
-            {
-                hasPrint += 1;
-            }
-        }
-
-        if (hasArray == 0)
-        {
-            Debug.Log("No Array is declared");
-            return;
-        }
-
-        if (hasArray > 1)
-        {
-            Debug.Log("Duplicate arrays");
-            return;
-        }
-        
-        const string correctOrder = "cool";
-        string receivedOrder = "";
-        string rangeStart = "";
-        string rangeEnd = "";
-        
-
-        
-        if (levelManager.correctForms.Count > 0)
-        {
-            
-            for (int i = 0; i < levelManager.correctForms.Count; i++)
-            {
-                GameObject attachedChild = (levelManager.correctForms[i].transform.childCount > 0)
-                    ? levelManager.correctForms[i].transform.GetChild(0).gameObject
-                    : null;
-
-                if (attachedChild != null)
-                {
-                    if (levelManager.correctForms[i].name == "0" || levelManager.correctForms[i].name == "1" ||
-                        levelManager.correctForms[i].name == "2" || levelManager.correctForms[i].name == "3")
-                    {
-                        receivedOrder += attachedChild.GetComponent<DataBlock>().dataValue;
-                    } else if (levelManager.correctForms[i].name == "Print - Start Point")
-                    {
-                        rangeStart = attachedChild.GetComponent<DataBlock>().dataValue;
-                    } else if (levelManager.correctForms[i].name == "Print - End Point")
-                    {
-                        rangeEnd = attachedChild.GetComponent<DataBlock>().dataValue;
-                    }
-                }
-            }
-        }
-        
-        if (hasPrint == 1 && (rangeStart == "" || rangeEnd == "")) 
-        {
-            Debug.Log("Undeclared variables in print");
-            return;
-        }
-
-        if (receivedOrder == "")
-        {
-            Debug.Log("No Message to display");
-            return;
-        }
-
-        if (receivedOrder == correctOrder && hasPrint == 1)
-        {
-            Debug.Log("Correct Answer");
-        }
-    }*/
-
-    public void OptimalAnswer()
-    {
-        bool programConnected = false;
-        
-        for (int i = 0; i < levelManager.lines.Count; i++)
-        {
-            if (levelManager.lines[i].GetComponent<ArrayLine>().endPos.name == "PC")
-            {
-                programConnected = true;
-                break;
-            }
-        }
-
-        if (!programConnected)
-        {
-            Debug.Log("Program is not connected");
+            return "Could not compile the program";
         }
         else
         {
@@ -201,7 +111,7 @@ public class Level3Logic : MonoBehaviour
             if (errorMessage == "Unconnected Blocks")
             {
                 Debug.Log("There are random wanderers");
-                return;
+                return "Undefined variables in functions";
             }
             
             for (int i = 0; i < codeOrder.Count; i++)
@@ -227,25 +137,24 @@ public class Level3Logic : MonoBehaviour
             }
             
             string result = string.Join("", currentArray);
-
-
             
+            /*
             if (errorMessage.Contains("Number Array[4]") && result == "")
             {
                 Debug.Log("Nothing to output");
-                return;
-            }
+                return "";
+            }*/
 
             if (errorMessage.Contains("for index=s to "))
             {
                 Debug.Log("Undeclared variable s");
-                return;
+                return "Undeclared variable s";
             }
             
             if (errorMessage.Contains(" to e"))
             {
                 Debug.Log("Undeclared variable e");
-                return;
+                return "Undeclared variable e";
             }
 
             string printBlockCode = "";
@@ -273,7 +182,7 @@ public class Level3Logic : MonoBehaviour
                     if (!int.TryParse(letter, out _))
                     {
                         Debug.Log("Invalid data types as elements");
-                        return;
+                        return "Invalid data types as elements";
                     }
                 }
             } else if (arrayBlockType == "Character")
@@ -283,12 +192,10 @@ public class Level3Logic : MonoBehaviour
                     if (int.TryParse(letter, out _))
                     {
                         Debug.Log("Invalid data types as elements");
-                        return;
+                        return "Invalid data types as elements";
                     }
                 }
             }
-            
-            
 
             char s = printBlockCode[24];
             char e = printBlockCode[51];
@@ -296,34 +203,36 @@ public class Level3Logic : MonoBehaviour
             if (!char.IsDigit(s))
             {
                 Debug.Log("Invalid data type for s");
-                return;
+                return "Invalid data type for s";
             }
             
             if (!char.IsDigit(e))
             {
                 Debug.Log("Invalid data type for e");
-                return;
+                return "Invalid data type for e";
+            }
+            
+            int begin = int.Parse(s.ToString());
+            int end = int.Parse(e.ToString());
+                
+            if (begin < 0 || end >= result.Length || begin >= result.Length || end < 0)
+            {
+                Debug.Log("Index is outside the bounds of array");
+                return "Index is outside the bounds of array";
             }
 
             if (errorMessage != "")
             {
                 Debug.Log(errorMessage);
-                return;
+                return errorMessage;
             }
 
             if (errorMessage == "")
             {
                 string expectedResult = "cool";
-
-                int begin = int.Parse(s.ToString());
-                int end = int.Parse(e.ToString());
-                
-                if (begin < 0 || end >= result.Length || begin >= result.Length || end < 0)
-                {
-                    Debug.Log("Index is outside the bounds of array");
-                    return;
-                }
-                
+                compilationSuccess = true;
+                //return "Compiled Successfully";
+                /*
                 for (int i = begin; i < end; i++)
                 {
                     if (result[i] != expectedResult[i])
@@ -333,10 +242,39 @@ public class Level3Logic : MonoBehaviour
                     }
                 }
                 
-                Debug.Log("Victory");
+                Debug.Log("Victory");*/
             }
             
             
+        }
+
+        return "dummy message";
+    }
+
+    public void Compile(bool compilation)
+    {
+        compilationSuccess = false;
+        string returnedMessage = OptimalAnswer();
+        if (!compilationSuccess)
+        {
+            compileMessage.text = returnedMessage;
+            compilationMenu.SetActive(true);
+            return;
+        }
+
+        if (compilation)
+        {
+            compileMessage.text = "Compilation Successful";
+            compilationMenu.SetActive(true);
+        }
+    }
+    
+    public void Build()
+    {
+        Compile(false);
+        if (compilationSuccess)
+        {
+            victoryMenu.SetActive(true);
         }
     }
     
