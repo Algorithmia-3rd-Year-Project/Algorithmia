@@ -153,6 +153,7 @@ public class Linkedlistblockmanager : MonoBehaviour
             {
 
                 TrackSnapPoints(currentObj);
+                TrackLinePoints(currentObj);
                 ChangeBlockLayer(currentObj.transform, "Workspace");
                 levelManager.blockCount += 1;
 
@@ -256,19 +257,24 @@ public class Linkedlistblockmanager : MonoBehaviour
             }
         }
 
-        /* private void TrackLinePoints(GameObject parentObj)
+        private void TrackLinePoints(GameObject parentObj)
         {
+        //save all the end points of nodes in an array 
 
-            Transform linePoints = parentObj.transform.Find("Line Points");
+            Transform linePoints = parentObj.transform.Find("Line End Points");
 
             if (linePoints != null)
-             {
-                 Transform endPoint = linePoints.Find("Line End");
-                 {
-                     levelManager.lineEndPoints.Add(endPoint);
-                 }
-             }
-        }*/
+            {
+                for(int i = 0;  i < linePoints.childCount; i++)
+                { 
+                    Transform lineEndPoint = linePoints.GetChild(i);
+                    if(lineEndPoint.name != "Line End Points")
+                    {
+                        levelManager.lineEndPoints.Add(lineEndPoint);
+                    }
+                }   
+            }
+        }
 
         private void ChangeBlockLayer(Transform currentObj, string layerName)
         {
