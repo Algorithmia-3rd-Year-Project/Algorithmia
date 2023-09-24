@@ -21,7 +21,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        Debug.Log(Application.dataPath);
+        Debug.Log(Application.persistentDataPath);
         anyMenuOpened = false;
     }
 
