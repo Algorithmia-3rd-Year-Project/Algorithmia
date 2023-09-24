@@ -126,7 +126,7 @@ public class Level3Logic : MonoBehaviour
             
             for (int i = 0; i < codes.Count; i++)
             {
-                
+                //increase line number for data elements
                 if (codes[i] != correctCodeOrder[i])
                 {
                     string errorLine = Regex.Replace(codes[i], "<.*?>", string.Empty); 
@@ -148,13 +148,13 @@ public class Level3Logic : MonoBehaviour
             if (errorMessage.Contains("for index=s to "))
             {
                 Debug.Log("Undeclared variable s");
-                return "Undeclared variable s";
+                return "Undeclared variable s" + "\n" + errorMessage;
             }
             
             if (errorMessage.Contains(" to e"))
             {
                 Debug.Log("Undeclared variable e");
-                return "Undeclared variable e";
+                return "Undeclared variable e" + "\n" + errorMessage;
             }
 
             string printBlockCode = "";
@@ -182,7 +182,7 @@ public class Level3Logic : MonoBehaviour
                     if (!int.TryParse(letter, out _))
                     {
                         Debug.Log("Invalid data types as elements");
-                        return "Invalid data types as elements";
+                        return "Invalid data types as elements" + "\n" + errorMessage;
                     }
                 }
             } else if (arrayBlockType == "Character")
@@ -192,7 +192,7 @@ public class Level3Logic : MonoBehaviour
                     if (int.TryParse(letter, out _))
                     {
                         Debug.Log("Invalid data types as elements");
-                        return "Invalid data types as elements";
+                        return "Invalid data types as elements" + "\n" + errorMessage;
                     }
                 }
             }
@@ -203,13 +203,13 @@ public class Level3Logic : MonoBehaviour
             if (!char.IsDigit(s))
             {
                 Debug.Log("Invalid data type for s");
-                return "Invalid data type for s";
+                return "Invalid data type for s" + "\n" + errorMessage;
             }
             
             if (!char.IsDigit(e))
             {
                 Debug.Log("Invalid data type for e");
-                return "Invalid data type for e";
+                return "Invalid data type for e" + "\n" + errorMessage;
             }
             
             int begin = int.Parse(s.ToString());
@@ -218,7 +218,7 @@ public class Level3Logic : MonoBehaviour
             if (begin < 0 || end >= result.Length || begin >= result.Length || end < 0)
             {
                 Debug.Log("Index is outside the bounds of array");
-                return "Index is outside the bounds of array";
+                return "Index is outside the bounds of array" + "\n" + errorMessage;
             }
 
             if (errorMessage != "")

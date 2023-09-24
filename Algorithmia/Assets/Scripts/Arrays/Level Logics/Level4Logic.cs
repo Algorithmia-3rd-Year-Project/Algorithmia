@@ -17,8 +17,14 @@ public class Level4Logic : MonoBehaviour
     [SerializeField] private List<string> codes = new List<string>();
 
     [SerializeField] private string[] ww;
+    
+    private bool compilationSuccess;
+    
+    [SerializeField] private TMP_Text compileMessage;
+    [SerializeField] private GameObject compilationMenu;
+    [SerializeField] private GameObject victoryMenu;
 
-    public void OptimalAnswer()
+    public string OptimalAnswer()
     {
         bool programConnected = false;
         
@@ -34,6 +40,7 @@ public class Level4Logic : MonoBehaviour
         if (!programConnected)
         {
             Debug.Log("Program is not connected");
+            return "Could not compile the program";
         }
         else
         {
@@ -103,7 +110,7 @@ public class Level4Logic : MonoBehaviour
             if (errorMessage == "Unconnected Blocks")
             {
                 Debug.Log("There are random wanderers");
-                return;
+                return "Undefined variables in functions";
             }
             
             for (int i = 0; i < codeOrder.Count; i++)
@@ -134,13 +141,13 @@ public class Level4Logic : MonoBehaviour
             if (errorMessage.Contains("for index=s to "))
             {
                 Debug.Log("Undeclared variable s");
-                return;
+                return "Undeclared variable s" + "\n" + errorMessage;
             }
             
             if (errorMessage.Contains(" to e"))
             {
                 Debug.Log("Undeclared variable e");
-                return;
+                return "Undeclared variable e" + "\n" + errorMessage;
             }
 
             string printBlockCode = "";
@@ -168,7 +175,7 @@ public class Level4Logic : MonoBehaviour
                     if (!int.TryParse(letter, out _))
                     {
                         Debug.Log("Invalid data types as elements");
-                        return;
+                        return "Invalid data types as elements" + "\n" + errorMessage;
                     }
                 }
             } else if (arrayBlockType == "Character")
@@ -178,12 +185,10 @@ public class Level4Logic : MonoBehaviour
                     if (int.TryParse(letter, out _))
                     {
                         Debug.Log("Invalid data types as elements");
-                        return;
+                        return "Invalid data types as elements" + "\n" + errorMessage;
                     }
                 }
             }
-            
-            
 
             char s = printBlockCode[24];
             char e = printBlockCode[51];
@@ -191,39 +196,34 @@ public class Level4Logic : MonoBehaviour
             if (!char.IsDigit(s))
             {
                 Debug.Log("Invalid data type for s");
-                return;
+                return "Invalid data type for s" + "\n" + errorMessage;
             }
             
             if (!char.IsDigit(e))
             {
                 Debug.Log("Invalid data type for e");
-                return;
+                return "Invalid data type for e" + "\n" + errorMessage;
             }
-
-            if (errorMessage.Contains("for index=") && (char.IsDigit(s) || char.IsDigit(e)))
+            
+            int begin = int.Parse(s.ToString());
+            int end = int.Parse(e.ToString());
+                
+            if (begin < 0 || end >= result.Length || begin >= result.Length || end < 0)
             {
-                errorMessage = "";
+                Debug.Log("Index is outside the bounds of array");
+                return "Index is outside the bounds of array" + "\n" + errorMessage;
             }
 
             if (errorMessage != "")
             {
                 Debug.Log(errorMessage);
-                return;
+                return errorMessage;
             }
-
             
+            /*
             if (errorMessage == "")
             {
                 string expectedResult = "art";
-
-                int begin = int.Parse(s.ToString());
-                int end = int.Parse(e.ToString());
-                
-                if (begin < 0 || end >= result.Length || begin >= result.Length || end < 0)
-                {
-                    Debug.Log("Index is outside the bounds of array");
-                    return;
-                }
 
                 string receivedOutput = "";
                 
@@ -239,9 +239,36 @@ public class Level4Logic : MonoBehaviour
                 }
                 
                 Debug.Log("Victory");
-            }
+            }*/
             
-            
+        }
+        return "dummy message";
+    }
+    
+    public void Compile(bool compilation)
+    {
+        compilationSuccess = false;
+        string returnedMessage = OptimalAnswer();
+        if (!compilationSuccess)
+        {
+            compileMessage.text = returnedMessage;
+            compilationMenu.SetActive(true);
+            return;
+        }
+
+        if (compilation)
+        {
+            compileMessage.text = "Compilation Successful";
+            compilationMenu.SetActive(true);
+        }
+    }
+    
+    public void Build()
+    {
+        Compile(false);
+        if (compilationSuccess)
+        {
+            victoryMenu.SetActive(true);
         }
     }
     
