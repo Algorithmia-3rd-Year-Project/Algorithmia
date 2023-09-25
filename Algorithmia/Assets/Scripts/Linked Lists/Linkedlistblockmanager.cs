@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class Linkedlistblockmanager : MonoBehaviour
@@ -154,6 +155,7 @@ public class Linkedlistblockmanager : MonoBehaviour
 
                 TrackSnapPoints(currentObj);
                 TrackLinePoints(currentObj);
+                ActivateLineSnapPoints(currentObj);
                 ChangeBlockLayer(currentObj.transform, "Workspace");
                 levelManager.blockCount += 1;
 
@@ -273,6 +275,20 @@ public class Linkedlistblockmanager : MonoBehaviour
                         levelManager.lineEndPoints.Add(lineEndPoint);
                     }
                 }   
+            }
+        }
+
+        private void ActivateLineSnapPoints(GameObject currentObj)
+        {
+            Transform linePoints = currentObj.transform.Find("Line Points");
+            Transform lineEndPoints = currentObj.transform.Find("Line End Points");
+            foreach (Transform linePoint in linePoints)
+            {
+                currentObj.gameObject.SetActive(true);
+            }
+            foreach (Transform lineEndPoint in lineEndPoints)
+            {
+                currentObj.gameObject.SetActive(true);
             }
         }
 
