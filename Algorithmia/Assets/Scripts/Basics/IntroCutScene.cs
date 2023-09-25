@@ -15,7 +15,7 @@ public class IntroCutScene : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        energyLevel = Random.Range(60, 70);
+        energyLevel = Random.Range(51, 60);
         happinessLevel = Random.Range(40, 80);
         intelligenceLevel = 1;
     }

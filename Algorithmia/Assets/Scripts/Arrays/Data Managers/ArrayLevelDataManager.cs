@@ -16,7 +16,7 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(ref GameData data)
     {
-        data.energyLevel = this.energyLevel - 20;
+        data.energyLevel = this.energyLevel;
     }
 
     public void LoadNextLevel(string sceneName)
@@ -26,7 +26,18 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
             energyLostMenu.SetActive(true);
             return;
         }
+        energyLevel -= 20;
         SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    public void ExitToMenu()
+    {
+        SceneManager.LoadSceneAsync("Scenes/Main Menu");
+    }
+
+    public void DirectToSimulation()
+    {
+        SceneManager.LoadSceneAsync("Scenes/Simulation");
     }
     
 }
