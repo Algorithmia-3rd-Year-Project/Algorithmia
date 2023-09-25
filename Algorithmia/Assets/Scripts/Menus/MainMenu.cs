@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MainMenu : MonoBehaviour
@@ -11,6 +12,11 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private GameObject accountSelectionScreen;
 
+    [SerializeField] private TMP_InputField guestNameInput;
+    [SerializeField] private TMP_Text loggedUsernameText;
+
+    public string currentUsername;
+    
     private void Awake()
     {
         //need to retrieve this from log files
@@ -24,6 +30,12 @@ public class MainMenu : MonoBehaviour
         {
             accountSelectionScreen.SetActive(true);
         }
+    }
+
+    public void SaveGuestName()
+    {
+        currentUsername = guestNameInput.text;
+        loggedUsernameText.text = currentUsername;
     }
 
     public void PlayGame()
