@@ -7,10 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private bool hasLogged;
-
-    private bool alreadyGuest;
-
     [SerializeField] private GameObject accountSelectionScreen;
 
     [SerializeField] private TMP_InputField guestNameInput;
@@ -21,22 +17,11 @@ public class MainMenu : MonoBehaviour
 
     public string currentUsername;
     
-    private void Awake()
-    {
-        //need to retrieve this from log files
-        hasLogged = false;
-        alreadyGuest = false;
-    }
-
     private void Start()
     {
-        if (!hasLogged && !alreadyGuest)
-        {
-            accountSelectionScreen.SetActive(true);
-        }
-
         if (!DataPersistenceManager.instance.HasGameData())
         {
+            accountSelectionScreen.SetActive(true);
             continueGameObjects.SetActive(false);
             newGameObjects.SetActive(true);
         } else if (DataPersistenceManager.instance.HasGameData())
@@ -50,13 +35,15 @@ public class MainMenu : MonoBehaviour
     {
         currentUsername = guestNameInput.text;
         loggedUsernameText.text = currentUsername;
+        PlayerPrefs.SetString("PlayerName", currentUsername);
+        PlayerPrefs.Save();
     }
 
     public void PlayNewGame()
     {
         //Load the cutscene for new players or the simulation screen for old players
         DataPersistenceManager.instance.NewGame();
-        SceneManager.LoadSceneAsync("Scenes/Simulation");
+        SceneManager.LoadSceneAsync("Scenes/CutScenes/Introduction");
     }
 
     public void ContinueGame()
