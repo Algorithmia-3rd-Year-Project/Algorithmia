@@ -8,9 +8,17 @@ public class GameData
     //Things that needed to be saved
     public float coinAmount;
 
+    public float energyLevel;
+    public float happinessLevel;
+    public float intelligenceLevel;
+
     //These values would be default values the game starts with when there's no data to load
     public GameData()
     {
         this.coinAmount = 150;
+
+        energyLevel = Random.Range(60f, 75f);
+        happinessLevel = Random.Range(40f, 90f);
+        intelligenceLevel = 0f;
     }
 }
