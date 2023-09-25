@@ -9337,7 +9337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 150
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ff9c28207b87254a9a5f0627cb9a07f, type: 2}
   m_sharedMaterial: {fileID: 1135411463415412487, guid: 0ff9c28207b87254a9a5f0627cb9a07f, type: 2}
@@ -46022,7 +46022,6 @@ MonoBehaviour:
   anyMenuOpened: 0
   energyBar: {fileID: 1610704192}
   energyPercent: {fileID: 2058520424}
-  coins: 150
   energyLevel: 0
   happinessLevel: 0
   intelligenceLevel: 0
@@ -46032,6 +46031,8 @@ MonoBehaviour:
   energySlider: {fileID: 1610704192}
   happinessSlider: {fileID: 113927463}
   intelligenceSlider: {fileID: 1553307803}
+  coins: 150
+  currencyText: {fileID: 235401282}
 --- !u!4 &1101474496
 Transform:
   m_ObjectHideFlags: 0
@@ -53901,7 +53902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1276202450
 RectTransform:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField]
     private TMP_Text energyPercent;
 
-    public float coins;
+    
 
     [Header("Progress Bars")]
     public int energyLevel;
@@ -32,6 +32,10 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Slider energySlider;
     [SerializeField] private Slider happinessSlider;
     [SerializeField] private Slider intelligenceSlider;
+    
+    [Header("Currency")]
+    public float coins;
+    [SerializeField] private TMP_Text currencyText;
     
     private string username;
     
@@ -52,6 +56,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
         energySlider.value = energyLevel;
         happinessSlider.value = happinessLevel;
         intelligenceSlider.value = intelligenceLevel;
+        
+        //Update current coin amount
+        currencyText.text = coins.ToString();
     }
 
     public void LoadData(GameData data)
@@ -85,18 +92,17 @@ public class SimManager : MonoBehaviour, IDataPersistence
         
     }
 
+    public void LoadTopUpCenter(string url)
+    {
+        Application.OpenURL(url);
+    }
+
     public void MenuCloseDetection()
     {
         anyMenuOpened = false;
     }
 
     //Temporary Functions
-    public void IncreaseEnergy()
-    {
-        energyBar.value = 0.08f;
-        energyPercent.text = "4%";
-    }
-
     public void spendMoney(float amount)
     {
         coins -= amount;
