@@ -19,6 +19,11 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
     public float coins;
 
+    [Header("Progress Bars")]
+    public float energyLevel;
+    public float happinessLevel;
+    public float intelligenceLevel;
+    
     private void Start()
     {
         Debug.Log(Application.persistentDataPath);
@@ -28,11 +33,17 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         this.coins = data.coinAmount;
+        this.energyLevel = data.energyLevel;
+        this.happinessLevel = data.happinessLevel;
+        this.intelligenceLevel = data.intelligenceLevel;
     }
 
     public void SaveData(ref GameData data)
     {
         data.coinAmount = this.coins;
+        data.energyLevel = this.energyLevel;
+        data.happinessLevel = this.happinessLevel;
+        data.intelligenceLevel = this.intelligenceLevel;
     }
 
     public void ChangeMouseCursor(bool computerCursorEnabled)
