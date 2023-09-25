@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private GameObject accountSelectionScreen;
 
@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour
             continueGameObjects.SetActive(true);
             newGameObjects.SetActive(false);
         }
+        loggedUsernameText.text = currentUsername;
     }
 
     public void SaveGuestName()
@@ -64,5 +65,15 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         //Quit from the application
+    }
+    
+    public void LoadData(GameData data)
+    {
+        this.currentUsername = data.username;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        //data.username = PlayerPrefs.GetString("PlayerName");
     }
 }
