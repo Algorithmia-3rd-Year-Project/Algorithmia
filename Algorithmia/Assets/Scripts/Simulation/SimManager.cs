@@ -20,9 +20,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public float coins;
 
     [Header("Progress Bars")]
-    public float energyLevel;
-    public float happinessLevel;
-    public float intelligenceLevel;
+    public int energyLevel;
+    public int happinessLevel;
+    public int intelligenceLevel;
 
     private string username;
     

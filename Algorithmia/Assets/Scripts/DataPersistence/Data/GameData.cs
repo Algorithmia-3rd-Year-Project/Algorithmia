@@ -8,9 +8,9 @@ public class GameData
     //Things that needed to be saved
     public float coinAmount;
 
-    public float energyLevel;
-    public float happinessLevel;
-    public float intelligenceLevel;
+    public int energyLevel;
+    public int happinessLevel;
+    public int intelligenceLevel;
 
     public string username;
     
@@ -21,7 +21,7 @@ public class GameData
 
         //energyLevel = Random.Range(60f, 75f);
         //happinessLevel = Random.Range(40f, 90f);
-        intelligenceLevel = 0f;
+        intelligenceLevel = 0;
 
         username = "";
     }
