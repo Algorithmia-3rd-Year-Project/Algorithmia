@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private TMP_InputField guestNameInput;
     [SerializeField] private TMP_Text loggedUsernameText;
+
+    [SerializeField] private GameObject newGameObjects;
+    [SerializeField] private GameObject continueGameObjects;
 
     public string currentUsername;
     
@@ -30,6 +34,16 @@ public class MainMenu : MonoBehaviour
         {
             accountSelectionScreen.SetActive(true);
         }
+
+        if (!DataPersistenceManager.instance.HasGameData())
+        {
+            continueGameObjects.SetActive(false);
+            newGameObjects.SetActive(true);
+        } else if (DataPersistenceManager.instance.HasGameData())
+        {
+            continueGameObjects.SetActive(true);
+            newGameObjects.SetActive(false);
+        }
     }
 
     public void SaveGuestName()
@@ -38,9 +52,16 @@ public class MainMenu : MonoBehaviour
         loggedUsernameText.text = currentUsername;
     }
 
-    public void PlayGame()
+    public void PlayNewGame()
     {
         //Load the cutscene for new players or the simulation screen for old players
+        DataPersistenceManager.instance.NewGame();
+        SceneManager.LoadSceneAsync("Scenes/Simulation");
+    }
+
+    public void ContinueGame()
+    {
+        SceneManager.LoadSceneAsync("Scenes/Simulation");
     }
 
     public void LoadAchievements()
