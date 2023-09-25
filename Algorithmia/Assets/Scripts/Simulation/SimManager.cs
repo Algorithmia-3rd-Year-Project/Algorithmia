@@ -23,6 +23,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public float energyLevel;
     public float happinessLevel;
     public float intelligenceLevel;
+
+    private string username;
     
     private void Start()
     {
@@ -36,6 +38,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.energyLevel = data.energyLevel;
         this.happinessLevel = data.happinessLevel;
         this.intelligenceLevel = data.intelligenceLevel;
+        this.username = data.username;
     }
 
     public void SaveData(ref GameData data)
@@ -44,6 +47,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.energyLevel = this.energyLevel;
         data.happinessLevel = this.happinessLevel;
         data.intelligenceLevel = this.intelligenceLevel;
+        data.username = PlayerPrefs.GetString("PlayerName");
     }
 
     public void ChangeMouseCursor(bool computerCursorEnabled)
