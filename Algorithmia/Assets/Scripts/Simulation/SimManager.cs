@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,13 +24,34 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public int energyLevel;
     public int happinessLevel;
     public int intelligenceLevel;
-
+    [Space] 
+    [SerializeField] private TMP_Text energyPercentageText;
+    [SerializeField] private TMP_Text happinessPercentageText;
+    [SerializeField] private TMP_Text intelligencePercentageText;
+    [Space] 
+    [SerializeField] private Slider energySlider;
+    [SerializeField] private Slider happinessSlider;
+    [SerializeField] private Slider intelligenceSlider;
+    
     private string username;
     
     private void Start()
     {
         Debug.Log(Application.persistentDataPath);
         anyMenuOpened = false;
+    }
+
+    private void Update()
+    {
+        //Update progression bar percentages
+        energyPercentageText.text = energyLevel.ToString() + "%";
+        happinessPercentageText.text = happinessLevel.ToString() + "%";
+        intelligencePercentageText.text = intelligenceLevel.ToString() + "%";
+
+        //Update progression bar fill
+        energySlider.value = energyLevel;
+        happinessSlider.value = happinessLevel;
+        intelligenceSlider.value = intelligenceLevel;
     }
 
     public void LoadData(GameData data)
