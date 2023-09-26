@@ -11,6 +11,10 @@ public class FamilyManager : MonoBehaviour, IDataPersistence
 
     private string motherName;
     private string fatherName;
+    private string motherOccupation;
+    private string fatherOccupation;
+    private int motherAge;
+    private int fatherAge;
     
     private void Start()
     {
@@ -21,7 +25,12 @@ public class FamilyManager : MonoBehaviour, IDataPersistence
         
         motherName = GetRandomValueFromList(familyData.mother);
         fatherName = GetRandomValueFromList(familyData.father);
-        
+        motherOccupation = GetRandomValueFromList(familyData.occupation);
+        fatherOccupation = GetRandomValueFromList(familyData.occupation);
+
+        motherAge = Random.Range(35, 60);
+        fatherAge = Random.Range(38, 70);
+
     }
     
     public void LoadData(GameData data)
@@ -33,6 +42,10 @@ public class FamilyManager : MonoBehaviour, IDataPersistence
     {
         data.motherName = this.motherName;
         data.fatherName = this.fatherName;
+        data.motherOccupation = this.motherOccupation;
+        data.fatherOccupation = this.fatherOccupation;
+        data.motherAge = this.motherAge;
+        data.fatherAge = this.fatherAge;
     }
     
     private T GetRandomValueFromList<T>(List<T> list)

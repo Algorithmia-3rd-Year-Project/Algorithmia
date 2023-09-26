@@ -55,6 +55,14 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [Header("Introductions")]
     [SerializeField] private GameObject instructionManager;
     private bool initialIntroPlayed;
+
+    [Header("Family")] 
+    [SerializeField] private TMP_Text motherNameText;
+    [SerializeField] private TMP_Text motherAgeText;
+    [SerializeField] private TMP_Text motherOccupationText;
+    [SerializeField] private TMP_Text fatherNameText;
+    [SerializeField] private TMP_Text fatherAgeText;
+    [SerializeField] private TMP_Text fatherOccupationText;
     
     private void Start()
     {
@@ -103,6 +111,13 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.totalPlayTime = data.totalPlayTime;
         this.dailyMessage = data.dailyMessage;
         this.initialIntroPlayed = data.simulationIntroPlayed;
+
+        this.motherNameText.text = data.motherName;
+        this.motherAgeText.text = data.motherAge.ToString();
+        this.motherOccupationText.text = data.motherOccupation;
+        this.fatherNameText.text = data.fatherName;
+        this.fatherAgeText.text = data.fatherAge.ToString();
+        this.fatherOccupationText.text = data.fatherOccupation;
     }
 
     public void SaveData(ref GameData data)

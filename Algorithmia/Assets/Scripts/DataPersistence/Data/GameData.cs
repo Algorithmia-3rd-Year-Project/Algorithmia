@@ -22,9 +22,11 @@ public class GameData
     //Player family details
     public string motherName;
     public int motherAge;
+    public string motherOccupation;
     
     public string fatherName;
     public int fatherAge;
+    public string fatherOccupation;
         
     //These values would be default values the game starts with when there's no data to load
     public GameData()
@@ -44,7 +46,9 @@ public class GameData
 
         this.motherName = "";
         this.motherAge = 0;
+        this.motherOccupation = "";
         this.fatherName = "";
         this.fatherAge = 0;
+        this.fatherOccupation = "";
     }
 }
