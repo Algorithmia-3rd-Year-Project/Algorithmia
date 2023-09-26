@@ -16,7 +16,9 @@ public class GameData
 
     public float totalPlayTime;
     public string dailyMessage;
-    
+
+    public bool simulationIntroPlayed; 
+        
     //These values would be default values the game starts with when there's no data to load
     public GameData()
     {
@@ -30,5 +32,7 @@ public class GameData
         
         this.totalPlayTime = 0;
         this.dailyMessage = "It's a cool day";
+
+        this.simulationIntroPlayed = false;
     }
 }
