@@ -39,6 +39,12 @@ public class SimManager : MonoBehaviour, IDataPersistence
     
     private string username;
     
+    [Header("Play Time")]
+    public float totalPlayTime;
+    [SerializeField] private TMP_Text currentDateText;
+    [SerializeField] private TMP_Text currentWeekText;
+    
+    
     private void Start()
     {
         Debug.Log(Application.persistentDataPath);
@@ -59,6 +65,11 @@ public class SimManager : MonoBehaviour, IDataPersistence
         
         //Update current coin amount
         currencyText.text = coins.ToString();
+        
+        //Keep track of time, date, and week
+        totalPlayTime += Time.deltaTime;
+        CalculateDayAndWeek(totalPlayTime);
+
     }
 
     public void LoadData(GameData data)
@@ -68,6 +79,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.happinessLevel = data.happinessLevel;
         this.intelligenceLevel = data.intelligenceLevel;
         this.username = data.username;
+        this.totalPlayTime = data.totalPlayTime;
     }
 
     public void SaveData(ref GameData data)
@@ -77,6 +89,17 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.happinessLevel = this.happinessLevel;
         data.intelligenceLevel = this.intelligenceLevel;
         data.username = PlayerPrefs.GetString("PlayerName");
+        data.totalPlayTime = this.totalPlayTime;
+    }
+
+    private void CalculateDayAndWeek(float totalTime)
+    {
+        int totalDaysCount = (int) totalTime / 900;
+        int weekNumber = (totalDaysCount / 7) + 1;
+        int weekDays = totalDaysCount % 7;
+
+        currentWeekText.text = weekNumber.ToString();
+        currentDateText.text = weekDays.ToString();
     }
 
     public void ChangeMouseCursor(bool computerCursorEnabled)
