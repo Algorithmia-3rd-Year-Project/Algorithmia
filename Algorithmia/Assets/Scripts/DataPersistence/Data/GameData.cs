@@ -13,16 +13,20 @@ public class GameData
     public int intelligenceLevel;
 
     public string username;
+
+    public float totalPlayTime;
     
     //These values would be default values the game starts with when there's no data to load
     public GameData()
     {
         this.coinAmount = 150;
 
-        //energyLevel = Random.Range(60f, 75f);
-        //happinessLevel = Random.Range(40f, 90f);
-        intelligenceLevel = 0;
+        this.energyLevel = 0;
+        this.happinessLevel = 0;
+        this.intelligenceLevel = 0;
 
-        username = "";
+        this.username = "";
+        
+        this.totalPlayTime = 0;
     }
 }
