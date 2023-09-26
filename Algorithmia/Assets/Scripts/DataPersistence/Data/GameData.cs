@@ -18,6 +18,13 @@ public class GameData
     public string dailyMessage;
 
     public bool simulationIntroPlayed; 
+    
+    //Player family details
+    public string motherName;
+    public int motherAge;
+    
+    public string fatherName;
+    public int fatherAge;
         
     //These values would be default values the game starts with when there's no data to load
     public GameData()
@@ -34,5 +41,10 @@ public class GameData
         this.dailyMessage = "It's a cool day";
 
         this.simulationIntroPlayed = false;
+
+        this.motherName = "";
+        this.motherAge = 0;
+        this.fatherName = "";
+        this.fatherAge = 0;
     }
 }
