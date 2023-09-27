@@ -7,6 +7,8 @@ public class ArrayLineManager : MonoBehaviour
     [SerializeField]
     private LayerMask workspaceLayer;
 
+    [SerializeField] private GameObject panelParent;
+    
     [SerializeField]
     GameObject currentLine;
 
@@ -60,6 +62,14 @@ public class ArrayLineManager : MonoBehaviour
 
                         orderIndex = functionObj.GetComponent<ArrayBlock>().pseudoElement.transform.GetSiblingIndex();
 
+                    }
+
+                    if (singleHit.collider.CompareTag("Info"))
+                    {
+                        GameObject block = singleHit.collider.transform.parent.gameObject;
+                        string infoPanelname = block.GetComponent<ArrayBlock>().infoPanelName;
+                        GameObject infoPanel = panelParent.transform.Find(infoPanelname).gameObject;
+                        infoPanel.SetActive(true);
                     }
                 }
             }

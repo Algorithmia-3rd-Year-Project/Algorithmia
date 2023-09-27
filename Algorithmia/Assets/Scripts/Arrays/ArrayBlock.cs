@@ -16,6 +16,8 @@ public class ArrayBlock : MonoBehaviour
 
     public int dataElementCount;
 
+    public string infoPanelName;
+    
     [Header("Print Function Settings")]
     public string startPoint;
     public string endPoint;
