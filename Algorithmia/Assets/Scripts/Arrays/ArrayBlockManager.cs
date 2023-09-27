@@ -62,7 +62,6 @@ public class ArrayBlockManager : MonoBehaviour
     private float typingSpeed;
 
     [SerializeField] private ScrollRect scrollRect;
-
     private void Start()
     {
         workspaceLayer = LayerMask.NameToLayer("Workspace");
