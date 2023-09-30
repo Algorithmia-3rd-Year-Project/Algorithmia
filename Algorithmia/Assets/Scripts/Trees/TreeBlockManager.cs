@@ -50,7 +50,6 @@ public class TreeBlockManager : MonoBehaviour
            
             if (inventoryHit.collider != null)
             {
-                Debug.Log(inventoryHit.collider);
                 if (inventoryHit.collider.gameObject.name == "Tree Node")
                 {
                     //Create a new tree node
@@ -180,8 +179,10 @@ public class TreeBlockManager : MonoBehaviour
                             levelManager.snapPoints[i].transform.parent.Find("Shade").gameObject.SetActive(false);      //Hide the shade after the node is snapped
                             ChangeBlockLayer(currentObj.transform, "Workspace");
                             TrackLinePoints(currentObj);
+                            levelManager.blockCount += 1;
+                            Debug.Log(levelManager.blockCount);
 
-                            
+
                             //Add data snap point to the list
                             GameObject SnapPoint = currentObj.transform.Find("Snap Point").gameObject;
                             levelManager.dataSnapPoints.Add(SnapPoint);
@@ -199,6 +200,7 @@ public class TreeBlockManager : MonoBehaviour
                         //If object is not snapped destroy
                         Debug.Log("snapped false");
                         Destroy(currentObj);
+                       
                     }
                     currentObj = null;
                 }

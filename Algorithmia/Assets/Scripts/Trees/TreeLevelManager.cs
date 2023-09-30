@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TreeLevelManager : MonoBehaviour
 {
+    public int blockCount;
 
-   
     //Variable for data 
     public List<GameObject> dataSnapPoints;
 
