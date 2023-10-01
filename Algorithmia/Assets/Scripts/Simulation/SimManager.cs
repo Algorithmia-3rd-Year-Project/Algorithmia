@@ -64,6 +64,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private TMP_Text fatherAgeText;
     [SerializeField] private TMP_Text fatherOccupationText;
     
+    //Variables related to tasks
+    [HideInInspector] public float lastBookReadTime;
+    
     private void Start()
     {
         Debug.Log(Application.persistentDataPath);
