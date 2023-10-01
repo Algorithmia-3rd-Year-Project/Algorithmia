@@ -10,6 +10,8 @@ public class TasksMenuManager : MonoBehaviour
     [SerializeField] private SimManager simulationManager;
 
     [SerializeField] private Button bookReadButton;
+    [SerializeField] private GameObject bookReadPanel;
+    [SerializeField] private GameObject outOfMoneyPanel;
 
     private void Update()
     {
@@ -18,7 +20,7 @@ public class TasksMenuManager : MonoBehaviour
 
     private void ReadABookButton()
     {
-        if (Mathf.Abs(Time.time - simulationManager.lastBookReadTime) > 20f)
+        if (simulationManager.lastBookReadTime > Time.time || (Time.time - simulationManager.lastBookReadTime) > 20f)
         {
             bookReadButton.interactable = true;
         }
@@ -30,9 +32,19 @@ public class TasksMenuManager : MonoBehaviour
 
     public void ReadABookOnClicked()
     {
-        simulationManager.coins -= 40;
-        simulationManager.energyLevel += 10;
-        simulationManager.lastBookReadTime = Time.time;
+        if (simulationManager.coins > 40)
+        {
+            simulationManager.coins -= 40;
+            simulationManager.energyLevel += 10;
+            simulationManager.lastBookReadTime = Time.time;
+            bookReadPanel.SetActive(true);
+        }
+        else
+        {
+            outOfMoneyPanel.SetActive(true);
+        }
+        
+        
     }
 
 }

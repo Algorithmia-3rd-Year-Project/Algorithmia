@@ -121,6 +121,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.fatherNameText.text = data.fatherName;
         this.fatherAgeText.text = data.fatherAge.ToString();
         this.fatherOccupationText.text = data.fatherOccupation;
+
+        this.lastBookReadTime = data.lastBookReadTime;
     }
 
     public void SaveData(ref GameData data)
@@ -133,6 +135,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.totalPlayTime = this.totalPlayTime;
         data.dailyMessage = this.dailyMessage;
         data.simulationIntroPlayed = this.initialIntroPlayed;
+
+        data.lastBookReadTime = this.lastBookReadTime;
     }
 
     private void CalculateDayAndWeek(float totalTime)
