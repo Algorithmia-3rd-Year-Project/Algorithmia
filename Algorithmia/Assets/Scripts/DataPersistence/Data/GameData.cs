@@ -27,6 +27,9 @@ public class GameData
     public string fatherName;
     public int fatherAge;
     public string fatherOccupation;
+    
+    //Simulation task executed times
+    public float lastBookReadTime;
         
     //These values would be default values the game starts with when there's no data to load
     public GameData()
@@ -50,5 +53,7 @@ public class GameData
         this.fatherName = "";
         this.fatherAge = 0;
         this.fatherOccupation = "";
+
+        this.lastBookReadTime = 0.0f;
     }
 }
