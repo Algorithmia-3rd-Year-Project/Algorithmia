@@ -3,14 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TasksMenuManager : MonoBehaviour
 {
 
     [SerializeField] private SimManager simulationManager;
-
+    [SerializeField] private TaskManager taskManager;
+    
     [SerializeField] private Button bookReadButton;
     [SerializeField] private GameObject bookReadPanel;
+    [SerializeField] private TMP_Text bookNameText;
+    
     [SerializeField] private GameObject outOfMoneyPanel;
 
     private void Update()
@@ -38,6 +42,7 @@ public class TasksMenuManager : MonoBehaviour
             simulationManager.energyLevel += 10;
             simulationManager.lastBookReadTime = Time.time;
             bookReadPanel.SetActive(true);
+            bookNameText.text = "You have read " + taskManager.BookName() + ". ";
         }
         else
         {
