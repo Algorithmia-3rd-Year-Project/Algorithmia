@@ -45,6 +45,8 @@ public class GameData
     //Subscription based tasks
     public bool enrolledAtLibrary;
     public float enrolledAtLibraryTime;
+
+    public SerializableDictionary<string, bool> levelsCompleted;
     
     //These values would be default values the game starts with when there's no data to load
     public GameData()
@@ -83,5 +85,7 @@ public class GameData
 
         this.enrolledAtLibrary = false;
         this.enrolledAtLibraryTime = 0.0f;
+
+        this.levelsCompleted = new SerializableDictionary<string, bool>();
     }
 }
