@@ -66,6 +66,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     
     //Variables related to tasks
     [HideInInspector] public float lastBookReadTime;
+    [HideInInspector] public float lastGamePlayedTime;
+    [HideInInspector] public float lastMovieWatchedTime;
+    
     [HideInInspector] public bool enrolledAtLibrary;
     [HideInInspector] public float enrolledAtLibraryTime;
     
@@ -125,6 +128,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.fatherOccupationText.text = data.fatherOccupation;
 
         this.lastBookReadTime = data.lastBookReadTime;
+        this.lastGamePlayedTime = data.lastGamePlayedTime;
+        this.lastMovieWatchedTime = data.lastMovieWatchedTime;
+        
         this.enrolledAtLibrary = data.enrolledAtLibrary;
         this.enrolledAtLibraryTime = data.enrolledAtLibraryTime;
     }
@@ -141,6 +147,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.simulationIntroPlayed = this.initialIntroPlayed;
 
         data.lastBookReadTime = this.lastBookReadTime;
+        data.lastGamePlayedTime = this.lastGamePlayedTime;
+        data.lastMovieWatchedTime = this.lastMovieWatchedTime;
+        
         data.enrolledAtLibrary = this.enrolledAtLibrary;
         data.enrolledAtLibraryTime = this.enrolledAtLibraryTime;
     }

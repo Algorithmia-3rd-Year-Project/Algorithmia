@@ -21,6 +21,18 @@ public class TaskManager : MonoBehaviour
         string bookName = GetRandomValueFromList(leisureData.books);
         return bookName;
     }
+
+    public string GameName()
+    {
+        string gameName = GetRandomValueFromList(leisureData.games);
+        return gameName;
+    }
+
+    public string MovieName()
+    {
+        string movieName = GetRandomValueFromList(leisureData.movies);
+        return movieName;
+    }
     
     private T GetRandomValueFromList<T>(List<T> list)
     {
