@@ -11,9 +11,20 @@ public class TasksMenuManager : MonoBehaviour
     [SerializeField] private SimManager simulationManager;
     [SerializeField] private TaskManager taskManager;
     
+    //items needed for reading a book
     [SerializeField] private Button bookReadButton;
     [SerializeField] private GameObject bookReadPanel;
     [SerializeField] private TMP_Text bookNameText;
+    
+    //items needed for playing a game
+    [SerializeField] private Button playGameButton;
+    [SerializeField] private GameObject playGamePanel;
+    [SerializeField] private TMP_Text playGameText;
+    
+    //items needed for watching a movie
+    [SerializeField] private Button watchMovieButton;
+    [SerializeField] private GameObject watchMoviePanel;
+    [SerializeField] private TMP_Text watchMovieText;
     
     [SerializeField] private GameObject outOfMoneyPanel;
 
@@ -27,12 +38,17 @@ public class TasksMenuManager : MonoBehaviour
     {
         ReadABookButton();
         LibraryMembership();
-        UpdateLibraryMembership();
+        //UpdateLibraryMembership();
+        
+        PlayAGameButton();
+        
+        WatchAMovieButton();
     }
 
+    //Controls the reading a book event based on the last read time
     private void ReadABookButton()
     {
-        if (Mathf.Abs(Time.time - simulationManager.lastBookReadTime) > 20f)
+        if ((simulationManager.lastBookReadTime == 0f) || (Time.time - simulationManager.lastBookReadTime) > 20f)
         {
             bookReadButton.interactable = true;
         }
@@ -134,4 +150,62 @@ public class TasksMenuManager : MonoBehaviour
         
     }
 
+    
+    //Controls the playing a game event based on the last played time
+    private void PlayAGameButton()
+    {
+        if ((simulationManager.lastGamePlayedTime == 0f) || (Time.time - simulationManager.lastGamePlayedTime) > 20f)
+        {
+            playGameButton.interactable = true;
+        }
+        else
+        {
+            playGameButton.interactable = false;
+        }
+    }
+    
+    public void PlayAGameOnClicked()
+    {
+        if (simulationManager.coins >= 40)
+        {
+            simulationManager.coins -= 40;
+            simulationManager.energyLevel += 10;
+            simulationManager.lastGamePlayedTime = Time.time;
+            playGamePanel.SetActive(true);
+            playGameText.text = "You have played " + taskManager.GameName() + ". ";
+        }
+        else
+        {
+            outOfMoneyPanel.SetActive(true);
+        }
+    }
+    
+    //Controls the watching a movie event based on the last watched time
+    private void WatchAMovieButton()
+    {
+        if ((simulationManager.lastMovieWatchedTime == 0f) || (Time.time - simulationManager.lastMovieWatchedTime) > 20f)
+        {
+            watchMovieButton.interactable = true;
+        }
+        else
+        {
+            watchMovieButton.interactable = false;
+        }
+    }
+    
+    public void WatchAMovieOnClicked()
+    {
+        if (simulationManager.coins >= 40)
+        {
+            simulationManager.coins -= 40;
+            simulationManager.energyLevel += 10;
+            simulationManager.lastMovieWatchedTime = Time.time;
+            watchMoviePanel.SetActive(true);
+            watchMovieText.text = "You have watched " + taskManager.MovieName() + ". ";
+        }
+        else
+        {
+            outOfMoneyPanel.SetActive(true);
+        }
+    }
 }

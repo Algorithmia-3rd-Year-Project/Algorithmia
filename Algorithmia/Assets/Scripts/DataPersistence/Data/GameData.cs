@@ -30,6 +30,8 @@ public class GameData
     
     //Simulation task executed times
     public float lastBookReadTime;
+    public float lastGamePlayedTime;
+    public float lastMovieWatchedTime;
 
     public bool enrolledAtLibrary;
     public float enrolledAtLibraryTime;
@@ -58,6 +60,8 @@ public class GameData
         this.fatherOccupation = "";
 
         this.lastBookReadTime = 0.0f;
+        this.lastGamePlayedTime = 0.0f;
+        this.lastMovieWatchedTime = 0.0f;
 
         this.enrolledAtLibrary = false;
         this.enrolledAtLibraryTime = 0.0f;
