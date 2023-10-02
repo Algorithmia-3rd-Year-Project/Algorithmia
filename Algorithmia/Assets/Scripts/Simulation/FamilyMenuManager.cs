@@ -29,6 +29,9 @@ public class FamilyMenuManager : MonoBehaviour
         SpentTimeWithMother();
         AskMoneyFromMother();
         OfferMoneyToMother();
+        
+        SpentTimeWithFather();
+        AskMoneyFromFather();
     }
 
     private void SpentTimeWithMother()
@@ -99,5 +102,58 @@ public class FamilyMenuManager : MonoBehaviour
     public void OfferMoneyToMotherOnClicked()
     {
         
+    }
+    
+    private void SpentTimeWithFather()
+    {
+        if ((simulationManager.lastSpentTimeWithFather == 0f) || (Time.time - simulationManager.lastSpentTimeWithFather) > 20f)
+        {
+            spentTimeWithFatherButton.interactable = true;
+        }
+        else
+        {
+            spentTimeWithFatherButton.interactable = false;
+        }
+    }
+
+    public void SpentTimeWithFatherOnClicked()
+    {
+        int randomNo = Random.Range(0, 10);
+        parentTaskPanel.SetActive(true);
+        parentTaskName.text = "You Spent time with father";
+        simulationManager.happinessLevel += randomNo;
+        simulationManager.lastSpentTimeWithFather = Time.time;
+        parentTaskResult.text = "Increased happiness by " + randomNo;
+
+    }
+
+    private void AskMoneyFromFather()
+    {
+        if ((simulationManager.lastRequestMoneyFromFather == 0f) || (Time.time - simulationManager.lastRequestMoneyFromFather) > 20f)
+        {
+            askMoneyFromFatherButton.interactable = true;
+        }
+        else
+        {
+            askMoneyFromFatherButton.interactable = false;
+        }
+    }
+
+    public void AskMoneyFromFatherOnClicked()
+    {
+        int randomNo = Random.Range(0, 10);
+        parentTaskPanel.SetActive(true);
+        parentTaskName.text = "You asked money from father";
+        simulationManager.lastRequestMoneyFromFather = Time.time;
+
+        if (randomNo % 5 == 0)
+        {
+            parentTaskResult.text = "Father gave you 50 coins";
+            simulationManager.coins += 50;
+        }
+        else
+        {
+            parentTaskResult.text = "He said No";
+        }
     }
 }
