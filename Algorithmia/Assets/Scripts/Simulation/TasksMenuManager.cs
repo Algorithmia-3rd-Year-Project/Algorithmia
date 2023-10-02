@@ -27,7 +27,7 @@ public class TasksMenuManager : MonoBehaviour
     {
         ReadABookButton();
         LibraryMembership();
-        UpdateLibraryMembership();
+        //UpdateLibraryMembership();
     }
 
     private void ReadABookButton()
