@@ -64,6 +64,14 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private TMP_Text fatherAgeText;
     [SerializeField] private TMP_Text fatherOccupationText;
     
+    //Variables related to parents
+    [HideInInspector] public float lastSpentTimeWithMother;
+    [HideInInspector] public float lastRequestMoneyFromMother;
+    [HideInInspector] public float lastOfferMoneyToMother;
+    [HideInInspector] public float lastSpentTimeWithFather;
+    [HideInInspector] public float lastRequestMoneyFromFather;
+    [HideInInspector] public float lastOfferMoneyToFather;
+    
     //Variables related to tasks
     [HideInInspector] public float lastBookReadTime;
     [HideInInspector] public float lastGamePlayedTime;
@@ -127,6 +135,13 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.fatherAgeText.text = data.fatherAge.ToString();
         this.fatherOccupationText.text = data.fatherOccupation;
 
+        this.lastSpentTimeWithMother = data.lastSpentTimeWithMother;
+        this.lastRequestMoneyFromMother = data.lastRequestMoneyFromMother;
+        this.lastOfferMoneyToMother = data.lastOfferMoneyToMother;
+        this.lastSpentTimeWithFather = data.lastSpentTimeWithFather;
+        this.lastRequestMoneyFromFather = data.lastRequestMoneyFromFather;
+        this.lastOfferMoneyToFather = data.lastOfferMoneyToFather;
+
         this.lastBookReadTime = data.lastBookReadTime;
         this.lastGamePlayedTime = data.lastGamePlayedTime;
         this.lastMovieWatchedTime = data.lastMovieWatchedTime;
@@ -145,6 +160,13 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.totalPlayTime = this.totalPlayTime;
         data.dailyMessage = this.dailyMessage;
         data.simulationIntroPlayed = this.initialIntroPlayed;
+
+        data.lastSpentTimeWithMother = this.lastSpentTimeWithMother;
+        data.lastRequestMoneyFromMother = this.lastRequestMoneyFromMother;
+        data.lastOfferMoneyToMother = this.lastOfferMoneyToMother;
+        data.lastSpentTimeWithFather = this.lastSpentTimeWithFather;
+        data.lastRequestMoneyFromFather = this.lastRequestMoneyFromFather;
+        data.lastOfferMoneyToFather = this.lastOfferMoneyToFather;
 
         data.lastBookReadTime = this.lastBookReadTime;
         data.lastGamePlayedTime = this.lastGamePlayedTime;

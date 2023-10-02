@@ -29,10 +29,20 @@ public class GameData
     public string fatherOccupation;
     
     //Simulation task executed times
+    //Parent related Activities
+    public float lastSpentTimeWithMother;
+    public float lastRequestMoneyFromMother;
+    public float lastOfferMoneyToMother;
+    public float lastSpentTimeWithFather;
+    public float lastRequestMoneyFromFather;
+    public float lastOfferMoneyToFather;
+    
+    //Leisure Activities
     public float lastBookReadTime;
     public float lastGamePlayedTime;
     public float lastMovieWatchedTime;
 
+    //Subscription based tasks
     public bool enrolledAtLibrary;
     public float enrolledAtLibraryTime;
     
@@ -62,6 +72,14 @@ public class GameData
         this.lastBookReadTime = 0.0f;
         this.lastGamePlayedTime = 0.0f;
         this.lastMovieWatchedTime = 0.0f;
+
+        this.lastSpentTimeWithMother = 0.0f;
+        this.lastRequestMoneyFromMother = 0.0f;
+        this.lastOfferMoneyToMother = 0.0f;
+        this.lastSpentTimeWithFather = 0.0f;
+        this.lastRequestMoneyFromFather = 0.0f;
+        this.lastOfferMoneyToFather = 0.0f;
+        
 
         this.enrolledAtLibrary = false;
         this.enrolledAtLibraryTime = 0.0f;
