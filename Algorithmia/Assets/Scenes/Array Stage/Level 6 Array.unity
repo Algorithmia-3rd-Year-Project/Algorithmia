@@ -6385,7 +6385,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1020861813}
         m_TargetAssemblyTypeName: ArrayLevelDataManager, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 5
@@ -6394,7 +6394,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level 3 Array
+          m_StringArgument: Level 7 Array
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &522450781
@@ -8560,8 +8560,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Level2Logic, Assembly-CSharp
+      - m_Target: {fileID: 1909582232}
+        m_TargetAssemblyTypeName: Level6Logic, Assembly-CSharp
         m_MethodName: TryAgain
         m_Mode: 1
         m_Arguments:
@@ -12995,7 +12995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: Array Level 6
-  energyLostMenu: {fileID: 0}
+  energyLostMenu: {fileID: 39677876}
 --- !u!1001 &1022620041
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22738,8 +22738,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1909582230}
   - component: {fileID: 1909582229}
-  - component: {fileID: 1909582231}
   - component: {fileID: 1909582232}
+  - component: {fileID: 1909582231}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -22830,7 +22830,19 @@ MonoBehaviour:
   ww: []
   compileMessage: {fileID: 1975526258}
   compilationMenu: {fileID: 1154918625}
-  victoryMenu: {fileID: 0}
+  victoryMenu: {fileID: 958687204}
+  trophyPlaceholder: {fileID: 2115086845}
+  trophyImages:
+  - {fileID: 21300000, guid: 4512ef9736a1dd345981a7676cd1669d, type: 3}
+  - {fileID: 21300000, guid: d92363c4e3b86464fbef439fecebdc3a, type: 3}
+  - {fileID: 21300000, guid: 92f7f267524555a48bd9da1201bdc757, type: 3}
+  - {fileID: 21300000, guid: 6604825b82a73104ea7f28a223af9b8c, type: 3}
+  expectedMsg: {fileID: 1040462086}
+  resultMsg: {fileID: 1399553343}
+  objectiveStatus: {fileID: 1026083361}
+  proceedButton: {fileID: 522450778}
+  retryButton: {fileID: 691249089}
+  stopwatch: {fileID: 1909582231}
 --- !u!1 &1912719787
 GameObject:
   m_ObjectHideFlags: 0
