@@ -439,7 +439,7 @@ public class Level6Logic : MonoBehaviour
         }
     }
     
-        private void VictoryMenuDetails()
+    private void VictoryMenuDetails()
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "star stair";
