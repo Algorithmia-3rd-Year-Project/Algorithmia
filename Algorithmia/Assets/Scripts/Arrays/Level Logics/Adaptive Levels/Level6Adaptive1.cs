@@ -40,6 +40,9 @@ public class Level6Adaptive1 : MonoBehaviour
 
     public string OptimalAnswer()
     {
+        //Clear the outputArray list in cases where the player has compiled multiple times in same playthough
+        outputArray.Clear();
+        
         bool programConnected = false;
         
         for (int i = 0; i < levelManager.lines.Count; i++)
@@ -395,7 +398,7 @@ public class Level6Adaptive1 : MonoBehaviour
             }
 
             Debug.Log(output);
-            Debug.Log(outputArray.Count);
+            Debug.Log(outputArray[0]);
 
             compilationSuccess = true;
             return "Compiled Successfully";

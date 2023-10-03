@@ -39,6 +39,9 @@ public class Level4Adaptive1 : MonoBehaviour
     
     public string OptimalAnswer()
     {
+        //Clear the outputArray list in cases where the player has compiled multiple times in same playthough
+        outputArray.Clear();
+        
         bool programConnected = false;
         
         for (int i = 0; i < levelManager.lines.Count; i++)
