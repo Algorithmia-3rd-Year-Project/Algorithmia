@@ -9,7 +9,7 @@ public class Stopwatch : MonoBehaviour
     [SerializeField]
     private TMP_Text stopwatchText;
 
-    private float currentTime;
+    public float currentTime;
 
     private void Start()
     {

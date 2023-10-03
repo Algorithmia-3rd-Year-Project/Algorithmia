@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Level2Logic : MonoBehaviour
 {
@@ -18,6 +20,15 @@ public class Level2Logic : MonoBehaviour
     [SerializeField] private GameObject compilationMenu;
     [SerializeField] private GameObject victoryMenu;
 
+    [SerializeField] private Image trophyPlaceholder;
+    [SerializeField] private List<Sprite> trophyImages;
+    [SerializeField] private TMP_Text expectedMsg;
+    [SerializeField] private TMP_Text resultMsg;
+    [SerializeField] private TMP_Text objectiveStatus;
+    [SerializeField] private GameObject proceedButton;
+    [SerializeField] private GameObject retryButton;
+    [SerializeField] private Stopwatch stopwatch;
+    
     private string _result;
     private bool compilationSuccess;
 
@@ -166,8 +177,52 @@ public class Level2Logic : MonoBehaviour
         Compile(false);
         if (compilationSuccess)
         {
+            VictoryMenuDetails();
             victoryMenu.SetActive(true);
         }
+    }
+
+    private void VictoryMenuDetails()
+    {
+        float currentTime = stopwatch.currentTime;
+        expectedMsg.text = "Array of cool";
+        
+        if (_result == "cool" && currentTime <= 30f)
+        {
+            trophyPlaceholder.sprite = trophyImages[0];
+            resultMsg.text = "Array of cool";
+            objectiveStatus.text = "Objective complete";
+            proceedButton.SetActive(true);
+            retryButton.SetActive(false);
+        } else if (_result == "cool" && currentTime <= 60f)
+        {
+            trophyPlaceholder.sprite = trophyImages[1];
+            resultMsg.text = "Array of cool";
+            objectiveStatus.text = "Objective complete";
+            proceedButton.SetActive(true);
+            retryButton.SetActive(false);
+        } else if (_result == "cool" && currentTime > 60f)
+        {
+            trophyPlaceholder.sprite = trophyImages[2];
+            resultMsg.text = "Array of cool";
+            objectiveStatus.text = "Objective complete";
+            proceedButton.SetActive(true);
+            retryButton.SetActive(false);
+        } else if (_result != "cool")
+        {
+            trophyPlaceholder.sprite = trophyImages[3];
+            resultMsg.text = "Array of " + _result;
+            objectiveStatus.text = "Objective is not met";
+            proceedButton.SetActive(false);
+            retryButton.SetActive(true);
+        }
+        
+    }
+
+    public void TryAgain()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene);
     }
 
 }
