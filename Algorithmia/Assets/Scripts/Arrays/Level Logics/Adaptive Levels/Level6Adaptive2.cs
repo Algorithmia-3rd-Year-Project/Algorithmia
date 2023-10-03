@@ -19,7 +19,13 @@ public class Level6Adaptive2 : MonoBehaviour
 
     [SerializeField] private string[] ww;
 
-    public void OptimalAnswer()
+    private bool compilationSuccess;
+    
+    [SerializeField] private TMP_Text compileMessage;
+    [SerializeField] private GameObject compilationMenu;
+    [SerializeField] private GameObject victoryMenu;
+    
+    public string OptimalAnswer()
     {
         bool programConnected = false;
         
@@ -35,6 +41,7 @@ public class Level6Adaptive2 : MonoBehaviour
         if (!programConnected)
         {
             Debug.Log("Program is not connected");
+            return "Could not compile the program";
         }
         else
         {
@@ -105,7 +112,7 @@ public class Level6Adaptive2 : MonoBehaviour
             if (errorMessage == "Unconnected Blocks")
             {
                 Debug.Log("There are random wanderers");
-                return;
+                return "Undefined variables in functions";
             }
             
             for (int i = 0; i < codeOrder.Count; i++)
@@ -155,7 +162,7 @@ public class Level6Adaptive2 : MonoBehaviour
                             if (!int.TryParse(checker, out _))
                             {
                                 Debug.Log("Incompatible data type passed to the array");
-                                return;
+                                return "Incompatible data type passed to the array";
                             }
                         }
                     }
@@ -169,7 +176,7 @@ public class Level6Adaptive2 : MonoBehaviour
                             if (int.TryParse(checker, out _))
                             {
                                 Debug.Log("Incompatible data type passed to the array");
-                                return;
+                                return "Incompatible data type passed to the array";
                             }
                         }
                     }
@@ -184,25 +191,25 @@ public class Level6Adaptive2 : MonoBehaviour
                     if (currentLine.Contains("for index=s to "))
                     {
                         Debug.Log("Undeclared variable s");
-                        return;
+                        return "Undeclared variable s";
                     }
                     
                     if (!char.IsDigit(s))
                     {
                         Debug.Log("Invalid data type for s");
-                        return;
+                        return "Invalid data type for s";
                     }
                     
                     if (currentLine.Contains(" to e"))
                     {
                         Debug.Log("Undeclared variable e");
-                        return;
+                        return "Undeclared variable e";
                     }
             
                     if (!char.IsDigit(e))
                     {
                         Debug.Log("Invalid data type for e");
-                        return;
+                        return "Invalid data type for e";
                     }
                 }
 
@@ -210,7 +217,7 @@ public class Level6Adaptive2 : MonoBehaviour
                 if (currentLine.Contains("print Array[index]") && arrayObject == null)
                 {
                     Debug.Log("Array not found");
-                    return;
+                    return "Array not found";
                 }
                 
                 //checking out start variable of reversal function has valid syntax
@@ -219,7 +226,7 @@ public class Level6Adaptive2 : MonoBehaviour
                     if (!char.IsDigit(currentLine[8]))
                     {
                         Debug.Log("Passed data is invalid type");
-                        return;
+                        return "Passed data is invalid type";
                     }
                 }
                 
@@ -229,7 +236,7 @@ public class Level6Adaptive2 : MonoBehaviour
                     if (!char.IsDigit(currentLine[6]))
                     {
                         Debug.Log("Passed data is invalid type");
-                        return;
+                        return "Passed data is invalid type";
                     }
                 }
                 
@@ -239,7 +246,7 @@ public class Level6Adaptive2 : MonoBehaviour
                     if (arrayObject == null)
                     {
                         Debug.Log("No array found");
-                        return;
+                        return "No array found";
                     }
                     
                     if (currentLine.Contains("Number temp = "))
@@ -256,7 +263,7 @@ public class Level6Adaptive2 : MonoBehaviour
                             if (!int.TryParse(checker, out _))
                             {
                                 Debug.Log("Incompatible data type passed for temp variable");
-                                return;
+                                return "Incompatible data type passed for temp variable";
                             }
                         }
                     }
@@ -270,7 +277,7 @@ public class Level6Adaptive2 : MonoBehaviour
                             if (int.TryParse(checker, out _))
                             {
                                 Debug.Log("Incompatible data type passed for the temp variable");
-                                return;
+                                return "Incompatible data type passed for the temp variable";
                             }
                         }
                     }
@@ -282,7 +289,7 @@ public class Level6Adaptive2 : MonoBehaviour
                     if (!char.IsDigit(currentLine[6]))
                     {
                         Debug.Log("Invalid data type passed for position");
-                        return;
+                        return "Invalid data type passed for position";
                     }
                 }
                 
@@ -292,19 +299,19 @@ public class Level6Adaptive2 : MonoBehaviour
                     if (arrayObject == null)
                     {
                         Debug.Log("No Array found");
-                        return;
+                        return "No Array found";
                     }
                     
                     if (newArrayObject == null)
                     {
                         Debug.Log("No Parameter Array Found");
-                        return;
+                        return "No Parameter Array Found";
                     }
 
                     if (newArrayObject.GetComponent<ArrayBlock>().dataType != arrayObject.GetComponent<ArrayBlock>().dataType)
                     {
                         Debug.Log("Incompatible data conversion try");
-                        return;
+                        return "Incompatible data conversion try";
                     }
                     
                     if (newArrayObject.GetComponent<ArrayBlock>().dataType == "Number")
@@ -312,14 +319,14 @@ public class Level6Adaptive2 : MonoBehaviour
                         if (!char.IsDigit(currentLine[10]))
                         {
                             Debug.Log("Invalid data type passed for element");
-                            return;
+                            return "Invalid data type passed for element";
                         }
                     } else if (newArrayObject.GetComponent<ArrayBlock>().dataType == "Character")
                     {
                         if (char.IsDigit(currentLine[10]))
                         {
                             Debug.Log("Invalid data type passed for element");
-                            return;
+                            return "Invalid data type passed for element";
                         }
                     }
                 }
@@ -346,7 +353,7 @@ public class Level6Adaptive2 : MonoBehaviour
                     if (!(s >= 0 && e >= s && e < output.Length))
                     {
                         Debug.Log("Invalid range for Print Function");
-                        return;
+                        return "Invalid range for Print Function";
                     }
                     
                     string printOutput = output.Substring(s, phraseLength);
@@ -363,7 +370,7 @@ public class Level6Adaptive2 : MonoBehaviour
                     if (position < 0 || position > output.Length)
                     {
                         Debug.Log("Position is out of range");
-                        return;
+                        return "Position is out of range";
                     }
                     
                     output = InsertElement(output, position, element);
@@ -378,7 +385,36 @@ public class Level6Adaptive2 : MonoBehaviour
             Debug.Log(output);
             Debug.Log(outputArray.Count);
 
+            compilationSuccess = true;
+            return "Compiled Successfully";
 
+        }
+    }
+    
+    public void Compile(bool compilation)
+    {
+        compilationSuccess = false;
+        string returnedMessage = OptimalAnswer();
+        if (!compilationSuccess)
+        {
+            compileMessage.text = returnedMessage;
+            compilationMenu.SetActive(true);
+            return;
+        }
+
+        if (compilation)
+        {
+            compileMessage.text = "Compilation Successful";
+            compilationMenu.SetActive(true);
+        }
+    }
+    
+    public void Build()
+    {
+        Compile(false);
+        if (compilationSuccess)
+        {
+            victoryMenu.SetActive(true);
         }
     }
 
