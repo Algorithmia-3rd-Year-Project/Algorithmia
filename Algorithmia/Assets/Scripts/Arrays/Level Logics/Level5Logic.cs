@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Level5Logic : MonoBehaviour
 {
@@ -24,7 +26,18 @@ public class Level5Logic : MonoBehaviour
     [SerializeField] private TMP_Text compileMessage;
     [SerializeField] private GameObject compilationMenu;
     [SerializeField] private GameObject victoryMenu;
+    
+    [SerializeField] private Image trophyPlaceholder;
+    [SerializeField] private List<Sprite> trophyImages;
+    [SerializeField] private TMP_Text expectedMsg;
+    [SerializeField] private TMP_Text resultMsg;
+    [SerializeField] private TMP_Text objectiveStatus;
+    [SerializeField] private GameObject proceedButton;
+    [SerializeField] private GameObject retryButton;
+    [SerializeField] private Stopwatch stopwatch;
 
+    private List<string> outputArray = new List<string>();
+    
     public string OptimalAnswer()
     {
         bool programConnected = false;
@@ -281,7 +294,7 @@ public class Level5Logic : MonoBehaviour
             string result = string.Join("", currentArray);
 
             string output = result;
-            List<string> outputArray = new List<string>();
+            
             
             int x = 0;
             int start = 0;
@@ -505,7 +518,54 @@ public class Level5Logic : MonoBehaviour
         Compile(false);
         if (compilationSuccess)
         {
+            VictoryMenuDetails();
             victoryMenu.SetActive(true);
         }
+    }
+    
+    private void VictoryMenuDetails()
+    {
+        float currentTime = stopwatch.currentTime;
+        expectedMsg.text = "step pets";
+
+        if (outputArray.Count == 2)
+        {
+            if (outputArray[0] == "step" && outputArray[1] == "pets" && currentTime <= 30f)
+            {
+                trophyPlaceholder.sprite = trophyImages[0];
+                resultMsg.text = outputArray[0] + " " + outputArray[1];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            } else if (outputArray[0] == "step" && outputArray[1] == "pets" && currentTime <= 60f)
+            {
+                trophyPlaceholder.sprite = trophyImages[1];
+                resultMsg.text = outputArray[0] + " " + outputArray[1];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            } else if (outputArray[0] == "step" && outputArray[1] == "pets" && currentTime > 60f)
+            {
+                trophyPlaceholder.sprite = trophyImages[2];
+                resultMsg.text = outputArray[0] + " " + outputArray[1];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            }
+        } else 
+        {
+            trophyPlaceholder.sprite = trophyImages[3];
+            resultMsg.text = "something else";
+            objectiveStatus.text = "Objective is not met";
+            proceedButton.SetActive(false);
+            retryButton.SetActive(true);
+        }
+        
+    }
+
+    public void TryAgain()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene);
     }
 }
