@@ -5998,7 +5998,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1373386711}
         m_TargetAssemblyTypeName: ArrayLevelDataManager, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 5
@@ -6007,7 +6007,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level 3 Array
+          m_StringArgument: Level 5 Array
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &452871163
@@ -20759,8 +20759,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Level2Logic, Assembly-CSharp
+      - m_Target: {fileID: 1909582232}
+        m_TargetAssemblyTypeName: Level4Adaptive1, Assembly-CSharp
         m_MethodName: TryAgain
         m_Mode: 1
         m_Arguments:
@@ -22109,8 +22109,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1909582230}
   - component: {fileID: 1909582229}
-  - component: {fileID: 1909582231}
   - component: {fileID: 1909582232}
+  - component: {fileID: 1909582231}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -22185,7 +22185,19 @@ MonoBehaviour:
   ww: []
   compileMessage: {fileID: 1959881104}
   compilationMenu: {fileID: 373578391}
-  victoryMenu: {fileID: 0}
+  victoryMenu: {fileID: 1836217060}
+  trophyPlaceholder: {fileID: 1442219523}
+  trophyImages:
+  - {fileID: 21300000, guid: 4512ef9736a1dd345981a7676cd1669d, type: 3}
+  - {fileID: 21300000, guid: d92363c4e3b86464fbef439fecebdc3a, type: 3}
+  - {fileID: 21300000, guid: 92f7f267524555a48bd9da1201bdc757, type: 3}
+  - {fileID: 21300000, guid: 6604825b82a73104ea7f28a223af9b8c, type: 3}
+  expectedMsg: {fileID: 1308401905}
+  resultMsg: {fileID: 680074947}
+  objectiveStatus: {fileID: 1967451670}
+  proceedButton: {fileID: 452871160}
+  retryButton: {fileID: 1816469908}
+  stopwatch: {fileID: 1909582231}
 --- !u!1 &1912719787
 GameObject:
   m_ObjectHideFlags: 0

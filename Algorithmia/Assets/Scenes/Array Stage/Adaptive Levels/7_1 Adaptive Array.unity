@@ -10190,8 +10190,8 @@ GameObject:
   m_Component:
   - component: {fileID: 671591665}
   - component: {fileID: 671591663}
-  - component: {fileID: 671591664}
   - component: {fileID: 671591662}
+  - component: {fileID: 671591664}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -10219,7 +10219,19 @@ MonoBehaviour:
   ww: []
   compileMessage: {fileID: 1824630012}
   compilationMenu: {fileID: 58276133}
-  victoryMenu: {fileID: 0}
+  victoryMenu: {fileID: 1884315735}
+  trophyPlaceholder: {fileID: 853028454}
+  trophyImages:
+  - {fileID: 21300000, guid: 4512ef9736a1dd345981a7676cd1669d, type: 3}
+  - {fileID: 21300000, guid: d92363c4e3b86464fbef439fecebdc3a, type: 3}
+  - {fileID: 21300000, guid: 92f7f267524555a48bd9da1201bdc757, type: 3}
+  - {fileID: 21300000, guid: 6604825b82a73104ea7f28a223af9b8c, type: 3}
+  expectedMsg: {fileID: 1993992678}
+  resultMsg: {fileID: 958452689}
+  objectiveStatus: {fileID: 1547439749}
+  proceedButton: {fileID: 1937189191}
+  retryButton: {fileID: 1777545538}
+  stopwatch: {fileID: 671591664}
 --- !u!114 &671591663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22775,8 +22787,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Level2Logic, Assembly-CSharp
+      - m_Target: {fileID: 671591662}
+        m_TargetAssemblyTypeName: Level7Adaptive1, Assembly-CSharp
         m_MethodName: TryAgain
         m_Mode: 1
         m_Arguments:
@@ -25061,7 +25073,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2002341351}
         m_TargetAssemblyTypeName: ArrayLevelDataManager, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 5

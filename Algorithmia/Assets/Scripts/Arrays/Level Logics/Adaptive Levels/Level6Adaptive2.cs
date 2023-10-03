@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Level6Adaptive2 : MonoBehaviour
 {
@@ -25,8 +27,22 @@ public class Level6Adaptive2 : MonoBehaviour
     [SerializeField] private GameObject compilationMenu;
     [SerializeField] private GameObject victoryMenu;
     
+    [SerializeField] private Image trophyPlaceholder;
+    [SerializeField] private List<Sprite> trophyImages;
+    [SerializeField] private TMP_Text expectedMsg;
+    [SerializeField] private TMP_Text resultMsg;
+    [SerializeField] private TMP_Text objectiveStatus;
+    [SerializeField] private GameObject proceedButton;
+    [SerializeField] private GameObject retryButton;
+    [SerializeField] private Stopwatch stopwatch;
+
+    private List<string> outputArray = new List<string>();
+    
     public string OptimalAnswer()
     {
+        //Clear the outputArray list in cases where the player has compiled multiple times in same playthough
+        outputArray.Clear();
+        
         bool programConnected = false;
         
         for (int i = 0; i < levelManager.lines.Count; i++)
@@ -414,8 +430,63 @@ public class Level6Adaptive2 : MonoBehaviour
         Compile(false);
         if (compilationSuccess)
         {
+            VictoryMenuDetails();
             victoryMenu.SetActive(true);
         }
+    }
+    
+    private void VictoryMenuDetails()
+    {
+        float currentTime = stopwatch.currentTime;
+        expectedMsg.text = "climb";
+
+        if (outputArray.Count == 1)
+        {
+            if (outputArray[0] == "crane" && currentTime <= 30f)
+            {
+                trophyPlaceholder.sprite = trophyImages[0];
+                resultMsg.text = outputArray[0];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            } else if (outputArray[0] == "crane" && currentTime <= 60f)
+            {
+                trophyPlaceholder.sprite = trophyImages[1];
+                resultMsg.text = outputArray[0];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            } else if (outputArray[0] == "crane" && currentTime > 60f)
+            {
+                trophyPlaceholder.sprite = trophyImages[2];
+                resultMsg.text = outputArray[0];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            }
+            else
+            {
+                trophyPlaceholder.sprite = trophyImages[3];
+                resultMsg.text = "something else";
+                objectiveStatus.text = "Objective is not met";
+                proceedButton.SetActive(false);
+                retryButton.SetActive(true);
+            }
+        } else 
+        {
+            trophyPlaceholder.sprite = trophyImages[3];
+            resultMsg.text = "something else";
+            objectiveStatus.text = "Objective is not met";
+            proceedButton.SetActive(false);
+            retryButton.SetActive(true);
+        }
+        
+    }
+
+    public void TryAgain()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene);
     }
 
     private string InsertElement(string original, int index, char letter)
