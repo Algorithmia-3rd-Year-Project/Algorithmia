@@ -17,10 +17,12 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     private float scenePlayTime = 0.0f;
 
     private bool levelCompletionStatus;
+    public int currentTrophy;
     
     private void Start()
     {
         sceneStartTime = Time.time;
+        currentTrophy = 3;
     }
 
     public void LoadData(GameData data)
@@ -30,6 +32,9 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         
         //Retrieving whether this level has already completed
         data.levelsCompleted.TryGetValue(levelName, out levelCompletionStatus);
+        
+        //Retrieving the current trophy player has for a certain level
+        data.levelTrophies.TryGetValue(levelName, out currentTrophy);
     }
 
     public void SaveData(ref GameData data)
@@ -43,6 +48,21 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
             data.levelsCompleted.Remove(levelName);
         }
         data.levelsCompleted.Add(levelName, levelCompletionStatus);
+
+        //If the level has already received a trophy check what it has and update it if player plays same level again and acquired a trophy better than first one
+        if (data.levelTrophies.ContainsKey(levelName))
+        {
+            if (data.levelTrophies[levelName] > currentTrophy)
+            {
+                data.levelTrophies.Remove(levelName);
+                data.levelTrophies.Add(levelName, currentTrophy);
+            }
+        }
+        else
+        {
+            data.levelTrophies.Add(levelName, currentTrophy);
+        }
+        
     }
 
     public void LoadNextLevel(string sceneName)

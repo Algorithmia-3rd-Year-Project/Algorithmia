@@ -32,6 +32,8 @@ public class Level2Logic : MonoBehaviour
     private string _result;
     private bool compilationSuccess;
 
+    [SerializeField] private ArrayLevelDataManager levelDataManager;
+
     private void Start()
     {
         compilationSuccess = false;
@@ -190,6 +192,7 @@ public class Level2Logic : MonoBehaviour
         if (_result == "cool" && currentTime <= 30f)
         {
             trophyPlaceholder.sprite = trophyImages[0];
+            levelDataManager.currentTrophy = 0;
             resultMsg.text = "Array of cool";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -197,6 +200,7 @@ public class Level2Logic : MonoBehaviour
         } else if (_result == "cool" && currentTime <= 60f)
         {
             trophyPlaceholder.sprite = trophyImages[1];
+            levelDataManager.currentTrophy = 1;
             resultMsg.text = "Array of cool";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -204,6 +208,7 @@ public class Level2Logic : MonoBehaviour
         } else if (_result == "cool" && currentTime > 60f)
         {
             trophyPlaceholder.sprite = trophyImages[2];
+            levelDataManager.currentTrophy = 2;
             resultMsg.text = "Array of cool";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -211,6 +216,7 @@ public class Level2Logic : MonoBehaviour
         } else if (_result != "cool")
         {
             trophyPlaceholder.sprite = trophyImages[3];
+            levelDataManager.currentTrophy = 3;
             resultMsg.text = "Array of " + _result;
             objectiveStatus.text = "Objective is not met";
             proceedButton.SetActive(false);

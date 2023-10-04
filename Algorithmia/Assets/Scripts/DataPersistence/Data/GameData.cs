@@ -47,6 +47,7 @@ public class GameData
     public float enrolledAtLibraryTime;
 
     public SerializableDictionary<string, bool> levelsCompleted;
+    public SerializableDictionary<string, int> levelTrophies;
     
     //These values would be default values the game starts with when there's no data to load
     public GameData()
@@ -87,5 +88,6 @@ public class GameData
         this.enrolledAtLibraryTime = 0.0f;
 
         this.levelsCompleted = new SerializableDictionary<string, bool>();
+        this.levelTrophies = new SerializableDictionary<string, int>();
     }
 }
