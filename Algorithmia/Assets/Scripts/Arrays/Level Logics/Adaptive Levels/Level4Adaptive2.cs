@@ -37,6 +37,8 @@ public class Level4Adaptive2 : MonoBehaviour
 
     private List<string> outputArray = new List<string>();
     
+    [SerializeField] private ArrayLevelDataManager levelDataManager;
+    
     public string OptimalAnswer()
     {
         //Clear the outputArray list in cases where the player has compiled multiple times in same playthough
@@ -482,6 +484,7 @@ public class Level4Adaptive2 : MonoBehaviour
             if (outputArray[0] == "word" && outputArray[0] == "words" && currentTime <= 30f)
             {
                 trophyPlaceholder.sprite = trophyImages[0];
+                levelDataManager.currentTrophy = 0;
                 resultMsg.text = outputArray[0];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
@@ -489,6 +492,7 @@ public class Level4Adaptive2 : MonoBehaviour
             } else if (outputArray[0] == "word" && outputArray[0] == "words" && currentTime <= 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[1];
+                levelDataManager.currentTrophy = 1;
                 resultMsg.text = outputArray[0];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
@@ -496,6 +500,7 @@ public class Level4Adaptive2 : MonoBehaviour
             } else if (outputArray[0] == "word" && outputArray[0] == "words" && currentTime > 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[2];
+                levelDataManager.currentTrophy = 2;
                 resultMsg.text = outputArray[0];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
@@ -504,6 +509,7 @@ public class Level4Adaptive2 : MonoBehaviour
             else
             {
                 trophyPlaceholder.sprite = trophyImages[3];
+                levelDataManager.currentTrophy = 3;
                 resultMsg.text = "something else";
                 objectiveStatus.text = outputArray[0] + " " + outputArray[1];
                 proceedButton.SetActive(false);
@@ -512,6 +518,7 @@ public class Level4Adaptive2 : MonoBehaviour
         } else 
         {
             trophyPlaceholder.sprite = trophyImages[3];
+            levelDataManager.currentTrophy = 3;
             resultMsg.text = "something else";
             objectiveStatus.text = "Objective is not met";
             proceedButton.SetActive(false);

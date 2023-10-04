@@ -36,6 +36,8 @@ public class Level3Logic : MonoBehaviour
     [SerializeField] private Stopwatch stopwatch;
 
     private string output;
+    
+    [SerializeField] private ArrayLevelDataManager levelDataManager;
 
     public string OptimalAnswer()
     {
@@ -304,6 +306,7 @@ public class Level3Logic : MonoBehaviour
         if (output == "cool" && currentTime <= 30f)
         {
             trophyPlaceholder.sprite = trophyImages[0];
+            levelDataManager.currentTrophy = 0;
             resultMsg.text = "cool";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -311,6 +314,7 @@ public class Level3Logic : MonoBehaviour
         } else if (output == "cool" && currentTime <= 60f)
         {
             trophyPlaceholder.sprite = trophyImages[1];
+            levelDataManager.currentTrophy = 1;
             resultMsg.text = "cool";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -318,6 +322,7 @@ public class Level3Logic : MonoBehaviour
         } else if (output == "cool" && currentTime > 60f)
         {
             trophyPlaceholder.sprite = trophyImages[2];
+            levelDataManager.currentTrophy = 2;
             resultMsg.text = "cool";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -325,6 +330,7 @@ public class Level3Logic : MonoBehaviour
         } else if (output != "cool")
         {
             trophyPlaceholder.sprite = trophyImages[3];
+            levelDataManager.currentTrophy = 3;
             resultMsg.text = output;
             objectiveStatus.text = "Objective is not met";
             proceedButton.SetActive(false);

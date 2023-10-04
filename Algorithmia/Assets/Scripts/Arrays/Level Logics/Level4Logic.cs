@@ -37,6 +37,8 @@ public class Level4Logic : MonoBehaviour
 
     private string output;
     
+    [SerializeField] private ArrayLevelDataManager levelDataManager;
+    
     public string OptimalAnswer()
     {
         bool programConnected = false;
@@ -297,6 +299,7 @@ public class Level4Logic : MonoBehaviour
         if (output == "art" && currentTime <= 30f)
         {
             trophyPlaceholder.sprite = trophyImages[0];
+            levelDataManager.currentTrophy = 0;
             resultMsg.text = "art";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -304,6 +307,7 @@ public class Level4Logic : MonoBehaviour
         } else if (output == "art" && currentTime <= 60f)
         {
             trophyPlaceholder.sprite = trophyImages[1];
+            levelDataManager.currentTrophy = 1;
             resultMsg.text = "art";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -311,6 +315,7 @@ public class Level4Logic : MonoBehaviour
         } else if (output == "art" && currentTime > 60f)
         {
             trophyPlaceholder.sprite = trophyImages[2];
+            levelDataManager.currentTrophy = 2;
             resultMsg.text = "art";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
@@ -318,6 +323,7 @@ public class Level4Logic : MonoBehaviour
         } else if (output != "art")
         {
             trophyPlaceholder.sprite = trophyImages[3];
+            levelDataManager.currentTrophy = 3;
             resultMsg.text = output;
             objectiveStatus.text = "Objective is not met";
             proceedButton.SetActive(false);
