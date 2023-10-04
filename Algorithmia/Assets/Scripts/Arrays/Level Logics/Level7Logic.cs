@@ -36,6 +36,8 @@ public class Level7Logic : MonoBehaviour
     [SerializeField] private Stopwatch stopwatch;
 
     private List<string> outputArray = new List<string>();
+    
+    [SerializeField] private ArrayLevelDataManager levelDataManager;
 
     public string OptimalAnswer()
     {
@@ -498,6 +500,7 @@ public class Level7Logic : MonoBehaviour
             if (outputArray[0] == "step" && currentTime <= 30f)
             {
                 trophyPlaceholder.sprite = trophyImages[0];
+                levelDataManager.currentTrophy = 0;
                 resultMsg.text = outputArray[0];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
@@ -505,6 +508,7 @@ public class Level7Logic : MonoBehaviour
             } else if (outputArray[0] == "step" && currentTime <= 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[1];
+                levelDataManager.currentTrophy = 1;
                 resultMsg.text = outputArray[0];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
@@ -512,6 +516,7 @@ public class Level7Logic : MonoBehaviour
             } else if (outputArray[0] == "step" && currentTime > 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[2];
+                levelDataManager.currentTrophy = 2;
                 resultMsg.text = outputArray[0];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
@@ -520,6 +525,7 @@ public class Level7Logic : MonoBehaviour
             else
             {
                 trophyPlaceholder.sprite = trophyImages[3];
+                levelDataManager.currentTrophy = 3;
                 resultMsg.text = "something else";
                 objectiveStatus.text = "Objective is not met";
                 proceedButton.SetActive(false);
@@ -528,6 +534,7 @@ public class Level7Logic : MonoBehaviour
         } else 
         {
             trophyPlaceholder.sprite = trophyImages[3];
+            levelDataManager.currentTrophy = 3;
             resultMsg.text = "something else";
             objectiveStatus.text = "Objective is not met";
             proceedButton.SetActive(false);
