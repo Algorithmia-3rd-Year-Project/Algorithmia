@@ -16035,7 +16035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.45490196, g: 0.5058824, b: 0.5372549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -16431,6 +16431,10 @@ MonoBehaviour:
   levelName: Array Level 3
   energyLostMenu: {fileID: 1011433140}
   currentTrophy: 0
+  trophyImages:
+  - {fileID: 1636326859}
+  - {fileID: 899371889}
+  - {fileID: 1753691913}
 --- !u!1 &1837611981
 GameObject:
   m_ObjectHideFlags: 0
@@ -17751,9 +17755,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ArrayLevel3, Assembly-CSharp
-        m_MethodName: LoadSimulation
+      - m_Target: {fileID: 1804236279}
+        m_TargetAssemblyTypeName: ArrayLevelDataManager, Assembly-CSharp
+        m_MethodName: DirectToSimulation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
