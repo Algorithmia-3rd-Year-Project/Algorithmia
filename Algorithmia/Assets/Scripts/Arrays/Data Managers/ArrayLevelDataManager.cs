@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
 {
@@ -18,11 +20,20 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
 
     private bool levelCompletionStatus;
     public int currentTrophy;
+
+    [SerializeField] private Image[] trophyImages;
     
     private void Start()
     {
         sceneStartTime = Time.time;
-        currentTrophy = 3;
+    }
+
+    private void Update()
+    {
+        if (currentTrophy != 3)
+        {
+            trophyImages[currentTrophy].color = Color.white;
+        }
     }
 
     public void LoadData(GameData data)
@@ -34,7 +45,15 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         data.levelsCompleted.TryGetValue(levelName, out levelCompletionStatus);
         
         //Retrieving the current trophy player has for a certain level
-        data.levelTrophies.TryGetValue(levelName, out currentTrophy);
+        //data.levelTrophies.TryGetValue(levelName, out currentTrophy);
+        if (data.levelTrophies.ContainsKey(levelName))
+        {
+            currentTrophy = data.levelTrophies[levelName];
+        }
+        else
+        {
+            currentTrophy = 3;
+        }
     }
 
     public void SaveData(ref GameData data)
