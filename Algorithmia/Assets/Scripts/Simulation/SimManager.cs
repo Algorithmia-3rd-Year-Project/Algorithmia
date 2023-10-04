@@ -34,6 +34,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Slider energySlider;
     [SerializeField] private Slider happinessSlider;
     [SerializeField] private Slider intelligenceSlider;
+
+    [SerializeField] private GameObject computerScreen;
+    [SerializeField] private GameObject arrayQuestTree;
     
     [Header("Currency")]
     public float coins;
@@ -86,6 +89,13 @@ public class SimManager : MonoBehaviour, IDataPersistence
         anyMenuOpened = false;
         prevDate = (int)totalPlayTime / 900;
         dailyMessageText.text = dailyMessage;
+
+        int loadArrayTree = PlayerPrefs.GetInt("LoadArrayTree");
+        if (loadArrayTree == 1)
+        {
+            computerScreen.SetActive(true);
+            arrayQuestTree.SetActive(true);
+        }
 
         if (!initialIntroPlayed)
         {

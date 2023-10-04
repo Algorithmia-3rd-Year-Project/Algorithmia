@@ -26,6 +26,7 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     private void Start()
     {
         sceneStartTime = Time.time;
+        PlayerPrefs.SetInt("LoadArrayTree", 0);
     }
 
     private void Update()
@@ -95,6 +96,14 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         scenePlayTime = Time.time - sceneStartTime;
         levelCompletionStatus = true;
         SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    public void LoadArrayTree()
+    {
+        scenePlayTime = Time.time - sceneStartTime;
+        levelCompletionStatus = true;
+        PlayerPrefs.SetInt("LoadArrayTree", 1);
+        SceneManager.LoadSceneAsync("Scenes/Simulation");
     }
 
     public void ExitToMenu()
