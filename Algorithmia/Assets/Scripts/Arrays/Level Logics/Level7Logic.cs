@@ -41,6 +41,9 @@ public class Level7Logic : MonoBehaviour
 
     public string OptimalAnswer()
     {
+        //Clear the outputArray list in cases where the player has compiled multiple times in same playthough
+        outputArray.Clear();
+        
         bool programConnected = false;
         
         for (int i = 0; i < levelManager.lines.Count; i++)
@@ -378,7 +381,6 @@ public class Level7Logic : MonoBehaviour
             string result = string.Join("", currentArray);
 
             string output = result;
-            List<string> outputArray = new List<string>();
             
             int x = 0;
             int position = 0;
@@ -518,7 +520,7 @@ public class Level7Logic : MonoBehaviour
                 trophyPlaceholder.sprite = trophyImages[2];
                 levelDataManager.currentTrophy = 2;
                 resultMsg.text = outputArray[0];
-                objectiveStatus.text = "Objective complete";
+                objectiveStatus.text =  "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
             }
@@ -526,7 +528,7 @@ public class Level7Logic : MonoBehaviour
             {
                 trophyPlaceholder.sprite = trophyImages[3];
                 levelDataManager.currentTrophy = 3;
-                resultMsg.text = "something else";
+                resultMsg.text = outputArray[0];
                 objectiveStatus.text = "Objective is not met";
                 proceedButton.SetActive(false);
                 retryButton.SetActive(true);
