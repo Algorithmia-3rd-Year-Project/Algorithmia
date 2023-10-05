@@ -64,7 +64,8 @@ public class MainMenu : MonoBehaviour, IDataPersistence
 
     public void QuitGame()
     {
-        //Quit from the application
+        Application.Quit();
+        Debug.Log("Exiting");
     }
     
     public void LoadData(GameData data)
