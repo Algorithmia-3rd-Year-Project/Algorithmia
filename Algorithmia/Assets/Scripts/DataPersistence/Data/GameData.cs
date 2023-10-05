@@ -17,7 +17,8 @@ public class GameData
     public float totalPlayTime;
     public string dailyMessage;
 
-    public bool simulationIntroPlayed; 
+    public bool simulationIntroPlayed;
+    public int simulationIntroPlayTimeReached;
     
     //Player family details
     public string motherName;
@@ -64,6 +65,7 @@ public class GameData
         this.dailyMessage = "It's a cool day";
 
         this.simulationIntroPlayed = false;
+        this.simulationIntroPlayTimeReached = 0;
 
         this.motherName = "";
         this.motherAge = 0;
