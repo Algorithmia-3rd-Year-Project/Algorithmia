@@ -59,6 +59,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject instructionManager;
     private bool initialIntroPlayed;
     private int initialIntroPlayTimeReached;
+    [SerializeField] private GameObject okayButton;
+    [SerializeField] private GameObject instructionBox;
     [SerializeField] private GameObject directToSimulationIntroTrigger;
 
     [Header("Family")] 
@@ -241,17 +243,23 @@ public class SimManager : MonoBehaviour, IDataPersistence
         anyMenuOpened = false;
     }
 
+    //Set conditions for displaying the simulation intro tutorial for the player
+    //Displays trigger, proceed button, and instruction box when the player has run out of energy for the first time of his gameplay
     public void InitialIntroPlayTrigger()
     {
         if (initialIntroPlayTimeReached == 0)
         {
             initialIntroPlayTimeReached = 1;
             directToSimulationIntroTrigger.SetActive(true);
+            okayButton.SetActive(true);
+            instructionBox.SetActive(true);
         }
     }
 
+    //Redirect the player into simulation scene after the above function's requirements achieved
     public void DirectToSimulationIntro()
     {
+        PlayerPrefs.SetInt("LoadArrayTree", 0);
         SceneManager.LoadSceneAsync("Scenes/Simulation");
     }
 
