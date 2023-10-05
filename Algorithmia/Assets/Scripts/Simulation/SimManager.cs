@@ -129,6 +129,11 @@ public class SimManager : MonoBehaviour, IDataPersistence
         //Update daily default message
         AddDailyMessage();
 
+        if (computerScreen.activeSelf)
+        {
+            anyMenuOpened = true;
+        }
+
     }
 
     public void LoadData(GameData data)
