@@ -58,6 +58,10 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [Header("Introductions")]
     [SerializeField] private GameObject instructionManager;
     private bool initialIntroPlayed;
+    private int initialIntroPlayTimeReached;
+    [SerializeField] private GameObject okayButton;
+    [SerializeField] private GameObject instructionBox;
+    [SerializeField] private GameObject directToSimulationIntroTrigger;
 
     [Header("Family")] 
     [SerializeField] private TMP_Text motherNameText;
@@ -97,7 +101,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
             arrayQuestTree.SetActive(true);
         }
 
-        if (!initialIntroPlayed)
+        if (!initialIntroPlayed && initialIntroPlayTimeReached == 1)
         {
             instructionManager.SetActive(true);
         }
@@ -158,6 +162,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         
         this.enrolledAtLibrary = data.enrolledAtLibrary;
         this.enrolledAtLibraryTime = data.enrolledAtLibraryTime;
+        this.initialIntroPlayTimeReached = data.simulationIntroPlayTimeReached;
     }
 
     public void SaveData(ref GameData data)
@@ -184,6 +189,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         
         data.enrolledAtLibrary = this.enrolledAtLibrary;
         data.enrolledAtLibraryTime = this.enrolledAtLibraryTime;
+        data.simulationIntroPlayTimeReached = this.initialIntroPlayTimeReached;
     }
 
     private void CalculateDayAndWeek(float totalTime)
@@ -210,6 +216,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public void FinishIntroduction()
     {
         initialIntroPlayed = true;
+        initialIntroPlayTimeReached = 2;
         SceneManager.LoadSceneAsync("Level 4 Array");
     }
 
@@ -234,6 +241,26 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public void MenuCloseDetection()
     {
         anyMenuOpened = false;
+    }
+
+    //Set conditions for displaying the simulation intro tutorial for the player
+    //Displays trigger, proceed button, and instruction box when the player has run out of energy for the first time of his gameplay
+    public void InitialIntroPlayTrigger()
+    {
+        if (initialIntroPlayTimeReached == 0)
+        {
+            initialIntroPlayTimeReached = 1;
+            directToSimulationIntroTrigger.SetActive(true);
+            okayButton.SetActive(true);
+            instructionBox.SetActive(true);
+        }
+    }
+
+    //Redirect the player into simulation scene after the above function's requirements achieved
+    public void DirectToSimulationIntro()
+    {
+        PlayerPrefs.SetInt("LoadArrayTree", 0);
+        SceneManager.LoadSceneAsync("Scenes/Simulation");
     }
 
     //Temporary Functions
