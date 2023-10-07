@@ -39,8 +39,13 @@ public class Level4Logic : MonoBehaviour
     
     [SerializeField] private ArrayLevelDataManager levelDataManager;
     
+    private List<string> outputArray = new List<string>();
+    
     public string OptimalAnswer()
     {
+        //Clear the outputArray list in cases where the player has compiled multiple times in same playthough
+        outputArray.Clear();
+        
         bool programConnected = false;
         
         for (int i = 0; i < levelManager.lines.Count; i++)
@@ -65,6 +70,7 @@ public class Level4Logic : MonoBehaviour
                 codeOrder.Clear();
             }
 
+            //Clear the codes list if it is already populated
             if (codes.Count > 0)
             {
                 codes.Clear();
@@ -137,130 +143,310 @@ public class Level4Logic : MonoBehaviour
                     codes.Add(currentText);
                 }
             }
-            
-            for (int i = 0; i < codes.Count; i++)
-            {
-                
-                if (codes[i] != correctCodeOrder[i])
-                {
-                    string errorLine = Regex.Replace(codes[i], "<.*?>", string.Empty); 
-                    errorMessage = "Line " + i.ToString() + " : " + errorLine;
-                    break;
-                }
-                
-            }
-            
-            string result = string.Join("", currentArray);
-            
 
-            if (errorMessage.Contains("for index=s to "))
-            {
-                Debug.Log("Undeclared variable s");
-                return "Undeclared variable s" + "\n" + errorMessage;
-            }
-            
-            if (errorMessage.Contains(" to e"))
-            {
-                Debug.Log("Undeclared variable e");
-                return "Undeclared variable e" + "\n" + errorMessage;
-            }
-
-            string printBlockCode = "";
-            string arrayBlockType = "";
+            GameObject arrayObject = null;
+            GameObject newArrayObject = null;
 
             for (int i = 0; i < levelManager.blocks.Count; i++)
             {
-                if (levelManager.blocks[i].name == "Array Print Function(Clone)")
+                if (levelManager.blocks[i].name == "Advanced Array Block(Clone)" || levelManager.blocks[i].name == "Five Slot Array Block(Clone)")
                 {
-                    printBlockCode = levelManager.blocks[i].GetComponent<ArrayBlock>().pseudoCode;
-                }
-
-                if (levelManager.blocks[i].name == "Advanced Array Block(Clone)")
-                {
-                    arrayBlockType = levelManager.blocks[i].GetComponent<ArrayBlock>().dataType;
-                }
-
-            }
-            
-            //check for array data type errors
-            if (arrayBlockType == "Number")
-            {
-                foreach (string letter in currentArray)
-                {
-                    if (!int.TryParse(letter, out _))
-                    {
-                        Debug.Log("Invalid data types as elements");
-                        return "Invalid data types as elements" + "\n" + errorMessage;
-                    }
-                }
-            } else if (arrayBlockType == "Character")
-            {
-                foreach (string letter in currentArray)
-                {
-                    if (int.TryParse(letter, out _))
-                    {
-                        Debug.Log("Invalid data types as elements");
-                        return "Invalid data types as elements" + "\n" + errorMessage;
-                    }
+                    arrayObject = levelManager.blocks[i];
                 }
             }
 
-            char s = printBlockCode[24];
-            char e = printBlockCode[51];
-
-            if (!char.IsDigit(s))
+            for (int i = 0; i < codes.Count; i++)
             {
-                Debug.Log("Invalid data type for s");
-                return "Invalid data type for s" + "\n" + errorMessage;
-            }
-            
-            if (!char.IsDigit(e))
-            {
-                Debug.Log("Invalid data type for e");
-                return "Invalid data type for e" + "\n" + errorMessage;
-            }
-            
-            int begin = int.Parse(s.ToString());
-            int end = int.Parse(e.ToString());
+                string currentLine = Regex.Replace(codes[i], "<.*?>", string.Empty);
                 
-            if (begin < 0 || end >= result.Length || begin >= result.Length || end < 0)
+                //checking whether the array has the right type of data in it
+                if (currentLine.Contains("Array[4]"))
+                {
+                    if (currentLine.Contains("Number Array[4]"))
+                    {
+                        foreach (string letter in currentArray)
+                        {
+                            string checker = letter;
+                            
+                            if (checker == null)
+                            {
+                                checker = "0";
+                            }
+                            
+                            if (!int.TryParse(checker, out _))
+                            {
+                                Debug.Log("Incompatible data type passed to the array");
+                                return "Incompatible data type passed to the array";
+                            }
+                        }
+                    }
+                    
+                    if (currentLine.Contains("Character Array[4]"))
+                    {
+                        foreach (string letter in currentArray)
+                        {
+                            string checker = letter;
+                            
+                            if (int.TryParse(checker, out _))
+                            {
+                                Debug.Log("Incompatible data type passed to the array");
+                                return "Incompatible data type passed to the array";
+                            }
+                        }
+                    }
+                }
+                
+                //checking the values passed for array printing range are syntactically correct or not
+                if (currentLine.Contains("for index="))
+                {
+                    char s = currentLine[10];
+                    char e = currentLine[15]; 
+                    
+                    if (currentLine.Contains("for index=s to "))
+                    {
+                        Debug.Log("Undeclared variable s");
+                        return "Undeclared variable s";
+                    }
+                    
+                    if (!char.IsDigit(s))
+                    {
+                        Debug.Log("Invalid data type for s");
+                        return "Invalid data type for s";
+                    }
+                    
+                    if (currentLine.Contains(" to e"))
+                    {
+                        Debug.Log("Undeclared variable e");
+                        return "Undeclared variable e";
+                    }
+            
+                    if (!char.IsDigit(e))
+                    {
+                        Debug.Log("Invalid data type for e");
+                        return "Invalid data type for e";
+                    }
+                }
+
+                //Check the print function code is trying to get executed only if there is an array data structure
+                if (currentLine.Contains("print Array[index]") && arrayObject == null)
+                {
+                    Debug.Log("Array not found");
+                    return "Array not found";
+                }
+                
+                //checking out start variable of reversal function has valid syntax
+                if (currentLine.Contains("start =") && currentLine.Length == 9)
+                {
+                    if (!char.IsDigit(currentLine[8]))
+                    {
+                        Debug.Log("Passed data is invalid type");
+                        return "Passed data is invalid type";
+                    }
+                }
+                
+                //checking out end variable of reversal function has valid syntax
+                if (currentLine.Contains("end =") && currentLine.Length == 7)
+                {
+                    if (!char.IsDigit(currentLine[6]))
+                    {
+                        Debug.Log("Passed data is invalid type");
+                        return "Passed data is invalid type";
+                    }
+                }
+                
+                //checking whether the reversal function uses correct data type when checking array elements
+                if (currentLine.Contains("temp = Array"))
+                {
+                    if (arrayObject == null)
+                    {
+                        Debug.Log("No array found");
+                        return "No array found";
+                    }
+                    
+                    if (currentLine.Contains("Number temp = "))
+                    {
+                        foreach (string letter in currentArray)
+                        {
+                            string checker = letter;
+                            
+                            if (checker == null)
+                            {
+                                checker = "0";
+                            }
+                            
+                            if (!int.TryParse(checker, out _))
+                            {
+                                Debug.Log("Incompatible data type passed for temp variable");
+                                return "Incompatible data type passed for temp variable";
+                            }
+                        }
+                    }
+
+                    if (currentLine.Contains("Character temp = "))
+                    {
+                        foreach (string letter in currentArray)
+                        {
+                            string checker = letter;
+                            
+                            if (int.TryParse(checker, out _))
+                            {
+                                Debug.Log("Incompatible data type passed for the temp variable");
+                                return "Incompatible data type passed for the temp variable";
+                            }
+                        }
+                    }
+                }
+
+                //checking whether the array insertion function's position variable has correct data type passed
+                if (currentLine.Contains("pos ="))
+                {
+                    if (!char.IsDigit(currentLine[6]))
+                    {
+                        Debug.Log("Invalid data type passed for position");
+                        return "Invalid data type passed for position";
+                    }
+                }
+                
+                //checking whether the array insertion function's element variable has correct data type passed
+                if (currentLine.Contains("element ="))
+                {
+                    if (arrayObject == null)
+                    {
+                        Debug.Log("No Array found");
+                        return "No Array found";
+                    }
+                    
+                    if (newArrayObject == null)
+                    {
+                        Debug.Log("No Parameter Array Found");
+                        return "No Parameter Array Found";
+                    }
+
+                    if (newArrayObject.GetComponent<ArrayBlock>().dataType != arrayObject.GetComponent<ArrayBlock>().dataType)
+                    {
+                        Debug.Log("Incompatible data conversion try");
+                        return "Incompatible data conversion try";
+                    }
+                    
+                    if (newArrayObject.GetComponent<ArrayBlock>().dataType == "Number")
+                    {
+                        if (!char.IsDigit(currentLine[10]))
+                        {
+                            Debug.Log("Invalid data type passed for element");
+                            return "Invalid data type passed for element";
+                        }
+                    } else if (newArrayObject.GetComponent<ArrayBlock>().dataType == "Character")
+                    {
+                        if (char.IsDigit(currentLine[10]))
+                        {
+                            Debug.Log("Invalid data type passed for element");
+                            return "Invalid data type passed for element";
+                        }
+                    }
+                }
+                
+                //checking whether the array deletion function's index variable has correct data type passed
+                if (currentLine.Contains("index ="))
+                {
+                    if (!char.IsDigit(currentLine[8]))
+                    {
+                        Debug.Log("Invalid data type passed for index");
+                        return "Invalid data type passed for index";
+                    }
+                }
+                
+                //checking whether the array deletion function's length variable has correct data type passed
+                if (currentLine.Contains("length ="))
+                {
+                    if (!char.IsDigit(currentLine[9]))
+                    {
+                        Debug.Log("Invalid data type passed for length");
+                        return "Invalid data type passed for length";
+                    }
+                }
+                
+                //Check the deletion function code is trying to get executed only if there is an array data structure
+                if (currentLine.Contains("array[i]") && arrayObject == null)
+                {
+                    Debug.Log("Array not found for deletion function");
+                    return "Array not found for deletion function";
+                }
+                
+            }
+            
+            
+            string result = string.Join("", currentArray);
+
+            string output = result;
+            
+            int x = 0;
+            int position = 0;
+            
+            while (x < codes.Count)
             {
-                Debug.Log("Index is outside the bounds of array");
-                return "Index is outside the bounds of array" + "\n" + errorMessage;
+                if (codes[x].Contains("for index"))
+                {
+                    int s = int.Parse(codes[x][24] + "");
+                    int e = int.Parse(codes[x][51] + "");
+                    int phraseLength = (e - s) + 1;
+
+                    if (!(s >= 0 && e >= s && e < output.Length))
+                    {
+                        Debug.Log("Invalid range for Print Function");
+                        return "Invalid range for Print Function";
+                    }
+                    
+                    string printOutput = output.Substring(s, phraseLength);
+                    outputArray.Add(printOutput);
+                    x += 3;
+                } else if (codes[x].Contains("pos</color> =") && codes[x].Length == 52)
+                {
+                    position = int.Parse(codes[x][43] + "");
+                    x += 1;
+                } else if (codes[x].Contains("element</color> =") && codes[x].Length == 56)
+                {
+                    var element = codes[x][47];
+
+                    if (position < 0 || position > output.Length)
+                    {
+                        Debug.Log("Position is out of range");
+                        return "Position is out of range";
+                    }
+                    
+                    output = InsertElement(output, position, element);
+                    x += 8;
+                } else if (codes[x].Contains("index</color> ="))
+                {
+                    position = int.Parse(codes[x][45] + "");
+                    x += 1;
+                } else if (codes[x].Contains("length</color> ="))
+                {
+                    var length = codes[x][46];
+
+                    if (position < 0 || position > length)
+                    {
+                        Debug.Log("Position is out of range for deletion");
+                        return "Position is out of range for deletion";
+                    }
+
+                    output = RemoveCharacter(output, position);
+                    x += 5;
+
+                }
+                else
+                {
+                    x += 1;
+                }
             }
 
-            if (errorMessage != "")
-            {
-                Debug.Log(errorMessage);
-                return errorMessage;
-            }
+            Debug.Log(output);
+            Debug.Log(outputArray.Count);
+
             
             compilationSuccess = true;
             return "Compiled Successfully";
-            
-            /*
-            if (errorMessage == "")
-            {
-                string expectedResult = "art";
 
-                string receivedOutput = "";
-                
-                for (int i = begin; i <= end; i++)
-                {
-                    receivedOutput += result[i];
-                }
-                
-                if (receivedOutput != expectedResult)
-                {
-                    Debug.Log("Expected art but got " + receivedOutput);
-                    return;
-                }
-                
-                Debug.Log("Victory");
-            }*/
-            
         }
-        return "dummy message";
     }
     
     public void Compile(bool compilation)
@@ -291,6 +477,60 @@ public class Level4Logic : MonoBehaviour
         }
     }
     
+        private void VictoryMenuDetails()
+    {
+        float currentTime = stopwatch.currentTime;
+        expectedMsg.text = "art";
+
+        if (outputArray.Count == 1)
+        {
+            if (outputArray[0] == "art" && currentTime <= 30f)
+            {
+                trophyPlaceholder.sprite = trophyImages[0];
+                levelDataManager.currentTrophy = 0;
+                resultMsg.text = outputArray[0];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            } else if (outputArray[0] == "art" && currentTime <= 60f)
+            {
+                trophyPlaceholder.sprite = trophyImages[1];
+                levelDataManager.currentTrophy = 1;
+                resultMsg.text = outputArray[0];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            } else if (outputArray[0] == "art" && currentTime > 60f)
+            {
+                trophyPlaceholder.sprite = trophyImages[2];
+                levelDataManager.currentTrophy = 2;
+                resultMsg.text = outputArray[0];
+                objectiveStatus.text = "Objective complete";
+                proceedButton.SetActive(true);
+                retryButton.SetActive(false);
+            }
+            else
+            {
+                trophyPlaceholder.sprite = trophyImages[3];
+                levelDataManager.currentTrophy = 3;
+                resultMsg.text = "something else";
+                objectiveStatus.text = "Objective is not met";
+                proceedButton.SetActive(false);
+                retryButton.SetActive(true);
+            }
+        } else 
+        {
+            trophyPlaceholder.sprite = trophyImages[3];
+            levelDataManager.currentTrophy = 3;
+            resultMsg.text = "something else";
+            objectiveStatus.text = "Objective is not met";
+            proceedButton.SetActive(false);
+            retryButton.SetActive(true);
+        }
+        
+    }
+    
+    /*
     private void VictoryMenuDetails()
     {
         float currentTime = stopwatch.currentTime;
@@ -330,12 +570,26 @@ public class Level4Logic : MonoBehaviour
             retryButton.SetActive(true);
         }
         
-    }
+    } */
 
     public void TryAgain()
     {
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
+    }
+    
+    private string InsertElement(string original, int index, char letter)
+    {
+        string leftSubstring = original.Substring(0, index);
+        string rightSubstring = original.Substring((index));
+
+        return leftSubstring + letter + rightSubstring;
+    }
+
+    private string RemoveCharacter(string original, int index)
+    {
+        string modifiedString = original.Substring(0, index) + original.Substring(index + 1);
+        return modifiedString;
     }
     
 }
