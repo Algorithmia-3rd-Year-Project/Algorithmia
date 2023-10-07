@@ -35,6 +35,6 @@ public class IntroCutScene : MonoBehaviour, IDataPersistence
     
     public void ContinueToGame()
     {
-        SceneManager.LoadSceneAsync("Level 1 Array");
+        SceneManager.LoadSceneAsync("Dialogue1");
     }
 }
