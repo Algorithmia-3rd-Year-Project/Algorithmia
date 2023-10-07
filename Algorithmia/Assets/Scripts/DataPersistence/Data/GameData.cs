@@ -17,6 +17,7 @@ public class GameData
     public float totalPlayTime;
     public string dailyMessage;
 
+    public bool questTreeIntroDisplayed;
     public bool simulationIntroPlayed;
     public int simulationIntroPlayTimeReached;
     
@@ -64,6 +65,7 @@ public class GameData
         this.totalPlayTime = 0;
         this.dailyMessage = "It's a cool day";
 
+        this.questTreeIntroDisplayed = false;
         this.simulationIntroPlayed = false;
         this.simulationIntroPlayTimeReached = 0;
 
