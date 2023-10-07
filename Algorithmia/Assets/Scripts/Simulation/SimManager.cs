@@ -62,6 +62,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject okayButton;
     [SerializeField] private GameObject instructionBox;
     [SerializeField] private GameObject directToSimulationIntroTrigger;
+    [SerializeField] private GameObject questTreeIntroduction;
+    private bool questTreeIntroduced;
 
     [Header("Family")] 
     [SerializeField] private TMP_Text motherNameText;
@@ -104,6 +106,12 @@ public class SimManager : MonoBehaviour, IDataPersistence
         if (!initialIntroPlayed && initialIntroPlayTimeReached == 1)
         {
             instructionManager.SetActive(true);
+        }
+
+        if (!questTreeIntroduced)
+        {
+            questTreeIntroduction.SetActive(true);
+            questTreeIntroduced = true;
         }
     }
 
@@ -168,6 +176,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.enrolledAtLibrary = data.enrolledAtLibrary;
         this.enrolledAtLibraryTime = data.enrolledAtLibraryTime;
         this.initialIntroPlayTimeReached = data.simulationIntroPlayTimeReached;
+        this.questTreeIntroduced = data.questTreeIntroDisplayed;
     }
 
     public void SaveData(ref GameData data)
@@ -195,6 +204,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.enrolledAtLibrary = this.enrolledAtLibrary;
         data.enrolledAtLibraryTime = this.enrolledAtLibraryTime;
         data.simulationIntroPlayTimeReached = this.initialIntroPlayTimeReached;
+        data.questTreeIntroDisplayed = this.questTreeIntroduced;
     }
 
     private void CalculateDayAndWeek(float totalTime)
