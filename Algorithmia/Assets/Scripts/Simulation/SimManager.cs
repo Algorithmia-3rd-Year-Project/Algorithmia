@@ -231,6 +231,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public void FinishIntroduction()
     {
         initialIntroPlayed = true;
+        energyLevel -= 20;
         initialIntroPlayTimeReached = 2;
         SceneManager.LoadSceneAsync("Level 4 Array");
     }
