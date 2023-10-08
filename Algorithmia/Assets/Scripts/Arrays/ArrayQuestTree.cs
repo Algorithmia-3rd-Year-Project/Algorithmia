@@ -16,6 +16,71 @@ public class ArrayQuestTree : MonoBehaviour
 
     private void QuestTreeManagement()
     {
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 7") && simulationManager.levelCompletionStatus["Array Level 7"] == true)
+        {
+            if (simulationManager.levelAchievedTrophies.TryGetValue("Array Level 7", out int trophy)) ;
+
+            if (trophy == 0)
+            {
+                UnlockQuestTree(26);
+                return;
+            } else if (trophy == 1 || trophy == 2)
+            {
+                UnlockQuestTree(24);
+                return;
+            } 
+        }
+        
+        
+        //If has completed one adaptive learning quest, check the status of the other relevant adaptive learning quest
+        //If it has also been completed with above Bronze Trophy unlock the rest of the area for player
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 6 A_2") &&
+            simulationManager.levelCompletionStatus["Array Level 6 A_2"] == true)
+        {
+            if (simulationManager.levelAchievedTrophies.ContainsKey("Array Level 6 A_1"))
+            {
+                simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_1", out int trophy);
+                simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_2", out int currentTrophies);
+                if (trophy < 2 && currentTrophies < 2)
+                {
+                    UnlockQuestTree(20);
+                    return;
+                }
+            }
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 6 A_1") &&
+            simulationManager.levelCompletionStatus["Array Level 6 A_1"] == true)
+        {
+            if (simulationManager.levelAchievedTrophies.ContainsKey("Array Level 6 A_2"))
+            {
+                simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_2", out int trophy);
+                simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_1", out int currentTrophies);
+                if (trophy < 2 && currentTrophies < 2)
+                {
+                    UnlockQuestTree(20);
+                    return;
+                }
+            }
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 6") && simulationManager.levelCompletionStatus["Array Level 6"] == true)
+        {
+            if (simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6", out int trophy)) ;
+
+            if (trophy == 0)
+            {
+                UnlockQuestTree(20);
+                return;
+            } else if (trophy == 1 || trophy == 2)
+            {
+                UnlockQuestTree(18);
+                return;
+            } 
+        }
+        
+        
         if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 5") && simulationManager.levelCompletionStatus["Array Level 5"] == true)
         {
             UnlockQuestTree(14);
