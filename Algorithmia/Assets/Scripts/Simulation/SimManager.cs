@@ -91,6 +91,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     
     //Variables to access via ArrayQuestTree
     public SerializableDictionary<string, bool> levelCompletionStatus = new SerializableDictionary<string, bool>();
+    public SerializableDictionary<string, int> levelAchievedTrophies = new SerializableDictionary<string, int>();
     
     private void Start()
     {
@@ -182,6 +183,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.questTreeIntroduced = data.questTreeIntroDisplayed;
 
         this.levelCompletionStatus = data.levelsCompleted;
+        this.levelAchievedTrophies = data.levelTrophies;
     }
 
     public void SaveData(ref GameData data)
