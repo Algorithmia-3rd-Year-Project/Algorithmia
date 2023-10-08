@@ -89,6 +89,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [HideInInspector] public bool enrolledAtLibrary;
     [HideInInspector] public float enrolledAtLibraryTime;
     
+    //Variables to access via ArrayQuestTree
+    public SerializableDictionary<string, bool> levelCompletionStatus = new SerializableDictionary<string, bool>();
+    
     private void Start()
     {
         Debug.Log(Application.persistentDataPath);
@@ -177,6 +180,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.enrolledAtLibraryTime = data.enrolledAtLibraryTime;
         this.initialIntroPlayTimeReached = data.simulationIntroPlayTimeReached;
         this.questTreeIntroduced = data.questTreeIntroDisplayed;
+
+        this.levelCompletionStatus = data.levelsCompleted;
     }
 
     public void SaveData(ref GameData data)

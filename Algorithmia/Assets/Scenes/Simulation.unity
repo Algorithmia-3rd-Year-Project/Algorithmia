@@ -32759,7 +32759,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &550995438
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38296,6 +38296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc41b3fdb9a8fb4a89949f355c08899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  simulationManager: {fileID: 1101474495}
   questTree:
   - {fileID: 1609102638}
   - {fileID: 1976796849}
@@ -63066,6 +63067,9 @@ MonoBehaviour:
   lastMovieWatchedTime: 0
   enrolledAtLibrary: 0
   enrolledAtLibraryTime: 0
+  levelCompletionStatus:
+    keys: []
+    values: 
 --- !u!4 &1101474496
 Transform:
   m_ObjectHideFlags: 0
@@ -121389,7 +121393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2103954571
 RectTransform:
   m_ObjectHideFlags: 0
