@@ -64,6 +64,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject directToSimulationIntroTrigger;
     [SerializeField] private GameObject questTreeIntroduction;
     private bool questTreeIntroduced;
+    private bool assignmentCutScenePlayed;
+    private bool assignmentEmailShown;
+    [SerializeField] private GameObject emailWindow;
 
     [Header("Family")] 
     [SerializeField] private TMP_Text motherNameText;
@@ -117,6 +120,15 @@ public class SimManager : MonoBehaviour, IDataPersistence
             questTreeIntroduction.SetActive(true);
             questTreeIntroduced = true;
         }
+
+        if (!assignmentEmailShown && assignmentCutScenePlayed)
+        {
+            anyMenuOpened = true;
+            assignmentEmailShown = true;
+            computerScreen.SetActive(true);
+            emailWindow.SetActive(true);
+        }
+        
     }
 
     private void Update()
@@ -158,6 +170,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.totalPlayTime = data.totalPlayTime;
         this.dailyMessage = data.dailyMessage;
         this.initialIntroPlayed = data.simulationIntroPlayed;
+        this.assignmentEmailShown = data.assignmentEmailShown;
+        this.assignmentCutScenePlayed = data.assignmentCutScenePlayed;
 
         this.motherNameText.text = data.motherName;
         this.motherAgeText.text = data.motherAge.ToString();
@@ -196,6 +210,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.totalPlayTime = this.totalPlayTime;
         data.dailyMessage = this.dailyMessage;
         data.simulationIntroPlayed = this.initialIntroPlayed;
+        data.assignmentEmailShown = this.assignmentEmailShown;
+        data.assignmentCutScenePlayed = this.assignmentCutScenePlayed;
 
         data.lastSpentTimeWithMother = this.lastSpentTimeWithMother;
         data.lastRequestMoneyFromMother = this.lastRequestMoneyFromMother;

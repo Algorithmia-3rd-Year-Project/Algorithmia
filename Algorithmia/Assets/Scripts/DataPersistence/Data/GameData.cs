@@ -20,6 +20,8 @@ public class GameData
     public bool questTreeIntroDisplayed;
     public bool simulationIntroPlayed;
     public int simulationIntroPlayTimeReached;
+    public bool assignmentEmailShown;
+    public bool assignmentCutScenePlayed;
     
     //Player family details
     public string motherName;
@@ -68,7 +70,9 @@ public class GameData
         this.questTreeIntroDisplayed = false;
         this.simulationIntroPlayed = false;
         this.simulationIntroPlayTimeReached = 0;
-
+        this.assignmentEmailShown = false;
+        this.assignmentCutScenePlayed = false;
+        
         this.motherName = "";
         this.motherAge = 0;
         this.motherOccupation = "";

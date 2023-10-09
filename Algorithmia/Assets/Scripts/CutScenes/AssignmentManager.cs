@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class AssignmentManager : MonoBehaviour
+public class AssignmentManager : MonoBehaviour, IDataPersistence
 {
 
     [SerializeField] private Animator animator;
@@ -12,6 +12,7 @@ public class AssignmentManager : MonoBehaviour
     [SerializeField] private GameObject gotoEmailsButton;
     
     private int buttonPressedCount;
+    private bool assignmentCutScenePlayed;
 
     private void Update()
     {
@@ -60,8 +61,19 @@ public class AssignmentManager : MonoBehaviour
         } 
     }
 
+    public void LoadData(GameData data)
+    {
+        this.assignmentCutScenePlayed = data.assignmentCutScenePlayed;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.assignmentCutScenePlayed = this.assignmentCutScenePlayed;
+    }
+
     public void ContinueToEmail()
     {
+        assignmentCutScenePlayed = true;
         SceneManager.LoadSceneAsync("Scenes/Simulation");
     }
     
