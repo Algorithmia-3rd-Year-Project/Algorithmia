@@ -32,6 +32,24 @@ public class EmailManager : MonoBehaviour
             newEmailUI.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             
         }
+        
+        ReverseVerticalLayoutGroup();
+    }
+
+    private void ReverseVerticalLayoutGroup()
+    {
+        int childCount = mailWrapper.transform.childCount;
+        Transform[] childTransforms = new Transform[childCount];
+        for (int i = 0; i < childCount; i++)
+        {
+            childTransforms[i] = mailWrapper.transform.GetChild(i);
+        }
+
+        for (int i = 0; i < childCount / 2; i++)
+        {
+            int j = childCount - 1 - i;
+            childTransforms[i].SetSiblingIndex(j);
+        }
     }
     
 }
