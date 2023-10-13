@@ -19,7 +19,7 @@ public class EmailManager : MonoBehaviour
     
     private void Start()
     {
-        if (simulationManager.assignmentEmailShown)
+        if (simulationManager.assignmentCutScenePlayed)
         {
             GameObject newEmail = Instantiate(singleEmailPrefab, new Vector3(mailWrapper.position.x, mailWrapper.position.y, mailWrapper.position.z), Quaternion.identity);
             RectTransform newEmailUI = newEmail.GetComponent<RectTransform>();
@@ -31,6 +31,24 @@ public class EmailManager : MonoBehaviour
             newEmail.transform.SetParent(mailWrapper);
             newEmailUI.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             
+        }
+        
+        ReverseVerticalLayoutGroup();
+    }
+
+    private void ReverseVerticalLayoutGroup()
+    {
+        int childCount = mailWrapper.transform.childCount;
+        Transform[] childTransforms = new Transform[childCount];
+        for (int i = 0; i < childCount; i++)
+        {
+            childTransforms[i] = mailWrapper.transform.GetChild(i);
+        }
+
+        for (int i = 0; i < childCount / 2; i++)
+        {
+            int j = childCount - 1 - i;
+            childTransforms[i].SetSiblingIndex(j);
         }
     }
     
