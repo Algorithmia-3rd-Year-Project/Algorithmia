@@ -65,7 +65,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject questTreeIntroduction;
     private bool questTreeIntroduced;
     private bool assignmentCutScenePlayed;
-    private bool assignmentEmailShown;
+    public bool assignmentEmailShown;
     [SerializeField] private GameObject emailWindow;
 
     [Header("Family")] 
