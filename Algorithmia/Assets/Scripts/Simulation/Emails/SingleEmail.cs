@@ -22,19 +22,20 @@ public class SingleEmail : MonoBehaviour
     private void Awake()
     {
         emailManager = FindObjectOfType<EmailManager>();
-        emailTitleUnOpenedText.text = emailTitle;
+        
     }
 
     private void Start()
     {
         readButton.onClick.AddListener(OpenEmail);
+        emailTitleUnOpenedText.text = emailTitle;
     }
 
     private void OpenEmail()
     {
         //Debug.Log(emailTitle);
         emailManager.openedEmail.SetActive(true);
-        this.gameObject.SetActive(false);
+        this.transform.parent.gameObject.SetActive(false);
         emailManager.emailTitleText.text = emailTitle;
         emailManager.emailBodyText.text = emailBody;
     }

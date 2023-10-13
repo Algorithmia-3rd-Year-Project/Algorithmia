@@ -21,11 +21,16 @@ public class EmailManager : MonoBehaviour
     {
         if (simulationManager.assignmentEmailShown)
         {
-            GameObject newEmail = Instantiate(singleEmailPrefab, new Vector3(mailWrapper.position.x, mailWrapper.position.y, 0f), Quaternion.identity);
+            GameObject newEmail = Instantiate(singleEmailPrefab, new Vector3(mailWrapper.position.x, mailWrapper.position.y, mailWrapper.position.z), Quaternion.identity);
             RectTransform newEmailUI = newEmail.GetComponent<RectTransform>();
+            SingleEmail newEmailScript = newEmail.GetComponent<SingleEmail>();
+
+            newEmailScript.emailTitle = "Array Assignment Homework";
+            newEmailScript.emailBody = "PLz help me do this";
             
-            newEmailUI.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             newEmail.transform.SetParent(mailWrapper);
+            newEmailUI.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            
         }
     }
     
