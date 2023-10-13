@@ -19,7 +19,7 @@ public class EmailManager : MonoBehaviour
     
     private void Start()
     {
-        if (simulationManager.assignmentEmailShown)
+        if (simulationManager.assignmentCutScenePlayed)
         {
             GameObject newEmail = Instantiate(singleEmailPrefab, new Vector3(mailWrapper.position.x, mailWrapper.position.y, mailWrapper.position.z), Quaternion.identity);
             RectTransform newEmailUI = newEmail.GetComponent<RectTransform>();
