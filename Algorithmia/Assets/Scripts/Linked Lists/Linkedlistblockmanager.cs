@@ -53,6 +53,9 @@ public class Linkedlistblockmanager : MonoBehaviour
     [SerializeField]
     private GameObject codeNodeInstance;
 
+    [SerializeField]
+    private GameObject codeHeadNodeInstance;
+
 
     // Start is called before the first frame update
     void Start()
@@ -167,16 +170,30 @@ public class Linkedlistblockmanager : MonoBehaviour
 
                     if (currentObj.GetComponent<LinkedListBlock>().blockName == "LL Normal Node")
                     {
-                        GameObject codeObject = Instantiate(codeNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
-                        codeObject.transform.SetParent(codeParent.transform);
+                        if(levelManager.blockCount == 1)
+                        {
+                            GameObject codeObject = Instantiate(codeHeadNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                            codeObject.transform.SetParent(codeParent.transform);
 
-                        string pseudoText = currentObj.GetComponent<LinkedListBlock>().pseudoCode;
-                        string[] pseudoSubstrings = pseudoText.Split('%');
+                            string pseudoText = currentObj.GetComponent<LinkedListBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
 
-                        currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
+                            currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
 
-                        StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                        }
+                        else
+                        {
+                            GameObject codeObject = Instantiate(codeHeadNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                            codeObject.transform.SetParent(codeParent.transform);
 
+                            string pseudoText = currentObj.GetComponent<LinkedListBlock>().alternativePseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+                            currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                        }
                     }
                 }
 
