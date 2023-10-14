@@ -155,8 +155,8 @@ public class Linkedlistblockmanager : MonoBehaviour
 
                 TrackSnapPoints(currentObj);
                 TrackLinePoints(currentObj);
-                ActivateLineSnapPoints(currentObj);
                 ChangeBlockLayer(currentObj.transform, "Workspace");
+                ActivateLineSnapPoints(currentObj);
                 levelManager.blockCount += 1;
 
                 if (setTriggers)
