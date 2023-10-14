@@ -23,7 +23,7 @@ public class ArrayBlockManager : MonoBehaviour
     private ArrayBlockList arrayblocksList;
 
     [SerializeField]
-    private LinkedListLevelManager levelManager;
+    private ArrayLevelManager levelManager;
 
     [SerializeField]
     private LayerMask anotherLayer;
