@@ -21,6 +21,8 @@ public class DataBlock : MonoBehaviour
     [SerializeField]
     private GameObject guideMark;
 
+    public GameObject pseudoElement;
+
     private void Awake()
     {
         originalScale = transform.localScale;
