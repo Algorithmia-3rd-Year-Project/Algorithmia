@@ -173,6 +173,8 @@ public class Linkedlistblockmanager : MonoBehaviour
                     ActivateLineSnapPoints(currentObj);
                     levelManager.blockCount += 1;
 
+                    currentObj.GetComponent<LinkedListBlock>().addedBlock = true;
+
                     if (currentObj.GetComponent<LinkedListBlock>().blockName == "LL Normal Node")
                     {
                         if(levelManager.blockCount == 1)
@@ -356,7 +358,7 @@ public class Linkedlistblockmanager : MonoBehaviour
     private void DestroyBlocks(GameObject currentObj)
     {
         Debug.Log("Block Destroed");
-        /*
+        
         Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
         Transform linePointsObj = currentObj.transform.Find("Line Points");
         int deletedCount = 0;
@@ -398,14 +400,14 @@ public class Linkedlistblockmanager : MonoBehaviour
         }
 
 
-        if (this.currentObj.GetComponent<ArrayBlock>().addedBlock == true)
+        if (this.currentObj.GetComponent<LinkedListBlock>().addedBlock == true)
         {
             levelManager.blockCount -= 1;
             //levelManager.blocks.Remove(this.currentObj);
         }
 
-        Destroy(currentObj.GetComponent<ArrayBlock>().pseudoElement);
-        */
+        Destroy(currentObj.GetComponent<LinkedListBlock>().pseudoElement);
+        
         Destroy(currentObj);
 
     }
