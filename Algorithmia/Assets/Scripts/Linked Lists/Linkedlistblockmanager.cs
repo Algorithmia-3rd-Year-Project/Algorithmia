@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using TMPro;
 using UnityEngine;
 
 public class Linkedlistblockmanager : MonoBehaviour
@@ -45,6 +46,12 @@ public class Linkedlistblockmanager : MonoBehaviour
 
     [SerializeField]
     private bool setTriggers;
+
+    [SerializeField]
+    private float typingSpeed;
+
+    [SerializeField]
+    private GameObject codeNodeInstance;
 
 
     // Start is called before the first frame update
@@ -103,16 +110,12 @@ public class Linkedlistblockmanager : MonoBehaviour
                         {
                             if (singleHit.collider.CompareTag("Data"))
                             {
-                                //currentObj = singleHit.collider.gameObject;
-                                currentObj = Instantiate(linkedListblocksList.blockList["Left Arrow"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
-                                startPosX = mousePos.x - currentObj.transform.position.x;
-                                startPosY = mousePos.y - currentObj.transform.position.y;
+                                currentObj = singleHit.collider.gameObject;
                             }
                         }
                     }
                     else if (allhits.Length == 1)
                     {
-
                         if (allhits[0].collider.CompareTag("Inventory"))
                         {
                             currentObj = allhits[0].collider.gameObject;
@@ -153,37 +156,58 @@ public class Linkedlistblockmanager : MonoBehaviour
             if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == true)
             {
 
-                TrackSnapPoints(currentObj);
-                TrackLinePoints(currentObj);
-                ChangeBlockLayer(currentObj.transform, "Workspace");
-                ActivateLineSnapPoints(currentObj);
-                levelManager.blockCount += 1;
 
-                if (setTriggers)
+                if (currentObj.layer != workspaceLayer)
                 {
-                    if (levelManager.additionalSnapPositions.Count > 0 && (Mathf.Abs(currentObj.transform.position.x - levelManager.additionalSnapPositions[0].transform.position.x) <= 0.5f &&
-                    Mathf.Abs(currentObj.transform.position.y - levelManager.additionalSnapPositions[0].transform.position.y) <= 0.5f))
+                    TrackSnapPoints(currentObj);
+                    TrackLinePoints(currentObj);
+                    ChangeBlockLayer(currentObj.transform, "Workspace");
+                    ActivateLineSnapPoints(currentObj);
+                    levelManager.blockCount += 1;
+
+                    if (currentObj.GetComponent<LinkedListBlock>().blockName == "LL Normal Node")
                     {
-                        currentObj.transform.position = new Vector3(levelManager.additionalSnapPositions[0].transform.position.x, levelManager.additionalSnapPositions[0].transform.position.y, 0f);
-                        currentObj = null;
-                    }
-                    else
-                    {
-                        DestroyBlocks(currentObj);
+                        GameObject codeObject = Instantiate(codeNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                        codeObject.transform.SetParent(codeParent.transform);
+
+                        string pseudoText = currentObj.GetComponent<LinkedListBlock>().pseudoCode;
+                        string[] pseudoSubstrings = pseudoText.Split('%');
+
+                        currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
+
+                        StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+
                     }
                 }
-                else
-                {
-                    currentObj = null;
-                }
-                // }
+
+                currentObj = null;
+
+
+                /* if (setTriggers)
+                 {
+                     if (levelManager.additionalSnapPositions.Count > 0 && (Mathf.Abs(currentObj.transform.position.x - levelManager.additionalSnapPositions[0].transform.position.x) <= 0.5f &&
+                     Mathf.Abs(currentObj.transform.position.y - levelManager.additionalSnapPositions[0].transform.position.y) <= 0.5f))
+                     {
+                         currentObj.transform.position = new Vector3(levelManager.additionalSnapPositions[0].transform.position.x, levelManager.additionalSnapPositions[0].transform.position.y, 0f);
+                         currentObj = null;
+                     }
+                     else
+                     {
+                         DestroyBlocks(currentObj);
+                     }
+                 }
+                 else
+                 {
+                     currentObj = null;
+                 }
+                 // }*/
 
 
 
             }
             else if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == false)
             {
-
+                Debug.Log("...........");
                 DestroyBlocks(currentObj);
 
             }
@@ -306,31 +330,132 @@ public class Linkedlistblockmanager : MonoBehaviour
             }
         }
 
-        private void DestroyBlocks(GameObject currentObj)
+    private void DestroyBlocks(GameObject currentObj)
+    {
+        Debug.Log("Block Destroed");
+        /*
+        Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
+        Transform linePointsObj = currentObj.transform.Find("Line Points");
+        int deletedCount = 0;
+        int deletedLines = 0;
+
+        if (snapPointsListObj != null)
         {
-            Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
-            //Transform linePointsObj = currentObj.transform.Find("Line Points");
-            int deletedCount = 0;
-            //int deletedLines = 0;
+            Transform[] snapPointsList = snapPointsListObj.GetComponentsInChildren<Transform>(includeInactive: false);
 
-            if (snapPointsListObj != null)
+
+            for (int i = 0; i < snapPointsList.Length; i++)
             {
-                Transform[] snapPointsList = snapPointsListObj.GetComponentsInChildren<Transform>(includeInactive: false);
-
-
-                for (int i = 0; i < snapPointsList.Length; i++)
+                for (int j = 0; j < levelManager.correctForms.Count; j++)
                 {
-                    for (int j = 0; j < levelManager.correctForms.Count; j++)
+                    if (snapPointsList[i].gameObject == levelManager.correctForms[j])
                     {
-                        if (snapPointsList[i].gameObject == levelManager.correctForms[j])
-                        {
-                            levelManager.correctForms.RemoveAt(j);
-                            deletedCount += 1;
-                        }
+                        levelManager.correctForms.RemoveAt(j);
+                        deletedCount += 1;
                     }
                 }
             }
         }
+
+        if (linePointsObj != null)
+        {
+            Transform[] linePointsList = linePointsObj.GetComponentsInChildren<Transform>(includeInactive: false);
+
+            for (int i = 0; i < linePointsList.Length; i++)
+            {
+                for (int j = 0; j < levelManager.lineEndPoints.Count; j++)
+                {
+                    if (linePointsList[i] == levelManager.lineEndPoints[j])
+                    {
+                        levelManager.lineEndPoints.RemoveAt(j);
+                        deletedLines += 1;
+                    }
+                }
+            }
+        }
+
+
+        if (this.currentObj.GetComponent<ArrayBlock>().addedBlock == true)
+        {
+            levelManager.blockCount -= 1;
+            //levelManager.blocks.Remove(this.currentObj);
+        }
+
+        Destroy(currentObj.GetComponent<ArrayBlock>().pseudoElement);
+        */
+        Destroy(currentObj);
+
     }
+
+    public IEnumerator TypingMultipleCode(string[] pseudoSubstrings, GameObject codeObject)
+    {
+        //Checks whether the code instance object has been destroyed while the pseudo code is being printed to the editor
+        if (codeObject == null)
+        {
+            yield break;
+        }
+
+        int codeInstanceLength = codeObject.transform.childCount;
+
+        for (int i = 0; i < codeInstanceLength; i++)
+        {
+            if (codeObject == null)
+            {
+                yield break;
+            }
+
+            GameObject tempObject = codeObject.transform.GetChild(i).gameObject;
+
+            if (tempObject == null)
+            {
+                yield break;
+            }
+
+            if (tempObject.name != "Code")
+            {
+                continue;
+            }
+            else
+            {
+                tempObject.GetComponent<TMP_Text>().text = "";
+
+                for (int j = 0; j < pseudoSubstrings[i].Length; j++)
+                {
+
+                    if (pseudoSubstrings[i][j] == '<' && pseudoSubstrings[i][j + 1] != ' ')
+                    {
+
+                        do
+                        {
+                            if (tempObject == null)
+                            {
+                                yield break;
+                            }
+
+                            tempObject.GetComponent<TMP_Text>().text += pseudoSubstrings[i][j];
+                            j += 1;
+                        }
+                        while (pseudoSubstrings[i][j] != '>');
+
+                    }
+
+                    if (tempObject == null)
+                    {
+                        yield break;
+                    }
+
+                    tempObject.GetComponent<TMP_Text>().text += pseudoSubstrings[i][j];
+
+
+                    yield return new WaitForSeconds(0.03f);
+                }
+            }
+            yield return new WaitForSeconds(typingSpeed);
+        }
+
+        //ScrollToBottom();
+    }
+
+}
 
 

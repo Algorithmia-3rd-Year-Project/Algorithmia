@@ -11,6 +11,10 @@ public class LinkedListBlock : MonoBehaviour
 
     public string blockName;
 
+    public string pseudoCode;
+
+    public GameObject pseudoElement;
+
     private void Start()
     {
         inWorkspace = false;
