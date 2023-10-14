@@ -8,9 +8,41 @@ public class ArrayBlock : MonoBehaviour
 
     public string blockName;
 
+    public string dataType;
+
+    public string pseudoCode;
+
+    public GameObject pseudoElement;
+
+    public int dataElementCount;
+
+    public string infoPanelName;
+    
+    [Header("Print Function Settings")]
+    public string startPoint;
+    public string endPoint;
+
+    [Header("Reverse Function Settings")]
+    public string start;
+    public string end;
+
+    [Header("Insertion Function Settings")]
+    public string positionPoint;
+    public string elementPoint;
+    public string newDataStructure;
+
+    [Header("Deletion Function Settings")]
+    public string indexPoint;
+    public string lengthPoint;
+
+    public string dataStructure;
+    public bool addedBlock;
+    
+    
     private void Start()
     {
         inWorkspace = false;
+        addedBlock = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,11 +51,8 @@ public class ArrayBlock : MonoBehaviour
         {
             inWorkspace = true;
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Workspace"))
+        if (collision.gameObject.CompareTag("OutWorkspace"))
         {
             inWorkspace = false;
         }

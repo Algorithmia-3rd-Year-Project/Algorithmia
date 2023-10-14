@@ -11,6 +11,8 @@ public class ArrayLevelManager : MonoBehaviour
 
     public List<GameObject> lines;
 
+    public List<GameObject> blocks;
+
     public Dictionary<string, string> correctWires = new Dictionary<string, string>();
 
     public int blockCount;
