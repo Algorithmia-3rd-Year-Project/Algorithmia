@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StackLevelManager : MonoBehaviour
 {
-    public List<GameObject> correctForms;
+    public List<GameObject> snapPoints;
 
     public List<Transform> lineEndPoints;
 
@@ -18,7 +18,7 @@ public class StackLevelManager : MonoBehaviour
 
     private void Start()
     {
-        int correctPosCount = correctForms.Count;
+        int correctPosCount = snapPoints.Count;
         blockCount = 0;
     }
 

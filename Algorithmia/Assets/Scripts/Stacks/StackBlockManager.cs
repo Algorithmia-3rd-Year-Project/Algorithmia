@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -159,6 +160,14 @@ public class StackBlockManager : MonoBehaviour
                     ChangeBlockLayer(currentObj.transform, "Workspace");
                     levelManager.blockCount += 1;
 
+                    Debug.Log(currentObj.name);
+                    if (currentObj.name == "Push Function(Clone)")
+                    {
+                        Debug.Log("Push function");
+                        TrackSnapPoints(currentObj);
+                        TrackLinePoints(currentObj);
+                    }
+
                 }
 
                 currentObj = null;
@@ -169,7 +178,53 @@ public class StackBlockManager : MonoBehaviour
                 DestroyBlocks(currentObj);
 
             }
+            else if (currentObj != null && currentObj.CompareTag("Data"))
+            {
+
+                float _snapRadius = currentObj.GetComponent<DataBlock>().snapRadius;
+
+                currentObj.GetComponent<DataBlock>().snapped = false;
+
+                for (int i = 0; i < levelManager.snapPoints.Count; i++)
+                {
+                    if ((Mathf.Abs(currentObj.transform.position.x - levelManager.snapPoints[i].transform.position.x) <= _snapRadius &&
+                    Mathf.Abs(currentObj.transform.position.y - levelManager.snapPoints[i].transform.position.y) <= _snapRadius) &&
+                    levelManager.snapPoints[i].transform.childCount == 0)
+                    {
+                        currentObj.transform.position = new Vector3(levelManager.snapPoints[i].transform.position.x, levelManager.snapPoints[i].transform.position.y, 0f);
+                        currentObj.GetComponent<DataBlock>().snapped = true;
+
+                        ChangeBlockLayer(currentObj.transform, "Workspace");
+
+                        //make the data element a child of the snapped point
+                        currentObj.transform.SetParent(levelManager.snapPoints[i].transform);
+
+                        currentObj.transform.localScale = new Vector3(0.64f, 0.44f, 1f);
+
+                        break;
+                    }
+                }
+
+                if (currentObj.GetComponent<DataBlock>().snapped == false)
+                {
+                    Vector3 currentResetPos = currentObj.GetComponent<DataBlock>().resetPosition;
+                    currentObj.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
+
+
+                    currentObj.transform.SetParent(dataParentObj);
+                    ChangeBlockLayer(currentObj.transform, "Data");
+                    currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
+
+                    Destroy(currentObj.GetComponent<DataBlock>().pseudoElement);
+
+                    currentObj.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                    Transform dataText = currentObj.transform.Find("a-data");
+                    dataText.GetComponent<SpriteRenderer>().sortingOrder = 4;
+
+
+                }
                 currentObj = null;
+            }
 
         }
 
@@ -196,6 +251,43 @@ public class StackBlockManager : MonoBehaviour
         levelManager.blockCount -= 1;
         Destroy(currentObj.GetComponent<StackBlock>().pseudoElement);
         Destroy(currentObj);
+    }
+
+    //Used to add all snap points of an array block to the level managers list when the array first placed in workspace
+    private void TrackSnapPoints(GameObject currentObj)
+    {
+        Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
+
+        if (snapPointsListObj != null)
+        {
+            Transform[] snapPointsList = snapPointsListObj.GetComponentsInChildren<Transform>(includeInactive: false);
+
+            foreach (Transform snapPoint in snapPointsList)
+            {
+                if (snapPoint != snapPointsListObj)
+                {
+                    levelManager.snapPoints.Add(snapPoint.gameObject);
+                }
+
+            }
+        }
+    }
+
+    private void TrackLinePoints(GameObject currentObj)
+    {
+
+        Transform linePoints = currentObj.transform.Find("Line Points");
+
+        if (linePoints != null)
+        {
+            Transform endPoint = linePoints.Find("Line End");
+            if (endPoint != null)
+            {
+                levelManager.lineEndPoints.Add(endPoint);
+            }
+
+        }
+
     }
 
 }
