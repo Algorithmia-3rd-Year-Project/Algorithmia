@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5858705311514657523}
   - component: {fileID: 5858705311514657526}
   - component: {fileID: 106400812731859837}
-  - component: {fileID: 5606268409962999732}
+  - component: {fileID: 9055283362612087356}
   m_Layer: 7
-  m_Name: Empty Array Block (3)
+  m_Name: Insert Block
   m_TagString: Inventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5858705311514657522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.29, y: -1.36, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.6839}
+  m_LocalScale: {x: 0.43827, y: 0.43827, z: 0.9991094}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5606268409962999732
+--- !u!114 &9055283362612087356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,24 +141,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5858705311514657522}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 036362044282aa84697a4a2409765bc8, type: 3}
+  m_Script: {fileID: 11500000, guid: dd4fc97da2f32874d876796db1c50d57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inWorkspace: 0
-  blockName: Empty Array
-  dataType: 
-  pseudoCode: Number Array[4]
-  pseudoElement: {fileID: 0}
-  dataElementCount: 0
-  infoPanelName: 
-  startPoint: 
-  endPoint: 
-  start: 
-  end: 
-  positionPoint: 
-  elementPoint: 
-  newDataStructure: 
-  indexPoint: 
-  lengthPoint: 
-  dataStructure: 
+  blockName: 
+  pseudoCode: 
+  alternativePseudoCode: 
+  variableName: 
   addedBlock: 0
+  pseudoElement: {fileID: 0}

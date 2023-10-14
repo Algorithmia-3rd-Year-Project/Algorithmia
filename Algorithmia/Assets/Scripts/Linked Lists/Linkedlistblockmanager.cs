@@ -95,6 +95,12 @@ public class Linkedlistblockmanager : MonoBehaviour
                     startPosX = mousePos.x - currentObj.transform.position.x;
                     startPosY = mousePos.y - currentObj.transform.position.y;
                 }
+                else if(hit.collider.name == "Insert Block")
+                {
+                    currentObj = Instantiate(linkedListblocksList.blockList["Insert Block"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
+                    startPosX = mousePos.x - currentObj.transform.position.x;
+                    startPosY = mousePos.y - currentObj.transform.position.y;
+                }
             }
             else
             {
