@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEngine.ParticleSystem;
 
 public class Linkedlistblockmanager : MonoBehaviour
 {
@@ -55,6 +58,8 @@ public class Linkedlistblockmanager : MonoBehaviour
 
     [SerializeField]
     private GameObject codeHeadNodeInstance;
+
+    [SerializeField] private ScrollRect scrollRect;
 
 
     // Start is called before the first frame update
@@ -184,10 +189,11 @@ public class Linkedlistblockmanager : MonoBehaviour
                         }
                         else
                         {
-                            GameObject codeObject = Instantiate(codeHeadNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                            GameObject codeObject = Instantiate(codeNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
                             codeObject.transform.SetParent(codeParent.transform);
 
-                            string pseudoText = currentObj.GetComponent<LinkedListBlock>().alternativePseudoCode;
+                            string variableName = currentObj.GetComponent<LinkedListBlock>().variableName + levelManager.blockCount;
+                            string pseudoText = "Node *" + variableName+ " = NULL%" + variableName + " = allocateMemory()";
                             string[] pseudoSubstrings = pseudoText.Split('%');
 
                             currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
@@ -470,7 +476,12 @@ public class Linkedlistblockmanager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
 
-        //ScrollToBottom();
+        ScrollToBottom();
+    }
+
+    private void ScrollToBottom()
+    {
+        scrollRect.normalizedPosition = new Vector2(0, 0);
     }
 
 }

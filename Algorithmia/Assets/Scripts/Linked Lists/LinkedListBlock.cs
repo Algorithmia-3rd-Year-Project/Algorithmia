@@ -12,6 +12,8 @@ public class LinkedListBlock : MonoBehaviour
 
     public string alternativePseudoCode;
 
+    public string variableName;
+
     public GameObject pseudoElement;
 
     private void Start()
