@@ -77,7 +77,7 @@ public class LinkedListLineManager : MonoBehaviour
             {
                 for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
                 {
-                    if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 0.05f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 0.05f)
+                    if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 0.2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 0.2f)
                     {
                         currentLine.GetComponent<LineRenderer>().SetPosition(1, new Vector3(levelManager.lineEndPoints[i].position.x, levelManager.lineEndPoints[i].position.y, 0f));
                         currentLine.GetComponent<LinkedListLine>().endPos = levelManager.lineEndPoints[i].gameObject;
