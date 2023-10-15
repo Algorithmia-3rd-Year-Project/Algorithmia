@@ -62,6 +62,9 @@ public class Linkedlistblockmanager : MonoBehaviour
 
     [SerializeField] private ScrollRect scrollRect;
 
+    [SerializeField]
+    private GameObject codeInsertInstance;
+
 
     // Start is called before the first frame update
     void Start()
@@ -194,9 +197,20 @@ public class Linkedlistblockmanager : MonoBehaviour
                                 if (levelManager.functionSnapPoints[i].name == levelManager.fixLines[j].name)
                                 {
                                     levelManager.fixLines[j].SetActive(false);
+                                    levelManager.triggerNodes[j].SetActive(true);
                                     break;
                                 }
                             }
+                            GameObject codeObject = Instantiate(codeInsertInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                            codeObject.transform.SetParent(codeParent.transform);
+
+                            string pseudoText = currentObj.GetComponent<LinkedListBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+                            currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                               
 
                             //currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
 

@@ -20,6 +20,8 @@ public class LinkedListLevelManager : MonoBehaviour
 
     public List<GameObject> fixLines;
 
+    public List<GameObject> triggerNodes;
+
     private void Start()
     {
         int correctPosCount = correctForms.Count;
