@@ -187,7 +187,16 @@ public class Linkedlistblockmanager : MonoBehaviour
                             //ChangeBlockLayer(currentObj.transform, "Workspace");
 
                             //make the data element a child of the snapped point
-                            // currentObj.transform.SetParent(levelManager.functionSnapPoints[i].transform);
+                            currentObj.transform.SetParent(levelManager.functionSnapPoints[i]);
+
+                            for(int j = 0; j<levelManager.fixLines.Count; j++)
+                            {
+                                if (levelManager.functionSnapPoints[i].name == levelManager.fixLines[j].name)
+                                {
+                                    levelManager.fixLines[j].SetActive(false);
+                                    break;
+                                }
+                            }
 
                             //currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
 

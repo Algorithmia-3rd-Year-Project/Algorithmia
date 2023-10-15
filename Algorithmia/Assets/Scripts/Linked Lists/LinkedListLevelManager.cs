@@ -18,6 +18,8 @@ public class LinkedListLevelManager : MonoBehaviour
 
     public List<Transform> functionSnapPoints;
 
+    public List<GameObject> fixLines;
+
     private void Start()
     {
         int correctPosCount = correctForms.Count;
