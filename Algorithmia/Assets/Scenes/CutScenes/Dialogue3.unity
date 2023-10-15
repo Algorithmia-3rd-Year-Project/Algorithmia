@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 156898970}
   - component: {fileID: 156898969}
   m_Layer: 5
-  m_Name: Emails Button
+  m_Name: Freelance Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -429,7 +429,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -158.12598}
-  m_SizeDelta: {x: 176.6627, y: 33.251}
+  m_SizeDelta: {x: 175.1595, y: 33.251}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &156898969
 MonoBehaviour:
@@ -476,8 +476,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 360035743}
-        m_TargetAssemblyTypeName: AssignmentManager, Assembly-CSharp
-        m_MethodName: ContinueToEmail
+        m_TargetAssemblyTypeName: FreelanceCutSceneManager, Assembly-CSharp
+        m_MethodName: ContinueToFreelance
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1020,12 +1020,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 360035742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77c5d83bfde5fdb4fa89906291b0c199, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eb9b066c3c23c74a94a7f391af0f65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1229142834}
   refreshButton: {fileID: 1947646218}
-  gotoEmailsButton: {fileID: 156898967}
+  gotoFreelanceButton: {fileID: 156898967}
 --- !u!4 &360035744
 Transform:
   m_ObjectHideFlags: 0
@@ -1057,7 +1057,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &421063849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1223,7 +1223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &466842909
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1434,7 +1434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &592702797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2058,8 +2058,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.2, y: 0.7}
-  m_SizeDelta: {x: 143.6472, y: 28.3086}
+  m_AnchoredPosition: {x: -0.2, y: 2}
+  m_SizeDelta: {x: 166.942, y: 28.3086}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &809317158
 MonoBehaviour:
@@ -2081,7 +2081,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Check Inbox
+  m_text: Open Freelance App
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 80c4826ddee72044db561557214a90af, type: 2}
   m_sharedMaterial: {fileID: 2280289033152714230, guid: 80c4826ddee72044db561557214a90af, type: 2}
@@ -2613,7 +2613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1017059634
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2823,7 +2823,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1189155875
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2939,7 +2939,7 @@ Animator:
   m_GameObject: {fileID: 1229142832}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 78d50bbdac08c0c469ff13a3c7219cf1, type: 2}
+  m_Controller: {fileID: 9100000, guid: 124e0832d38476d4fbcc143de3d7eaa9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3235,7 +3235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1449736428
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3566,7 +3566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1740829390
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3776,7 +3776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1825147633
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3986,7 +3986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1851420345
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4062,7 +4062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1946037426
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4205,7 +4205,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 360035743}
-        m_TargetAssemblyTypeName: AssignmentManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: FreelanceCutSceneManager, Assembly-CSharp
         m_MethodName: TrackKeys
         m_Mode: 1
         m_Arguments:
