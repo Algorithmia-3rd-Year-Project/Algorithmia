@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EmailManager : MonoBehaviour
@@ -13,6 +14,8 @@ public class EmailManager : MonoBehaviour
     public GameObject openedEmail;
     public TMP_Text emailTitleText;
     public TMP_Text emailBodyText;
+    
+    private string targetLevelName;
 
     [SerializeField] private GameObject singleEmailPrefab;
     [SerializeField] private Transform mailWrapper;
@@ -27,6 +30,7 @@ public class EmailManager : MonoBehaviour
 
             newEmailScript.emailTitle = "Array Assignment Homework";
             newEmailScript.emailBody = "PLz help me do this";
+            targetLevelName = "Array Assignment Level";
             
             newEmail.transform.SetParent(mailWrapper);
             newEmailUI.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -50,6 +54,11 @@ public class EmailManager : MonoBehaviour
             int j = childCount - 1 - i;
             childTransforms[i].SetSiblingIndex(j);
         }
+    }
+
+    public void PrivateEmailProceedButtonOnClicked()
+    {
+        SceneManager.LoadSceneAsync(targetLevelName);
     }
     
 }
