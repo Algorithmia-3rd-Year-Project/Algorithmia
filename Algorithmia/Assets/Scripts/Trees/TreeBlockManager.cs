@@ -27,6 +27,9 @@ public class TreeBlockManager : MonoBehaviour
     public GameObject arrayPrefab;
 
     [SerializeField]
+    public int pastNodePosition = -1;
+
+    [SerializeField]
     private Transform dataParentObj;
 
     [SerializeField]
@@ -35,6 +38,7 @@ public class TreeBlockManager : MonoBehaviour
     private void Start()
     {
         treeblocksList = GetComponent<ArrayBlockList>();
+        pastNodePosition = -1;
     }
 
     private void Update()
@@ -111,6 +115,7 @@ public class TreeBlockManager : MonoBehaviour
                     RaycastHit2D[] allhits = Physics2D.RaycastAll(mousePos, Vector3.zero, Mathf.Infinity, anotherLayer);
 
                     Debug.Log(allhits.Length);
+              
                     if (allhits.Length > 1)
                     {
                         foreach (RaycastHit2D singleHit in allhits)
@@ -129,10 +134,17 @@ public class TreeBlockManager : MonoBehaviour
                     }
                     else if (allhits.Length == 1)
                     {
-
                         if (allhits[0].collider.CompareTag("Inventory"))
                         {
                             currentObj = allhits[0].collider.gameObject;
+
+                            for (int i=0; i<levelManager.isSnapBlock.Count; i++)
+                            {
+                                if (currentObj.transform.position == levelManager.snapPoints[i].transform.position)
+                                {
+                                    pastNodePosition = i;
+                                }
+                            }
                         }
                     }
 
@@ -165,6 +177,10 @@ public class TreeBlockManager : MonoBehaviour
             {
                 if (currentObj.name == "Tree Node(Clone)")
                 {
+                    for (int i=0; i<levelManager.isNodeSnapped.Count; i++)
+                    {
+
+                    }
                     currentObj.GetComponent<TreeBlock>().snapped = false;
                     for (int i = 0; i < levelManager.isSnapBlock.Count; i++)
                     {
@@ -180,7 +196,13 @@ public class TreeBlockManager : MonoBehaviour
                             ChangeBlockLayer(currentObj.transform, "Workspace");
                             TrackLinePoints(currentObj);
                             levelManager.blockCount += 1;
-                            Debug.Log(levelManager.blockCount);
+                            Debug.Log(pastNodePosition);
+
+                            if (pastNodePosition >= 0 )
+                            {
+                                levelManager.isNodeSnapped[pastNodePosition] = false;
+                                pastNodePosition = -1;
+                            }
 
 
                             //Add data snap point to the list
@@ -191,6 +213,15 @@ public class TreeBlockManager : MonoBehaviour
                             if (currentObj.transform.position == levelManager.snapPoints[0].transform.position)
                             {
                                 currentObj.transform.Find("Head Text").gameObject.SetActive(true);
+                                Transform linePoints = currentObj.transform.Find("Line Points");
+                                if (linePoints != null)
+                                {
+                                    Transform lineEnd = linePoints.Find("Line End");
+                                    if (lineEnd != null)
+                                    {
+                                        lineEnd.gameObject.SetActive(false);
+                                    }
+                                }
                             }
 
                         }
@@ -200,7 +231,11 @@ public class TreeBlockManager : MonoBehaviour
                         //If object is not snapped destroy
                         Debug.Log("snapped false");
                         Destroy(currentObj);
-                       
+                        if (pastNodePosition >=0 )
+                        {
+                            levelManager.isNodeSnapped[pastNodePosition] = false;
+                            pastNodePosition = -1;  
+                        }
                     }
                     currentObj = null;
                 }
@@ -318,7 +353,7 @@ public class TreeBlockManager : MonoBehaviour
                     currentObj.transform.localScale = currentObj.GetComponent<DataBlock>().originalScale;
 
                     currentObj.GetComponent<SpriteRenderer>().sortingOrder = 6;
-                    Transform dataText = currentObj.transform.Find("a-data");
+                    Transform dataText = currentObj.transform.Find("data");
                     dataText.GetComponent<SpriteRenderer>().sortingOrder = 7;
 
 
