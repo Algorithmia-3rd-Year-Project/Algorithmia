@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
 
@@ -83,13 +84,7 @@ public class Linkedlistblockmanager : MonoBehaviour
 
             if (hit.collider != null)
             {
-                if (hit.collider.name == "LL Head node")
-                {
-                    currentObj = Instantiate(linkedListblocksList.blockList["LL Head node"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
-                    startPosX = mousePos.x - currentObj.transform.position.x;
-                    startPosY = mousePos.y - currentObj.transform.position.y;
-                }
-                else if (hit.collider.name == "LL Normal node")
+                if (hit.collider.name == "LL Normal node")
                 {
                     currentObj = Instantiate(linkedListblocksList.blockList["LL Normal node"], new Vector3(mousePos.x, mousePos.y, 0f), Quaternion.identity);
                     startPosX = mousePos.x - currentObj.transform.position.x;
@@ -169,48 +164,83 @@ public class Linkedlistblockmanager : MonoBehaviour
         {
             if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == true)
             {
-
-
-                if (currentObj.layer != workspaceLayer)
+                if (currentObj.name == "Insert Block(Clone)")
                 {
-                    TrackSnapPoints(currentObj);
-                    TrackLinePoints(currentObj);
-                    ChangeBlockLayer(currentObj.transform, "Workspace");
-                    ActivateLineSnapPoints(currentObj);
-                    levelManager.blockCount += 1;
+                    float _snapRadius = 1f;
 
-                    currentObj.GetComponent<LinkedListBlock>().addedBlock = true;
+                    currentObj.GetComponent<LinkedListBlock>().snapped = false;
 
-                    if (currentObj.GetComponent<LinkedListBlock>().blockName == "LL Normal Node")
+                    for (int i = 0; i < levelManager.functionSnapPoints.Count; i++)
                     {
-                        if(levelManager.blockCount == 1)
+                        if ((Mathf.Abs(currentObj.transform.position.x -
+                                       levelManager.functionSnapPoints[i].transform.position.x) <= _snapRadius &&
+                             Mathf.Abs(currentObj.transform.position.y -
+                                       levelManager.functionSnapPoints[i].transform.position.y) <= _snapRadius) &&
+                            levelManager.functionSnapPoints[i].transform.childCount == 0)
                         {
-                            GameObject codeObject = Instantiate(codeHeadNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
-                            codeObject.transform.SetParent(codeParent.transform);
+                           // Debug.Log(levelManager.functionSnapPoints[i].name + " " + _snapRadius);
+                            currentObj.transform.position = new Vector3(levelManager.functionSnapPoints[i].transform.position.x, levelManager.functionSnapPoints[i].transform.position.y, 0f);
+                            
+                            currentObj.GetComponent<LinkedListBlock>().snapped = true;
 
-                            string pseudoText = currentObj.GetComponent<LinkedListBlock>().pseudoCode;
-                            string[] pseudoSubstrings = pseudoText.Split('%');
 
-                            currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
+                            //ChangeBlockLayer(currentObj.transform, "Workspace");
 
-                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                            //make the data element a child of the snapped point
+                            // currentObj.transform.SetParent(levelManager.functionSnapPoints[i].transform);
+
+                            //currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
+
+                            //currentObj.transform.SetParent(currentObj.transform);
                         }
-                        else
+                    }
+                    if (currentObj.GetComponent<LinkedListBlock>().snapped == false)
+                    {
+                        DestroyBlocks(currentObj);
+                    }
+                }
+                else
+                {
+                    if (currentObj.layer != workspaceLayer)
+                    {
+                        TrackSnapPoints(currentObj);
+                        TrackLinePoints(currentObj);
+                        ChangeBlockLayer(currentObj.transform, "Workspace");
+                        ActivateLineSnapPoints(currentObj);
+                        levelManager.blockCount += 1;
+
+                        currentObj.GetComponent<LinkedListBlock>().addedBlock = true;
+
+                        if (currentObj.GetComponent<LinkedListBlock>().blockName == "LL Normal Node")
                         {
-                            GameObject codeObject = Instantiate(codeNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
-                            codeObject.transform.SetParent(codeParent.transform);
+                            if (levelManager.blockCount == 1)
+                            {
+                                GameObject codeObject = Instantiate(codeHeadNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                                codeObject.transform.SetParent(codeParent.transform);
 
-                            string variableName = currentObj.GetComponent<LinkedListBlock>().variableName + levelManager.blockCount;
-                            string pseudoText = "Node *" + variableName+ " = NULL%" + variableName + " = allocateMemory()";
-                            string[] pseudoSubstrings = pseudoText.Split('%');
+                                string pseudoText = currentObj.GetComponent<LinkedListBlock>().pseudoCode;
+                                string[] pseudoSubstrings = pseudoText.Split('%');
 
-                            currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
+                                currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
 
-                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                                StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                            }
+                            else
+                            {
+                                GameObject codeObject = Instantiate(codeNodeInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
+                                codeObject.transform.SetParent(codeParent.transform);
+
+                                string variableName = currentObj.GetComponent<LinkedListBlock>().variableName + levelManager.blockCount;
+                                string pseudoText = "Node *" + variableName + " = NULL%" + variableName + " = allocateMemory()";
+                                string[] pseudoSubstrings = pseudoText.Split('%');
+
+                                currentObj.GetComponent<LinkedListBlock>().pseudoElement = codeObject;
+
+                                StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                            }
                         }
                     }
                 }
-
                 currentObj = null;
 
 
@@ -238,7 +268,6 @@ public class Linkedlistblockmanager : MonoBehaviour
             }
             else if (currentObj != null && currentObj.CompareTag("Inventory") && currentObj.GetComponent<LinkedListBlock>().inWorkspace == false)
             {
-                Debug.Log("...........");
                 DestroyBlocks(currentObj);
 
             }
@@ -362,9 +391,7 @@ public class Linkedlistblockmanager : MonoBehaviour
         }
 
     private void DestroyBlocks(GameObject currentObj)
-    {
-        Debug.Log("Block Destroed");
-        
+    {        
         Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
         Transform linePointsObj = currentObj.transform.Find("Line Points");
         int deletedCount = 0;

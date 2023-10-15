@@ -16,6 +16,8 @@ public class LinkedListLevelManager : MonoBehaviour
 
     public List<GameObject> additionalSnapPositions;
 
+    public List<Transform> functionSnapPoints;
+
     private void Start()
     {
         int correctPosCount = correctForms.Count;

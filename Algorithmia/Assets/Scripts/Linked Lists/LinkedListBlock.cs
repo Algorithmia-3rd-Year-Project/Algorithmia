@@ -18,6 +18,8 @@ public class LinkedListBlock : MonoBehaviour
 
     public GameObject pseudoElement;
 
+    public bool snapped;
+
     private void Start()
     {
         inWorkspace = false;
