@@ -9,19 +9,19 @@ public class FreelanceCutSceneManager : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject refreshButton;
-    [SerializeField] private GameObject gotoEmailsButton;
+    [SerializeField] private GameObject gotoFreelanceButton;
     
     private int buttonPressedCount;
     private bool assignmentCutScenePlayed;
 
     private void Update()
     {
-        /*
-        if (buttonPressedCount == 8)
+        
+        if (buttonPressedCount == 10)
         {
             refreshButton.SetActive(false);
-            gotoEmailsButton.SetActive(true);
-        }*/
+            gotoFreelanceButton.SetActive(true);
+        }
     }
 
     public void TrackKeys()
@@ -58,6 +58,14 @@ public class FreelanceCutSceneManager : MonoBehaviour
         {
             animator.SetTrigger("Clip8");
             buttonPressedCount += 1;
+        } else if (buttonPressedCount == 8)
+        {
+            animator.SetTrigger("Clip9");
+            buttonPressedCount += 1;
+        } else if (buttonPressedCount == 9)
+        {
+            animator.SetTrigger("Clip10");
+            buttonPressedCount += 1;
         } 
     }
 
@@ -72,7 +80,7 @@ public class FreelanceCutSceneManager : MonoBehaviour
         data.assignmentCutScenePlayed = this.assignmentCutScenePlayed;
     }*/
 
-    public void ContinueToEmail()
+    public void ContinueToFreelance()
     {
         assignmentCutScenePlayed = true;
         SceneManager.LoadSceneAsync("Scenes/Simulation");
