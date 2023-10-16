@@ -38,6 +38,8 @@ public class ArrayBlock : MonoBehaviour
     public string dataStructure;
     public bool addedBlock;
     
+    public bool lineEnded;
+    public bool insertionLineEnded;
     
     private void Start()
     {
