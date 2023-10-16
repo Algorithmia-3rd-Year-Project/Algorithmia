@@ -7048,10 +7048,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1035882429}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 820264436}
+        m_TargetAssemblyTypeName: FreelanceManager, Assembly-CSharp
+        m_MethodName: SignUpButtonOnClicked
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7059,18 +7059,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 88801908}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &117289393
 MonoBehaviour:
@@ -34692,7 +34680,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599100549}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 786c0c4053fae99418c9c4af01bf1990, type: 3}
   m_Name: 
@@ -46385,6 +46373,56 @@ RectTransform:
   m_AnchoredPosition: {x: 79.115, y: -9.8715}
   m_SizeDelta: {x: 158.23, y: 19.743}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &820264434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 820264435}
+  - component: {fileID: 820264436}
+  m_Layer: 0
+  m_Name: Freelance Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &820264435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820264434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1101474496}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &820264436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820264434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d820da9587701244bba7b8fbfd6a309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freelanceNameInput: {fileID: 1008895537}
+  freelanceUsernameInput: {fileID: 233491889}
+  freelanceBioInput: {fileID: 97458882}
+  freelanceMainPage: {fileID: 88801908}
+  freelanceSignupPage: {fileID: 1035882429}
+  nameText: {fileID: 420800132}
+  bioText: {fileID: 293535324}
 --- !u!1 &820406408
 GameObject:
   m_ObjectHideFlags: 0
@@ -55838,9 +55876,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 599100551}
-        m_TargetAssemblyTypeName: FreelanceApp, Assembly-CSharp
-        m_MethodName: OpenFreelanceApp
+      - m_Target: {fileID: 820264436}
+        m_TargetAssemblyTypeName: FreelanceManager, Assembly-CSharp
+        m_MethodName: FreelanceAppOnClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -62771,6 +62809,8 @@ MonoBehaviour:
   questTreeIntroduction: {fileID: 191002922}
   assignmentCutScenePlayed: 0
   emailWindow: {fileID: 1411317012}
+  afterAssignmentCutScenePlayed: 0
+  freelanceWindow: {fileID: 1035882429}
   motherNameText: {fileID: 1820207893}
   motherAgeText: {fileID: 189575943}
   motherOccupationText: {fileID: 426945922}
@@ -62809,6 +62849,7 @@ Transform:
   - {fileID: 70586122}
   - {fileID: 522683113}
   - {fileID: 1153825144}
+  - {fileID: 820264435}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

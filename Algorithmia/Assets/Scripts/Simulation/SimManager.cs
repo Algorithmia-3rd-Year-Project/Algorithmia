@@ -67,6 +67,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public bool assignmentCutScenePlayed;
     private bool assignmentEmailShown;
     [SerializeField] private GameObject emailWindow;
+    public bool afterAssignmentCutScenePlayed;
+    private bool freelanceWindowShown;
+    [SerializeField] private GameObject freelanceWindow;
 
     [Header("Family")] 
     [SerializeField] private TMP_Text motherNameText;
@@ -128,6 +131,14 @@ public class SimManager : MonoBehaviour, IDataPersistence
             computerScreen.SetActive(true);
             emailWindow.SetActive(true);
         }
+
+        if (!freelanceWindowShown && afterAssignmentCutScenePlayed)
+        {
+            anyMenuOpened = true;
+            freelanceWindowShown = true;
+            computerScreen.SetActive(true);
+            freelanceWindow.SetActive(true);
+        }
         
     }
 
@@ -172,6 +183,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.initialIntroPlayed = data.simulationIntroPlayed;
         this.assignmentEmailShown = data.assignmentEmailShown;
         this.assignmentCutScenePlayed = data.assignmentCutScenePlayed;
+        this.afterAssignmentCutScenePlayed = data.afterAssignmentCutScenePlayed;
+        this.freelanceWindowShown = data.freelanceWindowShown;
 
         this.motherNameText.text = data.motherName;
         this.motherAgeText.text = data.motherAge.ToString();
@@ -212,6 +225,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.simulationIntroPlayed = this.initialIntroPlayed;
         data.assignmentEmailShown = this.assignmentEmailShown;
         data.assignmentCutScenePlayed = this.assignmentCutScenePlayed;
+        data.afterAssignmentCutScenePlayed = this.afterAssignmentCutScenePlayed;
+        data.freelanceWindowShown = this.freelanceWindowShown;
 
         data.lastSpentTimeWithMother = this.lastSpentTimeWithMother;
         data.lastRequestMoneyFromMother = this.lastRequestMoneyFromMother;

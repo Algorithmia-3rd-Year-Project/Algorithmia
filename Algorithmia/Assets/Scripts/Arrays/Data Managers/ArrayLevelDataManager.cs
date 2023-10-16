@@ -113,6 +113,12 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         SceneManager.LoadSceneAsync("Dialogue2");
     }
 
+    public void LoadAfterAssignmentCutScene()
+    {
+        scenePlayTime = Time.time - sceneStartTime;
+        SceneManager.LoadSceneAsync("Dialogue3");
+    }
+
     public void ExitToMenu()
     {
         scenePlayTime = Time.time - sceneStartTime; 

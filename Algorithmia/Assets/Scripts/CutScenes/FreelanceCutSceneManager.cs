@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class FreelanceCutSceneManager : MonoBehaviour
+public class FreelanceCutSceneManager : MonoBehaviour, IDataPersistence
 {
 
     [SerializeField] private Animator animator;
@@ -12,7 +12,7 @@ public class FreelanceCutSceneManager : MonoBehaviour
     [SerializeField] private GameObject gotoFreelanceButton;
     
     private int buttonPressedCount;
-    private bool assignmentCutScenePlayed;
+    private bool afterAssignmentCutScenePlayed;
 
     private void Update()
     {
@@ -69,20 +69,20 @@ public class FreelanceCutSceneManager : MonoBehaviour
         } 
     }
 
-    /*
+    
     public void LoadData(GameData data)
     {
-        this.assignmentCutScenePlayed = data.assignmentCutScenePlayed;
+        this.afterAssignmentCutScenePlayed = data.afterAssignmentCutScenePlayed;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.assignmentCutScenePlayed = this.assignmentCutScenePlayed;
-    }*/
+        data.afterAssignmentCutScenePlayed = this.afterAssignmentCutScenePlayed;
+    }
 
     public void ContinueToFreelance()
     {
-        assignmentCutScenePlayed = true;
+        afterAssignmentCutScenePlayed = true;
         SceneManager.LoadSceneAsync("Scenes/Simulation");
     }
     
