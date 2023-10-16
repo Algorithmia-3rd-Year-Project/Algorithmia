@@ -78,6 +78,7 @@ public class FreelanceCutSceneManager : MonoBehaviour, IDataPersistence
     public void SaveData(ref GameData data)
     {
         data.afterAssignmentCutScenePlayed = this.afterAssignmentCutScenePlayed;
+        data.coinAmount += 100;
     }
 
     public void ContinueToFreelance()
