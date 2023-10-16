@@ -71,6 +71,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     private bool freelanceWindowShown;
     [SerializeField] private GameObject freelanceWindow;
 
+    private bool optionalQuestIntroMessageShown;
+    [SerializeField] private GameObject optionalQuestIntroMessageBox;
+
     [Header("Family")] 
     [SerializeField] private TMP_Text motherNameText;
     [SerializeField] private TMP_Text motherAgeText;
@@ -168,6 +171,12 @@ public class SimManager : MonoBehaviour, IDataPersistence
         {
             anyMenuOpened = true;
         }
+        
+        if (arrayQuestTree.activeSelf && optionalQuestIntroMessageShown)
+        {
+            optionalQuestIntroMessageBox.SetActive(true);
+            optionalQuestIntroMessageShown = false;
+        }
 
     }
 
@@ -185,6 +194,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.assignmentCutScenePlayed = data.assignmentCutScenePlayed;
         this.afterAssignmentCutScenePlayed = data.afterAssignmentCutScenePlayed;
         this.freelanceWindowShown = data.freelanceWindowShown;
+
+        this.optionalQuestIntroMessageShown = data.optionalQuestIntroMessage;
 
         this.motherNameText.text = data.motherName;
         this.motherAgeText.text = data.motherAge.ToString();
@@ -227,6 +238,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.assignmentCutScenePlayed = this.assignmentCutScenePlayed;
         data.afterAssignmentCutScenePlayed = this.afterAssignmentCutScenePlayed;
         data.freelanceWindowShown = this.freelanceWindowShown;
+
+        data.optionalQuestIntroMessage = this.optionalQuestIntroMessageShown;
 
         data.lastSpentTimeWithMother = this.lastSpentTimeWithMother;
         data.lastRequestMoneyFromMother = this.lastRequestMoneyFromMother;

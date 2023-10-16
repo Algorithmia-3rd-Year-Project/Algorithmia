@@ -24,6 +24,7 @@ public class GameData
     public bool assignmentCutScenePlayed;
     public bool afterAssignmentCutScenePlayed;
     public bool freelanceWindowShown;
+    public bool optionalQuestIntroMessage;
     
     //Player family details
     public string motherName;
@@ -82,6 +83,7 @@ public class GameData
         this.assignmentCutScenePlayed = false;
         this.freelanceWindowShown = false;
         this.afterAssignmentCutScenePlayed = false;
+        this.optionalQuestIntroMessage = false;
         
         this.motherName = "";
         this.motherAge = 0;

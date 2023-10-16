@@ -13,6 +13,7 @@ public class FreelanceManager : MonoBehaviour, IDataPersistence
     private string freelanceUsername;
     private string freelanceBio;
     private bool hasFreelanceAccount;
+    private bool afterAssignmentCutScenePlayed;
 
     //pages
     [SerializeField] private GameObject freelanceMainPage;
@@ -21,12 +22,19 @@ public class FreelanceManager : MonoBehaviour, IDataPersistence
     //Main page items
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text bioText;
+
+    [SerializeField] private GameObject lockedApp;
     
     public void LoadData(GameData data)
     {
         this.nameText.text = data.freelanceName;
         this.bioText.text = data.freelanceBio;
         this.hasFreelanceAccount = data.hasFreelanceAccount;
+        this.afterAssignmentCutScenePlayed = data.afterAssignmentCutScenePlayed;
+
+        this.freelanceName = data.freelanceName;
+        this.freelanceUsername = data.freelanceUsername;
+        this.freelanceBio = data.freelanceBio;
     }
 
     public void SaveData(ref GameData data)
@@ -54,16 +62,25 @@ public class FreelanceManager : MonoBehaviour, IDataPersistence
 
     public void FreelanceAppOnClicked()
     {
-        if (hasFreelanceAccount)
+        if (afterAssignmentCutScenePlayed)
         {
-            freelanceSignupPage.SetActive(false);
-            freelanceMainPage.SetActive(true);
+            if (hasFreelanceAccount)
+            {
+                freelanceSignupPage.SetActive(false);
+                freelanceMainPage.SetActive(true);
+            }
+            else
+            {
+                freelanceSignupPage.SetActive(true);
+                freelanceMainPage.SetActive(false);
+            }
         }
         else
         {
-            freelanceSignupPage.SetActive(true);
-            freelanceMainPage.SetActive(false);
+            lockedApp.SetActive(true);
         }
+        
+        
     }
     
 }

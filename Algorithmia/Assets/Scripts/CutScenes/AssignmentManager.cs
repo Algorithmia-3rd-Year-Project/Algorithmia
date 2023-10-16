@@ -13,6 +13,7 @@ public class AssignmentManager : MonoBehaviour, IDataPersistence
     
     private int buttonPressedCount;
     private bool assignmentCutScenePlayed;
+    private bool optionalQuestIntroMessageTrigger;
 
     private void Update()
     {
@@ -69,11 +70,13 @@ public class AssignmentManager : MonoBehaviour, IDataPersistence
     public void SaveData(ref GameData data)
     {
         data.assignmentCutScenePlayed = this.assignmentCutScenePlayed;
+        data.optionalQuestIntroMessage = this.optionalQuestIntroMessageTrigger;
     }
 
     public void ContinueToEmail()
     {
         assignmentCutScenePlayed = true;
+        optionalQuestIntroMessageTrigger = true;
         SceneManager.LoadSceneAsync("Scenes/Simulation");
     }
     
