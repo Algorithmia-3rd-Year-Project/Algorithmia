@@ -355,10 +355,10 @@ public class Level6Adaptive2 : MonoBehaviour
             string result = string.Join("", currentArray);
 
             string output = result;
-            List<string> outputArray = new List<string>();
             
             int x = 0;
             int position = 0;
+            int start = 0;
             
             while (x < codes.Count)
             {
@@ -377,7 +377,24 @@ public class Level6Adaptive2 : MonoBehaviour
                     string printOutput = output.Substring(s, phraseLength);
                     outputArray.Add(printOutput);
                     x += 3;
-                } else if (codes[x].Contains("pos</color> =") && codes[x].Length == 52)
+                } else if (codes[x].Contains("start</color> =") && codes[x].Length == 54)
+                {
+                    start = int.Parse(codes[x][45] + "");
+                    x += 1;
+                } else if (codes[x].Contains("end</color> =") && codes[x].Length == 52)
+                {
+                    var end = int.Parse(codes[x][43] + "");
+
+                    if (!(start >= 0 && end < output.Length && start <= end))
+                    {
+                        Debug.Log("Invalid range for array reversal");
+                        return "Invalid range for array reversal";
+                    }
+                    
+                    output = ReverseString(output, start, end);
+                    x += 8;
+                } 
+                else if (codes[x].Contains("pos</color> =") && codes[x].Length == 52)
                 {
                     position = int.Parse(codes[x][43] + "");
                     x += 1;
@@ -407,6 +424,24 @@ public class Level6Adaptive2 : MonoBehaviour
             return "Compiled Successfully";
 
         }
+    }
+    
+    private string ReverseString(string input, int start, int end)
+    {
+        
+        char[] charArray = input.ToCharArray();
+        
+        while (start < end)
+        {
+            char temp = charArray[start];
+            charArray[start] = charArray[end];
+            charArray[end] = temp;
+
+            start += 1;
+            end -= 1;
+        }
+
+        return new string(charArray);
     }
     
     public void Compile(bool compilation)
@@ -440,7 +475,7 @@ public class Level6Adaptive2 : MonoBehaviour
     private void VictoryMenuDetails()
     {
         float currentTime = stopwatch.currentTime;
-        expectedMsg.text = "climb";
+        expectedMsg.text = "crane";
 
         if (outputArray.Count == 1)
         {
