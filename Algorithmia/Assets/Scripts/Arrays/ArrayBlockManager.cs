@@ -920,6 +920,23 @@ public class ArrayBlockManager : MonoBehaviour
                     }
                 }
             }
+
+            //Resetting data block positions when the function or array block is destroyed
+            for (int i = 0; i < snapPointsListObj.childCount; i++)
+            {
+                Transform singleSnapPoint = snapPointsListObj.GetChild(i);
+                if (singleSnapPoint.childCount != 0)
+                {
+                    GameObject dataObject = singleSnapPoint.GetChild(0).gameObject;
+                    Vector3 currentResetPos = dataObject.GetComponent<DataBlock>().resetPosition;
+                    dataObject.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
+                    
+                    dataObject.transform.SetParent(dataParentObj);
+                    ChangeBlockLayer(dataObject.transform, "Data");
+                    dataObject.transform.localScale = dataObject.GetComponent<DataBlock>().originalScale;
+                }
+                
+            }
         }
 
         if (linePointsObj != null)
