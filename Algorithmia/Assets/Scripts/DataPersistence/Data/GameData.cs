@@ -51,6 +51,12 @@ public class GameData
     //Subscription based tasks
     public bool enrolledAtLibrary;
     public float enrolledAtLibraryTime;
+    
+    //Freelance Activity Data
+    public string freelanceName;
+    public string freelanceUsername;
+    public string freelanceBio;
+    public bool hasFreelanceAccount;
 
     public SerializableDictionary<string, bool> levelsCompleted;
     public SerializableDictionary<string, int> levelTrophies;
@@ -98,6 +104,11 @@ public class GameData
 
         this.enrolledAtLibrary = false;
         this.enrolledAtLibraryTime = 0.0f;
+
+        this.freelanceName = "";
+        this.freelanceUsername = "";
+        this.freelanceBio = "";
+        this.hasFreelanceAccount = false;
 
         this.levelsCompleted = new SerializableDictionary<string, bool>();
         this.levelTrophies = new SerializableDictionary<string, int>();
