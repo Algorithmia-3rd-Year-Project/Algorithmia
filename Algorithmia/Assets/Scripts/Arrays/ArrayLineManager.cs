@@ -94,7 +94,20 @@ public class ArrayLineManager : MonoBehaviour
             {
                 for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
                 {
-                    if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 0.2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 0.2f)
+                    GameObject nextObject = levelManager.lineEndPoints[i].gameObject.transform.parent.parent.gameObject;
+
+                    bool parentLineEndStatus;
+                    if (levelManager.lineEndPoints[i].name == "Parameter Array")
+                    {
+                        parentLineEndStatus = nextObject.GetComponent<ArrayBlock>().insertionLineEnded;
+                    }
+                    else
+                    {
+                        parentLineEndStatus = nextObject.GetComponent<ArrayBlock>().lineEnded;
+                    }
+                    
+                    
+                    if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 0.2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 0.2f && !parentLineEndStatus)
                     {
                         currentLine.GetComponent<LineRenderer>().SetPosition(1, new Vector3(levelManager.lineEndPoints[i].position.x, levelManager.lineEndPoints[i].position.y, 0f));
                         currentLine.GetComponent<ArrayLine>().endPos = levelManager.lineEndPoints[i].gameObject;
@@ -102,9 +115,18 @@ public class ArrayLineManager : MonoBehaviour
                         currentLine.GetComponent<ArrayLine>().linePositions = GetLinePositions(currentLine);
                         currentLine.GetComponent<ArrayLine>().lineWidth = GetWidth(currentLine);
 
+                        if (levelManager.lineEndPoints[i].name == "Parameter Array")
+                        {
+                            nextObject.GetComponent<ArrayBlock>().insertionLineEnded = true;
+                        }
+                        else
+                        {
+                            nextObject.GetComponent<ArrayBlock>().lineEnded = true;
+                        }
+                        
                         levelManager.lines.Add(currentLine);
 
-                        GameObject nextObject = levelManager.lineEndPoints[i].gameObject.transform.parent.parent.gameObject;
+                        
                         if (nextObject.name != "Computer")
                         {
                             if (startPoint.GetComponent<ArrayBlock>().dataElementCount == 0)
@@ -265,7 +287,16 @@ public class ArrayLineManager : MonoBehaviour
                     GameObject lineEndBlock = lineHit.collider.gameObject.GetComponent<ArrayLine>().endPos;
                     GameObject block = lineEndBlock.transform.parent.parent.gameObject;
 
-
+                    if (lineEndBlock.name == "Parameter Array")
+                    {
+                        block.GetComponent<ArrayBlock>().insertionLineEnded = false;
+                    }
+                    else
+                    {
+                        block.GetComponent<ArrayBlock>().lineEnded = false;
+                    }
+                    
+                    
                     //When deleting a line if its connected end block have a data structure assigned remove it, since the connection for that data structure is removing
                     if (block.name != "Computer" && block.GetComponent<ArrayBlock>().dataStructure != "")
                     {
