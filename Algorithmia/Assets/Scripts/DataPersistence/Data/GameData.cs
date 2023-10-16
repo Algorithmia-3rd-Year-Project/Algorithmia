@@ -22,6 +22,8 @@ public class GameData
     public int simulationIntroPlayTimeReached;
     public bool assignmentEmailShown;
     public bool assignmentCutScenePlayed;
+    public bool afterAssignmentCutScenePlayed;
+    public bool freelanceWindowShown;
     
     //Player family details
     public string motherName;
@@ -72,6 +74,8 @@ public class GameData
         this.simulationIntroPlayTimeReached = 0;
         this.assignmentEmailShown = false;
         this.assignmentCutScenePlayed = false;
+        this.freelanceWindowShown = false;
+        this.afterAssignmentCutScenePlayed = false;
         
         this.motherName = "";
         this.motherAge = 0;
