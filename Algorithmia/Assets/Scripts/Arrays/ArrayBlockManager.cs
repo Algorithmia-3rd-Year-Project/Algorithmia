@@ -158,6 +158,11 @@ public class ArrayBlockManager : MonoBehaviour
                                     currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().dataElementCount -= 1;
                                 }
                                 
+                                if (currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().blockName == "Long Array")
+                                {
+                                    currentObj.transform.parent.parent.parent.gameObject.GetComponent<ArrayBlock>().dataElementCount -= 1;
+                                }
+                                
                             }
 
                             if (singleHit.collider.CompareTag("Title"))
@@ -613,7 +618,7 @@ public class ArrayBlockManager : MonoBehaviour
                         currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
 
                         //Execute only if data is snapped into an array snap point
-                        if (levelManager.correctForms[i].name == "0" || levelManager.correctForms[i].name == "1" || levelManager.correctForms[i].name == "2" || levelManager.correctForms[i].name == "3")
+                        if (levelManager.correctForms[i].name == "0" || levelManager.correctForms[i].name == "1" || levelManager.correctForms[i].name == "2" || levelManager.correctForms[i].name == "3" || levelManager.correctForms[i].name == "4")
                         {
                             //Initializing data into the array
                             GameObject codeObject = Instantiate(codeDataInstance, new Vector3(codeParent.transform.position.x, codeParent.transform.position.y, 0f), Quaternion.identity);
@@ -630,6 +635,11 @@ public class ArrayBlockManager : MonoBehaviour
 
                             //To track elements count of an Array object
                             if (levelManager.correctForms[i].gameObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().blockName == "Empty Array")
+                            {
+                                levelManager.correctForms[i].gameObject.transform.parent.parent.GetComponent<ArrayBlock>().dataElementCount += 1;
+                            }
+                            
+                            if (levelManager.correctForms[i].gameObject.transform.parent.parent.gameObject.GetComponent<ArrayBlock>().blockName == "Long Array")
                             {
                                 levelManager.correctForms[i].gameObject.transform.parent.parent.GetComponent<ArrayBlock>().dataElementCount += 1;
                             }

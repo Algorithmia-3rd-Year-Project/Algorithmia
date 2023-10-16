@@ -481,27 +481,27 @@ public class Level4Adaptive2 : MonoBehaviour
 
         if (outputArray.Count == 2)
         {
-            if (outputArray[0] == "word" && outputArray[0] == "words" && currentTime <= 30f)
+            if (outputArray[0] == "word" && outputArray[1] == "words" && currentTime <= 30f)
             {
                 trophyPlaceholder.sprite = trophyImages[0];
                 levelDataManager.currentTrophy = 0;
-                resultMsg.text = outputArray[0];
+                resultMsg.text = outputArray[0] + outputArray[1];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "word" && outputArray[0] == "words" && currentTime <= 60f)
+            } else if (outputArray[0] == "word" && outputArray[1] == "words" && currentTime <= 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[1];
                 levelDataManager.currentTrophy = 1;
-                resultMsg.text = outputArray[0];
+                resultMsg.text = outputArray[0] + outputArray[1];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "word" && outputArray[0] == "words" && currentTime > 60f)
+            } else if (outputArray[0] == "word" && outputArray[1] == "words" && currentTime > 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[2];
                 levelDataManager.currentTrophy = 2;
-                resultMsg.text = outputArray[0];
+                resultMsg.text = outputArray[0] + outputArray[1];
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);

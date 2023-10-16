@@ -513,7 +513,7 @@ public class Level4Logic : MonoBehaviour
             {
                 trophyPlaceholder.sprite = trophyImages[3];
                 levelDataManager.currentTrophy = 3;
-                resultMsg.text = "something else";
+                resultMsg.text = outputArray[0];
                 objectiveStatus.text = "Objective is not met";
                 proceedButton.SetActive(false);
                 retryButton.SetActive(true);
