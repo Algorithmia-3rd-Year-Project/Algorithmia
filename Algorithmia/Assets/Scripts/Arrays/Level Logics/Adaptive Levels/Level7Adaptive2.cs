@@ -500,11 +500,11 @@ public class Level7Adaptive2: MonoBehaviour
     private void VictoryMenuDetails()
     {
         float currentTime = stopwatch.currentTime;
-        expectedMsg.text = "tip";
+        expectedMsg.text = "air";
 
         if (outputArray.Count == 1)
         {
-            if (outputArray[0] == "tip" && currentTime <= 30f)
+            if (outputArray[0] == "air" && currentTime <= 30f)
             {
                 trophyPlaceholder.sprite = trophyImages[0];
                 levelDataManager.currentTrophy = 0;
@@ -512,7 +512,7 @@ public class Level7Adaptive2: MonoBehaviour
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "tip" && currentTime <= 60f)
+            } else if (outputArray[0] == "air" && currentTime <= 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[1];
                 levelDataManager.currentTrophy = 1;
@@ -520,7 +520,7 @@ public class Level7Adaptive2: MonoBehaviour
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "tip" && currentTime > 60f)
+            } else if (outputArray[0] == "air" && currentTime > 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[2];
                 levelDataManager.currentTrophy = 2;
