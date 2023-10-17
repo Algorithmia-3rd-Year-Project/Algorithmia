@@ -11,7 +11,7 @@ public class TreeBlockManager : MonoBehaviour
 
     private ArrayBlockList treeblocksList;
 
-    GameObject currentObj;
+    public GameObject currentObj;
 
     private float startPosY;
     private float startPosX;
@@ -22,11 +22,13 @@ public class TreeBlockManager : MonoBehaviour
     [SerializeField]
     private LayerMask anotherLayer;
 
+    [SerializeField]
+    private LayerMask workspaceLayer;
+
     public GameObject machinePrefab;
 
     public GameObject arrayPrefab;
 
-    [SerializeField]
     public int pastNodePosition = -1;
 
     [SerializeField]
@@ -148,6 +150,20 @@ public class TreeBlockManager : MonoBehaviour
                         }
                     }
 
+                    else
+                    {
+                        RaycastHit2D workspaceHit = Physics2D.Raycast(mousePos, Vector3.zero, Mathf.Infinity, workspaceLayer);
+
+                        if (workspaceHit != null)
+                        {
+                            String collider = workspaceHit.collider.gameObject.name;
+                            if (collider == "Pre Order Traversal(Clone)" || collider == "In Order Traversal(Clone)" || collider == "Post Order Traversal(Clone)")
+                            {
+                                currentObj = workspaceHit.collider.gameObject;
+                            }
+                        }
+                    }
+
                     if (currentObj != null)
                     {
                         startPosX = mousePos.x - currentObj.transform.position.x;
@@ -177,10 +193,7 @@ public class TreeBlockManager : MonoBehaviour
             {
                 if (currentObj.name == "Tree Node(Clone)")
                 {
-                    for (int i=0; i<levelManager.isNodeSnapped.Count; i++)
-                    {
 
-                    }
                     currentObj.GetComponent<TreeBlock>().snapped = false;
                     for (int i = 0; i < levelManager.isSnapBlock.Count; i++)
                     {
@@ -242,6 +255,7 @@ public class TreeBlockManager : MonoBehaviour
 
                 else if (currentObj.name == "Insert Function(Clone)")
                 {
+                    currentObj.GetComponent<TreeBlock>().snapped = false;
                     Debug.Log("Insert function dropped");
                     for (int i = 0; i < levelManager.isFunctionBlock.Count; i++)
                     {
@@ -249,7 +263,7 @@ public class TreeBlockManager : MonoBehaviour
                         if (levelManager.isFunctionBlock[i] == true && levelManager.isFunctionSnapped[i] == false)
                         {
                             currentObj.transform.position = levelManager.functionSnapPoints[i].transform.position;      //snap
-
+                            currentObj.GetComponent<TreeBlock>().snapped = true;
                             machinePrefab.SetActive(true);
 
                             levelManager.isFunctionBlock[i] = false;
@@ -258,17 +272,25 @@ public class TreeBlockManager : MonoBehaviour
                             currentObj = null;
                         }
                     }
+                    if (currentObj.GetComponent<TreeBlock>().snapped == false)
+                    {
+                        //If object is not snapped destroy
+                        Debug.Log("snapped false");
+                        Destroy(currentObj);
+                    }
                 }
 
                 else if (currentObj.name == "Pre Order Traversal(Clone)" || currentObj.name == "In Order Traversal(Clone)" || currentObj.name == "Post Order Traversal(Clone)")
                 {
-                    Debug.Log("Traversal dropped");
+                    currentObj.GetComponent<TreeBlock>().snapped = false;
+                   
                     for (int i = 0; i < levelManager.isFunctionBlock.Count; i++)
                     {
                         //When current object is in trigger of a function snap block
                         if (levelManager.isFunctionBlock[i] == true && levelManager.isFunctionSnapped[i] == false)
                         {
                             currentObj.transform.position = levelManager.functionSnapPoints[i].transform.position;      //snap
+                            currentObj.GetComponent<TreeBlock>().snapped = true;
 
                             arrayPrefab.SetActive(true);
 
@@ -277,7 +299,16 @@ public class TreeBlockManager : MonoBehaviour
                             ChangeBlockLayer(currentObj.transform, "Workspace");
                             currentObj = null;
                         }
+                        
                     }
+                    if (currentObj != null && currentObj.GetComponent<TreeBlock>().snapped == false)
+                    {
+                        //If object is not snapped destroy
+                        Debug.Log("snapped false");
+                        Destroy(currentObj);
+                        currentObj = null;
+                    }
+                    
                 }
             }
 

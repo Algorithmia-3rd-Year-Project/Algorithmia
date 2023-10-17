@@ -15,6 +15,9 @@ public class TreeBlock : MonoBehaviour
     [SerializeField]
     private TreeLevelManager levelManager;
 
+    [SerializeField]
+    private TreeBlockManager blockManager;
+
 
     private void Start()
     {
@@ -232,18 +235,39 @@ public class TreeBlock : MonoBehaviour
             if (collision.gameObject.transform.parent.name == "Function Space 1")
             {
                 levelManager.isFunctionBlock[0] = false;
+                levelManager.isFunctionSnapped[0] = false;
+                if (blockManager.currentObj != null)
+                {
+                    blockManager.currentObj.GetComponent<TreeBlock>().snapped = false;
+                }
+                
             }
             if (collision.gameObject.transform.parent.name == "Function Space 2")
             {
                 levelManager.isFunctionBlock[1] = false;
+                levelManager.isFunctionSnapped[1] = false;
+                if (blockManager.currentObj != null)
+                {
+                    blockManager.currentObj.GetComponent<TreeBlock>().snapped = false;
+                }
             }
             if (collision.gameObject.transform.parent.name == "Function Space 3")
             {
                 levelManager.isFunctionBlock[2] = false;
+                levelManager.isFunctionSnapped[2] = false;
+                if (blockManager.currentObj != null)
+                {
+                    blockManager.currentObj.GetComponent<TreeBlock>().snapped = false;
+                }
             }
             if (collision.gameObject.transform.parent.name == "Function Space 4")
             {
                 levelManager.isFunctionBlock[3] = false;
+                levelManager.isFunctionSnapped[3] = false;
+                if (blockManager.currentObj != null)
+                {
+                    blockManager.currentObj.GetComponent<TreeBlock>().snapped = false;
+                }
             }
         }
     }
