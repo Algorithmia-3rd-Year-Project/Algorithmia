@@ -8,7 +8,9 @@ public class HintManager : MonoBehaviour, IDataPersistence
 {
     [Header("Hints")] 
     [SerializeField] private List<string> hints;
-    [SerializeField] private List<TMP_Text> hintsTexts; 
+    [SerializeField] private List<TMP_Text> hintsTexts;
+    [SerializeField] private string answer;
+    [SerializeField] private TMP_Text answerText;
 
     [Header("Hint 1")] 
     [SerializeField] private GameObject hint1Cover;
@@ -24,7 +26,15 @@ public class HintManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject hint3Instruction;
     [SerializeField] private GameObject hint3Lock;
 
+    [Header("Answer")] 
+    [SerializeField] private GameObject unlockButton;
+    [SerializeField] private GameObject answerPanel;
+    [SerializeField] private GameObject insufficientCoinsPanel;
+    
+
     private int happinessLevel;
+    private float coinsCount;
+    
     private bool hint1;
     private bool hint2;
 
@@ -34,6 +44,8 @@ public class HintManager : MonoBehaviour, IDataPersistence
         {
             hintsTexts[i].text = hints[i];
         }
+
+        answerText.text = answer;
     }
 
     public void UnlockHint1()
@@ -69,15 +81,31 @@ public class HintManager : MonoBehaviour, IDataPersistence
             happinessLevel -= 6;
         }
     }
+
+    public void UnlockAnswer()
+    {
+        if (coinsCount - 40 > 0)
+        {
+            unlockButton.SetActive(false);
+            answerPanel.SetActive(true);
+            coinsCount -= 40;
+        }
+        else
+        {
+            insufficientCoinsPanel.SetActive(true);
+        }
+    }
     
     public void LoadData(GameData data)
     {
         this.happinessLevel = data.happinessLevel;
+        this.coinsCount = data.coinAmount;
     }
 
     public void SaveData(ref GameData data)
     {
         data.happinessLevel = this.happinessLevel;
+        data.coinAmount = this.coinsCount;
     }
 
 }
