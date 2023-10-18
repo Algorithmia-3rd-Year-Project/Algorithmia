@@ -59,6 +59,9 @@ public class GameData
     public string freelanceBio;
     public bool hasFreelanceAccount;
 
+    public bool memoryGameUnlocked;
+    public bool memoryGameUnlockedMessageShown;
+    
     public SerializableDictionary<string, bool> levelsCompleted;
     public SerializableDictionary<string, int> levelTrophies;
     
@@ -111,6 +114,9 @@ public class GameData
         this.freelanceUsername = "";
         this.freelanceBio = "";
         this.hasFreelanceAccount = false;
+
+        this.memoryGameUnlocked = false;
+        this.memoryGameUnlockedMessageShown = false;
 
         this.levelsCompleted = new SerializableDictionary<string, bool>();
         this.levelTrophies = new SerializableDictionary<string, int>();

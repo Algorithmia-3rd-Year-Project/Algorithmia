@@ -22,6 +22,8 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     public int currentTrophy;
 
     [SerializeField] private Image[] trophyImages;
+
+    private bool memoryGameUnlocked;
     
     private void Start()
     {
@@ -82,7 +84,8 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         {
             data.levelTrophies.Add(levelName, currentTrophy);
         }
-        
+
+        data.memoryGameUnlocked = this.memoryGameUnlocked;
     }
 
     public void LoadNextLevel(string sceneName)
@@ -102,6 +105,12 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     {
         scenePlayTime = Time.time - sceneStartTime;
         levelCompletionStatus = true;
+
+        if (levelName == "Array Level 6")
+        {
+            memoryGameUnlocked = true;
+        }
+        
         PlayerPrefs.SetInt("LoadArrayTree", 1);
         SceneManager.LoadSceneAsync("Scenes/Simulation");
     }

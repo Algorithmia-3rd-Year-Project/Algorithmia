@@ -70,6 +70,10 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public bool afterAssignmentCutScenePlayed;
     private bool freelanceWindowShown;
     [SerializeField] private GameObject freelanceWindow;
+    private bool memoryGameUnlockedMessageShown;
+    private bool memoryGameUnlocked;
+    [SerializeField] private GameObject memoryGameUnlockPanel;
+    [SerializeField] private GameObject memoryGameApp;
 
     private bool optionalQuestIntroMessageShown;
     [SerializeField] private GameObject optionalQuestIntroMessageBox;
@@ -97,6 +101,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
     
     [HideInInspector] public bool enrolledAtLibrary;
     [HideInInspector] public float enrolledAtLibraryTime;
+    
+    
     
     //Variables to access via ArrayQuestTree
     public SerializableDictionary<string, bool> levelCompletionStatus = new SerializableDictionary<string, bool>();
@@ -141,6 +147,18 @@ public class SimManager : MonoBehaviour, IDataPersistence
             freelanceWindowShown = true;
             computerScreen.SetActive(true);
             freelanceWindow.SetActive(true);
+        }
+
+        if (memoryGameUnlocked && !memoryGameUnlockedMessageShown)
+        {
+            memoryGameUnlockPanel.SetActive(true);
+            memoryGameUnlockedMessageShown = true;
+            memoryGameApp.SetActive(true);
+        }
+
+        if (memoryGameUnlocked && memoryGameUnlockedMessageShown)
+        {
+            memoryGameApp.SetActive(true);
         }
         
     }
@@ -220,6 +238,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.initialIntroPlayTimeReached = data.simulationIntroPlayTimeReached;
         this.questTreeIntroduced = data.questTreeIntroDisplayed;
 
+        this.memoryGameUnlocked = data.memoryGameUnlocked;
+        this.memoryGameUnlockedMessageShown = data.memoryGameUnlockedMessageShown;
+
         this.levelCompletionStatus = data.levelsCompleted;
         this.levelAchievedTrophies = data.levelTrophies;
     }
@@ -256,6 +277,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.enrolledAtLibraryTime = this.enrolledAtLibraryTime;
         data.simulationIntroPlayTimeReached = this.initialIntroPlayTimeReached;
         data.questTreeIntroDisplayed = this.questTreeIntroduced;
+
+        data.memoryGameUnlocked = this.memoryGameUnlocked;
+        data.memoryGameUnlockedMessageShown = this.memoryGameUnlockedMessageShown;
     }
 
     private void CalculateDayAndWeek(float totalTime)
