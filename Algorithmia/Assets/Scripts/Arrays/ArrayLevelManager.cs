@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ArrayLevelManager : MonoBehaviour
 {
-
     public List<GameObject> correctForms;
 
     public List<Transform> lineEndPoints;
