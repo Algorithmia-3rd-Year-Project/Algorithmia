@@ -78,6 +78,10 @@ public class SimManager : MonoBehaviour, IDataPersistence
     private bool optionalQuestIntroMessageShown;
     [SerializeField] private GameObject optionalQuestIntroMessageBox;
 
+    private bool hasGraphicCard;
+    [SerializeField] private GameObject graphicCardMissingBox;
+    [SerializeField] private GameObject gamesListPanel;
+
     [Header("Family")] 
     [SerializeField] private TMP_Text motherNameText;
     [SerializeField] private TMP_Text motherAgeText;
@@ -241,6 +245,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.memoryGameUnlocked = data.memoryGameUnlocked;
         this.memoryGameUnlockedMessageShown = data.memoryGameUnlockedMessageShown;
 
+        this.hasGraphicCard = data.hasGraphicCard;
+
         this.levelCompletionStatus = data.levelsCompleted;
         this.levelAchievedTrophies = data.levelTrophies;
     }
@@ -352,6 +358,18 @@ public class SimManager : MonoBehaviour, IDataPersistence
     {
         PlayerPrefs.SetInt("LoadArrayTree", 0);
         SceneManager.LoadSceneAsync("Scenes/Simulation");
+    }
+
+    public void CheckGraphicCardForPlayingGames()
+    {
+        if (!hasGraphicCard)
+        {
+            graphicCardMissingBox.SetActive(true);
+        }
+        else
+        {
+            gamesListPanel.SetActive(true);
+        }
     }
 
     //Temporary Functions

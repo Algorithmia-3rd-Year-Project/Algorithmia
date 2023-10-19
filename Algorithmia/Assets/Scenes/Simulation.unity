@@ -3062,7 +3062,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 971851869}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3124,18 +3124,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &47815587
 MonoBehaviour:
@@ -57632,9 +57620,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 733732547}
-  - {fileID: 47815585}
   - {fileID: 1918870316}
   - {fileID: 1875307900}
+  - {fileID: 47815585}
   m_Father: {fileID: 1557391138}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -66139,6 +66127,8 @@ MonoBehaviour:
   memoryGameUnlockPanel: {fileID: 1327501443}
   memoryGameApp: {fileID: 1508301751}
   optionalQuestIntroMessageBox: {fileID: 1295772317}
+  graphicCardMissingBox: {fileID: 2069138580}
+  gamesListPanel: {fileID: 2017874170}
   motherNameText: {fileID: 1820207893}
   motherAgeText: {fileID: 189575943}
   motherOccupationText: {fileID: 426945922}
@@ -89544,6 +89534,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1493601335}
+  - component: {fileID: 1493601336}
   m_Layer: 0
   m_Name: Mini-Game Managers
   m_TagString: Untagged
@@ -89566,6 +89557,19 @@ Transform:
   m_Father: {fileID: 1101474496}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1493601336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493601334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e4f9b6795e14a489af7728bd3652a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  memoryGame: {fileID: 1998684001}
 --- !u!1 &1494133074
 GameObject:
   m_ObjectHideFlags: 0
@@ -90737,10 +90741,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2069138580}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1493601336}
+        m_TargetAssemblyTypeName: GamesManager, Assembly-CSharp
+        m_MethodName: LoadBigOMatchGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -90769,7 +90773,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e5ea87c489b78d743ab44ab9e4fc0325, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d193a50f2e7498c4a9385821387c4977, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -98528,8 +98532,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000013042, y: -21.3}
-  m_SizeDelta: {x: 45.712, y: 14.2401}
+  m_AnchoredPosition: {x: -0.000013042, y: -24.3}
+  m_SizeDelta: {x: 53.4361, y: 14.2401}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650429031
 MonoBehaviour:
@@ -98551,7 +98555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Memory Game
+  m_text: Big O Match
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0ff9c28207b87254a9a5f0627cb9a07f, type: 2}
   m_sharedMaterial: {fileID: 1135411463415412487, guid: 0ff9c28207b87254a9a5f0627cb9a07f, type: 2}
@@ -99248,10 +99252,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2069138580}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1101474495}
+        m_TargetAssemblyTypeName: SimManager, Assembly-CSharp
+        m_MethodName: CheckGraphicCardForPlayingGames
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -114448,7 +114452,7 @@ RectTransform:
   m_Children:
   - {fileID: 52077653}
   m_Father: {fileID: 971851869}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -116776,7 +116780,7 @@ RectTransform:
   - {fileID: 571777000}
   - {fileID: 887808528}
   m_Father: {fileID: 971851869}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

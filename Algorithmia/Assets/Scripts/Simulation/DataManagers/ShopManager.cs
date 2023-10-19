@@ -93,7 +93,7 @@ public class ShopManager : MonoBehaviour
                 GameObject shopItem = Instantiate(asyncOperationHandle.Result);
                 shopItem.transform.SetParent(parentItem);
                 shopItem.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Debug.Log("Object Instantiated");
+                //Debug.Log("Object Instantiated");
                 HardwareItemDetails(shopItem, hardwarePartNames[index], hardwarePartDescriptions[index], hardwarePartPrice[index], hardwarePartLogos[index]);
                 
             }
