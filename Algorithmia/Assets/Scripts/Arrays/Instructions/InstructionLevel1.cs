@@ -26,6 +26,8 @@ public class InstructionLevel1 : MonoBehaviour
 
     [SerializeField] 
     private GameObject instruction7;
+
+    [SerializeField] private GameObject instruction8;
     
     [SerializeField]
     private GameObject instructionOverlay;
@@ -122,6 +124,8 @@ public class InstructionLevel1 : MonoBehaviour
         {
             instruction7.SetActive(false);
             victoryMenu.SetActive(true);
+            //instructionOverlay.SetActive(true);
+            instruction8.SetActive(true);
         }
     }
 
