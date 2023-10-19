@@ -12,6 +12,8 @@ public class TreeLineManager : MonoBehaviour
 
     GameObject startPoint;
 
+    public List<GameObject> lineDrawnPoints;
+
     Vector3 mousePos;
 
     [SerializeField]
@@ -28,6 +30,7 @@ public class TreeLineManager : MonoBehaviour
     private void Start()
     {
         currentLine = null;
+        lineDrawnPoints = null;
     }
 
     private void Update()
@@ -96,6 +99,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -111,6 +115,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -130,6 +135,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -145,6 +151,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -164,6 +171,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -179,6 +187,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -198,6 +207,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -213,6 +223,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -232,6 +243,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -247,6 +259,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -266,6 +279,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -281,6 +295,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -300,6 +315,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }
@@ -315,6 +331,7 @@ public class TreeLineManager : MonoBehaviour
                             {
                                 Debug.Log(levelManager.lineEndPoints[i].parent.parent.GetComponent<TreeBlock>().snappedLevel);
                                 afterLineDrawn(currentLine, i);
+                                lineDrawnPoints.Add(levelManager.lineEndPoints[i].gameObject);
                                 currentLine = null;
                                 break;
                             }

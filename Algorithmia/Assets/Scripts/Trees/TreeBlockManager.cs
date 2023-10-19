@@ -20,6 +20,9 @@ public class TreeBlockManager : MonoBehaviour
     private TreeLevelManager levelManager;
 
     [SerializeField]
+    private TreeLineManager lineManager;
+
+    [SerializeField]
     private LayerMask anotherLayer;
 
     [SerializeField]
@@ -138,15 +141,34 @@ public class TreeBlockManager : MonoBehaviour
                     {
                         if (allhits[0].collider.CompareTag("Inventory"))
                         {
-                            currentObj = allhits[0].collider.gameObject;
+                            Transform linePoints = allhits[0].collider.transform.Find("Line Points");
+                            Transform lineEnd = linePoints.Find("Line End");
 
-                            for (int i=0; i<levelManager.isSnapBlock.Count; i++)
+                            if (lineManager.lineDrawnPoints != null)
                             {
-                                if (currentObj.transform.position == levelManager.snapPoints[i].transform.position)
+                                foreach (var linePoint in lineManager.lineDrawnPoints)
                                 {
-                                    pastNodePosition = i;
+                                    if (lineEnd == linePoint)
+                                    {
+                                        currentObj = null;
+                                        break;
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                currentObj = allhits[0].collider.gameObject;
+
+                                for (int i = 0; i < levelManager.isSnapBlock.Count; i++)
+                                {
+                                    if (currentObj.transform.position == levelManager.snapPoints[i].transform.position)
+                                    {
+                                        pastNodePosition = i;
+                                    }
                                 }
                             }
+                            
                         }
                     }
 
@@ -341,7 +363,7 @@ public class TreeBlockManager : MonoBehaviour
                             //make the data element a child of the snapped point
                             currentObj.transform.SetParent(levelManager.arraySnapPoints[i].transform);
 
-                            currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
+                            currentObj.transform.localScale = new Vector3(3f, 1f, 0f);
 
                             break;
                         }
