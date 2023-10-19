@@ -8,7 +8,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : MonoBehaviour, IDataPersistence
 {
 
     [SerializeField] private Transform hardwareCategoryParent;
@@ -24,6 +24,8 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private List<string> hardwarePartDescriptions;
     [SerializeField] private List<int> hardwarePartPrice;
     [SerializeField] private List<Sprite> hardwarePartLogos;
+
+    [SerializeField] private SimManager simulationManager;
     
     private void Start()
     {
@@ -31,11 +33,11 @@ public class ShopManager : MonoBehaviour
         AddListeners();
 
         foreach (Transform hardwareParent in hardwareItemsParents)
-        {   
-            
+        {
+            GameObject hardwareType = hardwareParent.gameObject;
             for (int i = 0; i < hardwarePartCounts[j]; i++)
             {
-                InstantiateItems(hardwareParent, k);
+                InstantiateItems(hardwareParent, k, hardwareType.name);
                 k++;
             }
 
@@ -79,7 +81,21 @@ public class ShopManager : MonoBehaviour
     private void PurchaseItem(GameObject clickedBuyButton)
     {
         int itemPrice = int.Parse(clickedBuyButton.transform.Find("Price").gameObject.GetComponent<TMP_Text>().text);
-        Debug.Log(itemPrice);
+        GameObject itemObject = clickedBuyButton.transform.parent.parent.gameObject;
+        string itemCategoryName = itemObject.GetComponent<HardwareItem>().itemCategoryName;
+        
+        if ((float)itemPrice < simulationManager.coins)
+        {
+            if (itemCategoryName == "Graphic Cards")
+            {
+                Debug.Log("Purchased Graphic Cards");
+                simulationManager.hasGraphicCard = true;
+            }
+
+            simulationManager.coins -= itemPrice;
+            Debug.Log(itemPrice + " Purchased");
+        }
+        
     }
 
     private void SwitchHardwarePages()
@@ -99,7 +115,7 @@ public class ShopManager : MonoBehaviour
     }
 
     //Instantiate Items in the hardware shop category
-    private void InstantiateItems(Transform parentItem, int index)
+    private void InstantiateItems(Transform parentItem, int index, string hardwareCategoryName)
     {
         Addressables.LoadAssetAsync<GameObject>("Hardware Item").Completed += (asyncOperationHandle) =>
         {
@@ -109,7 +125,7 @@ public class ShopManager : MonoBehaviour
                 shopItem.transform.SetParent(parentItem);
                 shopItem.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 //Debug.Log("Object Instantiated");
-                HardwareItemDetails(shopItem, hardwarePartNames[index], hardwarePartDescriptions[index], hardwarePartPrice[index], hardwarePartLogos[index]);
+                HardwareItemDetails(shopItem, hardwarePartNames[index], hardwarePartDescriptions[index], hardwarePartPrice[index], hardwarePartLogos[index], hardwareCategoryName);
             }
             else
             {
@@ -118,13 +134,25 @@ public class ShopManager : MonoBehaviour
         };
     }
 
-    private void HardwareItemDetails(GameObject currentItem, string itemName, string itemDescription, int itemPrice, Sprite itemLogo)
+    //Add details to the items in the hardware panel of shop
+    private void HardwareItemDetails(GameObject currentItem, string itemName, string itemDescription, int itemPrice, Sprite itemLogo, string hardwareCategoryName)
     {
         currentItem.GetComponent<HardwareItem>().itemName = itemName;
         currentItem.GetComponent<HardwareItem>().itemDescription = itemDescription;
         currentItem.GetComponent<HardwareItem>().itemPrice = itemPrice;
         currentItem.GetComponent<HardwareItem>().itemLogo = itemLogo;
+        currentItem.GetComponent<HardwareItem>().itemCategoryName = hardwareCategoryName;
         AddPurchaseListeners(currentItem);
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.simulationManager.hasGraphicCard = data.hasGraphicCard;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.hasGraphicCard = this.simulationManager.hasGraphicCard;
     }
     
     /*

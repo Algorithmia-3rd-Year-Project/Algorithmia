@@ -18,6 +18,24 @@ public class HardwareItem : MonoBehaviour
     public int itemPrice;
     public Sprite itemLogo;
 
+    [SerializeField] private Button buyButton;
+    [SerializeField] private Image buttonBackground;
+    private SimManager simulation;
+
+    public string itemCategoryName;
+    private string deactiveColor = "#52634F";
+    private string activeColor = "#61CA4D";
+
+    private Color deactiveRGBcolor;
+    private Color activeRGBcolor;
+    
+    private void Start()
+    {
+        simulation = FindObjectOfType<SimManager>();
+        ColorUtility.TryParseHtmlString(deactiveColor, out deactiveRGBcolor);
+        ColorUtility.TryParseHtmlString(activeColor, out activeRGBcolor);
+    }
+
     private void Update()
     {
         
@@ -25,6 +43,17 @@ public class HardwareItem : MonoBehaviour
         itemNameText.text = itemName;
         itemDescriptionText.text = itemDescription;
         itemPriceText.text = itemPrice.ToString();
+
+        if (simulation.coins < itemPrice)
+        {
+            buyButton.interactable = false;
+            buttonBackground.color = deactiveRGBcolor;
+        }
+        else
+        {
+            buyButton.interactable = true;
+            buttonBackground.color = activeRGBcolor;
+        }
         
     }
 }
