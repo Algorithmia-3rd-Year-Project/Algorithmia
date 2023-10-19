@@ -20,12 +20,11 @@ public class HardwareItem : MonoBehaviour
 
     private void Update()
     {
-        if (itemName == "" || itemDescription == "" || itemPrice == 0)
-        {
-            itemLogoImage.sprite = itemLogo;
-            itemNameText.text = itemName;
-            itemDescriptionText.text = itemDescription;
-            itemPriceText.text = itemPrice.ToString();
-        }
+        
+        itemLogoImage.sprite = itemLogo;
+        itemNameText.text = itemName;
+        itemDescriptionText.text = itemDescription;
+        itemPriceText.text = itemPrice.ToString();
+        
     }
 }

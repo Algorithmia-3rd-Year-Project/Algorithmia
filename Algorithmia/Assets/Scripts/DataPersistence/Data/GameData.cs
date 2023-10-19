@@ -61,6 +61,8 @@ public class GameData
 
     public bool memoryGameUnlocked;
     public bool memoryGameUnlockedMessageShown;
+
+    public bool hasGraphicCard;
     
     public SerializableDictionary<string, bool> levelsCompleted;
     public SerializableDictionary<string, int> levelTrophies;
@@ -117,6 +119,8 @@ public class GameData
 
         this.memoryGameUnlocked = false;
         this.memoryGameUnlockedMessageShown = false;
+
+        this.hasGraphicCard = false;
 
         this.levelsCompleted = new SerializableDictionary<string, bool>();
         this.levelTrophies = new SerializableDictionary<string, int>();

@@ -67,6 +67,21 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    private void AddPurchaseListeners(GameObject currentItem)
+    {
+        GameObject buttonObjectParent =
+            currentItem.transform.Find("Item Logo Background").gameObject;
+        GameObject buttonObject = buttonObjectParent.transform.GetChild(3).gameObject;
+        Button buyButton = buttonObject.GetComponent<Button>();
+        buyButton.onClick.AddListener(() => PurchaseItem(buttonObject));
+    }
+
+    private void PurchaseItem(GameObject clickedBuyButton)
+    {
+        int itemPrice = int.Parse(clickedBuyButton.transform.Find("Price").gameObject.GetComponent<TMP_Text>().text);
+        Debug.Log(itemPrice);
+    }
+
     private void SwitchHardwarePages()
     {
         GameObject clickedButton = EventSystem.current.currentSelectedGameObject;
@@ -93,9 +108,8 @@ public class ShopManager : MonoBehaviour
                 GameObject shopItem = Instantiate(asyncOperationHandle.Result);
                 shopItem.transform.SetParent(parentItem);
                 shopItem.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Debug.Log("Object Instantiated");
+                //Debug.Log("Object Instantiated");
                 HardwareItemDetails(shopItem, hardwarePartNames[index], hardwarePartDescriptions[index], hardwarePartPrice[index], hardwarePartLogos[index]);
-                
             }
             else
             {
@@ -110,6 +124,7 @@ public class ShopManager : MonoBehaviour
         currentItem.GetComponent<HardwareItem>().itemDescription = itemDescription;
         currentItem.GetComponent<HardwareItem>().itemPrice = itemPrice;
         currentItem.GetComponent<HardwareItem>().itemLogo = itemLogo;
+        AddPurchaseListeners(currentItem);
     }
     
     /*
