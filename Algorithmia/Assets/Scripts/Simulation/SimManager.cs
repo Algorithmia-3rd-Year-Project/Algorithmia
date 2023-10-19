@@ -78,7 +78,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     private bool optionalQuestIntroMessageShown;
     [SerializeField] private GameObject optionalQuestIntroMessageBox;
 
-    private bool hasGraphicCard;
+    public bool hasGraphicCard;
     [SerializeField] private GameObject graphicCardMissingBox;
     [SerializeField] private GameObject gamesListPanel;
 
