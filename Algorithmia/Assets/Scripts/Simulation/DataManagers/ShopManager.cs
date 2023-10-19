@@ -16,17 +16,30 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private List<string> hardwareCategories;
     [SerializeField] private GameObject categoryPrefab;
 
+    private int j;
+    private int k;
+
+    [SerializeField] private List<int> hardwarePartCounts;
+    [SerializeField] private List<string> hardwarePartNames;
+    [SerializeField] private List<string> hardwarePartDescriptions;
+    [SerializeField] private List<int> hardwarePartPrice;
+    [SerializeField] private List<Sprite> hardwarePartLogos;
+    
     private void Start()
     {
         GenerateCategories(hardwareCategories);
         AddListeners();
 
         foreach (Transform hardwareParent in hardwareItemsParents)
-        {
-            for (int i = 0; i < 4; i++)
+        {   
+            
+            for (int i = 0; i < hardwarePartCounts[j]; i++)
             {
-                InstantiateItems(hardwareParent);
+                InstantiateItems(hardwareParent, k);
+                k++;
             }
+
+            j++;
         }
         
     }
@@ -71,7 +84,7 @@ public class ShopManager : MonoBehaviour
     }
 
     //Instantiate Items in the hardware shop category
-    private void InstantiateItems(Transform parentItem)
+    private void InstantiateItems(Transform parentItem, int index)
     {
         Addressables.LoadAssetAsync<GameObject>("Hardware Item").Completed += (asyncOperationHandle) =>
         {
@@ -81,12 +94,22 @@ public class ShopManager : MonoBehaviour
                 shopItem.transform.SetParent(parentItem);
                 shopItem.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 Debug.Log("Object Instantiated");
+                HardwareItemDetails(shopItem, hardwarePartNames[index], hardwarePartDescriptions[index], hardwarePartPrice[index], hardwarePartLogos[index]);
+                
             }
             else
             {
                 Debug.Log("Failed to Load");
             }
         };
+    }
+
+    private void HardwareItemDetails(GameObject currentItem, string itemName, string itemDescription, int itemPrice, Sprite itemLogo)
+    {
+        currentItem.GetComponent<HardwareItem>().itemName = itemName;
+        currentItem.GetComponent<HardwareItem>().itemDescription = itemDescription;
+        currentItem.GetComponent<HardwareItem>().itemPrice = itemPrice;
+        currentItem.GetComponent<HardwareItem>().itemLogo = itemLogo;
     }
     
     /*
