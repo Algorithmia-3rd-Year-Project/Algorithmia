@@ -434,8 +434,8 @@ GameObject:
   - component: {fileID: 54843289}
   - component: {fileID: 54843290}
   m_Layer: 0
-  m_Name: Line Start
-  m_TagString: Untagged
+  m_Name: Shooter
+  m_TagString: LineStart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -467,7 +467,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.008496642, y: -0.016993165}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -478,7 +478,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.4}
+  m_Size: {x: 0.18104768, y: 0.24706149}
   m_EdgeRadius: 0
 --- !u!1 &59203235
 GameObject:
@@ -15670,7 +15670,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snapPoints: []
-  lineEndPoints: []
+  lineEndPoints:
+  - {fileID: 54843289}
   lines: []
   blocks: []
   blockCount: 0
@@ -19954,15 +19955,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1993674630}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 232b797c590ccbf489ea309435dfbfa1, type: 3}
+  m_Script: {fileID: 11500000, guid: e399ff442fc164746b3c53d228cce1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   workspaceLayer:
     serializedVersion: 2
     m_Bits: 64
   currentLine: {fileID: 0}
-  levelManager: {fileID: 0}
-  blockManager: {fileID: 0}
+  levelManager: {fileID: 1462989241}
+  blockManager: {fileID: 1483248902}
   orderIndex: 0
 --- !u!4 &1993674632
 Transform:
@@ -21596,9 +21597,25 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.206
       objectReference: {fileID: 0}
+    - target: {fileID: 2469515606795569799, guid: e89b8386c2bfeae4e9f12d18c393d0e1, type: 3}
+      propertyPath: m_TagString
+      value: LineStart
+      objectReference: {fileID: 0}
     - target: {fileID: 3157859074683533698, guid: e89b8386c2bfeae4e9f12d18c393d0e1, type: 3}
       propertyPath: blockName
       value: Push Function
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202861039709803878, guid: e89b8386c2bfeae4e9f12d18c393d0e1, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774814203264566541, guid: e89b8386c2bfeae4e9f12d18c393d0e1, type: 3}
+      propertyPath: m_TagString
+      value: Line
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803710440700895959, guid: e89b8386c2bfeae4e9f12d18c393d0e1, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7775591480031393108, guid: e89b8386c2bfeae4e9f12d18c393d0e1, type: 3}
       propertyPath: m_RootOrder
