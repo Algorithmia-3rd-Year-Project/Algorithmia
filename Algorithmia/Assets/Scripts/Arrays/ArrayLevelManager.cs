@@ -5,6 +5,8 @@ using UnityEngine;
 public class ArrayLevelManager : MonoBehaviour
 {
 
+    [SerializeField] private GameObject arrayBook;
+    
     public List<GameObject> correctForms;
 
     public List<Transform> lineEndPoints;
@@ -29,6 +31,11 @@ public class ArrayLevelManager : MonoBehaviour
     private void Update()
     {
        
+    }
+
+    public void OpenBook()
+    {
+        arrayBook.SetActive(true);
     }
 
 }
