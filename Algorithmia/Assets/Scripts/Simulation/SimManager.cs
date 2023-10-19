@@ -82,6 +82,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject graphicCardMissingBox;
     [SerializeField] private GameObject gamesListPanel;
 
+    [SerializeField] private GameObject menu;
+
     [Header("Family")] 
     [SerializeField] private TMP_Text motherNameText;
     [SerializeField] private TMP_Text motherAgeText;
@@ -200,6 +202,15 @@ public class SimManager : MonoBehaviour, IDataPersistence
             optionalQuestIntroMessageShown = false;
         }
 
+        //Open and close the menu depending on the time of the menu when pressing the escape key
+        if (Input.GetKeyDown(KeyCode.Escape) && !menu.activeSelf)
+        {
+            menu.SetActive(true);
+        } else if (Input.GetKeyDown(KeyCode.Escape) && menu.activeSelf)
+        {
+            menu.SetActive(false);
+        }
+        
     }
 
     public void LoadData(GameData data)
@@ -370,6 +381,16 @@ public class SimManager : MonoBehaviour, IDataPersistence
         {
             gamesListPanel.SetActive(true);
         }
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadSceneAsync("Scenes/Main Menu");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
     //Temporary Functions
