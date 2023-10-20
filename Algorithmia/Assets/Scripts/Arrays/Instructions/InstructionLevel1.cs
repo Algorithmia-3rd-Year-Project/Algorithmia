@@ -50,17 +50,60 @@ public class InstructionLevel1 : MonoBehaviour
     [SerializeField] private GameObject compilationMenu;
     [SerializeField] private GameObject victoryMenu;
     
+    [SerializeField] private GameObject blockDropTrigger;
+    [SerializeField] private GameObject dataDropTrigger1;
+    [SerializeField] private GameObject dataDropTrigger2;
+    [SerializeField] private GameObject dataDropTrigger3;
+    [SerializeField] private GameObject dataDropTrigger4;
+    [SerializeField] private GameObject lineDrawTrigger;
+
+    public int lineCount;
+    
     private void Start()
     {
         instructionOverlay.SetActive(true);
         instruction1.SetActive(true);
 
         instruction1Executed = false;
+        blockDropTrigger.SetActive(true);
     }
 
 
     private void Update()
     {
+        if (levelManager.blockCount > 0)
+        {
+            blockDropTrigger.SetActive(false);
+        }
+
+        if (levelManager.correctForms.Count > 0 && levelManager.correctForms[0].transform.childCount > 0)
+        {
+            dataDropTrigger1.SetActive(false);
+            dataDropTrigger2.SetActive(true);
+        }
+        
+        if (levelManager.correctForms.Count > 0 && levelManager.correctForms[1].transform.childCount > 0)
+        {
+            dataDropTrigger2.SetActive(false);
+            dataDropTrigger3.SetActive(true);
+        }
+        
+        if (levelManager.correctForms.Count > 0 && levelManager.correctForms[2].transform.childCount > 0)
+        {
+            dataDropTrigger3.SetActive(false);
+            dataDropTrigger4.SetActive(true);
+        }
+        
+        if (levelManager.correctForms.Count > 0 && levelManager.correctForms[3].transform.childCount > 0)
+        {
+            dataDropTrigger4.SetActive(false);
+        }
+
+        if (lineCount > 0)
+        {
+            lineDrawTrigger.SetActive(false);
+        }
+        
         if (levelManager.blockCount != 0 && instruction1Executed == false)
         {
             instruction1.SetActive(false);
@@ -127,6 +170,16 @@ public class InstructionLevel1 : MonoBehaviour
             //instructionOverlay.SetActive(true);
             instruction8.SetActive(true);
         }
+    }
+
+    public void DataDropTriggerPoints()
+    {
+        dataDropTrigger1.SetActive(true);
+    }
+
+    public void LineDrawTriggerPoints()
+    {
+        lineDrawTrigger.SetActive(true);
     }
 
 }
