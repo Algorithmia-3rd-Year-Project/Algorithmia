@@ -198,6 +198,7 @@ public class Linkedlistblockmanager : MonoBehaviour
                                 {
                                     levelManager.fixLines[j].SetActive(false);
                                     levelManager.triggerNodes[j].SetActive(true);
+                                    levelManager.triggerNodes[j].GetComponent<LinkedListBlock>().triggerNode = currentObj;
                                     break;
                                 }
                             }
