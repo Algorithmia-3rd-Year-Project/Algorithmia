@@ -34,6 +34,9 @@ public class Level2Logic : MonoBehaviour
 
     [SerializeField] private ArrayLevelDataManager levelDataManager;
 
+    [SerializeField] private GameObject helpInstructions;
+    private bool helpInstructionShown;
+
     private void Start()
     {
         compilationSuccess = false;
@@ -229,6 +232,15 @@ public class Level2Logic : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
+    }
+
+    public void CloseObjective()
+    {
+        if (!helpInstructionShown)
+        {
+            helpInstructions.SetActive(true);
+            helpInstructionShown = true;
+        }
     }
 
 }
