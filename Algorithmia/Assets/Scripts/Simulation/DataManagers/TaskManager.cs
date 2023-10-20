@@ -11,7 +11,8 @@ public class TaskManager : MonoBehaviour
     
     private void Start()
     {
-        string jsonPath = Application.dataPath + "/Data/Leisure.json";
+        //string jsonPath = Application.dataPath + "/Data/Leisure.json";
+        string jsonPath = Application.streamingAssetsPath + "/Leisure.json";
         string json = File.ReadAllText(jsonPath);
         leisureData = JsonUtility.FromJson<Leisure>(json);
     }
