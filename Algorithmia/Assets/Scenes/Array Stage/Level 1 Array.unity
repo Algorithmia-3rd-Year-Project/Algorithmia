@@ -8536,6 +8536,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 598441878, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
       value: 0
@@ -10479,7 +10483,10 @@ MonoBehaviour:
   levelName: Array Level 1
   energyLostMenu: {fileID: 1065271831}
   currentTrophy: 0
-  trophyImages: []
+  trophyImages:
+  - {fileID: 1636326859}
+  - {fileID: 899371889}
+  - {fileID: 1753691913}
 --- !u!1 &824218203
 GameObject:
   m_ObjectHideFlags: 0
@@ -13064,6 +13071,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 598441878, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
       value: 3
@@ -14252,6 +14263,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061903394}
   m_CullTransparentMesh: 1
+--- !u!61 &1062128230 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 598441878, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+  m_PrefabInstance: {fileID: 1604062932}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1065271831
 GameObject:
   m_ObjectHideFlags: 0
@@ -17681,6 +17697,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d00bdfc91a83db4b8674cee927a6da4, type: 3}
+--- !u!61 &1394383690 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 598441878, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+  m_PrefabInstance: {fileID: 640223780}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1404862816
 GameObject:
   m_ObjectHideFlags: 0
@@ -20961,6 +20982,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 598441878, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 598441879, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: dataValue
       value: 1
@@ -22115,6 +22140,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686597752}
   m_CullTransparentMesh: 1
+--- !u!61 &1689430057 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 598441878, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+  m_PrefabInstance: {fileID: 984774778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1690093739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22135,6 +22165,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: b58397734b3dbee45a2391989e905d38, type: 3}
     - target: {fileID: 598441876, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 598441878, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -22797,6 +22831,10 @@ MonoBehaviour:
   dataDropTrigger4: {fileID: 1956019193}
   lineDrawTrigger: {fileID: 1600732643}
   lineCount: 0
+  dataBlock1: {fileID: 1394383690}
+  dataBlock2: {fileID: 1062128230}
+  dataBlock3: {fileID: 1918162148}
+  dataBlock4: {fileID: 1689430057}
 --- !u!4 &1723780353
 Transform:
   m_ObjectHideFlags: 0
@@ -24921,19 +24959,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1855639442}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1249131427}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1855639442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26149,6 +26175,11 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!61 &1918162148 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 598441878, guid: a5f2d97d241294848ba900e95a23aaaa, type: 3}
+  m_PrefabInstance: {fileID: 1690093739}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1950766701
 GameObject:
   m_ObjectHideFlags: 0

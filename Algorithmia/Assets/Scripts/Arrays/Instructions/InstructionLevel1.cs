@@ -58,6 +58,13 @@ public class InstructionLevel1 : MonoBehaviour
     [SerializeField] private GameObject lineDrawTrigger;
 
     public int lineCount;
+
+    [SerializeField] private BoxCollider2D dataBlock1;
+    [SerializeField] private BoxCollider2D dataBlock2;
+    [SerializeField] private BoxCollider2D dataBlock3;
+    [SerializeField] private BoxCollider2D dataBlock4;
+
+    private GameObject lineStart;
     
     private void Start()
     {
@@ -74,29 +81,47 @@ public class InstructionLevel1 : MonoBehaviour
         if (levelManager.blockCount > 0)
         {
             blockDropTrigger.SetActive(false);
+            GameObject arrayBlock = levelManager.blocks[0].gameObject;
+            GameObject linePoints = arrayBlock.transform.Find("Line Points").gameObject;
+            GameObject title = arrayBlock.transform.Find("Title").gameObject;
+            title.GetComponent<BoxCollider2D>().enabled = false;
+            lineStart = linePoints.transform.GetChild(0).gameObject;
+            lineStart.SetActive(false);
+        }
+
+        if (dataDropTrigger1.activeSelf)
+        {
+            dataBlock1.enabled = true;
         }
 
         if (levelManager.correctForms.Count > 0 && levelManager.correctForms[0].transform.childCount > 0)
         {
             dataDropTrigger1.SetActive(false);
             dataDropTrigger2.SetActive(true);
+            dataBlock1.enabled = false;
+            dataBlock2.enabled = true;
         }
         
         if (levelManager.correctForms.Count > 0 && levelManager.correctForms[1].transform.childCount > 0)
         {
             dataDropTrigger2.SetActive(false);
             dataDropTrigger3.SetActive(true);
+            dataBlock2.enabled = false;
+            dataBlock3.enabled = true;
         }
         
         if (levelManager.correctForms.Count > 0 && levelManager.correctForms[2].transform.childCount > 0)
         {
             dataDropTrigger3.SetActive(false);
             dataDropTrigger4.SetActive(true);
+            dataBlock3.enabled = false;
+            dataBlock4.enabled = true;
         }
         
         if (levelManager.correctForms.Count > 0 && levelManager.correctForms[3].transform.childCount > 0)
         {
             dataDropTrigger4.SetActive(false);
+            dataBlock4.enabled = false;
         }
 
         if (lineCount > 0)
@@ -138,6 +163,11 @@ public class InstructionLevel1 : MonoBehaviour
                 instruction4.SetActive(true);
                 instruction4Executed = true;
             }
+        }
+
+        if (instruction5.activeSelf)
+        {
+            lineStart.SetActive(true);
         }
 
         if (!instruction5Executed && levelManager.lines.Count > 0)

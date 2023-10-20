@@ -276,6 +276,7 @@ public class ArrayLevel1LineManager : MonoBehaviour
             }
         }
 
+        /*
         if (Input.GetMouseButtonDown(1))
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -358,6 +359,7 @@ public class ArrayLevel1LineManager : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     private void EraseLine(GameObject currentLine) 

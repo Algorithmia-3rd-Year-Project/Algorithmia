@@ -85,8 +85,9 @@ public class ArrayLevel1BlockManager : MonoBehaviour
 
             if (hit.collider != null)
             {
-
-                if (hit.collider.name == "Empty Array Block")
+                
+                //Prevent player from adding more array blocks to the workspace after the player has added one successfully.
+                if (hit.collider.name == "Empty Array Block" && levelManager.blockCount == 0)
                 {
                     currentObj = Instantiate(arrayblocksList.blockList["Empty Array Block"], new Vector3(mousePos.x, mousePos.y - 0.7f, 0f), Quaternion.identity);
 
@@ -503,7 +504,12 @@ public class ArrayLevel1BlockManager : MonoBehaviour
                     levelManager.blockCount += 1;
                     currentObj.GetComponent<ArrayBlock>().addedBlock = true;
                     levelManager.blocks.Add(currentObj);
+                    
+                    
+                    //Snapped to the correct position in the tutorials level
                     currentObj.transform.position = blockTriggerPoint.position;
+                    currentObj.tag = "Untagged";
+                    
 
                     if (currentObj.GetComponent<ArrayBlock>().blockName == "Empty Array")
                     {
@@ -617,6 +623,8 @@ public class ArrayLevel1BlockManager : MonoBehaviour
 
                         //make the data element a child of the snapped point
                         currentObj.transform.SetParent(levelManager.correctForms[i].transform);
+                        
+                        //currentObj.GetComponent<BoxCollider2D>().enabled = false;
 
                         currentObj.transform.localScale = new Vector3(1f, 1f, 0f);
 
