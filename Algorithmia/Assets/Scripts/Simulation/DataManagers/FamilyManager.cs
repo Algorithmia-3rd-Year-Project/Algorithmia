@@ -16,10 +16,11 @@ public class FamilyManager : MonoBehaviour, IDataPersistence
     private int motherAge;
     private int fatherAge;
     
-    private void Start()
+    private void Awake()
     {
         
-        string jsonPath = Application.dataPath + "/Data/Family.json";
+        //string jsonPath = Application.dataPath + "/Data/Family.json";
+        string jsonPath = Application.streamingAssetsPath + "/Family.json";
         string json = File.ReadAllText(jsonPath);
         familyData = JsonUtility.FromJson<Family>(json);
         
@@ -32,7 +33,13 @@ public class FamilyManager : MonoBehaviour, IDataPersistence
         fatherAge = Random.Range(38, 70);
 
     }
-    
+
+    private void Start()
+    {
+        Debug.Log(Application.dataPath);
+        Debug.Log(Application.streamingAssetsPath);
+    }
+
     public void LoadData(GameData data)
     {
         //this.username = data.username;

@@ -17,7 +17,8 @@ public class CareerManager : MonoBehaviour
     
     private void Start()
     {
-        string jsonPath = Application.dataPath + "/Data/Careers.json";
+        //string jsonPath = Application.dataPath + "/Data/Careers.json";
+        string jsonPath = Application.streamingAssetsPath + "/Careers.json";
         string json = File.ReadAllText(jsonPath);
 
         careerList = JsonUtility.FromJson<CareerList>(json);

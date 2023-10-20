@@ -28,7 +28,6 @@ public class SimInstructionManager : MonoBehaviour
     {
         triggerCollection.SetActive(true);
         instruction1.SetActive(true);
-        tempCondition = true;
     }
 
     private void Update()
@@ -40,6 +39,17 @@ public class SimInstructionManager : MonoBehaviour
             instruction5.SetActive(false);
             instruction6.SetActive(true);
             trigger5.SetActive(true);
+        }
+
+        if (instruction1.activeSelf || instruction2.activeSelf || instruction3.activeSelf || instruction4.activeSelf)
+        {
+            simulationManager.anyMenuOpened = true;
+        }
+
+        if (instruction5.activeSelf)
+        {
+            simulationManager.anyMenuOpened = false;
+            tempCondition = true;
         }
         
     }
