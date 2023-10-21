@@ -930,7 +930,8 @@ public class ArrayBlockManager : MonoBehaviour
                     GameObject dataObject = singleSnapPoint.GetChild(0).gameObject;
                     Vector3 currentResetPos = dataObject.GetComponent<DataBlock>().resetPosition;
                     dataObject.transform.position = new Vector3(currentResetPos.x, currentResetPos.y, currentResetPos.z);
-                    
+                    dataObject.GetComponent<DataBlock>().snapped = false;
+                    Destroy(dataObject.GetComponent<DataBlock>().pseudoElement);
                     dataObject.transform.SetParent(dataParentObj);
                     ChangeBlockLayer(dataObject.transform, "Data");
                     dataObject.transform.localScale = dataObject.GetComponent<DataBlock>().originalScale;
