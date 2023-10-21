@@ -8,7 +8,8 @@ public class ArrayQuestTree : MonoBehaviour
 
     [SerializeField] private SimManager simulationManager;
     [SerializeField] private List<GameObject> questTree;
-
+    
+    
     private void Start()
     {
         QuestTreeManagement();
