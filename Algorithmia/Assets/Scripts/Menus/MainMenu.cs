@@ -36,6 +36,8 @@ public class MainMenu : MonoBehaviour, IDataPersistence
     {
         currentUsername = guestNameInput.text;
         loggedUsernameText.text = currentUsername;
+        //changing the folder name of the saved file creating
+        //DataPersistenceManager.instance.selectedProfileId = currentUsername;
         PlayerPrefs.SetString("PlayerName", currentUsername);
         PlayerPrefs.Save();
     }
