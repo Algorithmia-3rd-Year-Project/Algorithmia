@@ -28,7 +28,7 @@ public class ArrayQuestTree : MonoBehaviour
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 7 A_2", out int currentTrophies);
                 if (trophy < 2 && currentTrophies < 2)
                 {
-                    UnlockQuestTree(26);
+                    UnlockQuestTree(32);
                     return;
                 }
             }
@@ -43,7 +43,7 @@ public class ArrayQuestTree : MonoBehaviour
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 7 A_1", out int currentTrophies);
                 if (trophy < 2 && currentTrophies < 2)
                 {
-                    UnlockQuestTree(26);
+                    UnlockQuestTree(32);
                     return;
                 }
             }
@@ -55,11 +55,11 @@ public class ArrayQuestTree : MonoBehaviour
 
             if (trophy == 0)
             {
-                UnlockQuestTree(26);
+                UnlockQuestTree(32);
                 return;
             } else if (trophy == 1 || trophy == 2)
             {
-                UnlockQuestTree(24);
+                UnlockQuestTree(28);
                 return;
             } 
         }
@@ -76,7 +76,7 @@ public class ArrayQuestTree : MonoBehaviour
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_2", out int currentTrophies);
                 if (trophy < 2 && currentTrophies < 2)
                 {
-                    UnlockQuestTree(20);
+                    UnlockQuestTree(24);
                     return;
                 }
             }
@@ -91,7 +91,7 @@ public class ArrayQuestTree : MonoBehaviour
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_1", out int currentTrophies);
                 if (trophy < 2 && currentTrophies < 2)
                 {
-                    UnlockQuestTree(20);
+                    UnlockQuestTree(24);
                     return;
                 }
             }
@@ -103,11 +103,11 @@ public class ArrayQuestTree : MonoBehaviour
 
             if (trophy == 0)
             {
-                UnlockQuestTree(20);
+                UnlockQuestTree(24);
                 return;
             } else if (trophy == 1 || trophy == 2)
             {
-                UnlockQuestTree(18);
+                UnlockQuestTree(20);
                 return;
             } 
         }
@@ -115,7 +115,7 @@ public class ArrayQuestTree : MonoBehaviour
         
         if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 5") && simulationManager.levelCompletionStatus["Array Level 5"] == true)
         {
-            UnlockQuestTree(14);
+            UnlockQuestTree(16);
             return;
         }
 
@@ -130,7 +130,7 @@ public class ArrayQuestTree : MonoBehaviour
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 4 A_2", out int currentTrophies);
                 if (trophy < 2 && currentTrophies < 2)
                 {
-                    UnlockQuestTree(10);
+                    UnlockQuestTree(12);
                     return;
                 }
             }
@@ -145,7 +145,7 @@ public class ArrayQuestTree : MonoBehaviour
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 4 A_1", out int currentTrophies);
                 if (trophy < 2 && currentTrophies < 2)
                 {
-                    UnlockQuestTree(10);
+                    UnlockQuestTree(12);
                     return;
                 }
             }
@@ -158,7 +158,7 @@ public class ArrayQuestTree : MonoBehaviour
 
             if (trophy == 0)
             {
-                UnlockQuestTree(10);
+                UnlockQuestTree(12);
                 return;
             } else if (trophy == 1 || trophy == 2)
             {
