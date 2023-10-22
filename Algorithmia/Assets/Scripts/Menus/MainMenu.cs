@@ -65,6 +65,11 @@ public class MainMenu : MonoBehaviour, IDataPersistence
         //Load leaderboard
     }
 
+    public void NavigateToExternalURL(string url)
+    {
+        Application.OpenURL(url);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
