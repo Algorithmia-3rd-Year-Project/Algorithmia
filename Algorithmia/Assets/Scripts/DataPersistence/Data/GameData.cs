@@ -12,6 +12,7 @@ public class GameData
     public int happinessLevel;
     public int intelligenceLevel;
 
+    public string playerId;
     public string username;
 
     public float totalPlayTime;
@@ -76,6 +77,7 @@ public class GameData
         this.happinessLevel = 0;
         this.intelligenceLevel = 0;
 
+        this.playerId = "";
         this.username = "";
         
         this.totalPlayTime = 0;

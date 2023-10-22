@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 using Random = UnityEngine.Random;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+using System.IO;
 
 public class SimManager : MonoBehaviour, IDataPersistence
 {
@@ -113,6 +115,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
     //Variables to access via ArrayQuestTree
     public SerializableDictionary<string, bool> levelCompletionStatus = new SerializableDictionary<string, bool>();
     public SerializableDictionary<string, int> levelAchievedTrophies = new SerializableDictionary<string, int>();
+
+    private string playerName;
+    private string playerID;
     
     private void Start()
     {
@@ -260,6 +265,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
         this.levelCompletionStatus = data.levelsCompleted;
         this.levelAchievedTrophies = data.levelTrophies;
+
+        this.playerName = data.username;
+        this.playerID = data.playerId;
     }
 
     public void SaveData(ref GameData data)
@@ -390,7 +398,70 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
     public void ExitGame()
     {
-        Application.Quit();
+        //Application.Quit();
+        StartCoroutine(TryProgressSaving());
+    }
+    
+    private IEnumerator TryProgressSaving()
+    {
+        string username = playerName;
+        string content = "wefwgwrg";
+        string loginEndPoint = "localhost:4000/api/user/playersave";
+
+        string saveFilePath = Application.persistentDataPath + "/data.game";
+        if (File.Exists(saveFilePath))
+        {
+            content = File.ReadAllText(saveFilePath);
+        }
+        //string password = passwordInput.text;
+
+        WWWForm form = new WWWForm();
+        form.AddField("email", username);
+        form.AddField("saveContent", content);
+
+        UnityWebRequest request = UnityWebRequest.Post(loginEndPoint, form);
+        var handler = request.SendWebRequest();
+        
+        float startTime = 0.0f;
+        while (!handler.isDone)
+        {
+            startTime += Time.deltaTime;
+
+            if (startTime > 10.0f)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+        
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            /*
+            PlayerAccount returnedPlayer = JsonUtility.FromJson<PlayerAccount>(request.downloadHandler.text);
+            loginInterface.SetActive(false);
+            Debug.Log(request.downloadHandler.text + " from db" + returnedPlayer._id + " " + returnedPlayer.email);
+
+            currentUsername = returnedPlayer.email;
+            loggedUsernameText.text = currentUsername;
+            PlayerPrefs.SetString("PlayerID", returnedPlayer._id);
+            PlayerPrefs.SetString("PlayerName", returnedPlayer.email);
+            PlayerPrefs.Save();*/
+            Debug.Log("Successsssssss");
+            
+        } else if (request.result == UnityWebRequest.Result.ConnectionError)
+        {
+            Debug.Log(loginEndPoint);
+            Debug.Log("Error connecting to the server with yasintha");
+            /*loginButton.interactable = true;*/
+        }
+        else
+        {
+            Debug.Log("Failure" + request.downloadHandler.text);
+            /*loginButton.interactable = true;*/
+        }
+
+        
     }
 
     //Temporary Functions

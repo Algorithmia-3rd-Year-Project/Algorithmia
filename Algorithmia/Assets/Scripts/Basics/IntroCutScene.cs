@@ -36,6 +36,7 @@ public class IntroCutScene : MonoBehaviour, IDataPersistence
     public void SaveData(ref GameData data)
     {
         data.username = PlayerPrefs.GetString("PlayerName");
+        data.playerId = PlayerPrefs.GetString("PlayerID");
         data.energyLevel = this.energyLevel;
         data.happinessLevel = this.happinessLevel;
         data.intelligenceLevel = this.intelligenceLevel;
