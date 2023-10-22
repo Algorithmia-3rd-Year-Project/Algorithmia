@@ -7,14 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
-      [Header("File Storage Config")] [SerializeField]
+      
+      [Header("File Storage Config")] [SerializeField] 
       private string fileName;
+      
+      /*
+      [Header("File Storage Config")] 
+      public string fileName;
+      */
       
       private GameData gameData;
 
       private List<IDataPersistence> dataPersistenceObjects;
 
       private FileDataHandler dataHandler;
+
+      //public string selectedProfileId;
       
       public static DataPersistenceManager instance { get; private set; }
 
@@ -29,6 +37,10 @@ public class DataPersistenceManager : MonoBehaviour
 
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            //newcode begins
+            //fileName = PlayerPrefs.GetString("PlayerName") + ".game";
+            //newcode ends
             
             this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
       }
@@ -66,6 +78,7 @@ public class DataPersistenceManager : MonoBehaviour
       public void LoadGame()
       {
             //Todo - Load any save data from a file
+            //this.gameData = dataHandler.Load(selectedProfileId);
             this.gameData = dataHandler.Load();
             
             //if no data can be loaded, initialize to a new game
@@ -102,6 +115,7 @@ public class DataPersistenceManager : MonoBehaviour
             Debug.Log("Saved coins : " + gameData.coinAmount);
             
             //Todo - save that data to a file using the data handler
+            //dataHandler.Save(gameData, selectedProfileId);
             dataHandler.Save(gameData);
       }
 
