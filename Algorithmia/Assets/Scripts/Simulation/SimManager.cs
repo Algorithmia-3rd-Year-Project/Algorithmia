@@ -399,9 +399,19 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public void ExitGame()
     {
         //Application.Quit();
-        StartCoroutine(TryProgressSaving());
+        if (playerID == "")
+        {
+            Debug.Log("local quit");
+            Application.Quit();
+        }
+        else
+        {
+            StartCoroutine(TryProgressSaving());
+        }
     }
     
+    //Saving player save data in mongodb database
+    //problem - only save the data in file upto coming to the simulation scene last time
     private IEnumerator TryProgressSaving()
     {
         string username = playerName;
@@ -448,6 +458,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
             PlayerPrefs.SetString("PlayerName", returnedPlayer.email);
             PlayerPrefs.Save();*/
             Debug.Log("Successsssssss");
+            Application.Quit();
             
         } else if (request.result == UnityWebRequest.Result.ConnectionError)
         {
