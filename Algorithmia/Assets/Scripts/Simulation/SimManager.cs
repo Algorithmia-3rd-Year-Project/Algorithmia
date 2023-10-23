@@ -80,6 +80,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     private bool optionalQuestIntroMessageShown;
     [SerializeField] private GameObject optionalQuestIntroMessageBox;
 
+    public bool hasAJob;
     public bool hasGraphicCard;
     [SerializeField] private GameObject graphicCardMissingBox;
     [SerializeField] private GameObject gamesListPanel;
@@ -261,6 +262,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.memoryGameUnlocked = data.memoryGameUnlocked;
         this.memoryGameUnlockedMessageShown = data.memoryGameUnlockedMessageShown;
 
+        this.hasAJob = data.hasAJob;
         this.hasGraphicCard = data.hasGraphicCard;
 
         this.levelCompletionStatus = data.levelsCompleted;
@@ -303,6 +305,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.simulationIntroPlayTimeReached = this.initialIntroPlayTimeReached;
         data.questTreeIntroDisplayed = this.questTreeIntroduced;
 
+        data.hasAJob = this.hasAJob;
+        
         data.memoryGameUnlocked = this.memoryGameUnlocked;
         data.memoryGameUnlockedMessageShown = this.memoryGameUnlockedMessageShown;
     }
