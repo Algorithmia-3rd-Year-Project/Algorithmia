@@ -63,6 +63,10 @@ public class GameData
     public bool memoryGameUnlocked;
     public bool memoryGameUnlockedMessageShown;
 
+    public bool hasAJob;
+    public bool hasOngoingLoan;
+    public float loanAmount;
+    public int loanTerm;
     public bool hasGraphicCard;
     
     public SerializableDictionary<string, bool> levelsCompleted;
@@ -122,6 +126,10 @@ public class GameData
         this.memoryGameUnlocked = false;
         this.memoryGameUnlockedMessageShown = false;
 
+        this.hasAJob = false;
+        this.hasOngoingLoan = false;
+        this.loanAmount = 0f;
+        this.loanTerm = 0;
         this.hasGraphicCard = false;
 
         this.levelsCompleted = new SerializableDictionary<string, bool>();
