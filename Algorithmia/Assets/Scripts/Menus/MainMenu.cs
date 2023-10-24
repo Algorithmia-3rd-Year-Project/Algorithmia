@@ -11,11 +11,15 @@ public class MainMenu : MonoBehaviour, IDataPersistence
 
     [SerializeField] private TMP_InputField guestNameInput;
     [SerializeField] private TMP_Text loggedUsernameText;
+    [SerializeField] private GameObject guestNameInputPanel;
 
     [SerializeField] private GameObject newGameObjects;
     [SerializeField] private GameObject continueGameObjects;
 
     public string currentUsername;
+    
+    [SerializeField] private GameObject loginSuccessfulMessage;
+    [SerializeField] private GameObject errorConnectingToServerMessage;
     
     private void Start()
     {
@@ -32,15 +36,39 @@ public class MainMenu : MonoBehaviour, IDataPersistence
         loggedUsernameText.text = currentUsername;
     }
 
+    private void Update()
+    {
+        if (loginSuccessfulMessage.activeSelf)
+        {
+            StartCoroutine(HideMessage(loginSuccessfulMessage));
+        }
+
+        if (errorConnectingToServerMessage.activeSelf)
+        {
+            StartCoroutine(HideMessage(errorConnectingToServerMessage));
+        }
+    }
+
     public void SaveGuestName()
     {
         currentUsername = guestNameInput.text;
+        if (currentUsername == "")
+        {
+            Debug.Log("Username cannot be empty");
+            return;
+        } else if (currentUsername.Length < 5)
+        {
+            Debug.Log("Username must have at least 5 letters");
+            return;
+        }
+        
         loggedUsernameText.text = currentUsername;
         //changing the folder name of the saved file creating
         //DataPersistenceManager.instance.selectedProfileId = currentUsername;
         PlayerPrefs.SetString("PlayerID", "");
         PlayerPrefs.SetString("PlayerName", currentUsername);
         PlayerPrefs.Save();
+        guestNameInputPanel.SetActive(false);
     }
 
     public void PlayNewGame()
@@ -84,5 +112,12 @@ public class MainMenu : MonoBehaviour, IDataPersistence
     public void SaveData(ref GameData data)
     {
         //data.username = PlayerPrefs.GetString("PlayerName");
+    }
+    
+    private IEnumerator HideMessage(GameObject currentObj)
+    {
+        yield return new WaitForSeconds(3f);
+        currentObj.SetActive(false);
+        
     }
 }

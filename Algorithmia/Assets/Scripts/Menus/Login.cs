@@ -19,6 +19,11 @@ public class Login : MonoBehaviour
 
     public string currentUsername;
     [SerializeField] private TMP_Text loggedUsernameText;
+
+    [SerializeField] private GameObject errorMessageText;
+    private bool errorIsVisible;
+    [SerializeField] private GameObject loginSuccessfulMessage;
+    [SerializeField] private GameObject errorConnectingToServerMessage;
     
     public void OnLoginClick()
     {
@@ -63,19 +68,42 @@ public class Login : MonoBehaviour
             PlayerPrefs.SetString("PlayerID", returnedPlayer._id);
             PlayerPrefs.SetString("PlayerName", returnedPlayer.email);
             PlayerPrefs.Save();
-            
+            loginSuccessfulMessage.SetActive(true);
+
         } else if (request.result == UnityWebRequest.Result.ConnectionError)
         {
             Debug.Log(loginEndPoint);
+            errorConnectingToServerMessage.SetActive(true);
             Debug.Log("Error connecting to the server with yasintha");
             loginButton.interactable = true;
         }
         else
         {
+            if (!errorIsVisible)
+            {
+                StopCoroutine(HideMessage(errorMessageText));
+                errorIsVisible = !errorIsVisible;
+            }
+            
+            errorMessageText.SetActive(true);
+            errorMessageText.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = request.downloadHandler.text;
+            if (errorIsVisible)
+            {
+                errorIsVisible = false;
+                StartCoroutine(HideMessage(errorMessageText));
+            }
             Debug.Log("Failure" + request.downloadHandler.text);
             loginButton.interactable = true;
         }
 
         
+    }
+
+    private IEnumerator HideMessage(GameObject currentObj)
+    {
+        yield return new WaitForSeconds(3f);
+        currentObj.SetActive(false);
+        //errorIsVisible = false;
+
     }
 }
