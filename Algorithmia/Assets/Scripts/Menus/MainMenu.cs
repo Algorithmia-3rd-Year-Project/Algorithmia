@@ -18,6 +18,9 @@ public class MainMenu : MonoBehaviour, IDataPersistence
 
     public string currentUsername;
     
+    [SerializeField] private GameObject loginSuccessfulMessage;
+    [SerializeField] private GameObject errorConnectingToServerMessage;
+    
     private void Start()
     {
         if (!DataPersistenceManager.instance.HasGameData())
@@ -31,6 +34,19 @@ public class MainMenu : MonoBehaviour, IDataPersistence
             newGameObjects.SetActive(false);
         }
         loggedUsernameText.text = currentUsername;
+    }
+
+    private void Update()
+    {
+        if (loginSuccessfulMessage.activeSelf)
+        {
+            StartCoroutine(HideMessage(loginSuccessfulMessage));
+        }
+
+        if (errorConnectingToServerMessage.activeSelf)
+        {
+            StartCoroutine(HideMessage(errorConnectingToServerMessage));
+        }
     }
 
     public void SaveGuestName()
@@ -96,5 +112,12 @@ public class MainMenu : MonoBehaviour, IDataPersistence
     public void SaveData(ref GameData data)
     {
         //data.username = PlayerPrefs.GetString("PlayerName");
+    }
+    
+    private IEnumerator HideMessage(GameObject currentObj)
+    {
+        yield return new WaitForSeconds(3f);
+        currentObj.SetActive(false);
+        
     }
 }
