@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour, IDataPersistence
 
     [SerializeField] private TMP_InputField guestNameInput;
     [SerializeField] private TMP_Text loggedUsernameText;
+    [SerializeField] private GameObject guestNameInputPanel;
 
     [SerializeField] private GameObject newGameObjects;
     [SerializeField] private GameObject continueGameObjects;
@@ -35,12 +36,23 @@ public class MainMenu : MonoBehaviour, IDataPersistence
     public void SaveGuestName()
     {
         currentUsername = guestNameInput.text;
+        if (currentUsername == "")
+        {
+            Debug.Log("Username cannot be empty");
+            return;
+        } else if (currentUsername.Length < 5)
+        {
+            Debug.Log("Username must have at least 5 letters");
+            return;
+        }
+        
         loggedUsernameText.text = currentUsername;
         //changing the folder name of the saved file creating
         //DataPersistenceManager.instance.selectedProfileId = currentUsername;
         PlayerPrefs.SetString("PlayerID", "");
         PlayerPrefs.SetString("PlayerName", currentUsername);
         PlayerPrefs.Save();
+        guestNameInputPanel.SetActive(false);
     }
 
     public void PlayNewGame()
