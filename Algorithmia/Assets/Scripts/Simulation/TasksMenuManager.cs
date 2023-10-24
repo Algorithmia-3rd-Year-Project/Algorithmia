@@ -67,6 +67,9 @@ public class TasksMenuManager : MonoBehaviour
             simulationManager.lastBookReadTime = Time.time;
             bookReadPanel.SetActive(true);
             bookNameText.text = "You have read " + taskManager.BookName() + ". ";
+            
+            simulationManager.transactionsNames.Add("Read a Book");
+            simulationManager.transactionsCosts.Add("-40");
         }
         else
         {
@@ -173,6 +176,9 @@ public class TasksMenuManager : MonoBehaviour
             simulationManager.lastGamePlayedTime = Time.time;
             playGamePanel.SetActive(true);
             playGameText.text = "You have played " + taskManager.GameName() + ". ";
+            
+            simulationManager.transactionsNames.Add("Played a Game");
+            simulationManager.transactionsCosts.Add("-40");
         }
         else
         {
@@ -202,6 +208,9 @@ public class TasksMenuManager : MonoBehaviour
             simulationManager.lastMovieWatchedTime = Time.time;
             watchMoviePanel.SetActive(true);
             watchMovieText.text = "You have watched " + taskManager.MovieName() + ". ";
+            
+            simulationManager.transactionsNames.Add("Watched a Movie");
+            simulationManager.transactionsCosts.Add("-40");
         }
         else
         {
