@@ -120,6 +120,10 @@ public class SimManager : MonoBehaviour, IDataPersistence
     private string playerName;
     private string playerID;
     
+    //Dictionary To Store transaction data
+    public List<string> transactionsNames;
+    public List<string> transactionsCosts;
+    
     private void Start()
     {
         Debug.Log(Application.persistentDataPath);
@@ -270,6 +274,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
         this.playerName = data.username;
         this.playerID = data.playerId;
+
+        this.transactionsNames = data.transactionNames;
+        this.transactionsCosts = data.transactionCosts;
     }
 
     public void SaveData(ref GameData data)
@@ -306,6 +313,9 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.questTreeIntroDisplayed = this.questTreeIntroduced;
 
         data.hasAJob = this.hasAJob;
+
+        data.transactionNames = this.transactionsNames;
+        data.transactionCosts = this.transactionsCosts;
         
         data.memoryGameUnlocked = this.memoryGameUnlocked;
         data.memoryGameUnlockedMessageShown = this.memoryGameUnlockedMessageShown;

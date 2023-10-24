@@ -68,6 +68,9 @@ public class GameData
     public float loanAmount;
     public int loanTerm;
     public bool hasGraphicCard;
+
+    public List<string> transactionNames;
+    public List<string> transactionCosts;
     
     public SerializableDictionary<string, bool> levelsCompleted;
     public SerializableDictionary<string, int> levelTrophies;
@@ -131,6 +134,9 @@ public class GameData
         this.loanAmount = 0f;
         this.loanTerm = 0;
         this.hasGraphicCard = false;
+
+        this.transactionNames = new List<string>();
+        this.transactionCosts = new List<string>();
 
         this.levelsCompleted = new SerializableDictionary<string, bool>();
         this.levelTrophies = new SerializableDictionary<string, int>();

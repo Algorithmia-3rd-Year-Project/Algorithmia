@@ -31,13 +31,18 @@ public class BankManager : MonoBehaviour, IDataPersistence
     [SerializeField] private TMP_Text loanAmountTextAfter;
     [SerializeField] private TMP_Text loanTermTextAfter;
 
+    [SerializeField] private GameObject transactionPrefab;
+    [SerializeField] private Transform transactionPrefabParent;
+
     private void Start()
     {
         if (hasOnGoingLoan)
         {
             onGoingLoanWindow.SetActive(true);
             loanDefault.SetActive(false);
-        } 
+        }
+
+        GenerateTransactionsLog();
     }
 
     private void Update()
@@ -54,6 +59,8 @@ public class BankManager : MonoBehaviour, IDataPersistence
             loanAmountTextAfter.text = loanAmount.ToString("F0");
             loanTermTextAfter.text = loanTerm.ToString();
         }
+        
+        
     }
 
     public void LoadData(GameData data)
@@ -106,6 +113,34 @@ public class BankManager : MonoBehaviour, IDataPersistence
     {
         yield return new WaitForSeconds(3f);
         loanFailWindow.SetActive(false);
+    }
+
+    private void GenerateTransactionsLog()
+    {
+        //Clear the previously generated log items
+        for (int i = 0; i < transactionPrefabParent.childCount; i++)
+        {
+            Destroy(transactionPrefabParent.GetChild(i).gameObject);
+        }
+        
+        for (int i = 0; i < simulationManager.transactionsNames.Count; i++)
+        {
+            GameObject generatedPrefab = Instantiate(transactionPrefab);
+            generatedPrefab.transform.SetParent(transactionPrefabParent);
+            generatedPrefab.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            
+            //Add values for the transaction object
+            generatedPrefab.transform.Find("Transaction Name").gameObject.GetComponent<TMP_Text>().text =
+                simulationManager.transactionsNames[i];
+            generatedPrefab.transform.Find("Price").gameObject.GetComponent<TMP_Text>().text =
+                simulationManager.transactionsCosts[i];
+
+        }
+    }
+
+    public void OpenBank()
+    {
+        GenerateTransactionsLog();
     }
     
 }
