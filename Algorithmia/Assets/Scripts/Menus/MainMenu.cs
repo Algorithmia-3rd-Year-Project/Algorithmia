@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour, IDataPersistence
     
     [SerializeField] private GameObject loginSuccessfulMessage;
     [SerializeField] private GameObject errorConnectingToServerMessage;
+    [SerializeField] private GameObject errorMessageText;
     
     private void Start()
     {
@@ -47,6 +48,11 @@ public class MainMenu : MonoBehaviour, IDataPersistence
         {
             StartCoroutine(HideMessage(errorConnectingToServerMessage));
         }
+
+        if (errorMessageText.activeSelf)
+        {
+            StartCoroutine(HideMessage(errorMessageText));
+        }
     }
 
     public void SaveGuestName()
@@ -55,10 +61,14 @@ public class MainMenu : MonoBehaviour, IDataPersistence
         if (currentUsername == "")
         {
             Debug.Log("Username cannot be empty");
+            errorMessageText.SetActive(true);
+            errorMessageText.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = "Username cannot be empty";
             return;
         } else if (currentUsername.Length < 5)
         {
             Debug.Log("Username must have at least 5 letters");
+            errorMessageText.SetActive(true);
+            errorMessageText.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = "Must have atleast 5 letters";
             return;
         }
         
