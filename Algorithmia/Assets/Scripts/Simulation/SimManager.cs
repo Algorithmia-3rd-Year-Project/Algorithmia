@@ -123,6 +123,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
     //Dictionary To Store transaction data
     public List<string> transactionsNames;
     public List<string> transactionsCosts;
+
+    public List<string> skillsList;
     
     private void Start()
     {
@@ -277,6 +279,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
         this.transactionsNames = data.transactionNames;
         this.transactionsCosts = data.transactionCosts;
+
+        this.skillsList = data.skills;
     }
 
     public void SaveData(ref GameData data)
@@ -316,6 +320,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
         data.transactionNames = this.transactionsNames;
         data.transactionCosts = this.transactionsCosts;
+
+        data.skills = this.skillsList;
         
         data.memoryGameUnlocked = this.memoryGameUnlocked;
         data.memoryGameUnlockedMessageShown = this.memoryGameUnlockedMessageShown;

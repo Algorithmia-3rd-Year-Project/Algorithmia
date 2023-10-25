@@ -8,6 +8,7 @@ public class Leisure
     public List<string> books;
     public List<string> movies;
     public List<string> games;
+    public List<string> skills;
 
 
 }
