@@ -24,6 +24,7 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private TMP_Text jobFieldText;
     [SerializeField] private TMP_Text jobSalaryText;
     [SerializeField] private TMP_Text jobCompanyText;
+    [SerializeField] private Transform requirementHandle;
     
     private void Awake()
     {
@@ -50,6 +51,7 @@ public class CareerManager : MonoBehaviour
             singleCareerScript.fieldName = career.field;
             singleCareerScript.salaryAmount = career.salary;
             singleCareerScript.companyName = career.employer;
+            singleCareerScript.requirements = career.requirements;
 
             string imagePath = "Careers/" + career.jobIcon;
             Sprite loadedImage = LoadSprite(imagePath);
@@ -96,5 +98,17 @@ public class CareerManager : MonoBehaviour
         jobFieldText.text = job.fieldName;
         jobSalaryText.text = job.salaryAmount;
         jobCompanyText.text = job.companyName;
+        
+        //Adding requirements
+        List<TMP_Text> requirementGameObjects = new List<TMP_Text>();
+        for (int i = 0; i < requirementHandle.childCount; i++)
+        {
+            requirementGameObjects.Add(requirementHandle.GetChild(i).GetComponent<TMP_Text>());
+        }
+        
+        for(int i=0; i < job.requirements.Length; i++)
+        {
+            requirementGameObjects[i].text = "- " + job.requirements[i];
+        }
     }
 }
