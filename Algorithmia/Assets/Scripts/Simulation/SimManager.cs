@@ -125,6 +125,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public List<string> transactionsCosts;
 
     public List<string> skillsList;
+    public List<string> myJobs;
     
     private void Start()
     {
@@ -281,6 +282,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.transactionsCosts = data.transactionCosts;
 
         this.skillsList = data.skills;
+        this.myJobs = data.jobs;
     }
 
     public void SaveData(ref GameData data)
@@ -322,6 +324,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.transactionCosts = this.transactionsCosts;
 
         data.skills = this.skillsList;
+        data.jobs = this.myJobs;
         
         data.memoryGameUnlocked = this.memoryGameUnlocked;
         data.memoryGameUnlockedMessageShown = this.memoryGameUnlockedMessageShown;

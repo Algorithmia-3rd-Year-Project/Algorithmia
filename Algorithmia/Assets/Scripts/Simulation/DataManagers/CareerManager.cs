@@ -31,6 +31,7 @@ public class CareerManager : MonoBehaviour
 
     [SerializeField] private GameObject requirementNotMetWindow;
     [SerializeField] private GameObject jobSelectedWindow;
+    [SerializeField] private GameObject alreadyHaveAJobWindow;
     
     private void Awake()
     {
@@ -63,6 +64,16 @@ public class CareerManager : MonoBehaviour
             Sprite loadedImage = LoadSprite(imagePath);
 
             singleCareerScript.jobIconImage.sprite = loadedImage;
+
+            //Making the current job as the topmost job on the list
+            /*
+            if (simManager.myJobs.Count > 0 && simManager.hasAJob)
+            {
+                if (career.jobName == simManager.myJobs[0])
+                {
+                    singleCareer.transform.SetAsFirstSibling();
+                }
+            }*/
             
 
             //Debug.Log($"Career ID: {career.id}, jobname: {career.jobName}, Field: {career.field}");
@@ -106,7 +117,7 @@ public class CareerManager : MonoBehaviour
         jobCompanyText.text = job.companyName;
         
         applyButton.onClick.RemoveAllListeners();
-        applyButton.onClick.AddListener(() => ApplyJobOnClicked(job.requirements));
+        applyButton.onClick.AddListener(() => ApplyJobOnClicked(job.requirements, job.jobName));
         
         //Adding requirements
         List<TMP_Text> requirementGameObjects = new List<TMP_Text>();
@@ -122,30 +133,39 @@ public class CareerManager : MonoBehaviour
         }
     }
 
-    public void ApplyJobOnClicked(string[] requirements)
+    public void ApplyJobOnClicked(string[] requirements, string jobName)
     {
-        bool achieved = false;
-        foreach (string requirement in requirements)
+        if (!simManager.hasAJob)
         {
-            
-            for (int i = 0; i < simManager.skillsList.Count; i++)
+            bool achieved = false;
+            foreach (string requirement in requirements)
             {
-                if (requirement == simManager.skillsList[i])
+            
+                for (int i = 0; i < simManager.skillsList.Count; i++)
                 {
-                    achieved = true;
+                    if (requirement == simManager.skillsList[i])
+                    {
+                        achieved = true;
+                    }
+                }
+
+                if (!achieved)
+                {
+                    requirementNotMetWindow.SetActive(true);
+                    return;
                 }
             }
 
-            if (!achieved)
+            if (achieved)
             {
-                requirementNotMetWindow.SetActive(true);
-                return;
+                simManager.hasAJob = true;
+                simManager.myJobs.Add(jobName);
+                jobSelectedWindow.SetActive(true);
             }
         }
-
-        if (achieved)
+        else
         {
-            jobSelectedWindow.SetActive(true);
+            alreadyHaveAJobWindow.SetActive(true);
         }
     }
 }

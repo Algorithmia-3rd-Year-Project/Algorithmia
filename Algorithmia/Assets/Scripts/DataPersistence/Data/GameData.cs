@@ -73,6 +73,7 @@ public class GameData
     public List<string> transactionCosts;
 
     public List<string> skills;
+    public List<string> jobs;
     
     public SerializableDictionary<string, bool> levelsCompleted;
     public SerializableDictionary<string, int> levelTrophies;
@@ -141,6 +142,7 @@ public class GameData
         this.transactionCosts = new List<string>();
 
         this.skills = new List<string>();
+        this.jobs = new List<string>();
 
         this.levelsCompleted = new SerializableDictionary<string, bool>();
         this.levelTrophies = new SerializableDictionary<string, int>();
