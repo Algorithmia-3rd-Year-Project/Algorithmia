@@ -14,4 +14,10 @@ public class SingleJob : MonoBehaviour
     public TMP_Text salaryText;
 
     public Image jobIconImage;
+
+    public string jobName;
+    public string fieldName;
+    public string salaryAmount;
+    public string companyName;
+    public string[] requirements;
 }
