@@ -881,7 +881,7 @@ public class ArrayBlockManager : MonoBehaviour
     }
 
     //To change the layer of each objects when they are being dragged from one camera view to another
-    private void ChangeBlockLayer(Transform currentObj, string layerName)
+    public void ChangeBlockLayer(Transform currentObj, string layerName)
     {
         if (currentObj != null)
         {
@@ -896,7 +896,7 @@ public class ArrayBlockManager : MonoBehaviour
     }
 
     //Have to delete both the block and its snap points that was assigned to the level manager
-    private void DestroyBlocks(GameObject currentObj)
+    public void DestroyBlocks(GameObject currentObj)
     {
         Debug.Log("Block Destroed");
         Transform snapPointsListObj = currentObj.transform.Find("Snap Points");
