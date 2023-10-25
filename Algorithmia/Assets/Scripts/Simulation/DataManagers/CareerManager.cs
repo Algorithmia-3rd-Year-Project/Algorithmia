@@ -17,6 +17,8 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private Transform careerParent;
 
     private List<Button> careerButtonList;
+
+    [SerializeField] private SimManager simManager;
     
     //Job Info Panel
     [SerializeField] private GameObject careerInfoWindow;
@@ -25,6 +27,11 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private TMP_Text jobSalaryText;
     [SerializeField] private TMP_Text jobCompanyText;
     [SerializeField] private Transform requirementHandle;
+    [SerializeField] private Button applyButton;
+
+    [SerializeField] private GameObject requirementNotMetWindow;
+    [SerializeField] private GameObject jobSelectedWindow;
+    [SerializeField] private GameObject alreadyHaveAJobWindow;
     
     private void Awake()
     {
@@ -57,6 +64,16 @@ public class CareerManager : MonoBehaviour
             Sprite loadedImage = LoadSprite(imagePath);
 
             singleCareerScript.jobIconImage.sprite = loadedImage;
+
+            //Making the current job as the topmost job on the list
+            /*
+            if (simManager.myJobs.Count > 0 && simManager.hasAJob)
+            {
+                if (career.jobName == simManager.myJobs[0])
+                {
+                    singleCareer.transform.SetAsFirstSibling();
+                }
+            }*/
             
 
             //Debug.Log($"Career ID: {career.id}, jobname: {career.jobName}, Field: {career.field}");
@@ -99,16 +116,56 @@ public class CareerManager : MonoBehaviour
         jobSalaryText.text = job.salaryAmount;
         jobCompanyText.text = job.companyName;
         
+        applyButton.onClick.RemoveAllListeners();
+        applyButton.onClick.AddListener(() => ApplyJobOnClicked(job.requirements, job.jobName));
+        
         //Adding requirements
         List<TMP_Text> requirementGameObjects = new List<TMP_Text>();
         for (int i = 0; i < requirementHandle.childCount; i++)
         {
+            requirementHandle.GetChild(i).GetComponent<TMP_Text>().text = "";
             requirementGameObjects.Add(requirementHandle.GetChild(i).GetComponent<TMP_Text>());
         }
         
         for(int i=0; i < job.requirements.Length; i++)
         {
             requirementGameObjects[i].text = "- " + job.requirements[i];
+        }
+    }
+
+    public void ApplyJobOnClicked(string[] requirements, string jobName)
+    {
+        if (!simManager.hasAJob)
+        {
+            bool achieved = false;
+            foreach (string requirement in requirements)
+            {
+            
+                for (int i = 0; i < simManager.skillsList.Count; i++)
+                {
+                    if (requirement == simManager.skillsList[i])
+                    {
+                        achieved = true;
+                    }
+                }
+
+                if (!achieved)
+                {
+                    requirementNotMetWindow.SetActive(true);
+                    return;
+                }
+            }
+
+            if (achieved)
+            {
+                simManager.hasAJob = true;
+                simManager.myJobs.Add(jobName);
+                jobSelectedWindow.SetActive(true);
+            }
+        }
+        else
+        {
+            alreadyHaveAJobWindow.SetActive(true);
         }
     }
 }

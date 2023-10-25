@@ -24,7 +24,7 @@ public class BankManager : MonoBehaviour, IDataPersistence
 
     private float loanRoundValue;
 
-    private bool hasOnGoingLoan;
+    public bool hasOnGoingLoan;
     private float loanAmount;
     private int loanTerm;
 
