@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -25,6 +26,14 @@ public class MemoryGameManager : MonoBehaviour
     
     public string firstGuessName;
     public string secondGuessName;
+
+    [SerializeField] private TMP_Text matchesCountText;
+    [SerializeField] private TMP_Text movesCountText;
+
+    private int movesCount;
+    private int matchesCount;
+
+    [SerializeField] private GameObject dataStructuresList;
     
     private void Awake()
     {
@@ -41,6 +50,12 @@ public class MemoryGameManager : MonoBehaviour
     {
         GetButtons();
         AddListeners();
+    }
+
+    private void Update()
+    {
+        movesCountText.text = (movesCount < 10) ? "0" + movesCount : movesCount.ToString();
+        matchesCountText.text = (matchesCount < 10) ? "0" + matchesCount : matchesCount.ToString();
     }
 
     private void GetButtons()
@@ -80,6 +95,8 @@ public class MemoryGameManager : MonoBehaviour
         string[] substrings = flippedImageName.Split('-');
         string checkName = substrings[0] + " " + substrings[1];
         
+        movesCount++;
+        
         if (!firstGuess)
         {
             frontImage.SetActive(false);
@@ -113,7 +130,9 @@ public class MemoryGameManager : MonoBehaviour
             //change buttons color to greyish color
             CorrectBoxEffect(firstGuessObject);
             CorrectBoxEffect(secondGuessObject);
-
+            
+            matchesCount++;
+            
             firstGuessName = "";
             secondGuessName = "";
         }
@@ -150,7 +169,7 @@ public class MemoryGameManager : MonoBehaviour
     }
     
     //Shuffle the list using Fisher-Yates Shuffle Algorithm
-    void ShuffleList<T>(List<T> list)
+    private void ShuffleList<T>(List<T> list)
     {
         int n = list.Count;
         for (int i = 0; i < n - 1; i++)
@@ -159,6 +178,18 @@ public class MemoryGameManager : MonoBehaviour
             T temp = list[i];
             list[i] = list[randIndex];
             list[randIndex] = temp;
+        }
+    }
+
+    public void SelectDataStructure()
+    {
+        if (!dataStructuresList.activeSelf)
+        {
+            dataStructuresList.SetActive(true);
+        }
+        else
+        {
+            dataStructuresList.SetActive(false);
         }
     }
 }
