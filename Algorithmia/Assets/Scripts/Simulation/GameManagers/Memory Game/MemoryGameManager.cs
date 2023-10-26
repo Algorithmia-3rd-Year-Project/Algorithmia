@@ -34,6 +34,9 @@ public class MemoryGameManager : MonoBehaviour
     private int matchesCount;
 
     [SerializeField] private GameObject dataStructuresList;
+    [SerializeField] private SimManager simulationManager;
+    [SerializeField] private List<GameObject> hiddenTargets;
+    [SerializeField] private List<GameObject> visibleTargets;
     
     private void Awake()
     {
@@ -56,6 +59,25 @@ public class MemoryGameManager : MonoBehaviour
     {
         movesCountText.text = (movesCount < 10) ? "0" + movesCount : movesCount.ToString();
         matchesCountText.text = (matchesCount < 10) ? "0" + matchesCount : matchesCount.ToString();
+
+        if (movesCount > 30)
+        {
+            hiddenTargets[0].SetActive(true);
+            visibleTargets[0].SetActive(false);
+        }
+
+        if (movesCount > 50)
+        {
+            hiddenTargets[1].SetActive(true);
+            visibleTargets[1].SetActive(false);
+        }
+
+        if (movesCount > 90)
+        {
+            hiddenTargets[2].SetActive(true);
+            visibleTargets[2].SetActive(false);
+        }
+        
     }
 
     private void GetButtons()
