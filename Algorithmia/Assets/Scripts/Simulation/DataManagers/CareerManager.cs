@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class CareerManager : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private GameObject requirementNotMetWindow;
     [SerializeField] private GameObject jobSelectedWindow;
     [SerializeField] private GameObject alreadyHaveAJobWindow;
+
+    private List<Transform> childList;
     
     private void Awake()
     {
@@ -46,6 +49,7 @@ public class CareerManager : MonoBehaviour
         foreach (CareerData career in careerList.careers)
         {
             GameObject singleCareer = Instantiate(careerPrefab, careerParent);
+            childList.Add(singleCareer.transform);
             SingleJob singleCareerScript = singleCareer.GetComponent<SingleJob>();
             Button singleJobButton = singleCareer.GetComponent<Button>();
             careerButtonList.Add(singleJobButton);
@@ -166,6 +170,24 @@ public class CareerManager : MonoBehaviour
         else
         {
             alreadyHaveAJobWindow.SetActive(true);
+        }
+    }
+    
+    //Refresh Available Job List
+    public void ShuffleJobs()
+    {
+        for (int i = 0; i < childList.Count; i++)
+        {
+            int randomIndex = Random.Range(i, childList.Count);
+            Transform temp = childList[i];
+            childList[i] = childList[randomIndex];
+            childList[randomIndex] = temp;
+        }
+
+        // Reorder the child objects
+        for (int i = 1; i < childList.Count; i++)
+        {
+            childList[i].SetSiblingIndex(i);
         }
     }
 }
