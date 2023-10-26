@@ -20,8 +20,8 @@ public class MemoryGameManager : MonoBehaviour
     private bool firstGuess;
     private bool secondGuess;
 
-    private GameObject firstGuessObject;
-    private GameObject secondGuessObject;
+    public GameObject firstGuessObject;
+    public GameObject secondGuessObject;
     
     public string firstGuessName;
     public string secondGuessName;
@@ -91,7 +91,7 @@ public class MemoryGameManager : MonoBehaviour
         {
             frontImage.SetActive(false);
             flippedImage.SetActive(true);
-            firstGuess = true;
+            secondGuess = true;
             secondGuessName = checkName;
             secondGuessObject = currentObj.gameObject;
 
@@ -101,11 +101,11 @@ public class MemoryGameManager : MonoBehaviour
 
     private IEnumerator CheckStatus()
     {
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
 
         if (firstGuessName == secondGuessName)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.8f);
 
             firstGuessObject.GetComponent<Button>().interactable = false;
             secondGuessObject.GetComponent<Button>().interactable = false;
@@ -113,19 +113,26 @@ public class MemoryGameManager : MonoBehaviour
             //change buttons color to greyish color
             CorrectBoxEffect(firstGuessObject);
             CorrectBoxEffect(secondGuessObject);
+
+            firstGuessName = "";
+            secondGuessName = "";
         }
         else
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.3f);
 
             ResetGuessedBlocks(firstGuessObject);
             ResetGuessedBlocks(secondGuessObject);
+            firstGuessName = "";
+            secondGuessName = "";
         }
 
-        yield return new WaitForSeconds(0.5f);
+        
+        //yield return new WaitForSeconds(0.5f);
         firstGuess = secondGuess = false;
+        firstGuessObject = secondGuessObject = null;
         //firstGuessName = secondGuessName = "";
-        //firstGuessObject = secondGuessObject = null;
+        
     }
 
     private void ResetGuessedBlocks(GameObject currentObj)
