@@ -64,6 +64,7 @@ public class ArrayLevel1BlockManager : MonoBehaviour
     [SerializeField] private ScrollRect scrollRect;
 
     [SerializeField] private Transform blockTriggerPoint;
+    
     private void Start()
     {
         workspaceLayer = LayerMask.NameToLayer("Workspace");

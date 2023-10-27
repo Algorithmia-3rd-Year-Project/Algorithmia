@@ -24,6 +24,8 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Image[] trophyImages;
 
     private bool memoryGameUnlocked;
+
+    [SerializeField] private List<GameObject> notesList;
     
     private void Start()
     {
@@ -144,6 +146,20 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     {
         scenePlayTime = Time.time - sceneStartTime; 
         SceneManager.LoadSceneAsync("Scenes/Simulation");
+    }
+
+    public void SwipeNotes(bool forward)
+    {
+        if (forward)
+        {
+            notesList[0].SetActive(false);
+            notesList[1].SetActive(true);
+        }
+        else
+        {
+            notesList[1].SetActive(false);
+            notesList[0].SetActive(true);
+        }
     }
     
 }
