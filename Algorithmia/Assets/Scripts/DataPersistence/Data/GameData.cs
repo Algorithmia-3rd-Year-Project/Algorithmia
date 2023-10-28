@@ -80,6 +80,8 @@ public class GameData
     public List<bool> memoryGameObjectives;
 
     public List<bool> emailStatus;
+
+    public bool freelance1Done;
     
     public SerializableDictionary<string, bool> levelsCompleted;
     public SerializableDictionary<string, int> levelTrophies;
@@ -155,6 +157,8 @@ public class GameData
         this.memoryGameObjectives = new List<bool>();
 
         this.emailStatus = new List<bool>();
+
+        this.freelance1Done = false;
         
         this.levelsCompleted = new SerializableDictionary<string, bool>();
         this.levelTrophies = new SerializableDictionary<string, int>();
