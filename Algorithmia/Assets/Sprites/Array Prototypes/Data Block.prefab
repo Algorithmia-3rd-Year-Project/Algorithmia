@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 2109678733618294993}
   - component: {fileID: 4125207182558800022}
   - component: {fileID: 598441878}
+  - component: {fileID: 598441876}
   - component: {fileID: 598441879}
   m_Layer: 8
   m_Name: Data Block
@@ -193,6 +194,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &598441876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5494610160991775998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d473cd63577cc45be3aca912e359fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: a
+  moving: 0
+  snapRadius: 1
+  levelManager: {fileID: 0}
 --- !u!114 &598441879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,9 +223,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resetPosition: {x: 0, y: 0, z: 0}
-  snapRadius: 0.5
-  snapped: 0
-  dataValue: 
-  originalScale: {x: 0, y: 0, z: 0}
-  setTriggers: 0
-  guideMark: {fileID: 0}
