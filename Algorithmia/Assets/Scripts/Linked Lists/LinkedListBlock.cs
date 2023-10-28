@@ -18,6 +18,14 @@ public class LinkedListBlock : MonoBehaviour
 
     public GameObject pseudoElement;
 
+    public bool snapped;
+
+    public string currentNodeName;
+
+    public string previouseNodeName;
+
+    public GameObject triggerNode;
+
     private void Start()
     {
         inWorkspace = false;
@@ -28,7 +36,6 @@ public class LinkedListBlock : MonoBehaviour
         if (collision.gameObject.CompareTag("Workspace"))
         {
             inWorkspace = true;
-            Debug.Log("In");
         }
     }
 
@@ -37,7 +44,6 @@ public class LinkedListBlock : MonoBehaviour
         if (collision.gameObject.CompareTag("Workspace"))
         {
             inWorkspace = false;
-            Debug.Log("out");
         }
     }
 

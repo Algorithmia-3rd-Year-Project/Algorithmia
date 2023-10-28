@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LinkedListLineManager : MonoBehaviour
 {
@@ -16,6 +18,13 @@ public class LinkedListLineManager : MonoBehaviour
 
     [SerializeField]
     private LinkedListLevelManager levelManager;
+
+    public Linkedlistblockmanager blockManager;
+
+    [SerializeField] private ScrollRect scrollRect;
+
+    [SerializeField]
+    private float typingSpeed;
 
     private List<Vector2> resetPathsForCollider = new List<Vector2>()
     {
@@ -44,9 +53,7 @@ public class LinkedListLineManager : MonoBehaviour
                 {
                     if (singleHit.collider.CompareTag("LineStart"))
                     {
-                        Debug.Log("aaaaaaaa");
-                        startPoint = singleHit.collider.gameObject;
-
+                        startPoint = singleHit.collider.gameObject.transform.parent.parent.gameObject;
 
                         GameObject functionObj = singleHit.collider.gameObject.transform.parent.parent.gameObject;
                         currentLine = functionObj.transform.Find("Line").gameObject;
@@ -77,6 +84,7 @@ public class LinkedListLineManager : MonoBehaviour
             {
                 for (int i = 0; i < levelManager.lineEndPoints.Count; i++)
                 {
+                    GameObject nextObject = levelManager.lineEndPoints[i].gameObject.transform.parent.parent.gameObject;
                     if (Mathf.Abs(mousePos.x - levelManager.lineEndPoints[i].position.x) <= 0.2f && Mathf.Abs(mousePos.y - levelManager.lineEndPoints[i].position.y) <= 0.2f)
                     {
                         currentLine.GetComponent<LineRenderer>().SetPosition(1, new Vector3(levelManager.lineEndPoints[i].position.x, levelManager.lineEndPoints[i].position.y, 0f));
@@ -86,6 +94,25 @@ public class LinkedListLineManager : MonoBehaviour
                         currentLine.GetComponent<LinkedListLine>().lineWidth = GetWidth(currentLine);
 
                         levelManager.lines.Add(currentLine);
+
+                        GameObject nextNodeParent = nextObject.GetComponent<LinkedListBlock>().triggerNode;
+
+                        nextNodeParent.GetComponent<LinkedListBlock>().previouseNodeName = startPoint.GetComponent<LinkedListBlock>().currentNodeName;
+
+                        string previousNodeName = nextNodeParent.GetComponent<LinkedListBlock>().previouseNodeName;
+
+                        if(previousNodeName != "")
+                        {
+                            nextNodeParent.GetComponent<LinkedListBlock>().pseudoCode = "Node *newNode = NULL%newNode = allocateMemory() %newNode->next = "+ previousNodeName + "->next %"+ previousNodeName + "->next = newNode";
+
+                            GameObject codeObject = nextNodeParent.GetComponent<LinkedListBlock>().pseudoElement;
+
+                            string pseudoText = nextNodeParent.GetComponent<LinkedListBlock>().pseudoCode;
+                            string[] pseudoSubstrings = pseudoText.Split('%');
+
+
+                            StartCoroutine(TypingMultipleCode(pseudoSubstrings, codeObject));
+                        }
 
                         currentLine = null;
                         break;
@@ -149,6 +176,80 @@ public class LinkedListLineManager : MonoBehaviour
     private float GetWidth(GameObject currentLine)
     {
         return currentLine.GetComponent<LineRenderer>().startWidth;
+    }
+
+    public IEnumerator TypingMultipleCode(string[] pseudoSubstrings, GameObject codeObject)
+    {
+        //Checks whether the code instance object has been destroyed while the pseudo code is being printed to the editor
+        if (codeObject == null)
+        {
+            yield break;
+        }
+
+        int codeInstanceLength = codeObject.transform.childCount;
+
+        for (int i = 0; i < codeInstanceLength; i++)
+        {
+            if (codeObject == null)
+            {
+                yield break;
+            }
+
+            GameObject tempObject = codeObject.transform.GetChild(i).gameObject;
+
+            if (tempObject == null)
+            {
+                yield break;
+            }
+
+            if (tempObject.name != "Code")
+            {
+                continue;
+            }
+            else
+            {
+                tempObject.GetComponent<TMP_Text>().text = "";
+
+                for (int j = 0; j < pseudoSubstrings[i].Length; j++)
+                {
+
+                    if (pseudoSubstrings[i][j] == '<' && pseudoSubstrings[i][j + 1] != ' ')
+                    {
+
+                        do
+                        {
+                            if (tempObject == null)
+                            {
+                                yield break;
+                            }
+
+                            tempObject.GetComponent<TMP_Text>().text += pseudoSubstrings[i][j];
+                            j += 1;
+                        }
+                        while (pseudoSubstrings[i][j] != '>');
+
+                    }
+
+                    if (tempObject == null)
+                    {
+                        yield break;
+                    }
+
+                    tempObject.GetComponent<TMP_Text>().text += pseudoSubstrings[i][j];
+
+
+                    yield return new WaitForSeconds(0.03f);
+                }
+            }
+            yield return new WaitForSeconds(typingSpeed);
+        }
+
+        ScrollToBottom();
+    }
+
+    private void ScrollToBottom()
+    {
+        scrollRect.normalizedPosition = new Vector2(0, 0);
     }
 
 }
