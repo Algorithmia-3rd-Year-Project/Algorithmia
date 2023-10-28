@@ -77,6 +77,8 @@ public class GameData
     public List<string> achievementList;
 
     public int[] memoryGameVictoryLevels;
+
+    public List<bool> emailStatus;
     
     public SerializableDictionary<string, bool> levelsCompleted;
     public SerializableDictionary<string, int> levelTrophies;
@@ -150,6 +152,8 @@ public class GameData
 
         this.memoryGameVictoryLevels = new int[3];
 
+        this.emailStatus = new List<bool>();
+        
         this.levelsCompleted = new SerializableDictionary<string, bool>();
         this.levelTrophies = new SerializableDictionary<string, int>();
     }

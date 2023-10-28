@@ -127,6 +127,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public List<string> skillsList;
     public List<string> myJobs;
 
+    public List<bool> emailStatus;
+
     public int[] memoryGameLevels;
     
     private void Start()
@@ -285,6 +287,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
         this.skillsList = data.skills;
         this.myJobs = data.jobs;
+        this.emailStatus = data.emailStatus;
 
         this.memoryGameLevels = data.memoryGameVictoryLevels;
     }
@@ -329,6 +332,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
         data.skills = this.skillsList;
         data.jobs = this.myJobs;
+        data.emailStatus = this.emailStatus;
 
         data.memoryGameVictoryLevels = this.memoryGameLevels;
         
