@@ -24,6 +24,7 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Image[] trophyImages;
 
     private bool memoryGameUnlocked;
+    private List<bool> memoryGameObjectives = new List<bool>();
 
     [SerializeField] private List<GameObject> notesList;
     
@@ -88,6 +89,7 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         }
 
         data.memoryGameUnlocked = this.memoryGameUnlocked;
+        data.memoryGameObjectives = this.memoryGameObjectives;
     }
 
     public void LoadNextLevel(string sceneName)
@@ -111,6 +113,9 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         if (levelName == "Array Level 6")
         {
             memoryGameUnlocked = true;
+            memoryGameObjectives.Add(false);
+            memoryGameObjectives.Add(false);
+            memoryGameObjectives.Add(false);
         }
         
         PlayerPrefs.SetInt("LoadArrayTree", 1);

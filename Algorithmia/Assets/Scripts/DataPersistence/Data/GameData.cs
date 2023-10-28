@@ -77,6 +77,7 @@ public class GameData
     public List<string> achievementList;
 
     public int[] memoryGameVictoryLevels;
+    public List<bool> memoryGameObjectives;
 
     public List<bool> emailStatus;
     
@@ -151,6 +152,7 @@ public class GameData
         this.achievementList = new List<string>();
 
         this.memoryGameVictoryLevels = new int[3];
+        this.memoryGameObjectives = new List<bool>();
 
         this.emailStatus = new List<bool>();
         

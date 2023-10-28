@@ -130,6 +130,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public List<bool> emailStatus;
 
     public int[] memoryGameLevels;
+
+    public List<bool> memoryGameObjectives; 
     
     private void Start()
     {
@@ -290,6 +292,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.emailStatus = data.emailStatus;
 
         this.memoryGameLevels = data.memoryGameVictoryLevels;
+        this.memoryGameObjectives = data.memoryGameObjectives;
     }
 
     public void SaveData(ref GameData data)
@@ -335,6 +338,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         data.emailStatus = this.emailStatus;
 
         data.memoryGameVictoryLevels = this.memoryGameLevels;
+        data.memoryGameObjectives = this.memoryGameObjectives;
         
         data.memoryGameUnlocked = this.memoryGameUnlocked;
         data.memoryGameUnlockedMessageShown = this.memoryGameUnlockedMessageShown;
