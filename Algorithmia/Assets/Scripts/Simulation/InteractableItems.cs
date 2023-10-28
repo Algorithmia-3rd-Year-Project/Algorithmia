@@ -13,12 +13,13 @@ public class InteractableItems : MonoBehaviour
 
     private void Update()
     {
+        //Changed to Box Colliders instead of box collider 2D after adding 3D models
         if (!simulation.anyMenuOpened)
         {
-            this.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            this.gameObject.GetComponent<BoxCollider>().enabled = true;
         } else
         {
-            this.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            this.gameObject.GetComponent<BoxCollider>().enabled = false;
         }
     }
 
