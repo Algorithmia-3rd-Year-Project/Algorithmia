@@ -30,13 +30,19 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField] private TMP_Text matchesCountText;
     [SerializeField] private TMP_Text movesCountText;
 
-    private int movesCount;
-    private int matchesCount;
+    public int movesCount;
+    public int matchesCount;
 
     [SerializeField] private GameObject dataStructuresList;
     [SerializeField] private SimManager simulationManager;
     [SerializeField] private List<GameObject> hiddenTargets;
     [SerializeField] private List<GameObject> visibleTargets;
+
+    [SerializeField] private GameObject claimButton;
+    [SerializeField] private TMP_Text claimAmount;
+
+    private int unlockStatus;
+    [SerializeField] private List<GameObject> completionIcons;
     
     private void Awake()
     {
@@ -53,6 +59,24 @@ public class MemoryGameManager : MonoBehaviour
     {
         GetButtons();
         AddListeners();
+
+        for (int i = 0; i < simulationManager.memoryGameObjectives.Count; i++)
+        {
+            if (simulationManager.memoryGameObjectives[i])
+            {
+                if (i == 0)
+                {
+                    completionIcons[2].SetActive(true);
+                } else if (i == 1)
+                {
+                    completionIcons[1].SetActive(true);
+                } else if (i == 2)
+                {
+                    completionIcons[0].SetActive(true);
+                }
+                
+            }
+        }
     }
 
     private void Update()
@@ -77,6 +101,8 @@ public class MemoryGameManager : MonoBehaviour
             hiddenTargets[2].SetActive(true);
             visibleTargets[2].SetActive(false);
         }
+        
+        UnlockVictory();
         
     }
 
@@ -212,6 +238,53 @@ public class MemoryGameManager : MonoBehaviour
         else
         {
             dataStructuresList.SetActive(false);
+        }
+    }
+
+    private void UnlockVictory()
+    {
+        if (matchesCount == 20)
+        {
+            if (movesCount < 30 && !simulationManager.memoryGameObjectives[2])
+            {
+                unlockStatus = 1;
+                claimAmount.text = "1500";
+            } else if (movesCount < 50 && !simulationManager.memoryGameObjectives[1])
+            {
+                unlockStatus = 2;
+                claimAmount.text = "1000";
+            } else if (movesCount < 90 && !simulationManager.memoryGameObjectives[0])
+            {
+                unlockStatus = 3;
+                claimAmount.text = "250";
+            }
+            claimButton.SetActive(true);
+        }
+    }
+
+    public void ClaimReward()
+    {
+        if (unlockStatus == 1)
+        {
+            for (int i = 0; i < completionIcons.Count; i++)
+            {
+                completionIcons[i].SetActive(true);
+            }
+            simulationManager.memoryGameObjectives[0] = true;
+            simulationManager.memoryGameObjectives[1] = true;
+            simulationManager.memoryGameObjectives[2] = true;
+        } else if (unlockStatus == 2)
+        {
+            for (int i = 1; i < completionIcons.Count; i++)
+            {
+                completionIcons[i].SetActive(true);
+            }
+            simulationManager.memoryGameObjectives[0] = true;
+            simulationManager.memoryGameObjectives[1] = true;
+        } else if (unlockStatus == 3)
+        {
+            simulationManager.memoryGameObjectives[0] = true;
+            completionIcons[2].SetActive(true);
         }
     }
 }

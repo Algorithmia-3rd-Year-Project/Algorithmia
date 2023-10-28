@@ -18,17 +18,29 @@ public class SingleEmail : MonoBehaviour
     [SerializeField] private TMP_Text emailTitleUnOpenedText;
     
     private EmailManager emailManager;
+    private SimManager simulationManager;
+    
+    
+    public bool readMail;
     
     private void Awake()
     {
         emailManager = FindObjectOfType<EmailManager>();
-        
+        simulationManager = FindObjectOfType<SimManager>();
+
     }
 
     private void Start()
     {
         readButton.onClick.AddListener(OpenEmail);
         emailTitleUnOpenedText.text = emailTitle;
+
+        /*
+        if (simulationManager.emailStatus.Count > emailID)
+        {
+            readMail = simulationManager.emailStatus[emailID];
+        }*/
+        
     }
 
     private void OpenEmail()
@@ -38,5 +50,9 @@ public class SingleEmail : MonoBehaviour
         this.transform.parent.gameObject.SetActive(false);
         emailManager.emailTitleText.text = emailTitle;
         emailManager.emailBodyText.text = emailBody;
+        readMail = true;
+        simulationManager.emailStatus[emailID] = readMail;
+        emailManager.emailWindowBackButton.SetActive(false);
+        emailManager.singleEmailBackButton.SetActive(true);
     }
 }
