@@ -14,6 +14,7 @@ public class QueueBlockManager : MonoBehaviour
     public GameObject emptyQueueBlockPrefab;
     public GameObject enqueueBlockPrefab;
 
+
     public GameObject dequeueBlockPrefab;
 
     private GameObject currentPrefabInstance;
@@ -33,7 +34,8 @@ public class QueueBlockManager : MonoBehaviour
     List<string> enqueueDataBlocks = new List<string>(4);
 
     Vector3 mousePos1;
-    Vector3 mousePos2;
+
+    Vector3 mousePos2; 
 
     void Update()
     {
@@ -42,9 +44,9 @@ public class QueueBlockManager : MonoBehaviour
             Vector3 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, layerMask);
+           
+            GlobalHit = hit; 
 
-
-            GlobalHit = hit;
 
 
             if (hit.collider != null)
@@ -52,7 +54,6 @@ public class QueueBlockManager : MonoBehaviour
 
                 if (hit.collider.name == "Empty Queue Block")
                 {
-
                     currentPrefabInstance = Instantiate(emptyQueueBlockPrefab, hit.point, Quaternion.identity);
                     currentPrefabInstance.tag = "Respawn";
                     isDragging = true;
@@ -70,7 +71,6 @@ public class QueueBlockManager : MonoBehaviour
                     currentPrefabInstance = Instantiate(enqueueBlockPrefab, hit.point, Quaternion.identity);
                     currentPrefabInstance.tag = "Finish";
                     isDragging = true;
-
                 }
                 else if (hit.collider.name == "Enqueue(Clone)")
                 {
@@ -80,6 +80,7 @@ public class QueueBlockManager : MonoBehaviour
                     mousePos1 = mousePos;
 
                 }
+
                 else if (hit.collider.name == "Dequeue")
                 {
                     currentPrefabInstance = Instantiate(dequeueBlockPrefab, hit.point, Quaternion.identity);
@@ -95,6 +96,7 @@ public class QueueBlockManager : MonoBehaviour
                     mousePos1 = mousePos;
 
                 }
+
                 else if (hit.collider.name == "Data block1")
                 {
                     currentPrefabInstance = hit.collider.gameObject;
@@ -121,14 +123,14 @@ public class QueueBlockManager : MonoBehaviour
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             mousePos2 = mousePos;
 
-            if (Math.Abs(mousePos1.x - mousePos2.x) > 0.1 || Math.Abs(mousePos1.y - mousePos2.y) > 0.1)
-            {
 
-                currentPrefabInstance.transform.position = new Vector3(mousePos.x, mousePos.y, 0f);
+            if(Math.Abs(mousePos1.x - mousePos2.x)>0.1 || Math.Abs(mousePos1.y - mousePos2.y)>0.1){
 
-                isMoved = true;
-            }
-        }
+              currentPrefabInstance.transform.position = new Vector3(mousePos.x, mousePos.y, 0f);
+
+              isMoved = true;
+         }
+        } 
 
         if (Input.GetMouseButtonUp(0) && currentPrefabInstance != null)
         {
@@ -176,6 +178,7 @@ public class QueueBlockManager : MonoBehaviour
 
                             currentPrefabInstance.transform.position = new Vector3(dataBlockNewX, dataBlockNewY, 0f);
 
+                             
                             DataBlockTopOfEnqueueBlock = currentPrefabInstance;
 
 
@@ -213,14 +216,6 @@ public class QueueBlockManager : MonoBehaviour
                 }
             }
         }
-
-
-
-
-
-
-
-
 
 
         if (currentPrefabInstance != null && currentPrefabInstance.name == "Empty Queue Block(Clone)")
@@ -413,4 +408,6 @@ public class QueueBlockManager : MonoBehaviour
         }
 
     }
+    
+  }
 }

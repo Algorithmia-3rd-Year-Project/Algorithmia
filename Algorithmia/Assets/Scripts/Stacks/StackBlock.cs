@@ -4,15 +4,38 @@ using UnityEngine;
 
 public class StackBlock : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public bool inWorkspace;
+
+    public string blockName;
+
+    public bool snapped;
+
+    public string dataType;
+
+    public string pseudoCode;
+
+    public GameObject pseudoElement;
+
+    public int dataElementCount;
+
+
+
+    private void Start()
     {
-        
+        inWorkspace = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.CompareTag("Workspace"))
+        {
+            inWorkspace = true;
+        }
+
+        if (collision.gameObject.CompareTag("OutWorkspace"))
+        {
+            inWorkspace = false;
+        }
     }
 }

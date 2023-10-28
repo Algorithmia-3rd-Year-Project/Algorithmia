@@ -24,8 +24,11 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Image[] trophyImages;
 
     private bool memoryGameUnlocked;
+    private List<bool> memoryGameObjectives = new List<bool>();
 
     [SerializeField] private List<GameObject> notesList;
+
+    private bool freelance1Done;
     
     private void Start()
     {
@@ -59,6 +62,8 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         {
             currentTrophy = 3;
         }
+
+        this.freelance1Done = data.freelance1Done;
     }
 
     public void SaveData(ref GameData data)
@@ -88,6 +93,9 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         }
 
         data.memoryGameUnlocked = this.memoryGameUnlocked;
+        data.memoryGameObjectives = this.memoryGameObjectives;
+
+        data.freelance1Done = this.freelance1Done;
     }
 
     public void LoadNextLevel(string sceneName)
@@ -111,10 +119,21 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         if (levelName == "Array Level 6")
         {
             memoryGameUnlocked = true;
+            memoryGameObjectives.Add(false);
+            memoryGameObjectives.Add(false);
+            memoryGameObjectives.Add(false);
         }
         
         PlayerPrefs.SetInt("LoadArrayTree", 1);
         SceneManager.LoadSceneAsync("Scenes/Simulation");
+    }
+
+    public void LoadFreelanceGigs()
+    {
+        scenePlayTime = Time.time - sceneStartTime;
+        freelance1Done = true;
+        SceneManager.LoadSceneAsync("Scenes/Simulation");
+        
     }
 
     public void LoadAssignmentCutScene()

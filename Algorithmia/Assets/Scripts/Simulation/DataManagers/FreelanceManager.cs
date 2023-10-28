@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FreelanceManager : MonoBehaviour, IDataPersistence
 {
@@ -25,6 +27,25 @@ public class FreelanceManager : MonoBehaviour, IDataPersistence
 
     [SerializeField] private GameObject lockedApp;
     
+    [SerializeField] private GameObject noEnergyMenu;
+    [SerializeField] private SimManager simulationManager;
+
+    private bool freelance1Done;
+
+    [SerializeField] private GameObject freelance1Completed;
+    [SerializeField] private GameObject freelance1AcceptButton;
+    [SerializeField] private GameObject freelance1ReviewButton;
+
+    private void Start()
+    {
+        if (freelance1Done)
+        {
+            freelance1AcceptButton.SetActive(false);
+            freelance1ReviewButton.SetActive(true);
+            freelance1Completed.SetActive(true);
+        }
+    }
+
     public void LoadData(GameData data)
     {
         this.nameText.text = data.freelanceName;
@@ -35,6 +56,8 @@ public class FreelanceManager : MonoBehaviour, IDataPersistence
         this.freelanceName = data.freelanceName;
         this.freelanceUsername = data.freelanceUsername;
         this.freelanceBio = data.freelanceBio;
+
+        this.freelance1Done = data.freelance1Done;
     }
 
     public void SaveData(ref GameData data)
@@ -43,6 +66,8 @@ public class FreelanceManager : MonoBehaviour, IDataPersistence
         data.freelanceUsername = this.freelanceUsername;
         data.freelanceBio = this.freelanceBio;
         data.hasFreelanceAccount = this.hasFreelanceAccount;
+
+        data.freelance1Done = this.freelance1Done;
     }
 
     public void SignUpButtonOnClicked()
@@ -81,6 +106,24 @@ public class FreelanceManager : MonoBehaviour, IDataPersistence
         }
         
         
+    }
+    
+    public void LoadFreelanceLevels(string levelName)
+    {
+        if (simulationManager.energyLevel - 20 <= 0)
+        {
+            noEnergyMenu.SetActive(true);
+            return;
+        }
+
+        //Todo - playtime saving
+        simulationManager.energyLevel -= 20;
+        SceneManager.LoadSceneAsync(levelName);
+    }
+
+    public void ReviewLevels(string levelName)
+    {
+        SceneManager.LoadSceneAsync(levelName);
     }
     
 }
