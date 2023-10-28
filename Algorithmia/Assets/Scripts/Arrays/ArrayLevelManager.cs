@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ArrayLevelManager : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class ArrayLevelManager : MonoBehaviour
     [SerializeField] private Transform dataParentObj;
     [SerializeField] private ArrayBlockManager blockManager;
     
+    [SerializeField] private TMP_Text blockCountText;
+    
     private void Start()
     {
         int correctPosCount = correctForms.Count;
@@ -32,7 +35,7 @@ public class ArrayLevelManager : MonoBehaviour
 
     private void Update()
     {
-       
+        blockCountText.text = blockCount.ToString();
     }
 
     public void ResetLevel()
