@@ -14,14 +14,17 @@ public class QueueBlockManager : MonoBehaviour
     public GameObject emptyQueueBlockPrefab;
     public GameObject enqueueBlockPrefab;
 
+
+    public GameObject dequeueBlockPrefab;
+
     private GameObject currentPrefabInstance;
 
     private GameObject queueBlock;
-      
+
     //private Transform queuedBlockSnapPoint;  
 
     private bool isDragging = false;
-    
+
     private bool isMoved;
 
     private bool isOnTopOfEnqueueBlock = false;
@@ -31,6 +34,7 @@ public class QueueBlockManager : MonoBehaviour
     List<string> enqueueDataBlocks = new List<string>(4);
 
     Vector3 mousePos1;
+
     Vector3 mousePos2; 
 
     void Update()
@@ -40,9 +44,9 @@ public class QueueBlockManager : MonoBehaviour
             Vector3 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector3.zero, 20f, layerMask);
-            
-
+           
             GlobalHit = hit; 
+
 
 
             if (hit.collider != null)
@@ -50,7 +54,6 @@ public class QueueBlockManager : MonoBehaviour
 
                 if (hit.collider.name == "Empty Queue Block")
                 {
-                    
                     currentPrefabInstance = Instantiate(emptyQueueBlockPrefab, hit.point, Quaternion.identity);
                     currentPrefabInstance.tag = "Respawn";
                     isDragging = true;
@@ -68,7 +71,6 @@ public class QueueBlockManager : MonoBehaviour
                     currentPrefabInstance = Instantiate(enqueueBlockPrefab, hit.point, Quaternion.identity);
                     currentPrefabInstance.tag = "Finish";
                     isDragging = true;
-                    
                 }
                 else if (hit.collider.name == "Enqueue(Clone)")
                 {
@@ -78,6 +80,23 @@ public class QueueBlockManager : MonoBehaviour
                     mousePos1 = mousePos;
 
                 }
+
+                else if (hit.collider.name == "Dequeue")
+                {
+                    currentPrefabInstance = Instantiate(dequeueBlockPrefab, hit.point, Quaternion.identity);
+                    currentPrefabInstance.tag = "Finish";
+                    isDragging = true;
+
+                }
+                else if (hit.collider.name == "Dequeue(Clone)")
+                {
+                    currentPrefabInstance = hit.collider.gameObject;
+                    isDragging = true;
+
+                    mousePos1 = mousePos;
+
+                }
+
                 else if (hit.collider.name == "Data block1")
                 {
                     currentPrefabInstance = hit.collider.gameObject;
@@ -103,6 +122,7 @@ public class QueueBlockManager : MonoBehaviour
             Vector3 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             mousePos2 = mousePos;
+
 
             if(Math.Abs(mousePos1.x - mousePos2.x)>0.1 || Math.Abs(mousePos1.y - mousePos2.y)>0.1){
 
@@ -157,9 +177,10 @@ public class QueueBlockManager : MonoBehaviour
                             float dataBlockNewY = enqueueTopEdge + 0.4f;
 
                             currentPrefabInstance.transform.position = new Vector3(dataBlockNewX, dataBlockNewY, 0f);
+
                              
                             DataBlockTopOfEnqueueBlock = currentPrefabInstance;
-                      
+
 
                             touchingEnqueueObject = true;
                             isOnTopOfEnqueueBlock = true;
@@ -196,95 +217,196 @@ public class QueueBlockManager : MonoBehaviour
             }
         }
 
-        
+
+        if (currentPrefabInstance != null && currentPrefabInstance.name == "Empty Queue Block(Clone)")
+        {
+            GameObject[] enqueueObjects = GameObject.FindGameObjectsWithTag("Finish");
+            Collider2D queueBlockCollider = currentPrefabInstance.GetComponent<Collider2D>();
+
+            if (enqueueObjects.Length > 0)
+            {
 
 
-        if(GlobalHit.collider != null){
-            
-          if(GlobalHit.collider.name == "EnqueueBtn" && Input.GetMouseButtonDown(0) && isOnTopOfEnqueueBlock == true){
+                foreach (GameObject enqueueObject in enqueueObjects)
+                {
+                    Collider2D enqueueCollider = enqueueObject.GetComponent<Collider2D>();
+                    SpriteRenderer queueBlockSpriteRenderer = currentPrefabInstance.GetComponent<SpriteRenderer>();
+                    SpriteRenderer enqueueBlockSpriteRenderer = enqueueObject.GetComponent<SpriteRenderer>();
 
-                
-                GameObject enqueuBlock = GlobalHit.collider.transform.parent.gameObject;
+                    Bounds enqueueBlock = enqueueBlockSpriteRenderer.bounds;
+                    Bounds queueBlock = queueBlockSpriteRenderer.bounds;
 
-                Collider2D enquBlockCollider = enqueuBlock.GetComponent<Collider2D>();
-    
+                    float enqueueLeftEdge = enqueueBlock.min.x;
+                    float enqueueRightEdge = enqueueBlock.max.x;
+                    float enqueueTopEdge = enqueueBlock.max.y;
+                    float enqueueBottomEdge = enqueueBlock.min.y;
 
-                GameObject[] queueBlocks = GameObject.FindGameObjectsWithTag("Respawn");
+                    float queueBlockLeftEdge = queueBlock.min.x;
+                    float queueBlockRightEdge = queueBlock.max.x;
+                    float queueBlockTopEdge = queueBlock.max.y;
+                    float queueBlockBottomEdge = queueBlock.min.y;
 
-                if(queueBlocks.Length > 0){
+                    if (queueBlockCollider.IsTouching(enqueueCollider))
+                    {
+                        if (Input.GetMouseButtonUp(0))
+                        {
+                            float queueBlockNewX = (enqueueRightEdge + enqueueLeftEdge) / 2;
+                            float queueBlockNewY = enqueueBottomEdge - 1.75f;
 
-                    foreach(GameObject queueBlock in queueBlocks){
+                            currentPrefabInstance.transform.position = new Vector3(queueBlockNewX, queueBlockNewY, 0f);
 
-                       Collider2D queueBlockCollider = queueBlock.GetComponent<Collider2D>();
 
-                       if(enquBlockCollider.IsTouching(queueBlockCollider)){
-                        
-                        if(enqueueDataBlocks.Count <= 3){
-
-                          Transform snappoints = queueBlock.transform.Find("snap points");
-                          Transform Rear       = queueBlock.transform.Find("Rear");
-                          Transform queuedBlockSnapPoint = snappoints.transform.Find(enqueueDataBlocks.Count.ToString());
-                          enqueueDataBlocks.Add(DataBlockTopOfEnqueueBlock.name);
-
-                          DataBlockTopOfEnqueueBlock.transform.position = queuedBlockSnapPoint.position; 
-                          currentPrefabInstance = null;
-                          
-                          isOnTopOfEnqueueBlock = false;
-
-                           if (Rear != null  && (enqueueDataBlocks.Count > 1))
-                           {
-            
-                             Vector3 currentPosition = Rear.transform.position;
-                             currentPosition.y += 1;
-                             Rear.transform.position = currentPosition;
-
-                           }
-                          
                         }
-
-
-                       }
-                        
                     }
                 }
 
-          }
+            }
+        }
 
-          if(GlobalHit.collider.name == "Empty Queue Block(Clone)" && isMoved == true){
 
-               int index = 0;
 
-               foreach (string item in enqueueDataBlocks)
-               {
 
-                GameObject foundObject = GameObject.Find(item);
 
-                if (foundObject != null){
 
-                    Transform snappoints = currentPrefabInstance.transform.Find("snap points");
-                    Transform queuedBlockSnapPoint = snappoints.transform.Find(index.ToString());
-                    foundObject.transform.position = queuedBlockSnapPoint.position;
+
+
+
+        if (GlobalHit.collider != null)
+        {
+
+            if (GlobalHit.collider.name == "EnqueueBtn" && Input.GetMouseButtonDown(0) && isOnTopOfEnqueueBlock == true)
+            {
+
+
+                GameObject enquBlock = GlobalHit.collider.transform.parent.gameObject;
+
+                Collider2D enquBlockCollider = enquBlock.GetComponent<Collider2D>();
+
+
+                GameObject[] queueBlocks = GameObject.FindGameObjectsWithTag("Respawn");
+
+                if (queueBlocks.Length > 0)
+                {
+
+                    foreach (GameObject queueBlock in queueBlocks)
+                    {
+
+                        Collider2D queueBlockCollider = queueBlock.GetComponent<Collider2D>();
+
+                        if (enquBlockCollider.IsTouching(queueBlockCollider))
+                        {
+
+                            if (enqueueDataBlocks.Count <= 3)
+                            {
+
+                                Transform snappoints = queueBlock.transform.Find("snap points");
+                                Transform Rear = queueBlock.transform.Find("Rear");
+                                Transform queuedBlockSnapPoint = snappoints.transform.Find(enqueueDataBlocks.Count.ToString());
+                                enqueueDataBlocks.Add(DataBlockTopOfEnqueueBlock.name);
+
+                                DataBlockTopOfEnqueueBlock.transform.position = queuedBlockSnapPoint.position;
+                                currentPrefabInstance = null;
+
+                                isOnTopOfEnqueueBlock = false;
+
+                                if (Rear != null && (enqueueDataBlocks.Count > 1))
+                                {
+
+                                    Vector3 currentPosition = Rear.transform.position;
+                                    currentPosition.y += 1;
+                                    Rear.transform.position = currentPosition;
+
+                                }
+
+                            }
+
+
+                        }
+
+                    }
                 }
-               
-               index++;
 
             }
 
-          }
-        
+            if (GlobalHit.collider.name == "Empty Queue Block(Clone)" && isMoved == true)
+            {
 
+                int index = 0;
 
-        //print(isOnTopOfEnqueueBlock);
-        if(Input.GetMouseButtonDown(1)){
-             print("---------------------------------"); 
-            foreach (string item in enqueueDataBlocks)
+                foreach (string item in enqueueDataBlocks)
                 {
-                 print(item);
-                }
-               print("---------------------------------"); 
 
-               //enqueueDataBlocks.Insert(3,"hello");
+                    GameObject foundObject = GameObject.Find(item);
+
+                    if (foundObject != null)
+                    {
+
+                        Transform snappoints = currentPrefabInstance.transform.Find("snap points");
+                        Transform queuedBlockSnapPoint = snappoints.transform.Find(index.ToString());
+                        foundObject.transform.position = queuedBlockSnapPoint.position;
+                    }
+
+                    index++;
+
+                }
+
+
+
+            }
+
+            if (GlobalHit.collider.name == "DequeueBtn" && Input.GetMouseButtonDown(0) && enqueueDataBlocks.Count > 0)
+            {
+          
+                GameObject frontBlock = GameObject.Find(enqueueDataBlocks[0]);
+                enqueueDataBlocks.RemoveAt(0); 
+                Destroy(frontBlock); 
+
+               
+                GameObject[] queueBlocks = GameObject.FindGameObjectsWithTag("Respawn");
+                if (queueBlocks.Length > 0)
+                {
+                    int index = 0;
+                    foreach (GameObject queueBlock in queueBlocks)
+                    {
+                        if (index < enqueueDataBlocks.Count)
+                        {
+                            GameObject blockToMove = GameObject.Find(enqueueDataBlocks[index]);
+                            Transform snappoints = queueBlock.transform.Find("snap points");
+                            Transform targetSnapPoint = snappoints.transform.Find(index.ToString());
+                            blockToMove.transform.position = targetSnapPoint.position;
+                            index++;
+                        }
+                    }
+                }
+
+
+                GameObject rearQueueBlock = queueBlocks[queueBlocks.Length - 1]; 
+                Transform Rear = rearQueueBlock.transform.Find("Rear");
+                if (Rear != null && enqueueDataBlocks.Count > 0)
+                {
+                    Vector3 currentPosition = Rear.transform.position;
+                    currentPosition.y -= 1; 
+                    Rear.transform.position = currentPosition;
+                }
+            }
+
+
+
+
+            //print(isOnTopOfEnqueueBlock);
+            if (Input.GetMouseButtonDown(1))
+            {
+                print("---------------------------------");
+                foreach (string item in enqueueDataBlocks)
+                {
+                    print(item);
+                }
+                print("---------------------------------");
+
+                //enqueueDataBlocks.Insert(3,"hello");
+            }
         }
+
     }
     
   }
