@@ -1109,6 +1109,9 @@ MonoBehaviour:
     m_Bits: 64
   currentLine: {fileID: 0}
   levelManager: {fileID: 371448272}
+  blockManager: {fileID: 0}
+  scrollRect: {fileID: 0}
+  typingSpeed: 0
 --- !u!4 &99689394
 Transform:
   m_ObjectHideFlags: 0
@@ -3165,6 +3168,7 @@ MonoBehaviour:
   snapped: 0
   dataValue: 
   originalScale: {x: 0, y: 0, z: 0}
+  blockName: Up
   setTriggers: 0
   guideMark: {fileID: 0}
 --- !u!1 &360939339
@@ -6184,6 +6188,7 @@ MonoBehaviour:
   snapped: 0
   dataValue: 
   originalScale: {x: 0, y: 0, z: 0}
+  blockName: Down
   setTriggers: 0
   guideMark: {fileID: 0}
 --- !u!1 &586758046
@@ -7916,6 +7921,7 @@ MonoBehaviour:
   snapped: 0
   dataValue: 
   originalScale: {x: 0, y: 0, z: 0}
+  blockName: Right
   setTriggers: 0
   guideMark: {fileID: 0}
 --- !u!1 &771236490 stripped
@@ -7945,6 +7951,7 @@ MonoBehaviour:
   snapped: 0
   dataValue: 
   originalScale: {x: 0, y: 0, z: 0}
+  blockName: Right
   setTriggers: 0
   guideMark: {fileID: 0}
 --- !u!1 &785027731
@@ -9662,6 +9669,7 @@ MonoBehaviour:
   snapped: 0
   dataValue: 
   originalScale: {x: 0, y: 0, z: 0}
+  blockName: Left
   setTriggers: 0
   guideMark: {fileID: 0}
 --- !u!1 &881079942
@@ -19170,6 +19178,7 @@ MonoBehaviour:
   snapped: 0
   dataValue: 
   originalScale: {x: 0, y: 0, z: 0}
+  blockName: Right
   setTriggers: 0
   guideMark: {fileID: 0}
 --- !u!1 &1576768783
@@ -21326,6 +21335,7 @@ MonoBehaviour:
   snapped: 0
   dataValue: 
   originalScale: {x: 0, y: 0, z: 0}
+  blockName: Right
   setTriggers: 0
   guideMark: {fileID: 0}
 --- !u!1 &1726087377
@@ -22835,6 +22845,7 @@ MonoBehaviour:
   snapped: 0
   dataValue: 
   originalScale: {x: 0, y: 0, z: 0}
+  blockName: Right
   setTriggers: 0
   guideMark: {fileID: 0}
 --- !u!1 &1822031896
@@ -27323,6 +27334,10 @@ PrefabInstance:
     - target: {fileID: 267554655234172075, guid: 985a64e9126edd344a8c403ce4dfd327, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1923373767907202174, guid: 985a64e9126edd344a8c403ce4dfd327, type: 3}
+      propertyPath: blockName
+      value: Right
       objectReference: {fileID: 0}
     - target: {fileID: 5958641636603148420, guid: 985a64e9126edd344a8c403ce4dfd327, type: 3}
       propertyPath: m_Name

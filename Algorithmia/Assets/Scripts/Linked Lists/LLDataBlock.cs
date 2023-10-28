@@ -14,6 +14,12 @@ public class LLDataBlock : MonoBehaviour
 
     public Vector3 originalScale;
 
+    public string blockName;
+
+    public string pseudoCode;
+
+    public GameObject pseudoElement;
+
     [SerializeField]
     private bool setTriggers;
 
