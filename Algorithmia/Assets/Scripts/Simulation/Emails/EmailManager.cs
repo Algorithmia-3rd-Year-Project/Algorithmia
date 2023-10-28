@@ -24,6 +24,9 @@ public class EmailManager : MonoBehaviour
     [SerializeField] private TMP_Text notificationCountText;
 
     [SerializeField] private List<GameObject> emailList;
+
+    public GameObject emailWindowBackButton;
+    public GameObject singleEmailBackButton;
     
     private void Start()
     {

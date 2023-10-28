@@ -52,5 +52,7 @@ public class SingleEmail : MonoBehaviour
         emailManager.emailBodyText.text = emailBody;
         readMail = true;
         simulationManager.emailStatus[emailID] = readMail;
+        emailManager.emailWindowBackButton.SetActive(false);
+        emailManager.singleEmailBackButton.SetActive(true);
     }
 }
