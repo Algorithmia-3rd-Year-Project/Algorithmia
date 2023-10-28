@@ -30,6 +30,11 @@ public class EmailManager : MonoBehaviour
     
     private void Start()
     {
+        if (simulationManager.emailStatus.Count == 0)
+        {
+            simulationManager.emailStatus.Add(emailList[0].GetComponent<SingleEmail>().readMail);
+        }
+        
         if (simulationManager.assignmentCutScenePlayed)
         {
             GameObject newEmail = Instantiate(singleEmailPrefab, new Vector3(mailWrapper.position.x, mailWrapper.position.y, mailWrapper.position.z), Quaternion.identity);
@@ -52,16 +57,11 @@ public class EmailManager : MonoBehaviour
             newEmailUI.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             
         }
-
+        
         foreach (GameObject email in emailList)
         {
             int id = email.GetComponent<SingleEmail>().emailID;
             email.GetComponent<SingleEmail>().readMail = simulationManager.emailStatus[id];
-        }
-
-        if (simulationManager.emailStatus.Count == 0)
-        {
-            simulationManager.emailStatus.Add(emailList[0].GetComponent<SingleEmail>().readMail);
         }
         
         ReverseVerticalLayoutGroup();
@@ -70,6 +70,7 @@ public class EmailManager : MonoBehaviour
 
     private void ReverseVerticalLayoutGroup()
     {
+        Debug.Log("cvg");
         int childCount = mailWrapper.transform.childCount;
         Transform[] childTransforms = new Transform[childCount];
         for (int i = 0; i < childCount; i++)

@@ -34,7 +34,7 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private GameObject jobSelectedWindow;
     [SerializeField] private GameObject alreadyHaveAJobWindow;
 
-    private List<Transform> childList;
+    private List<Transform> childList = new List<Transform>();
     
     private void Awake()
     {
