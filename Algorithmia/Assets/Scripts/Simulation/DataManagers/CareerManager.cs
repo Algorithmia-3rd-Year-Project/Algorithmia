@@ -36,6 +36,8 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private GameObject alreadyHaveAJobWindow;
     [SerializeField] private GameObject leaveJobWindow;
 
+    [SerializeField] private List<TMP_Text> cvJobsList;
+    
     private List<Transform> childList = new List<Transform>();
     
     private void Awake()
@@ -85,7 +87,7 @@ public class CareerManager : MonoBehaviour
         }
         
         HighlightCurrentJob();
-        
+        UpdateJobCV();
         
     }
 
@@ -195,6 +197,7 @@ public class CareerManager : MonoBehaviour
                 simManager.myJobs.Add(jobName);
                 jobSelectedWindow.SetActive(true);
                 HighlightCurrentJob();
+                UpdateJobCV();
             }
         }
         else
@@ -221,6 +224,15 @@ public class CareerManager : MonoBehaviour
                     childList[i].SetSiblingIndex(1);
                 }
             }
+        }
+    }
+
+    private void UpdateJobCV()
+    {
+        for (int i = 0; i < simManager.myJobs.Count; i++)
+        {
+            cvJobsList[i].text = (i+1) + ". " + simManager.myJobs[i];
+            cvJobsList[i].gameObject.SetActive(true);
         }
     }
     
