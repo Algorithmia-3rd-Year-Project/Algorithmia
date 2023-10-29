@@ -243,7 +243,7 @@ public class MemoryGameManager : MonoBehaviour
 
     private void UnlockVictory()
     {
-        if (matchesCount == 20)
+        if (matchesCount == 10)
         {
             if (movesCount < 30 && !simulationManager.memoryGameObjectives[2])
             {
