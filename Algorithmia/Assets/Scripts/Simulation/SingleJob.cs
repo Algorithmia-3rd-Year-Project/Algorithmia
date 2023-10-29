@@ -20,4 +20,5 @@ public class SingleJob : MonoBehaviour
     public string salaryAmount;
     public string companyName;
     public string[] requirements;
+    public bool occupied;
 }

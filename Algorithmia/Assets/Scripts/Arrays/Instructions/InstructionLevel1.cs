@@ -65,6 +65,8 @@ public class InstructionLevel1 : MonoBehaviour
     [SerializeField] private BoxCollider2D dataBlock4;
 
     private GameObject lineStart;
+
+    [SerializeField] private Stopwatch stopwatch;
     
     private void Start()
     {
@@ -197,6 +199,10 @@ public class InstructionLevel1 : MonoBehaviour
         {
             instruction7.SetActive(false);
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
+            levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+            levelManager.blockText.text = levelManager.blockCount.ToString();
+            levelManager.achievementText.text = "00";
             //instructionOverlay.SetActive(true);
             instruction8.SetActive(true);
         }

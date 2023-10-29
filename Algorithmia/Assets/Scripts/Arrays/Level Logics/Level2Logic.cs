@@ -37,6 +37,8 @@ public class Level2Logic : MonoBehaviour
     [SerializeField] private GameObject helpInstructions;
     private bool helpInstructionShown;
 
+    [SerializeField] private Stopwatch stopWatch;
+
     private void Start()
     {
         compilationSuccess = false;
@@ -184,6 +186,7 @@ public class Level2Logic : MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopWatch.isPaused = true;
         }
     }
 
@@ -191,6 +194,10 @@ public class Level2Logic : MonoBehaviour
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "Array of cool";
+        
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
         
         if (_result == "cool" && currentTime <= 30f)
         {

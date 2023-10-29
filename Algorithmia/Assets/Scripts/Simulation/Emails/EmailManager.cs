@@ -70,7 +70,6 @@ public class EmailManager : MonoBehaviour
 
     private void ReverseVerticalLayoutGroup()
     {
-        Debug.Log("cvg");
         int childCount = mailWrapper.transform.childCount;
         Transform[] childTransforms = new Transform[childCount];
         for (int i = 0; i < childCount; i++)

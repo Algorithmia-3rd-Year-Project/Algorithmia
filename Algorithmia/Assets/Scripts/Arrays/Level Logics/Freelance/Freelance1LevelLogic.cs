@@ -494,6 +494,7 @@ public class Freelance1LevelLogic: MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
         }
     }
     
@@ -501,6 +502,10 @@ public class Freelance1LevelLogic: MonoBehaviour
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "AKQJ";
+        
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
 
         if (outputArray.Count == 1)
         {

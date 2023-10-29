@@ -20726,7 +20726,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.5391846, y: 16.665924}
+  m_AnchoredPosition: {x: -4.5391846, y: 16.665955}
   m_SizeDelta: {x: 9.0785, y: 33.3319}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506872051
@@ -26836,6 +26836,9 @@ MonoBehaviour:
   dataParentObj: {fileID: 649030445}
   blockManager: {fileID: 1893835316}
   blockCountText: {fileID: 139120983}
+  timeText: {fileID: 173110999}
+  blockText: {fileID: 1297811739}
+  achievementText: {fileID: 1852545168}
 --- !u!4 &1909582230
 Transform:
   m_ObjectHideFlags: 0
@@ -26864,6 +26867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopwatchText: {fileID: 223449978}
   currentTime: 0
+  isPaused: 0
 --- !u!114 &1909582232
 MonoBehaviour:
   m_ObjectHideFlags: 0

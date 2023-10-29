@@ -471,6 +471,7 @@ public class Level4Adaptive2 : MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
         }
     }
     
@@ -478,6 +479,10 @@ public class Level4Adaptive2 : MonoBehaviour
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "word words";
+        
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
 
         if (outputArray.Count == 2)
         {

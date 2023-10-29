@@ -26,6 +26,8 @@ public class ShopManager : MonoBehaviour, IDataPersistence
     [SerializeField] private List<Sprite> hardwarePartLogos;
 
     [SerializeField] private SimManager simulationManager;
+
+    [SerializeField] private TMP_Text balanceAmount;
     
     private void Start()
     {
@@ -44,6 +46,11 @@ public class ShopManager : MonoBehaviour, IDataPersistence
             j++;
         }
         
+    }
+
+    private void Update()
+    {
+        balanceAmount.text = simulationManager.coins.ToString();
     }
 
     //Instantiate Categories in hardware shop category
