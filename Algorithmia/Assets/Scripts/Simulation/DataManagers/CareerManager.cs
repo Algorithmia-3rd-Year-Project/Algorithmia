@@ -29,6 +29,7 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private TMP_Text jobCompanyText;
     [SerializeField] private Transform requirementHandle;
     [SerializeField] private Button applyButton;
+    [SerializeField] private Button leaveJobButton;
 
     [SerializeField] private GameObject requirementNotMetWindow;
     [SerializeField] private GameObject jobSelectedWindow;
@@ -68,16 +69,6 @@ public class CareerManager : MonoBehaviour
             Sprite loadedImage = LoadSprite(imagePath);
 
             singleCareerScript.jobIconImage.sprite = loadedImage;
-
-            //Making the current job as the topmost job on the list
-            /*
-            if (simManager.myJobs.Count > 0 && simManager.hasAJob)
-            {
-                if (career.jobName == simManager.myJobs[0])
-                {
-                    singleCareer.transform.SetAsFirstSibling();
-                }
-            }*/
             
 
             //Debug.Log($"Career ID: {career.id}, jobname: {career.jobName}, Field: {career.field}");
@@ -90,6 +81,29 @@ public class CareerManager : MonoBehaviour
         if (careerButtonList.Count > 0)
         {
             AddListeners();
+        }
+        
+        //Making the current job as the topmost job on the list
+        if (simManager.myJobs.Count > 0 && simManager.hasAJob)
+        {
+            /*
+            if (career.jobName == simManager.myJobs[0])
+            {
+                singleCareer.transform.SetAsFirstSibling();
+            }*/
+            Debug.Log("frew");
+            int index = simManager.myJobs.Count - 1;
+            string currentJob = simManager.myJobs[index];
+            
+            for (int i = 0; i < childList.Count; i++)
+            {
+                string jobName = childList[i].gameObject.GetComponent<SingleJob>().jobName;
+                if (jobName == currentJob)
+                {
+                    childList[i].gameObject.GetComponent<SingleJob>().occupied = true;
+                    childList[i].SetSiblingIndex(1);
+                }
+            }
         }
         
     }
@@ -135,6 +149,28 @@ public class CareerManager : MonoBehaviour
         {
             requirementGameObjects[i].text = "- " + job.requirements[i];
         }
+
+
+        //Display leave job option for players for the job that they are currently working
+        if (simManager.hasAJob)
+        {
+            if (jobObject.GetComponent<SingleJob>().occupied)
+            {
+                applyButton.gameObject.SetActive(false);
+                leaveJobButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                applyButton.gameObject.SetActive(true);
+                leaveJobButton.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            applyButton.gameObject.SetActive(true);
+            leaveJobButton.gameObject.SetActive(false);
+        }
+        
     }
 
     public void ApplyJobOnClicked(string[] requirements, string jobName)
