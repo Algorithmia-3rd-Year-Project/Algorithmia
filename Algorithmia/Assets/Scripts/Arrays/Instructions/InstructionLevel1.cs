@@ -67,6 +67,9 @@ public class InstructionLevel1 : MonoBehaviour
     private GameObject lineStart;
 
     [SerializeField] private Stopwatch stopwatch;
+
+    [SerializeField] private GameObject compileButton;
+    [SerializeField] private GameObject buildButton;
     
     private void Start()
     {
@@ -176,6 +179,7 @@ public class InstructionLevel1 : MonoBehaviour
         {
             instruction5.SetActive(false);
             instruction6.SetActive(true);
+            compileButton.SetActive(true);
             instruction5Executed = true;
         }
    
@@ -189,6 +193,7 @@ public class InstructionLevel1 : MonoBehaviour
             compilationMenu.SetActive(true);
             instruction6.SetActive(false);
             instruction6Executed = true;
+            compileButton.SetActive(false);
         }
 
     }
