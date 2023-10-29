@@ -485,6 +485,10 @@ public class Level7Adaptive1: MonoBehaviour
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "tip";
+        
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
 
         if (outputArray.Count == 1)
         {

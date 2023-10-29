@@ -441,6 +441,10 @@ public class Level6Adaptive1 : MonoBehaviour
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "climb";
+        
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
 
         if (outputArray.Count == 1)
         {

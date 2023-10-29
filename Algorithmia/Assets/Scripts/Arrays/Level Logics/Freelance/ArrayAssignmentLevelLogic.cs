@@ -534,6 +534,10 @@ public class ArrayAssignmentLevelLogic : MonoBehaviour
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "lived";
+        
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
 
         if (outputArray.Count == 1)
         {
