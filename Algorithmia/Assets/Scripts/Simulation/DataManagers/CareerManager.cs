@@ -34,6 +34,7 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private GameObject requirementNotMetWindow;
     [SerializeField] private GameObject jobSelectedWindow;
     [SerializeField] private GameObject alreadyHaveAJobWindow;
+    [SerializeField] private GameObject leaveJobWindow;
 
     private List<Transform> childList = new List<Transform>();
     
@@ -83,28 +84,8 @@ public class CareerManager : MonoBehaviour
             AddListeners();
         }
         
-        //Making the current job as the topmost job on the list
-        if (simManager.myJobs.Count > 0 && simManager.hasAJob)
-        {
-            /*
-            if (career.jobName == simManager.myJobs[0])
-            {
-                singleCareer.transform.SetAsFirstSibling();
-            }*/
-            Debug.Log("frew");
-            int index = simManager.myJobs.Count - 1;
-            string currentJob = simManager.myJobs[index];
-            
-            for (int i = 0; i < childList.Count; i++)
-            {
-                string jobName = childList[i].gameObject.GetComponent<SingleJob>().jobName;
-                if (jobName == currentJob)
-                {
-                    childList[i].gameObject.GetComponent<SingleJob>().occupied = true;
-                    childList[i].SetSiblingIndex(1);
-                }
-            }
-        }
+        HighlightCurrentJob();
+        
         
     }
 
@@ -158,6 +139,8 @@ public class CareerManager : MonoBehaviour
             {
                 applyButton.gameObject.SetActive(false);
                 leaveJobButton.gameObject.SetActive(true);
+                leaveJobButton.onClick.RemoveAllListeners();
+                leaveJobButton.onClick.AddListener(() => LeaveJobOnClicked());
             }
             else
             {
@@ -171,6 +154,16 @@ public class CareerManager : MonoBehaviour
             leaveJobButton.gameObject.SetActive(false);
         }
         
+    }
+
+    public void LeaveJobOnClicked()
+    {
+        leaveJobWindow.SetActive(true);
+    }
+
+    public void QuitJobOnClicked()
+    {
+        simManager.hasAJob = false;
     }
 
     public void ApplyJobOnClicked(string[] requirements, string jobName)
@@ -201,11 +194,33 @@ public class CareerManager : MonoBehaviour
                 simManager.hasAJob = true;
                 simManager.myJobs.Add(jobName);
                 jobSelectedWindow.SetActive(true);
+                HighlightCurrentJob();
             }
         }
         else
         {
             alreadyHaveAJobWindow.SetActive(true);
+        }
+    }
+
+    private void HighlightCurrentJob()
+    {
+        
+        //Making the current job as the topmost job on the list
+        if (simManager.myJobs.Count > 0 && simManager.hasAJob)
+        {
+            int index = simManager.myJobs.Count - 1;
+            string currentJob = simManager.myJobs[index];
+
+            for (int i = 0; i < childList.Count; i++)
+            {
+                string jobName = childList[i].gameObject.GetComponent<SingleJob>().jobName;
+                if (jobName == currentJob)
+                {
+                    childList[i].gameObject.GetComponent<SingleJob>().occupied = true;
+                    childList[i].SetSiblingIndex(1);
+                }
+            }
         }
     }
     
