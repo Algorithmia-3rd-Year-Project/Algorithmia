@@ -31391,6 +31391,9 @@ MonoBehaviour:
   dataParentObj: {fileID: 0}
   blockManager: {fileID: 0}
   blockCountText: {fileID: 139120983}
+  timeText: {fileID: 830831895}
+  blockText: {fileID: 1715505373}
+  achievementText: {fileID: 2070080044}
 --- !u!4 &1909582230
 Transform:
   m_ObjectHideFlags: 0
@@ -31439,6 +31442,7 @@ MonoBehaviour:
   stopwatch: {fileID: 1909582232}
   levelDataManager: {fileID: 693287781}
   helpInstructions: {fileID: 282702903}
+  stopWatch: {fileID: 1909582232}
 --- !u!114 &1909582232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31453,6 +31457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopwatchText: {fileID: 223449978}
   currentTime: 0
+  isPaused: 0
 --- !u!1001 &1929589342
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -469,6 +469,7 @@ public class Level6Adaptive2 : MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
         }
     }
     

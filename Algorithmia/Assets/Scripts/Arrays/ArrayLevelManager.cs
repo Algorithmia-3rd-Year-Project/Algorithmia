@@ -25,6 +25,12 @@ public class ArrayLevelManager : MonoBehaviour
     [SerializeField] private ArrayBlockManager blockManager;
     
     [SerializeField] private TMP_Text blockCountText;
+
+    [Header("Victory Menu Stats")] 
+    public TMP_Text timeText;
+    public TMP_Text blockText;
+    public TMP_Text achievementText;
+    
     
     private void Start()
     {

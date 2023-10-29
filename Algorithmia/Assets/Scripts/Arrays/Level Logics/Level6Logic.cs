@@ -441,6 +441,7 @@ public class Level6Logic : MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
         }
     }
     
@@ -449,6 +450,10 @@ public class Level6Logic : MonoBehaviour
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "star stair";
 
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
+        
         if (outputArray.Count == 2)
         {
             if (outputArray[0] == "star" && outputArray[1] == "stair" && currentTime <= 30f)

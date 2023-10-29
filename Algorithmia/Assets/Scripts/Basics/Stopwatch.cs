@@ -11,22 +11,28 @@ public class Stopwatch : MonoBehaviour
 
     public float currentTime;
 
+    public bool isPaused;
+    
     private void Start()
     {
         currentTime = 0f;
     }
+    
 
     private void Update()
     {
-        if (currentTime >= 0)
+        if (!isPaused)
         {
-            currentTime += Time.deltaTime;
+            if (currentTime >= 0)
+            {
+                currentTime += Time.deltaTime;
 
-            int minutes = Mathf.FloorToInt(currentTime / 60);
-            int seconds = Mathf.FloorToInt(currentTime % 60);
+                int minutes = Mathf.FloorToInt(currentTime / 60);
+                int seconds = Mathf.FloorToInt(currentTime % 60);
 
-            string timeFormatted = string.Format("{0:00}:{1:00}", minutes, seconds);
-            stopwatchText.text = timeFormatted;
+                string timeFormatted = string.Format("{0:00}:{1:00}", minutes, seconds);
+                stopwatchText.text = timeFormatted;
+            }
         }
     }
 

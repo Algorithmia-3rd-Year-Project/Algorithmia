@@ -494,6 +494,7 @@ public class Freelance1LevelLogic: MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
         }
     }
     

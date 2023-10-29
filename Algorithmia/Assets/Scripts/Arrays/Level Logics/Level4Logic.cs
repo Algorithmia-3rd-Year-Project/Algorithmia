@@ -474,13 +474,18 @@ public class Level4Logic : MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
         }
     }
     
-        private void VictoryMenuDetails()
+    private void VictoryMenuDetails()
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "art";
+        
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
 
         if (outputArray.Count == 1)
         {

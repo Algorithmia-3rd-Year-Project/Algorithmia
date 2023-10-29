@@ -526,6 +526,7 @@ public class ArrayAssignmentLevelLogic : MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
         }
     }
     

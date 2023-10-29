@@ -489,6 +489,7 @@ public class Level7Logic : MonoBehaviour
         {
             VictoryMenuDetails();
             victoryMenu.SetActive(true);
+            stopwatch.isPaused = true;
         }
     }
     
@@ -496,6 +497,10 @@ public class Level7Logic : MonoBehaviour
     {
         float currentTime = stopwatch.currentTime;
         expectedMsg.text = "step";
+        
+        levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
+        levelManager.blockText.text = levelManager.blockCount.ToString();
+        levelManager.achievementText.text = "00";
 
         if (outputArray.Count == 1)
         {
