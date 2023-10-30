@@ -6,4 +6,5 @@ public class PlayerAccount
 {
     public string _id;
     public string email;
+    public string username;
 }
