@@ -11,9 +11,10 @@ public class Login : MonoBehaviour
     [SerializeField] private TMP_InputField usernameInput;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private Button loginButton;
+    [SerializeField] private GameObject logoutButton;
     
-    //private string loginEndPoint = "https://algorithmia-server.onrender.com/api/user/login";
-    private string loginEndPoint = "localhost:4000/api/user/login";
+    private string loginEndPoint = "https://algorithmia-server.onrender.com/api/user/login";
+    //private string loginEndPoint = "localhost:4000/api/user/login";
 
     [SerializeField] private GameObject loginInterface;
 
@@ -38,7 +39,7 @@ public class Login : MonoBehaviour
         string password = passwordInput.text;
 
         WWWForm form = new WWWForm();
-        form.AddField("email", username);
+        form.AddField("username", username);
         form.AddField("password", password);
 
         UnityWebRequest request = UnityWebRequest.Post(loginEndPoint, form);
@@ -63,18 +64,19 @@ public class Login : MonoBehaviour
             loginInterface.SetActive(false);
             Debug.Log(request.downloadHandler.text + " from db" + returnedPlayer._id + " " + returnedPlayer.email);
 
-            currentUsername = returnedPlayer.email;
+            currentUsername = returnedPlayer.username;
             loggedUsernameText.text = currentUsername;
             PlayerPrefs.SetString("PlayerID", returnedPlayer._id);
-            PlayerPrefs.SetString("PlayerName", returnedPlayer.email);
+            PlayerPrefs.SetString("PlayerName", returnedPlayer.username);
             PlayerPrefs.Save();
             loginSuccessfulMessage.SetActive(true);
+            logoutButton.SetActive(true);
 
         } else if (request.result == UnityWebRequest.Result.ConnectionError)
         {
             Debug.Log(loginEndPoint);
             errorConnectingToServerMessage.SetActive(true);
-            Debug.Log("Error connecting to the server with yasintha");
+            Debug.Log("Error connecting to the server");
             loginButton.interactable = true;
         }
         else

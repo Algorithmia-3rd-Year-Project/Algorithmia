@@ -8,11 +8,14 @@ public class ArrayQuestTree : MonoBehaviour
 
     [SerializeField] private SimManager simulationManager;
     [SerializeField] private List<GameObject> questTree;
-    
+
+
+    [SerializeField] private List<Transform> levelIconsList;
     
     private void Start()
     {
         QuestTreeManagement();
+        CheckCompleted();
     }
 
     private void QuestTreeManagement()
@@ -187,5 +190,80 @@ public class ArrayQuestTree : MonoBehaviour
         {
             questTree[i].SetActive(true);
         }
+    }
+
+    private void CheckCompleted()
+    {
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 3") &&
+            simulationManager.levelCompletionStatus["Array Level 3"] == true)
+        {
+            HideEnergyDrain(levelIconsList[0]);
+        }
+
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 4") &&
+            simulationManager.levelCompletionStatus["Array Level 4"] == true)
+        {
+            HideEnergyDrain(levelIconsList[1]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 4 A_1") &&
+            simulationManager.levelCompletionStatus["Array Level 4 A_1"] == true)
+        {
+            HideEnergyDrain(levelIconsList[2]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 4 A_2") &&
+            simulationManager.levelCompletionStatus["Array Level 4 A_2"] == true)
+        {
+            HideEnergyDrain(levelIconsList[3]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 5") &&
+            simulationManager.levelCompletionStatus["Array Level 5"] == true)
+        {
+            HideEnergyDrain(levelIconsList[4]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 6") &&
+            simulationManager.levelCompletionStatus["Array Level 6"] == true)
+        {
+            HideEnergyDrain(levelIconsList[5]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 6 A_1") &&
+            simulationManager.levelCompletionStatus["Array Level 6 A_1"] == true)
+        {
+            HideEnergyDrain(levelIconsList[6]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 6 A_2") &&
+            simulationManager.levelCompletionStatus["Array Level 6 A_2"] == true)
+        {
+            HideEnergyDrain(levelIconsList[7]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 7") &&
+            simulationManager.levelCompletionStatus["Array Level 7"] == true)
+        {
+            HideEnergyDrain(levelIconsList[8]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 7 A_1") &&
+            simulationManager.levelCompletionStatus["Array Level 7 A_1"] == true)
+        {
+            HideEnergyDrain(levelIconsList[9]);
+        }
+        
+        if (simulationManager.levelCompletionStatus.ContainsKey("Array Level 7 A_2") &&
+            simulationManager.levelCompletionStatus["Array Level 7 A_2"] == true)
+        {
+            HideEnergyDrain(levelIconsList[10]);
+        }
+    }
+
+    private void HideEnergyDrain(Transform levelIcon)
+    {
+        GameObject energyDetails = levelIcon.Find("Cost").gameObject;
+        energyDetails.SetActive(false);
     }
 }
