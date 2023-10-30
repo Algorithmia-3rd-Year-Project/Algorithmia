@@ -11,6 +11,7 @@ public class Login : MonoBehaviour
     [SerializeField] private TMP_InputField usernameInput;
     [SerializeField] private TMP_InputField passwordInput;
     [SerializeField] private Button loginButton;
+    [SerializeField] private GameObject logoutButton;
     
     private string loginEndPoint = "https://algorithmia-server.onrender.com/api/user/login";
     //private string loginEndPoint = "localhost:4000/api/user/login";
@@ -69,6 +70,7 @@ public class Login : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", returnedPlayer.username);
             PlayerPrefs.Save();
             loginSuccessfulMessage.SetActive(true);
+            logoutButton.SetActive(true);
 
         } else if (request.result == UnityWebRequest.Result.ConnectionError)
         {

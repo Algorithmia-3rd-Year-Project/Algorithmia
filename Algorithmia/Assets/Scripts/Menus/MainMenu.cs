@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,6 +22,7 @@ public class MainMenu : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject loginSuccessfulMessage;
     [SerializeField] private GameObject errorConnectingToServerMessage;
     [SerializeField] private GameObject errorMessageText;
+    [SerializeField] private GameObject logOutButton;
     
     private void Start()
     {
@@ -29,10 +31,12 @@ public class MainMenu : MonoBehaviour, IDataPersistence
             accountSelectionScreen.SetActive(true);
             continueGameObjects.SetActive(false);
             newGameObjects.SetActive(true);
+            logOutButton.SetActive(false);
         } else if (DataPersistenceManager.instance.HasGameData())
         {
             continueGameObjects.SetActive(true);
             newGameObjects.SetActive(false);
+            logOutButton.SetActive(true);
         }
         loggedUsernameText.text = currentUsername;
     }
@@ -79,6 +83,7 @@ public class MainMenu : MonoBehaviour, IDataPersistence
         PlayerPrefs.SetString("PlayerName", currentUsername);
         PlayerPrefs.Save();
         guestNameInputPanel.SetActive(false);
+        logOutButton.SetActive(true);
     }
 
     public void PlayNewGame()
@@ -129,5 +134,20 @@ public class MainMenu : MonoBehaviour, IDataPersistence
         yield return new WaitForSeconds(3f);
         currentObj.SetActive(false);
         
+    }
+
+    public void LogOut()
+    {
+        string filePath = Application.persistentDataPath + "/data.game";
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+            Debug.Log("Logout");
+        }
+        PlayerPrefs.SetString("PlayerName", "");
+        accountSelectionScreen.SetActive(true);
+        continueGameObjects.SetActive(false);
+        newGameObjects.SetActive(true);
+        logOutButton.SetActive(false);
     }
 }
