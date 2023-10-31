@@ -29,9 +29,15 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     [SerializeField] private List<GameObject> notesList;
 
     private bool freelance1Done;
+
+    private bool knowledgeAdvance;
+
+    private bool assignmentCutScenePlayed;
+    private bool afterAssignmentCutScenePlayed;
     
     private void Start()
     {
+        knowledgeAdvance = true;
         sceneStartTime = Time.time;
         PlayerPrefs.SetInt("LoadArrayTree", 0);
     }
@@ -64,6 +70,8 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         }
 
         this.freelance1Done = data.freelance1Done;
+        this.assignmentCutScenePlayed = data.assignmentCutScenePlayed;
+        this.afterAssignmentCutScenePlayed = data.afterAssignmentCutScenePlayed;
     }
 
     public void SaveData(ref GameData data)
@@ -74,9 +82,18 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         //Remove if a record exists for this level and add a new one with levelName
         if (data.levelsCompleted.ContainsKey(levelName))
         {
+            if (data.levelsCompleted[levelName] == true)
+            {
+                knowledgeAdvance = false;
+            }
             data.levelsCompleted.Remove(levelName);
+            
         }
         data.levelsCompleted.Add(levelName, levelCompletionStatus);
+        if (knowledgeAdvance && levelCompletionStatus)
+        {
+            data.intelligenceLevel += 2;
+        }
 
         //If the level has already received a trophy check what it has and update it if player plays same level again and acquired a trophy better than first one
         if (data.levelTrophies.ContainsKey(levelName))
@@ -138,15 +155,34 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
 
     public void LoadAssignmentCutScene()
     {
-        scenePlayTime = Time.time - sceneStartTime;
-        levelCompletionStatus = true;
-        SceneManager.LoadSceneAsync("Dialogue2");
+        if (!assignmentCutScenePlayed)
+        {
+            scenePlayTime = Time.time - sceneStartTime;
+            levelCompletionStatus = true;
+            SceneManager.LoadSceneAsync("Dialogue2");
+        }
+        else
+        {
+            LoadArrayTree();
+        }
+        
     }
 
     public void LoadAfterAssignmentCutScene()
     {
-        scenePlayTime = Time.time - sceneStartTime;
-        SceneManager.LoadSceneAsync("Dialogue3");
+        if (!afterAssignmentCutScenePlayed)
+        {
+            Debug.Log("Loadingsssdd");
+            scenePlayTime = Time.time - sceneStartTime;
+            SceneManager.LoadSceneAsync("Dialogue3");
+        }
+        else
+        {
+            Debug.Log("Loadingsssdd111111");
+            scenePlayTime = Time.time - sceneStartTime;
+            SceneManager.LoadSceneAsync("Scenes/Simulation");
+        }
+        
     }
 
     public void ExitToMenu()

@@ -63,7 +63,7 @@ public class TasksMenuManager : MonoBehaviour
         if (simulationManager.coins >= 40)
         {
             simulationManager.coins -= 40;
-            simulationManager.energyLevel += 20;
+            simulationManager.energyLevel += 30;
             simulationManager.lastBookReadTime = Time.time;
             bookReadPanel.SetActive(true);
             bookNameText.text = "You have read " + taskManager.BookName() + ". ";
@@ -172,7 +172,7 @@ public class TasksMenuManager : MonoBehaviour
         if (simulationManager.coins >= 40)
         {
             simulationManager.coins -= 40;
-            simulationManager.energyLevel += 20;
+            simulationManager.energyLevel += 30;
             simulationManager.lastGamePlayedTime = Time.time;
             playGamePanel.SetActive(true);
             playGameText.text = "You have played " + taskManager.GameName() + ". ";
@@ -204,7 +204,7 @@ public class TasksMenuManager : MonoBehaviour
         if (simulationManager.coins >= 40)
         {
             simulationManager.coins -= 40;
-            simulationManager.energyLevel += 20;
+            simulationManager.energyLevel += 30;
             simulationManager.lastMovieWatchedTime = Time.time;
             watchMoviePanel.SetActive(true);
             watchMovieText.text = "You have watched " + taskManager.MovieName() + ". ";
