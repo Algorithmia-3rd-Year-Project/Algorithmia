@@ -34,6 +34,9 @@ public class BankManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject transactionPrefab;
     [SerializeField] private Transform transactionPrefabParent;
 
+    [SerializeField] private TMP_Text bankBalanceText;
+    [SerializeField] private Slider balanceFill;
+
     private void Start()
     {
         if (hasOnGoingLoan)
@@ -59,8 +62,10 @@ public class BankManager : MonoBehaviour, IDataPersistence
             loanAmountTextAfter.text = loanAmount.ToString("F0");
             loanTermTextAfter.text = loanTerm.ToString();
         }
-        
-        
+
+        bankBalanceText.text = simulationManager.coins.ToString("F0");
+        balanceFill.value = simulationManager.coins;
+
     }
 
     public void LoadData(GameData data)

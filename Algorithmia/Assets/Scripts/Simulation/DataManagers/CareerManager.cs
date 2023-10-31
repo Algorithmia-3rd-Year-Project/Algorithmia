@@ -39,6 +39,8 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private List<TMP_Text> cvJobsList;
     
     private List<Transform> childList = new List<Transform>();
+
+    [SerializeField] private GameObject jobMenu;
     
     private void Awake()
     {
@@ -89,6 +91,19 @@ public class CareerManager : MonoBehaviour
         HighlightCurrentJob();
         UpdateJobCV();
         
+    }
+
+    private void Update()
+    {
+        if (jobMenu.activeSelf)
+        {
+            simManager.anyMenuOpened = true;
+        } 
+    }
+
+    public void JobMenuClose()
+    {
+        simManager.anyMenuOpened = false;
     }
 
     private Sprite LoadSprite(string path)

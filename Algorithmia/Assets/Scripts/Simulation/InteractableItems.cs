@@ -11,6 +11,7 @@ public class InteractableItems : MonoBehaviour
     [SerializeField]
     private GameObject UIMenu;
 
+
     private void Update()
     {
         //Changed to Box Colliders instead of box collider 2D after adding 3D models

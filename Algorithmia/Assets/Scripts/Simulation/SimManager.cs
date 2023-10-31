@@ -133,6 +133,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
     public List<bool> memoryGameObjectives; 
     
+    [SerializeField] private List<GameObject> popUpMenus;
+    
     private void Start()
     {
         Debug.Log(Application.persistentDataPath);
@@ -230,6 +232,15 @@ public class SimManager : MonoBehaviour, IDataPersistence
             menu.SetActive(false);
         }
         
+        
+        //Close popup panels when computer screen or book opened
+        if (anyMenuOpened)
+        {
+            for (int i = 0; i < popUpMenus.Count; i++)
+            {
+                popUpMenus[i].SetActive(false);
+            }
+        }
     }
 
     public void LoadData(GameData data)
