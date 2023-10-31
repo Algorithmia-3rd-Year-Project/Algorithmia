@@ -918,6 +918,7 @@ Transform:
   - {fileID: 2864287851527950660}
   - {fileID: 2331377305038057155}
   - {fileID: 7045595793894710095}
+  - {fileID: 6963572258097684041}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1043,6 +1044,7 @@ MonoBehaviour:
     = <color=yellow>end</color> - 1%end while
   pseudoElement: {fileID: 0}
   dataElementCount: 0
+  infoPanelName: Reverse Function Introduction
   startPoint: 
   endPoint: 
   start: 
@@ -1054,6 +1056,8 @@ MonoBehaviour:
   lengthPoint: 
   dataStructure: 
   addedBlock: 0
+  lineEnded: 0
+  insertionLineEnded: 0
 --- !u!1 &3346660871885036232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,6 +1140,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4076634506333230789
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6963572258097684041}
+  - component: {fileID: 6590389949686993064}
+  m_Layer: 7
+  m_Name: Info
+  m_TagString: Info
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6963572258097684041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4076634506333230789}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.842, y: 1.66, z: 0}
+  m_LocalScale: {x: 0.6839, y: 0.6839, z: 0.6839}
+  m_Children: []
+  m_Father: {fileID: 874554174829666569}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6590389949686993064
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4076634506333230789}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.004829824, y: 0.022268057}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.37305927, y: 0.45422286}
+  m_EdgeRadius: 0
 --- !u!1 &4439023775422617487
 GameObject:
   m_ObjectHideFlags: 0
