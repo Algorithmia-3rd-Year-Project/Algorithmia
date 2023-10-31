@@ -30,7 +30,7 @@ public class ArrayQuestTree : MonoBehaviour
             {
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 7 A_1", out int trophy);
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 7 A_2", out int currentTrophies);
-                if (trophy < 2 && currentTrophies < 2)
+                if (trophy <= 2 && currentTrophies <= 2)
                 {
                     UnlockQuestTree(32);
                     return;
@@ -45,7 +45,7 @@ public class ArrayQuestTree : MonoBehaviour
             {
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 7 A_2", out int trophy);
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 7 A_1", out int currentTrophies);
-                if (trophy < 2 && currentTrophies < 2)
+                if (trophy <= 2 && currentTrophies <= 2)
                 {
                     UnlockQuestTree(32);
                     return;
@@ -78,7 +78,7 @@ public class ArrayQuestTree : MonoBehaviour
             {
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_1", out int trophy);
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_2", out int currentTrophies);
-                if (trophy < 2 && currentTrophies < 2)
+                if (trophy <= 2 && currentTrophies <= 2)
                 {
                     UnlockQuestTree(24);
                     return;
@@ -93,7 +93,7 @@ public class ArrayQuestTree : MonoBehaviour
             {
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_2", out int trophy);
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 6 A_1", out int currentTrophies);
-                if (trophy < 2 && currentTrophies < 2)
+                if (trophy <= 2 && currentTrophies <= 2)
                 {
                     UnlockQuestTree(24);
                     return;
@@ -132,7 +132,7 @@ public class ArrayQuestTree : MonoBehaviour
             {
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 4 A_1", out int trophy);
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 4 A_2", out int currentTrophies);
-                if (trophy < 2 && currentTrophies < 2)
+                if (trophy <= 2 && currentTrophies <= 2)
                 {
                     UnlockQuestTree(12);
                     return;
@@ -147,7 +147,7 @@ public class ArrayQuestTree : MonoBehaviour
             {
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 4 A_2", out int trophy);
                 simulationManager.levelAchievedTrophies.TryGetValue("Array Level 4 A_1", out int currentTrophies);
-                if (trophy < 2 && currentTrophies < 2)
+                if (trophy <= 2 && currentTrophies <= 2)
                 {
                     UnlockQuestTree(12);
                     return;
