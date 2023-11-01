@@ -489,7 +489,7 @@ public class Level4Logic : MonoBehaviour
 
         if (outputArray.Count == 1)
         {
-            if (outputArray[0] == "art" && currentTime <= 30f)
+            if (outputArray[0] == "art" && currentTime <= 60f)
             {
                 trophyPlaceholder.sprite = trophyImages[0];
                 levelDataManager.currentTrophy = 0;
@@ -497,7 +497,7 @@ public class Level4Logic : MonoBehaviour
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "art" && currentTime <= 60f)
+            } else if (outputArray[0] == "art" && currentTime <= 120f)
             {
                 trophyPlaceholder.sprite = trophyImages[1];
                 levelDataManager.currentTrophy = 1;
@@ -505,7 +505,7 @@ public class Level4Logic : MonoBehaviour
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "art" && currentTime > 60f)
+            } else if (outputArray[0] == "art" && currentTime > 120f)
             {
                 trophyPlaceholder.sprite = trophyImages[2];
                 levelDataManager.currentTrophy = 2;

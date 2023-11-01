@@ -456,7 +456,7 @@ public class Level6Logic : MonoBehaviour
         
         if (outputArray.Count == 2)
         {
-            if (outputArray[0] == "star" && outputArray[1] == "stair" && currentTime <= 30f)
+            if (outputArray[0] == "star" && outputArray[1] == "stair" && currentTime <= 120f)
             {
                 trophyPlaceholder.sprite = trophyImages[0];
                 levelDataManager.currentTrophy = 0;
@@ -464,7 +464,7 @@ public class Level6Logic : MonoBehaviour
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "star" && outputArray[1] == "stair" && currentTime <= 60f)
+            } else if (outputArray[0] == "star" && outputArray[1] == "stair" && currentTime <= 240f)
             {
                 trophyPlaceholder.sprite = trophyImages[1];
                 levelDataManager.currentTrophy = 1;
@@ -472,7 +472,7 @@ public class Level6Logic : MonoBehaviour
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "star" && outputArray[1] == "stair" && currentTime > 60f)
+            } else if (outputArray[0] == "star" && outputArray[1] == "stair" && currentTime > 240f)
             {
                 trophyPlaceholder.sprite = trophyImages[2];
                 levelDataManager.currentTrophy = 2;

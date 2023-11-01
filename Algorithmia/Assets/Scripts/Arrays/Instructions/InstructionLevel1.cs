@@ -209,6 +209,7 @@ public class InstructionLevel1 : MonoBehaviour
             levelManager.blockText.text = levelManager.blockCount.ToString();
             levelManager.achievementText.text = "00";
             //instructionOverlay.SetActive(true);
+            instructionOverlay.SetActive(false);
             instruction8.SetActive(true);
         }
     }
