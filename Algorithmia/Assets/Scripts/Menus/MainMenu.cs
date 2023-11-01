@@ -136,6 +136,11 @@ public class MainMenu : MonoBehaviour, IDataPersistence
         
     }
 
+    public void SignUpRedirect()
+    {
+        Application.OpenURL("http://localhost:3000/");
+    }
+
     public void LogOut()
     {
         string filePath = Application.persistentDataPath + "/data.game";
@@ -144,6 +149,8 @@ public class MainMenu : MonoBehaviour, IDataPersistence
             File.Delete(filePath);
             Debug.Log("Logout");
         }
+
+        loggedUsernameText.text = "";
         PlayerPrefs.SetString("PlayerName", "");
         accountSelectionScreen.SetActive(true);
         continueGameObjects.SetActive(false);

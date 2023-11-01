@@ -24,6 +24,13 @@ public class FamilyMenuManager : MonoBehaviour
     [SerializeField] private TMP_Text parentTaskName;
     [SerializeField] private TMP_Text parentTaskResult;
     
+    //Some variables for profile details
+    [SerializeField] private TMP_Text usernameText;
+    [SerializeField] private TMP_Text debtText;
+    [SerializeField] private GameObject debtVisible;
+    [SerializeField] private TMP_Text coinText;
+    
+    
     private void Update()
     {
         SpentTimeWithMother();

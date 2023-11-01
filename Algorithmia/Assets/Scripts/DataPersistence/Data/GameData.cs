@@ -89,7 +89,7 @@ public class GameData
     //These values would be default values the game starts with when there's no data to load
     public GameData()
     {
-        this.coinAmount = 150;
+        this.coinAmount = 300;
 
         this.energyLevel = 0;
         this.happinessLevel = 0;

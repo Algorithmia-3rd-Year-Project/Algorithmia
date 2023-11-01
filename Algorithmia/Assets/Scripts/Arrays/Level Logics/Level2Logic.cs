@@ -193,7 +193,7 @@ public class Level2Logic : MonoBehaviour
     private void VictoryMenuDetails()
     {
         float currentTime = stopwatch.currentTime;
-        expectedMsg.text = "Array of cool";
+        expectedMsg.text = "An Array";
         
         levelManager.timeText.text = stopwatch.currentTime.ToString("F1") + "s";
         levelManager.blockText.text = levelManager.blockCount.ToString();
@@ -203,7 +203,7 @@ public class Level2Logic : MonoBehaviour
         {
             trophyPlaceholder.sprite = trophyImages[0];
             levelDataManager.currentTrophy = 0;
-            resultMsg.text = "Array of cool";
+            resultMsg.text = "An Array";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
             retryButton.SetActive(false);
@@ -211,7 +211,7 @@ public class Level2Logic : MonoBehaviour
         {
             trophyPlaceholder.sprite = trophyImages[1];
             levelDataManager.currentTrophy = 1;
-            resultMsg.text = "Array of cool";
+            resultMsg.text = "An Array";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
             retryButton.SetActive(false);
@@ -219,7 +219,7 @@ public class Level2Logic : MonoBehaviour
         {
             trophyPlaceholder.sprite = trophyImages[2];
             levelDataManager.currentTrophy = 2;
-            resultMsg.text = "Array of cool";
+            resultMsg.text = "An Array";
             objectiveStatus.text = "Objective complete";
             proceedButton.SetActive(true);
             retryButton.SetActive(false);
