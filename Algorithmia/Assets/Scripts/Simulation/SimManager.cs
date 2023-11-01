@@ -234,7 +234,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         
         
         //Close popup panels when computer screen or book opened
-        if (anyMenuOpened)
+        if (anyMenuOpened && initialIntroPlayed)
         {
             for (int i = 0; i < popUpMenus.Count; i++)
             {
