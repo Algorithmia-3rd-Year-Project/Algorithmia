@@ -65,6 +65,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject instructionBox;
     [SerializeField] private GameObject directToSimulationIntroTrigger;
     [SerializeField] private GameObject questTreeIntroduction;
+    [SerializeField] private GameObject questTreeIntroTrigger;
     private bool questTreeIntroduced;
     public bool assignmentCutScenePlayed;
     private bool assignmentEmailShown;
@@ -157,6 +158,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         if (!questTreeIntroduced)
         {
             questTreeIntroduction.SetActive(true);
+            questTreeIntroTrigger.SetActive(true);
             questTreeIntroduced = true;
         }
 
