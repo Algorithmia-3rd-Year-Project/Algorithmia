@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AchievementManager : MonoBehaviour, IDataPersistence
 {
@@ -11,6 +12,10 @@ public class AchievementManager : MonoBehaviour, IDataPersistence
     [SerializeField] private BankManager bankManager;
     
     private List<string> unlockedAchievementList;
+
+    [SerializeField] private Sprite jobAchievementImage;
+    [SerializeField] private Sprite loanAchievementImage;
+    
     
     private void Update()
     {
@@ -19,6 +24,7 @@ public class AchievementManager : MonoBehaviour, IDataPersistence
             achievementUnlockWindow.SetActive(true);
             unlockedAchievementList.Add("Finally Employed!");
             achievementUnlockWindow.transform.Find("Name").GetComponent<TMP_Text>().text = "Finally Employed!";
+            achievementUnlockWindow.transform.Find("Icon").GetComponent<Image>().sprite = jobAchievementImage;
             StartCoroutine(HideAchievementWindow());
         }
 
@@ -27,6 +33,7 @@ public class AchievementManager : MonoBehaviour, IDataPersistence
             achievementUnlockWindow.SetActive(true);
             unlockedAchievementList.Add("Got Fund You");
             achievementUnlockWindow.transform.Find("Name").GetComponent<TMP_Text>().text = "Got Fund You";
+            achievementUnlockWindow.transform.Find("Icon").GetComponent<Image>().sprite = loanAchievementImage;
             StartCoroutine(HideAchievementWindow());
         }
         
