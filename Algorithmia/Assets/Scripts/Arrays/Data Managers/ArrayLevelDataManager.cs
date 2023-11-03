@@ -34,6 +34,7 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
 
     private bool assignmentCutScenePlayed;
     private bool afterAssignmentCutScenePlayed;
+    private int unlockedPageCount;
     
     private void Start()
     {
@@ -72,6 +73,7 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         this.freelance1Done = data.freelance1Done;
         this.assignmentCutScenePlayed = data.assignmentCutScenePlayed;
         this.afterAssignmentCutScenePlayed = data.afterAssignmentCutScenePlayed;
+        this.unlockedPageCount = data.unlockedPageCount;
     }
 
     public void SaveData(ref GameData data)
@@ -113,6 +115,7 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         data.memoryGameObjectives = this.memoryGameObjectives;
 
         data.freelance1Done = this.freelance1Done;
+        data.unlockedPageCount = this.unlockedPageCount;
     }
 
     public void LoadNextLevel(string sceneName)
@@ -125,6 +128,10 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         energyLevel -= 20;
         scenePlayTime = Time.time - sceneStartTime;
         levelCompletionStatus = true;
+        if (unlockedPageCount == 0)
+        {
+            unlockedPageCount = 2; 
+        }
         SceneManager.LoadSceneAsync(sceneName);
     }
 
@@ -139,6 +146,15 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
             memoryGameObjectives.Add(false);
             memoryGameObjectives.Add(false);
             memoryGameObjectives.Add(false);
+        }
+
+        if (levelName == "Array Level 2" || levelName == "Array Level 4" || levelName == "Array Level 5" ||
+            levelName == "Array Level 6")
+        {
+            unlockedPageCount += 2;
+        } else if (levelName == "Array Level 3")
+        {
+            unlockedPageCount += 1;
         }
         
         PlayerPrefs.SetInt("LoadArrayTree", 1);

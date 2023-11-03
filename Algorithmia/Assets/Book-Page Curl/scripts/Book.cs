@@ -22,6 +22,8 @@ public class Book : MonoBehaviour {
     public bool enableShadowEffect=true;
     //represent the index of the sprite shown in the right page
     public int currentPage = 0;
+
+    [SerializeField] private NoteManager noteManager;
     public int TotalPageCount
     {
         get { return bookPages.Length; }
@@ -74,6 +76,15 @@ public class Book : MonoBehaviour {
 
         Left.gameObject.SetActive(false);
         Right.gameObject.SetActive(false);
+
+        //Initializing the visible book pages based on the unlocked pages count
+        bookPages = new Sprite[noteManager.unlockedPageCount + 1];
+        for (int i = 0; i < noteManager.unlockedPageCount; i++)
+        {
+            bookPages[i] = noteManager.allBookPages[i];
+        }
+        bookPages[noteManager.unlockedPageCount] = noteManager.lockedPageSprite;
+        
         UpdateSprites();
         CalcCurlCriticalPoints();
 

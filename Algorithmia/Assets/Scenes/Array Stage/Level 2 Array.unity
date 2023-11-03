@@ -11425,19 +11425,23 @@ PrefabInstance:
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: canvas
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1061388650}
+    - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
+      propertyPath: noteManager
+      value: 
+      objectReference: {fileID: 1819962585}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: bookPages.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: bookPages.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 7b9ad4053ad302440a5f743c1c6f973b, type: 3}
+      objectReference: {fileID: 21300000, guid: 96a4bfff11470f244b75f7c90c950e1f, type: 3}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: bookPages.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: d2e949ba3f53fce4ca11268a6a5dd425, type: 3}
+      objectReference: {fileID: 21300000, guid: 96a4bfff11470f244b75f7c90c950e1f, type: 3}
     - target: {fileID: 11415212, guid: fe9bfb5044c0cc646baba1ad7d354100, type: 3}
       propertyPath: bookPages.Array.data[2]
       value: 
@@ -20520,6 +20524,7 @@ Transform:
   - {fileID: 1893835318}
   - {fileID: 693287780}
   - {fileID: 872344409}
+  - {fileID: 1819962584}
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29867,6 +29872,64 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818339332}
   m_CullTransparentMesh: 1
+--- !u!1 &1819962583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819962584}
+  - component: {fileID: 1819962585}
+  m_Layer: 0
+  m_Name: Note Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1819962584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819962583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1316386421}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1819962585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819962583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62dd2b3f15ca0e84aa6965737a8984aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allBookPages:
+  - {fileID: 21300000, guid: 7b9ad4053ad302440a5f743c1c6f973b, type: 3}
+  - {fileID: 21300000, guid: d2e949ba3f53fce4ca11268a6a5dd425, type: 3}
+  - {fileID: 21300000, guid: db3cad61118ca2f488624450316c7718, type: 3}
+  - {fileID: 21300000, guid: 7dfff8128edfde342a359b3bc1df7ce0, type: 3}
+  - {fileID: 21300000, guid: eaa26d11bc927e8459c9c23519f2a9ec, type: 3}
+  - {fileID: 21300000, guid: d297f14cae90fde4c88c474348b44ee1, type: 3}
+  - {fileID: 21300000, guid: 9154ddbb4bf76574f8ff37f73d33a077, type: 3}
+  - {fileID: 21300000, guid: 8cdc63aeeb44c3d438e85ced47fc1128, type: 3}
+  - {fileID: 21300000, guid: 5fe9d48ff794cd2428a3637f350298a7, type: 3}
+  - {fileID: 21300000, guid: 5a02d410b6c7d2a4488e9939fe956858, type: 3}
+  - {fileID: 21300000, guid: ed6fe45d3fa48ae4a84041d82ae83730, type: 3}
+  lockedPageSprite: {fileID: 21300000, guid: 96a4bfff11470f244b75f7c90c950e1f, type: 3}
+  unlockedPageCount: 0
+  noteBook: {fileID: 0}
 --- !u!1 &1821652988
 GameObject:
   m_ObjectHideFlags: 0
