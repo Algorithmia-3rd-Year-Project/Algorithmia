@@ -145,6 +145,10 @@ public class CareerManager : MonoBehaviour
         
         for(int i=0; i < job.requirements.Length; i++)
         {
+            if (job.requirements[i] == "Article Writing")
+            {
+                requirementGameObjects[i].color = Color.green;
+            }
             requirementGameObjects[i].text = "- " + job.requirements[i];
         }
 
