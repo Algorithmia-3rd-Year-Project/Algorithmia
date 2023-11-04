@@ -29,8 +29,24 @@ public class FamilyMenuManager : MonoBehaviour
     [SerializeField] private TMP_Text debtText;
     [SerializeField] private GameObject debtVisible;
     [SerializeField] private TMP_Text coinText;
-    
-    
+    [SerializeField] private TMP_Text pcUsernameText;
+
+
+    private void Start()
+    {
+        usernameText.text = simulationManager.username.ToString();
+        coinText.text = simulationManager.coins.ToString("F0");
+        pcUsernameText.text = simulationManager.username + ".pc";
+
+        if (simulationManager.hasOngoingLoan)
+        {
+            debtVisible.SetActive(true);
+            debtText.text = simulationManager.loanAmount.ToString("F0");
+        }
+        
+        
+    }
+
     private void Update()
     {
         SpentTimeWithMother();
@@ -39,6 +55,8 @@ public class FamilyMenuManager : MonoBehaviour
         
         SpentTimeWithFather();
         AskMoneyFromFather();
+        
+        coinText.text = simulationManager.coins.ToString("F0");
     }
 
     private void SpentTimeWithMother()

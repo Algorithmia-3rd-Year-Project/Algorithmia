@@ -44,7 +44,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public float coins;
     [SerializeField] private TMP_Text currencyText;
     
-    private string username;
+    public string username;
     
     [Header("Play Time")]
     public float totalPlayTime;
@@ -135,6 +135,12 @@ public class SimManager : MonoBehaviour, IDataPersistence
     public List<bool> memoryGameObjectives; 
     
     [SerializeField] private List<GameObject> popUpMenus;
+    
+    public float loanAmount;
+    public bool hasOngoingLoan;
+
+    private bool levelEndCutScenePlayed;
+    [SerializeField] private GameObject incompleteStageMenu;
     
     private void Start()
     {
@@ -261,7 +267,7 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.freelanceWindowShown = data.freelanceWindowShown;
 
         this.optionalQuestIntroMessageShown = data.optionalQuestIntroMessage;
-
+        
         this.motherNameText.text = data.motherName;
         this.motherAgeText.text = data.motherAge.ToString();
         this.motherOccupationText.text = data.motherOccupation;
@@ -303,6 +309,11 @@ public class SimManager : MonoBehaviour, IDataPersistence
         this.skillsList = data.skills;
         this.myJobs = data.jobs;
         this.emailStatus = data.emailStatus;
+
+        this.loanAmount = data.loanAmount;
+        this.hasOngoingLoan = data.hasOngoingLoan;
+
+        this.levelEndCutScenePlayed = data.stageEndCutScenePlayed;
 
         this.memoryGameLevels = data.memoryGameVictoryLevels;
         this.memoryGameObjectives = data.memoryGameObjectives;
@@ -352,6 +363,8 @@ public class SimManager : MonoBehaviour, IDataPersistence
 
         data.memoryGameVictoryLevels = this.memoryGameLevels;
         data.memoryGameObjectives = this.memoryGameObjectives;
+
+        data.stageEndCutScenePlayed = this.levelEndCutScenePlayed;
         
         data.memoryGameUnlocked = this.memoryGameUnlocked;
         data.memoryGameUnlockedMessageShown = this.memoryGameUnlockedMessageShown;
@@ -524,6 +537,25 @@ public class SimManager : MonoBehaviour, IDataPersistence
         }
 
         
+    }
+
+    //Loading level tree of incompleted stages
+    public void LoadEndGame()
+    {
+        if (levelEndCutScenePlayed)
+        {
+            incompleteStageMenu.SetActive(true);
+        }
+        else
+        {
+            //Load end cutscene
+        }
+    }
+    
+    //Loading levels of incompleted stages
+    public void LoadInCompletedLevels(string sceneName)
+    {
+        SceneManager.LoadSceneAsync(sceneName);
     }
 
     //Temporary Functions

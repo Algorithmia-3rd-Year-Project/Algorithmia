@@ -84,6 +84,8 @@ public class GameData
     public bool freelance1Done;
 
     public int unlockedPageCount;
+
+    public bool stageEndCutScenePlayed;
     
     public SerializableDictionary<string, bool> levelsCompleted;
     public SerializableDictionary<string, int> levelTrophies;
@@ -162,6 +164,8 @@ public class GameData
 
         this.freelance1Done = false;
         this.unlockedPageCount = 0;
+
+        this.stageEndCutScenePlayed = false;
         
         this.levelsCompleted = new SerializableDictionary<string, bool>();
         this.levelTrophies = new SerializableDictionary<string, int>();
