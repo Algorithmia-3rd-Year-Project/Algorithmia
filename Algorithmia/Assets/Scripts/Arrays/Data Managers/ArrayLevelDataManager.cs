@@ -35,6 +35,8 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
     private bool assignmentCutScenePlayed;
     private bool afterAssignmentCutScenePlayed;
     private int unlockedPageCount;
+
+    public List<string> unlockedAchievements;
     
     private void Start()
     {
@@ -74,6 +76,8 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
         this.assignmentCutScenePlayed = data.assignmentCutScenePlayed;
         this.afterAssignmentCutScenePlayed = data.afterAssignmentCutScenePlayed;
         this.unlockedPageCount = data.unlockedPageCount;
+
+        this.unlockedAchievements = data.achievementList;
     }
 
     public void SaveData(ref GameData data)
@@ -116,6 +120,8 @@ public class ArrayLevelDataManager : MonoBehaviour, IDataPersistence
 
         data.freelance1Done = this.freelance1Done;
         data.unlockedPageCount = this.unlockedPageCount;
+
+        data.achievementList = this.unlockedAchievements;
     }
 
     public void LoadNextLevel(string sceneName)

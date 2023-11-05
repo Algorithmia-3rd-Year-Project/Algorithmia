@@ -23,6 +23,11 @@ public class MainMenu : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject errorConnectingToServerMessage;
     [SerializeField] private GameObject errorMessageText;
     [SerializeField] private GameObject logOutButton;
+
+    private int unlockedAchievementCount;
+    [SerializeField] private TMP_Text achievementCountText;
+    private List<string> achievementList;
+    [SerializeField] private List<Transform> achievementObjects;
     
     private void Start()
     {
@@ -39,6 +44,8 @@ public class MainMenu : MonoBehaviour, IDataPersistence
             logOutButton.SetActive(true);
         }
         loggedUsernameText.text = currentUsername;
+        
+        UpdateAchievementMenu();
     }
 
     private void Update()
@@ -122,6 +129,8 @@ public class MainMenu : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         this.currentUsername = data.username;
+        this.unlockedAchievementCount = data.achievementList.Count;
+        this.achievementList = data.achievementList;
     }
 
     public void SaveData(ref GameData data)
@@ -156,5 +165,24 @@ public class MainMenu : MonoBehaviour, IDataPersistence
         continueGameObjects.SetActive(false);
         newGameObjects.SetActive(true);
         logOutButton.SetActive(false);
+    }
+
+    private void UpdateAchievementMenu()
+    {
+        string count = (unlockedAchievementCount < 10) ? "0" + unlockedAchievementCount : unlockedAchievementCount.ToString();
+        achievementCountText.text = count;
+
+        for (int i = 0; i < achievementObjects.Count; i++)
+        {
+            string achievementName = achievementObjects[i].Find("Site Name").GetComponent<TMP_Text>().text;
+            GameObject completionMark = achievementObjects[i].Find("Completion Mark").gameObject;
+            for (int j = 0; j < achievementList.Count; j++)
+            {
+                if (achievementName == achievementList[j])
+                {
+                    completionMark.SetActive(true);
+                }
+            }
+        }
     }
 }

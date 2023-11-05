@@ -38,6 +38,9 @@ public class Level3Logic : MonoBehaviour
     private List<string> outputArray = new List<string>();
     
     [SerializeField] private ArrayLevelDataManager levelDataManager;
+    
+    [SerializeField] private GameObject achievementUnlockWindow;
+    [SerializeField] private Sprite firstFunctionImage;
 
     /*public string OptimalAnswer()
     {
@@ -705,24 +708,27 @@ public class Level3Logic : MonoBehaviour
 
         if (outputArray.Count == 1)
         {
-            if (outputArray[0] == "cool" && currentTime <= 30f)
+            if (outputArray[0] == "cool" && currentTime <= 60f)
             {
+                UnlockAchievement("First Function");
                 trophyPlaceholder.sprite = trophyImages[0];
                 levelDataManager.currentTrophy = 0;
                 resultMsg.text = "cool";
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "cool" && currentTime <= 60f)
+            } else if (outputArray[0] == "cool" && currentTime <= 120f)
             {
+                UnlockAchievement("First Function");
                 trophyPlaceholder.sprite = trophyImages[1];
                 levelDataManager.currentTrophy = 1;
                 resultMsg.text = "cool";
                 objectiveStatus.text = "Objective complete";
                 proceedButton.SetActive(true);
                 retryButton.SetActive(false);
-            } else if (outputArray[0] == "cool" && currentTime > 60f)
+            } else if (outputArray[0] == "cool" && currentTime > 120f)
             {
+                UnlockAchievement("First Function");
                 trophyPlaceholder.sprite = trophyImages[2];
                 levelDataManager.currentTrophy = 2;
                 resultMsg.text = "cool";
@@ -770,5 +776,22 @@ public class Level3Logic : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
     }
+
+    private void UnlockAchievement(string achievementName)
+    {
+        if (!levelDataManager.unlockedAchievements.Contains(achievementName))
+        {
+            achievementUnlockWindow.SetActive(true);
+            levelDataManager.unlockedAchievements.Add(achievementName);
+            achievementUnlockWindow.transform.Find("Name").GetComponent<TMP_Text>().text = achievementName;
+            achievementUnlockWindow.transform.Find("Icon").GetComponent<Image>().sprite = firstFunctionImage;
+            StartCoroutine(HideAchievementWindow());
+        }
+    }
     
+    private IEnumerator HideAchievementWindow()
+    {
+        yield return new WaitForSeconds(3f);
+        achievementUnlockWindow.SetActive(false);
+    }
 }
