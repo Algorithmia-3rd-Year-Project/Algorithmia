@@ -193,8 +193,15 @@ public class ArrayLineManager : MonoBehaviour
 
                                 if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Print")
                                 {
+                                    string start = (nextObject.GetComponent<ArrayBlock>().startPoint != "")
+                                        ? nextObject.GetComponent<ArrayBlock>().startPoint
+                                        : "s";
+                                    string end = (nextObject.GetComponent<ArrayBlock>().endPoint != "")
+                                        ? nextObject.GetComponent<ArrayBlock>().endPoint
+                                        : "e";
+                                    
 
-                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>s</color> to <color=yellow>e</color>%	      print " + dataStructure + "[index]%end for";
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>" + start + "</color> to <color=yellow>" + end + "</color>%	      print " + dataStructure + "[index]%end for";
 
                                     GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
 
@@ -206,8 +213,14 @@ public class ArrayLineManager : MonoBehaviour
 
                                 } else if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Reverse")
                                 {
+                                    string start = (nextObject.GetComponent<ArrayBlock>().startPoint != "")
+                                        ? nextObject.GetComponent<ArrayBlock>().startPoint
+                                        : "0";
+                                    string end = (nextObject.GetComponent<ArrayBlock>().endPoint != "")
+                                        ? nextObject.GetComponent<ArrayBlock>().endPoint
+                                        : "0";
 
-                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = " + dataStructure + "[<color=yellow>start</color>]%      " + dataStructure + "[<color=yellow>start</color>] = " + dataStructure + "[<color=yellow>end</color>]%      " + dataStructure + "[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + start + "</color>%<color=yellow>end</color> = <color=#F88379>" + end + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = " + dataStructure + "[<color=yellow>start</color>]%      " + dataStructure + "[<color=yellow>start</color>] = " + dataStructure + "[<color=yellow>end</color>]%      " + dataStructure + "[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
 
                                     GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
 
@@ -219,8 +232,15 @@ public class ArrayLineManager : MonoBehaviour
 
                                 } else if (nextObject.GetComponent<ArrayBlock>().blockName == "Array Deletion")
                                 {
+                                    
+                                    string index = (nextObject.GetComponent<ArrayBlock>().indexPoint != "")
+                                        ? nextObject.GetComponent<ArrayBlock>().indexPoint
+                                        : "0";
+                                    string length = (nextObject.GetComponent<ArrayBlock>().lengthPoint != "")
+                                        ? nextObject.GetComponent<ArrayBlock>().lengthPoint
+                                        : "0";
 
-                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>0</color>%<color=yellow>length</color> = <color=#F88379>0</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      <color=#89CFF0>" + dataStructure + "</color>[i] = <color=#89CFF0>" + dataStructure + "</color>[i+1]%end for%<color=#89CFF0>" + dataStructure + "</color>[<color=yellow>length</color>-1] = null";
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>" + index + "</color>%<color=yellow>length</color> = <color=#F88379>" + length + "</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      <color=#89CFF0>" + dataStructure + "</color>[i] = <color=#89CFF0>" + dataStructure + "</color>[i+1]%end for%<color=#89CFF0>" + dataStructure + "</color>[<color=yellow>length</color>-1] = null";
 
                                     GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
 
@@ -241,10 +261,17 @@ public class ArrayLineManager : MonoBehaviour
 
                                 if (dataStructure != "" || nextObject.GetComponent<ArrayBlock>().newDataStructure != "") 
                                 {
+                                    string position = (nextObject.GetComponent<ArrayBlock>().positionPoint != "")
+                                        ? nextObject.GetComponent<ArrayBlock>().positionPoint
+                                        : "0";
+                                    string element = (nextObject.GetComponent<ArrayBlock>().elementPoint != "")
+                                        ? nextObject.GetComponent<ArrayBlock>().elementPoint
+                                        : "0";
+                                    
                                     string prevDataStructure = (dataStructure == "") ? "array" : dataStructure;
                                     string newDataStructure = (nextObject.GetComponent<ArrayBlock>().newDataStructure == "") ? "newArray" : nextObject.GetComponent<ArrayBlock>().newDataStructure;
 
-                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>0</color>%<color=yellow>element</color> = <color=#F88379>0</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = " + prevDataStructure + "[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = " + prevDataStructure + "[i-1]%end for";
+                                    nextObject.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + position + "</color>%<color=yellow>element</color> = <color=#F88379>" + element + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = " + prevDataStructure + "[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = " + prevDataStructure + "[i-1]%end for";
 
                                     GameObject codeObject = nextObject.GetComponent<ArrayBlock>().pseudoElement;
 
@@ -282,8 +309,6 @@ public class ArrayLineManager : MonoBehaviour
             {
                 if (lineHit.collider.CompareTag("Line"))
                 {
-                    Debug.Log("Line Hit");
-
                     GameObject lineEndBlock = lineHit.collider.gameObject.GetComponent<ArrayLine>().endPos;
                     GameObject block = lineEndBlock.transform.parent.parent.gameObject;
 
@@ -305,7 +330,14 @@ public class ArrayLineManager : MonoBehaviour
                         if (block.GetComponent<ArrayBlock>().blockName == "Array Print")
                         {
 
-                            block.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>s</color> to <color=yellow>e</color>%	      print Array[index]%end for";
+                            string start = (block.GetComponent<ArrayBlock>().startPoint != "")
+                                ? block.GetComponent<ArrayBlock>().startPoint
+                                : "s";
+                            string end = (block.GetComponent<ArrayBlock>().endPoint != "")
+                                ? block.GetComponent<ArrayBlock>().endPoint
+                                : "e";
+                            
+                            block.GetComponent<ArrayBlock>().pseudoCode = "for index=<color=yellow>" + start + "</color> to <color=yellow>" + end + "</color>%	      print Array[index]%end for";
                             GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
@@ -317,7 +349,14 @@ public class ArrayLineManager : MonoBehaviour
                         if (block.GetComponent<ArrayBlock>().blockName == "Array Reverse")
                         {
 
-                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>0</color>%<color=yellow>end</color> = <color=#F88379>0</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
+                            string start = (block.GetComponent<ArrayBlock>().startPoint != "")
+                                ? block.GetComponent<ArrayBlock>().startPoint
+                                : "0";
+                            string end = (block.GetComponent<ArrayBlock>().endPoint != "")
+                                ? block.GetComponent<ArrayBlock>().endPoint
+                                : "0";
+                            
+                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>start</color> = <color=#F88379>" + start + "</color>%<color=yellow>end</color> = <color=#F88379>" + end + "</color>%while <color=yellow>start</color> < <color=yellow>end</color>%      <color=green>Number</color> temp = Array[<color=yellow>start</color>]%      Array[<color=yellow>start</color>] = Array[<color=yellow>end</color>]%      Array[<color=yellow>end</color>] = temp%      <color=yellow>start</color> = <color=yellow>start</color> + 1%      <color=yellow>end</color> = <color=yellow>end</color> - 1%end while";
                             GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
@@ -328,8 +367,15 @@ public class ArrayLineManager : MonoBehaviour
 
                         if (block.GetComponent<ArrayBlock>().blockName == "Array Insertion")
                         {
+                            string position = (block.GetComponent<ArrayBlock>().positionPoint != "")
+                                ? block.GetComponent<ArrayBlock>().positionPoint
+                                : "0";
+                            string element = (block.GetComponent<ArrayBlock>().elementPoint != "")
+                                ? block.GetComponent<ArrayBlock>().elementPoint
+                                : "0";
+                            
                             string newDataStructure = (block.GetComponent<ArrayBlock>().newDataStructure == "") ? "newArray" : "<color=#CF9FFF>" + block.GetComponent<ArrayBlock>().newDataStructure + "</color>";
-                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>0</color>%<color=yellow>element</color> = <color=#F88379>0</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = array[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = array[i-1]%end for";
+                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>pos</color> = <color=#F88379>" + position + "</color>%<color=yellow>element</color> = <color=#F88379>" + element + "</color>%for i = 0 to <color=yellow>pos</color> - 1%      " + newDataStructure + "[i] = array[i]%end for%" + newDataStructure + "[<color=yellow>pos</color>] = <color=yellow>element</color>%for i = <color=yellow>pos</color> + 1 to size(" + newDataStructure + ") - 1%      " + newDataStructure + "[i] = array[i-1]%end for";
                             GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
@@ -340,8 +386,15 @@ public class ArrayLineManager : MonoBehaviour
 
                         if (block.GetComponent<ArrayBlock>().blockName == "Array Deletion")
                         {
+                            
+                            string index = (block.GetComponent<ArrayBlock>().indexPoint != "")
+                                ? block.GetComponent<ArrayBlock>().indexPoint
+                                : "0";
+                            string length = (block.GetComponent<ArrayBlock>().lengthPoint != "")
+                                ? block.GetComponent<ArrayBlock>().lengthPoint
+                                : "0";
 
-                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>0</color>%<color=yellow>length</color> = <color=#F88379>0</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      array[i] = array[i+1]%end for%array[<color=yellow>length</color>-1] = null";
+                            block.GetComponent<ArrayBlock>().pseudoCode = "<color=yellow>index</color> = <color=#F88379>" + index + "</color>%<color=yellow>length</color> = <color=#F88379>" + length + "</color>%for i = <color=yellow>index</color> to <color=yellow>length</color> - 2%      array[i] = array[i+1]%end for%array[<color=yellow>length</color>-1] = null";
                             GameObject codeObject = block.GetComponent<ArrayBlock>().pseudoElement;
 
                             string pseudoText = block.GetComponent<ArrayBlock>().pseudoCode;
